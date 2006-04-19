@@ -108,20 +108,22 @@ round-trip engineering for C++ projects.
     <property name="module.jarfile"
               value="${module.build.dir}/${module.jarfile.name}"/>
 
-    <property file="${user.home}/.argo.ant.properties"/>
-    <property file="${user.home}/.ant.properties"/>
-
-    <property name="debug" value="on"/>
-    <property name="optimize" value="on"/>
-    <property name="deprecation" value="on"/>
-
     <!-- Load ArgoUML properties, including the version -->
     <!-- we really need an absolute path for argo.root.dir -->
     <!-- if it is set in a property file before now, it must be absolute -->
     <property name="argo.root.dir" value="${basedir}/../argouml"/>
     <property file="${override.build.properties}"/>
-    <property file="${argo.root.dir}/src_new/default.properties"/>
-    <property name="developer.lib.dir" value="${argo.build.dir}"/>
+
+ 	<!-- If not set by the override file we still need this one for antlr. -->
+    <property name="argo.src.dir" value="${argo.root.dir}/src_new"/>
+
+    <property file="${argo.src.dir}/default.properties"/>
+
+ 	<property name="developer.lib.dir" value="${argo.build.dir}"/>
+
+    <property name="debug" value="on"/>
+    <property name="optimize" value="on"/>
+    <property name="deprecation" value="on"/>
 
     <property name="module.version" value="${argo.core.version}-${DSTAMP}-${TSTAMP}"/>
 
@@ -203,6 +205,7 @@ round-trip engineering for C++ projects.
    
   <target name="generateparser_internal" unless="parser.is.current" 
           depends="prepare">
+  	<echo message="Running antlr from ${antlrall.jar.path}"/>
     <java classname="antlr.Tool" fork="yes" maxmemory="32M"  classpath="${antlrall.jar.path}">
       <!-- For debugging the parser or lexer you may want to use the options 
       -traceParser or / and -traceLexer. -->
