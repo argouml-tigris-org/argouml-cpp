@@ -81,7 +81,7 @@ round-trip engineering for C++ projects.
     <property name="Name" value="ArgoModule-${argo.module.name}"/>
     <property name="name" value="argomodule-${argo.module.name}"/>
 
-     <property name="module.root" value="${basedir}"/>
+    <property name="module.root" value="${basedir}"/>
     <property name="module.src.dir" value="${module.root}/src"/>
     <property name="module.tests.src" value="${module.root}/tests"/>
 
@@ -118,7 +118,7 @@ round-trip engineering for C++ projects.
     <!-- Load ArgoUML properties, including the version -->
     <!-- we really need an absolute path for argo.root.dir -->
     <!-- if it is set in a property file before now, it must be absolute -->
-    <property name="argo.root.dir" value="${basedir}/../.."/>
+    <property name="argo.root.dir" value="${basedir}/../argouml"/>
     <property file="${override.build.properties}"/>
     <property file="${argo.root.dir}/src_new/default.properties"/>
     <property name="developer.lib.dir" value="${argo.build.dir}"/>
@@ -248,9 +248,9 @@ round-trip engineering for C++ projects.
   </target>
 
   <!-- =================================================================== -->
-  <!-- Creates the class package                                           -->
+  <!-- Creates the class jar                                           -->
   <!-- =================================================================== -->
-  <target name="package" depends="init, compile" 
+  <target name="jar" depends="init, compile" 
           description="create the module jar">
     <filter token="version" value="${module.version}"/>
     <copy file="${manifest.src}" tofile="${module.build.dest}/${manifest}" filtering="on" overwrite="on" />
@@ -267,7 +267,7 @@ round-trip engineering for C++ projects.
   <!-- =================================================================== -->
   <!-- Run ArgoUML from compiled sources                                   -->
   <!-- =================================================================== -->
-  <target name="run" depends="init, package" 
+  <target name="run" depends="init, jar" 
           description="run ArgoUML using the built module jar">
     <echo message="--- Executing ${Name} ---"/>
     <java classname="org.argouml.application.Main"
@@ -305,7 +305,7 @@ round-trip engineering for C++ projects.
   <!-- =================================================================== -->
   <!-- Move the jar file into the extension directory.                     -->
   <!-- =================================================================== -->
-  <target name="install" depends="init, package" 
+  <target name="install" depends="init, jar" 
           description="install the module in the developer build of ArgoUML">
     <copy todir="${developer.lib.dir}/ext">
       <fileset dir="${module.build.dir}" includes="${module.jarfile.name}"/>
