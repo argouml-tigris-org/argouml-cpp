@@ -1,5 +1,5 @@
 // $Id$
-// Copyright (c) 1996-2005 The Regents of the University of California. All
+// Copyright (c) 1996-2006 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -31,9 +31,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import javax.swing.BoxLayout;
 import javax.swing.Box;
-
+import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -43,7 +42,6 @@ import javax.swing.SpinnerNumberModel;
 
 import org.apache.log4j.Logger;
 import org.argouml.application.ArgoVersion;
-import org.argouml.application.api.SettingsTabPanel;
 import org.argouml.application.helpers.SettingsTabHelper;
 import org.argouml.language.cpp.generator.GeneratorCpp;
 import org.argouml.language.cpp.generator.Section;
@@ -53,7 +51,7 @@ import org.argouml.language.cpp.generator.Section;
  * Settings tab for the C++ code generator.
  */
 public class SettingsTabCpp extends SettingsTabHelper
-    implements SettingsTabPanel
+    
 {
     private static final Logger LOG = Logger.getLogger(SettingsTabCpp.class);
 
@@ -165,7 +163,14 @@ public class SettingsTabCpp extends SettingsTabHelper
     }
 
     /**
-     * @see org.argouml.application.api.SettingsTabPanel#getTabKey
+     * @see org.argouml.ui.GUISettingsTabInterface#handleResetToDefault()
+     */
+    public void handleResetToDefault() {
+        // Do nothing - these buttons are not shown.
+    }
+
+    /**
+     * @see org.argouml.ui.GUISettingsTabInterface#getTabKey()
      */
     public String getTabKey() { return "cpp.tabname"; }
 
