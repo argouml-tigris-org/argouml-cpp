@@ -91,9 +91,8 @@ class BaseTestGeneratorCpp extends TestCase {
      */
     protected Object buildOperation(Object me, Object returnType, 
             String opName) {
-        Collection propertyChangeListeners = getPropertyChangeListeners(me);
         return Model.getCoreFactory().buildOperation(me,
-                getModel(), returnType, opName, propertyChangeListeners);
+                getModel(), returnType, opName);
     }
 
     /**
@@ -105,9 +104,8 @@ class BaseTestGeneratorCpp extends TestCase {
      */
     protected Object buildAttribute(Object me, Object type, 
             String attrName) {
-        Collection propertyChangeListeners = getPropertyChangeListeners(me);
         Object attr = Model.getCoreFactory()
-            .buildAttribute(me, getModel(), type, propertyChangeListeners);
+            .buildAttribute(me, getModel(), type);
         Model.getCoreHelper().setName(attr, attrName);
         return attr;
     }

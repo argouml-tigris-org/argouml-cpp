@@ -248,8 +248,7 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
      */
     private void createAClassOperationWithOtherClassAsParamAndReturn() {
         Object gee = buildOperation(getAClass(), otherClass, "gee");
-        getFactory().buildParameter(gee, getModel(), otherClass, 
-                getPropertyChangeListeners(gee));
+        getFactory().buildParameter(gee, getModel(), otherClass);
     }
 
     /**
@@ -386,7 +385,7 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
         if (!genH.matches(re))
             LOG.info("generated header was:\n" + genH);
         assertTrue(genH.matches(re));
-	// move OtherClass to pack/otherpack/OtherClass
+        // move OtherClass to pack/otherpack/OtherClass
         otherPack = Model.getModelManagementFactory().buildPackage(
                         "otherpack", UUIDManager.getInstance().getNewUUID());
         Model.getCoreHelper().setNamespace(otherPack, getPack());
@@ -396,5 +395,16 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
         if (!genH.matches(re))
             LOG.info("generated header was:\n" + genH);
         assertTrue(genH.matches(re));
+    }
+    
+    public void testOperationWithTaggedValueAndIssue4393() throws IOException {
+    	final String testName = "testOperationWithTaggedValueAndIssue4393";
+    	setUpNamespaces(testName);
+    	// add a tagged value to foo method
+    	Object tv = Model.getExtensionMechanismsFactory().buildTaggedValue(
+    			"x", "y");
+    	Model.getExtensionMechanismsHelper().addTaggedValue(getFooMethod(), tv);
+    	Model.getExtensionMechanismsHelper().setTag(tv, null);
+    	String genH = generateAClassFile(testName, true);
     }
 }

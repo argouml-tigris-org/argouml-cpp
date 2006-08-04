@@ -326,12 +326,11 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
 	String name = Model.getFacade().getName(cls);
         Object voidType = ProjectManager.getManager().getCurrentProject()
                 .findType("void");
-        Collection propertyChangeListeners = getPropertyChangeListeners(cls);
         Object c = Model.getCoreFactory().buildOperation(cls, getModel(),
-            voidType, name, propertyChangeListeners);
+            voidType, name);
         Object stereo = Model.getExtensionMechanismsFactory().buildStereotype(
             c, "create", getModel());
-        Model.getExtensionMechanismsHelper().setBaseClass(stereo,
+        Model.getExtensionMechanismsHelper().addBaseClass(stereo,
             "BehavioralFeature");
         return c;
     }
@@ -360,10 +359,10 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
      * Test if inner classes are generated correctly.
      */
     public void testGenerateInnerClassesHeader() {
-	Object inner = setUpInner();
+        setUpInner();
         String code = getGenerator().generateH(getAClass());
-	String re = "(?m)(?s).*\\sclass\\s+AClass\\s*(:\\s*.*)?\\{.*"
-	    + "class\\s+OtherClass\\s*\\{.*\\};.*\\};.*";
+        String re = "(?m)(?s).*\\sclass\\s+AClass\\s*(:\\s*.*)?\\{.*"
+            + "class\\s+OtherClass\\s*\\{.*\\};.*\\};.*";
         assertTrue(code.matches(re));
     }
 
@@ -371,14 +370,14 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
      * Test if inner classes operations are generated correctly.
      */
     public void testGenerateInnerClassesCpp() {
-	Object inner = setUpInner();
+        setUpInner();
         String code = getGenerator().generateCpp(getAClass());
-	String re = "(?m)(?s).*void\\s+AClass\\s*::\\s*OtherClass"
-	    + "\\s*::\\s*foo\\s*\\(\\s*\\).*\\{.*\\}.*";
-	if (!code.matches(re)) {
-	    LOG.debug("Code for inner class (.cpp):");
-	    LOG.debug(code);
-	}
+        String re = "(?m)(?s).*void\\s+AClass\\s*::\\s*OtherClass"
+            + "\\s*::\\s*foo\\s*\\(\\s*\\).*\\{.*\\}.*";
+        if (!code.matches(re)) {
+            LOG.debug("Code for inner class (.cpp):");
+            LOG.debug(code);
+        }
         assertTrue(code.matches(re));
     }
 }
