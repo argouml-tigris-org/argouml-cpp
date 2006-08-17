@@ -397,14 +397,36 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
         assertTrue(genH.matches(re));
     }
     
-    public void testOperationWithTaggedValueAndIssue4393() throws IOException {
-    	final String testName = "testOperationWithTaggedValueAndIssue4393";
+    public void testOperationWithNullTaggedValueTag_Issue4393() 
+    throws IOException {
+    	final String testName = 
+    		"testOperationWithNullTaggedValueTag_Issue4393";
     	setUpNamespaces(testName);
-    	// add a tagged value to foo method
-    	Object tv = Model.getExtensionMechanismsFactory().buildTaggedValue(
-    			"x", "y");
-    	Model.getExtensionMechanismsHelper().addTaggedValue(getFooMethod(), tv);
-    	Model.getExtensionMechanismsHelper().setTag(tv, null);
-    	String genH = generateAClassFile(testName, true);
+    	assertGenerateAClassFileWithNullTaggedValueTag(testName, 
+    			getFooMethod());
+    }
+
+	private void assertGenerateAClassFileWithNullTaggedValueTag(
+			final String testName, Object me) throws IOException {
+		Model.getCoreHelper().setTaggedValue(me, "documentation", "docs");
+    	assertEquals(1, 
+    			Model.getFacade().getTaggedValuesCollection(me).size());
+    	Object documentationTV = Model.getFacade().getTaggedValues(
+    			me).next();
+    	assertEquals("documentation", 
+    			Model.getFacade().getTag(documentationTV));
+    	Object documentationTD = Model.getFacade().getTagDefinition(
+    			documentationTV);
+    	assertNotNull(documentationTD);
+    	Model.getExtensionMechanismsHelper().setType(documentationTV, null);
+    	assertNull(Model.getFacade().getTagDefinition(documentationTV));
+    	generateAClassFile(testName, true);
+	}
+    
+    public void testClassWithNullTaggedValueTag_Issue4393() 
+    throws IOException {
+    	final String testName = "testClassWithNullTaggedValueTag_Issue4393";
+    	setUpNamespaces(testName);
+    	assertGenerateAClassFileWithNullTaggedValueTag(testName, getAClass());
     }
 }

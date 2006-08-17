@@ -595,13 +595,15 @@ public class GeneratorCpp extends Generator2
         while (iter.hasNext()) {
             Object tv = iter.next();
             String tag = Model.getFacade().getTagOfTag(tv);
-            if (tag.equals("usage")) {
-                usageTag = Model.getFacade().getValueOfTag(tv);
-            }
-
-            if (tag.indexOf("ref") != -1 || tag.equals("&")
-                    || tag.indexOf("pointer") != -1 || tag.equals("*")) {
-                predeclareCandidate = true;
+            if (tag != null) {
+	            if (tag.equals("usage")) {
+	                usageTag = Model.getFacade().getValueOfTag(tv);
+	            }
+	
+	            if (tag.indexOf("ref") != -1 || tag.equals("&")
+	                    || tag.indexOf("pointer") != -1 || tag.equals("*")) {
+	                predeclareCandidate = true;
+	            }
             }
         }
         return checkInclude4UsageIndirection(predeclareCandidate, usageTag);
@@ -658,8 +660,8 @@ public class GeneratorCpp extends Generator2
         while (iter.hasNext()) {
             Object tv = iter.next();
             String tag = Model.getFacade().getTagOfTag(tv);
-            if (tag.equals(tagPrefix + "_incl")
-                    || tag.equals(tagPrefix + "_include")) {
+            if (tag != null && (tag.equals(tagPrefix + "_incl")
+                    || tag.equals(tagPrefix + "_include"))) {
                 String name = Model.getFacade().getValueOfTag(tv);
                 if (name.length() > 2 && name.charAt(0) == '<') {
                     systemInc.add(name.substring(1, name.length() - 1));
@@ -1140,12 +1142,14 @@ public class GeneratorCpp extends Generator2
             Object tv = iter.next();
             String tag = Model.getFacade().getTagOfTag(tv);
             String val = Model.getFacade().getValueOfTag(tv);
-            if (tag.indexOf("ref") != -1 || tag.equals("&")) {
-                return val.equals("false") ? NORMAL_MOD
-                                           : REFERENCE_MOD;
-            } else if (tag.indexOf("pointer") != -1 || tag.equals("*")) {
-                return val.equals("false") ? NORMAL_MOD
-                                           : POINTER_MOD;
+            if (tag != null) {
+	            if (tag.indexOf("ref") != -1 || tag.equals("&")) {
+	                return val.equals("false") ? NORMAL_MOD
+	                                           : REFERENCE_MOD;
+	            } else if (tag.indexOf("pointer") != -1 || tag.equals("*")) {
+	                return val.equals("false") ? NORMAL_MOD
+	                                           : POINTER_MOD;
+	            }
             }
         }
         return -1; /* no tag found */
@@ -2216,6 +2220,7 @@ public class GeneratorCpp extends Generator2
 
         String tagName = Model.getFacade().getTagOfTag(tv);
         if (s == null || s.length() == 0 || s.equals("/** */")
+            || tagName == null 
             || (tagName.indexOf("include") != -1)
             || (tagName.indexOf("_incl") != -1)) {
             return "";
@@ -2242,7 +2247,8 @@ public class GeneratorCpp extends Generator2
         String s = null;
         while (iter.hasNext()) {
             Object tag = iter.next();
-            if (Model.getFacade().getTagOfTag(tag).equals(searchedName)) {
+            String tagOfTag = Model.getFacade().getTagOfTag(tag);
+            if (tagOfTag != null && tagOfTag.equals(searchedName)) {
                 s = Model.getFacade().getValueOfTag(tag);
                 if (s != null && s.length() != 0) result.add(s);
             }
@@ -2309,7 +2315,7 @@ public class GeneratorCpp extends Generator2
         String s = generateUninterpreted(Model.getFacade().getValueOfTag(tv));
         if (s == null || s.length() == 0 || s.equals("/** */")) return "";
         String t = Model.getFacade().getTagOfTag(tv);
-        if (t.equals("documentation")) return "";
+        if (t != null && t.equals("documentation")) return "";
         return generateName(t) + "=" + s;
     }
 
