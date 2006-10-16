@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ArgoUML C++ module
+Bundle-SymbolicName: org.argouml.module.cpp
+Bundle-Version: 1.0.0
+Bundle-ClassPath: argouml-module-cpp.jar,
+ lib/commons-io-1.0.jar,
+ lib/easymock-1.1.jar
+Bundle-Localization: plugin
+Export-Package: META-INF,
+ org.argouml.i18n,
+ org.argouml.language.cpp.generator,
+ org.argouml.language.cpp.reveng,
+ org.argouml.language.cpp.ui
+Require-Bundle: org.argouml

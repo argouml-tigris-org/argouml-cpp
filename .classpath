@@ -2,10 +2,10 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="tests"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/argouml"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/commons-io-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/easymock-1.1.jar"/>
-	<classpathentry kind="lib" path="/argouml-core-tools/junit-3.8.1/junit.jar"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3.8.1"/>
 	<classpathentry kind="output" path="build-eclipse"/>
 </classpath>
