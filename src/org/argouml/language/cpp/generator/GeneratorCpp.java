@@ -1835,7 +1835,7 @@ public class GeneratorCpp extends Generator2
      */
     private void generateClassifierBodyOperations(Object cls,
             StringBuffer sb) {
-        Collection behs = Model.getCoreHelper().getOperations(cls);
+        Collection behs = Model.getFacade().getOperations(cls);
         if (behs.isEmpty()) return;
         sb.append(LINE_SEPARATOR);
         if (verboseDocs) {
