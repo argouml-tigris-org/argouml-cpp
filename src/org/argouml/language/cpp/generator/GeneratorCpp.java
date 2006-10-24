@@ -31,66 +31,60 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
 import java.util.Vector;
 
 import org.apache.log4j.Logger;
-import org.argouml.application.api.Argo;
 import org.argouml.application.api.Configuration;
 import org.argouml.application.api.ConfigurationKey;
 import org.argouml.model.Model;
-import org.argouml.notation.Notation;
 import org.argouml.uml.DocumentationManager;
 import org.argouml.uml.UUIDHelper;
 import org.argouml.uml.generator.CodeGenerator;
-import org.argouml.uml.generator.Generator2;
-import org.argouml.uml.generator.GeneratorHelper;
-import org.argouml.uml.generator.GeneratorManager;
-import org.argouml.uml.generator.Language;
 import org.argouml.uml.generator.SourceUnit;
 
 /**
- * Generator2 subclass to generate C++ source code that is used in ArgoUML GUI
- * and text fields when the cpp notation is selected by the user. It also
- * implements FileGenerator and makes it possible for the user to generate
- * the source code files for model elements of his choice.
+ * Class to generate C++ source code.
  *
  * WARNING: Don't know if this is a threat (and I think it's not), but this
  * class is NOT THREAD SAFE. DO NOT CALL METHODS FROM DIFFERENT THREADS.
  * At the moment, it works, but this is just in case someone in the future
  * tries to generate 1265 files in parallel and guesses why it doesn't work :-)
  */
-public class GeneratorCpp extends Generator2
-    implements CodeGenerator {
+public class GeneratorCpp implements CodeGenerator {
 
     /**
      * The logger.
      */
     private static final Logger LOG = Logger.getLogger(GeneratorCpp.class);
+    
+    static final String LANGUAGE_NAME = "cpp";
 
     // Customizable variables
 
     private boolean verboseDocs = false;
     private boolean lfBeforeCurly = false;
-    private String indent = INDENT; // customizable (non final) indent
+    private String indent = "    "; // customizable (non final) indent
 
     // Configuration keys for the above configurable variables
     private static final ConfigurationKey KEY_CPP_INDENT =
-        Configuration.makeKey("cpp", "indent");
+        Configuration.makeKey(LANGUAGE_NAME, "indent");
     private static final ConfigurationKey KEY_CPP_LF_BEFORE_CURLY =
-        Configuration.makeKey("cpp", "lf-before-curly");
+        Configuration.makeKey(LANGUAGE_NAME, "lf-before-curly");
     private static final ConfigurationKey KEY_CPP_VERBOSE_COMM =
-        Configuration.makeKey("cpp", "verbose-comments");
+        Configuration.makeKey(LANGUAGE_NAME, "verbose-comments");
     private static final ConfigurationKey KEY_CPP_SECT =
-        Configuration.makeKey("cpp", "sections");
+        Configuration.makeKey(LANGUAGE_NAME, "sections");
 
     private static Section sect;
 
@@ -137,7 +131,6 @@ public class GeneratorCpp extends Generator2
      */
     private static final String LINE_SEPARATOR =
         System.getProperty("line.separator");
-
 
     /**
      * C++ doesn't place visibility information for each class member
@@ -222,12 +215,7 @@ public class GeneratorCpp extends Generator2
      * Constructor.
      */
     protected GeneratorCpp() {
-        super (Notation.makeNotation("Cpp", null,
-                                     Argo.lookupIconResource ("CppNotation")));
         singleton = this;
-        Language cppLang = GeneratorHelper.makeLanguage("cpp", "C++",
-                Argo.lookupIconResource ("CppNotation"));
-        GeneratorManager.getInstance().addGenerator(cppLang, this);
         loadConfig();
     }
 
@@ -260,9 +248,9 @@ public class GeneratorCpp extends Generator2
      * @param o the object to be generated
      * @return the generated string
      */
-    public static String cppGenerate(Object o) {
-        return getInstance().generate(o);
-    }
+//    public static String cppGenerate(Object o) {
+//        return getInstance().generate(o);
+//    }
 
 
     /** Internal helper that generates the file content (.cpp or .h)
@@ -276,7 +264,8 @@ public class GeneratorCpp extends Generator2
 
         String headerTop = generateHeaderTop(pathname);
         String header = generateHeader(o);
-        String src = generate(o);
+        // This can only be a classifier, right? - tfm
+        String src = generateClassifier(o);
         String footer = generateFooter();
         // generate #includes and predeclarations
         // this must be *after* generate()
@@ -320,7 +309,7 @@ public class GeneratorCpp extends Generator2
      * @param o the object to be generated
      * @return the generated code as a string
      */
-    public String generateCpp(Object o) {
+    String generateCpp(Object o) {
         generatorPass = SOURCE_PASS;
         String name =
             generateRelativePackage(o, null, "/").substring(1);
@@ -337,7 +326,7 @@ public class GeneratorCpp extends Generator2
      * @param o the object to be generated
      * @return the generated header as a string
      */
-    public String generateH(Object o) {
+    String generateH(Object o) {
         generatorPass = HEADER_PASS;
         String name =
             generateRelativePackage(o, null, "/").substring(1);
@@ -382,7 +371,7 @@ public class GeneratorCpp extends Generator2
         if (parent == null) { // relative to root, prefix with sep
             packagePath.insert(0, sep);
         }
-       return packagePath.toString();
+        return packagePath.toString();
     }
 
     /** 2002-11-28 Achim Spangler
@@ -568,7 +557,8 @@ public class GeneratorCpp extends Generator2
         return sb.toString();
     }
 
-    /** Helper for checkIncludeNeeded4Element. Returns true if
+    /** 
+     * Helper for checkIncludeNeeded4Element. Returns true if
      * an #include is needed.
      */
     private boolean checkInclude4UsageIndirection(boolean isIndirect,
@@ -596,14 +586,14 @@ public class GeneratorCpp extends Generator2
             Object tv = iter.next();
             String tag = Model.getFacade().getTagOfTag(tv);
             if (tag != null) {
-	            if (tag.equals("usage")) {
-	                usageTag = Model.getFacade().getValueOfTag(tv);
-	            }
-	
-	            if (tag.indexOf("ref") != -1 || tag.equals("&")
-	                    || tag.indexOf("pointer") != -1 || tag.equals("*")) {
-	                predeclareCandidate = true;
-	            }
+                if (tag.equals("usage")) {
+                    usageTag = Model.getFacade().getValueOfTag(tv);
+                }
+
+                if (tag.indexOf("ref") != -1 || tag.equals("&")
+                        || tag.indexOf("pointer") != -1 || tag.equals("*")) {
+                    predeclareCandidate = true;
+                }
             }
         }
         return checkInclude4UsageIndirection(predeclareCandidate, usageTag);
@@ -777,7 +767,7 @@ public class GeneratorCpp extends Generator2
         }
         Object pkg = null;
         if (Model.getFacade().isADataType(item)) {
-            return generateName(Model.getFacade().getName(item));
+            return Model.getFacade().getName(item);
         } else if (Model.getFacade().isAParameter(item)
                    || Model.getFacade().isAAttribute(item)
                    || Model.getFacade().isAAssociationEnd(item)
@@ -786,13 +776,13 @@ public class GeneratorCpp extends Generator2
         }
 
         if (pkg == null) {
-            return generateName(Model.getFacade().getName(item));
+            return Model.getFacade().getName(item);
         }
         String packPrefix = generateRelativePackage(item, localPkg, "::");
         if (packPrefix.length() > 0) {
             packPrefix += "::";
         }
-        return packPrefix + generateName(Model.getFacade().getName(item));
+        return packPrefix + Model.getFacade().getName(item);
     }
 
     /** Generate name with package specs, relative to actualNamespace.
@@ -893,7 +883,8 @@ public class GeneratorCpp extends Generator2
         return sb.toString();
     }
 
-    /* This generates all the things that go after the class declaration.
+    /* 
+     * This generates all the things that go after the class declaration.
      */
     private String generateFooter() {
         StringBuffer sb = new StringBuffer(80);
@@ -904,34 +895,12 @@ public class GeneratorCpp extends Generator2
         return sb.toString();
     }
 
-    /**
-     * <p>Generate code for an extension point.</p>
-     *
-     * <p>Provided to comply with the interface, but returns null
-     *   since no code will be generated. This should prevent a source tab
-     *   being shown.</p>
-     *
-     * @param ep  The extension point to generate for
-     *
-     * @return    The generated code string. Always empty in this
-     *            implementation.
-     */
-    public String generateExtensionPoint (Object ep) {
-        return null;
-    }
 
-    /**
-     * @see org.argouml.notation.NotationProvider2#generateAssociationRole(java.lang.Object)
-     */
-    public String generateAssociationRole(Object m) {
+    private String generateAssociationRole(Object m) {
         return "";
     }
 
-
-    /**
-     * @see org.argouml.notation.NotationProvider2#generateSubmachine(java.lang.Object)
-     */
-    public String generateSubmachine(Object m) {
+    private String generateSubmachine(Object m) {
         Object c = Model.getFacade().getSubmachine(m);
         if (c == null) {
             return "include / ";
@@ -942,14 +911,10 @@ public class GeneratorCpp extends Generator2
         if (Model.getFacade().getName(c).length() == 0) {
             return "include / ";
         }
-        return ("include / " + generateName(Model.getFacade().getName(c)));
+        return ("include / " + Model.getFacade().getName(c));
     }
 
-    
-    /**
-     * @see org.argouml.notation.NotationProvider2#generateObjectFlowState(java.lang.Object)
-     */
-    public String generateObjectFlowState(Object m) {
+    private String generateObjectFlowState(Object m) {
         Object c = Model.getFacade().getType(m);
         if (c == null) return "";
         return Model.getFacade().getName(c);
@@ -1029,20 +994,19 @@ public class GeneratorCpp extends Generator2
         } else {
             name = Model.getFacade().getName(op);
         }
-        sb.append(generateName(name));
+        sb.append(name);
         return constructor;
     }
 
     /**
-     * @see org.argouml.notation.NotationProvider2#generateOperation(
-     *      java.lang.Object, boolean)
-     *
+     * Generate code for an operation.
+     * 
      * 2002-11-28 Achim Spangler
      * modified version from Jaap Branderhorst
      * -> generateOperation is language independent and seperates
      *    different tasks
      */
-    public String generateOperation(Object op, boolean documented) {
+    String generateOperation(Object op, boolean documented) {
         // generate nothing for abstract functions, if we generate the
         // source .cpp file at the moment
         if ((generatorPass == SOURCE_PASS) 
@@ -1143,13 +1107,13 @@ public class GeneratorCpp extends Generator2
             String tag = Model.getFacade().getTagOfTag(tv);
             String val = Model.getFacade().getValueOfTag(tv);
             if (tag != null) {
-	            if (tag.indexOf("ref") != -1 || tag.equals("&")) {
-	                return val.equals("false") ? NORMAL_MOD
-	                                           : REFERENCE_MOD;
-	            } else if (tag.indexOf("pointer") != -1 || tag.equals("*")) {
-	                return val.equals("false") ? NORMAL_MOD
-	                                           : POINTER_MOD;
-	            }
+                if (tag.indexOf("ref") != -1 || tag.equals("&")) {
+                    return val.equals("false") ? NORMAL_MOD
+                            : REFERENCE_MOD;
+                } else if (tag.indexOf("pointer") != -1 || tag.equals("*")) {
+                    return val.equals("false") ? NORMAL_MOD
+                            : POINTER_MOD;
+                }
             }
         }
         return -1; /* no tag found */
@@ -1204,15 +1168,13 @@ public class GeneratorCpp extends Generator2
         return def;
     }
 
+    
     private String generateAttributeParameterModifier(Object attr) {
         return generateAttributeParameterModifier(attr, "");
     }
 
-    /**
-     * @see org.argouml.notation.NotationProvider2#generateAttribute(
-     *         java.lang.Object, boolean)
-     */
-    public String generateAttribute(Object attr, boolean documented) {
+
+    String generateAttribute(Object attr, boolean documented) {
         StringBuffer sb = new StringBuffer(80);
 
         // list tagged values for documentation
@@ -1229,7 +1191,7 @@ public class GeneratorCpp extends Generator2
         sb.append(
                 generateMultiplicity(
                         attr,
-                        generateName(Model.getFacade().getName(attr)),
+                        Model.getFacade().getName(attr),
                         Model.getFacade().getMultiplicity(attr),
                         generateAttributeParameterModifier(attr)));
         sb.append(";");
@@ -1244,10 +1206,7 @@ public class GeneratorCpp extends Generator2
     }
 
 
-    /**
-     * @see org.argouml.notation.NotationProvider2#generateParameter(java.lang.Object)
-     */
-    public String generateParameter(Object param) {
+    private String generateParameter(Object param) {
         StringBuffer sb = new StringBuffer(20);
         //TODO: qualifiers (e.g., const)
         // generate const for references or pointers which are
@@ -1259,7 +1218,7 @@ public class GeneratorCpp extends Generator2
         sb.append(generateNameWithPkgSelection(type));
         sb.append(' ');
         sb.append(generateAttributeParameterModifier(param));
-        sb.append(generateName(Model.getFacade().getName(param)));
+        sb.append(Model.getFacade().getName(param));
 
         // insert default value, if we are generating the header or notation
         if (generatorPass != SOURCE_PASS) {
@@ -1277,38 +1236,6 @@ public class GeneratorCpp extends Generator2
         boolean predecl = !checkIncludeNeeded4Element(param);
         addDependency(type, predecl);
 
-        return sb.toString();
-    }
-
-
-    /**
-     * @see org.argouml.notation.NotationProvider2#generatePackage(java.lang.Object)
-     */
-    public String generatePackage(Object p) {
-        StringBuffer sb = new StringBuffer();
-        String packName = 
-                generateName(Model.getFacade().getName(p));
-        sb.append("namespace ").append(packName).append(" {")
-            .append(LINE_SEPARATOR);
-        Collection ownedElements = Model.getFacade().getOwnedElements(p);
-        if (ownedElements != null) {
-            Iterator ownedEnum = ownedElements.iterator();
-            while (ownedEnum.hasNext()) {
-                Object me = ownedEnum.next();
-                cleanupGenerator();
-                currClass = me;
-                actualNamespace = p;
-                generatorPass = HEADER_PASS;
-                sb.append(indentString(generate(me), 1));
-                sb.append(LINE_SEPARATOR).append(LINE_SEPARATOR);
-            }
-            cleanupGenerator();
-            generatorPass = NONE_PASS;
-        }
-        else {
-            sb.append("// no elements");
-        }
-        sb.append("}").append(LINE_SEPARATOR);
         return sb.toString();
     }
 
@@ -1351,7 +1278,7 @@ public class GeneratorCpp extends Generator2
 
         // add classifier keyword and classifier name
         sb.append(sClassifierKeyword).append(" ");
-        sb.append(generateName(Model.getFacade().getName(cls)));
+        sb.append(Model.getFacade().getName(cls));
 
         // add base class/interface
         String baseClass =
@@ -1465,13 +1392,11 @@ public class GeneratorCpp extends Generator2
         return result.toString();
     }
 
-    /**
-     * @see org.argouml.notation.NotationProvider2#generateClassifier(java.lang.Object)
-     *
+    /*
      * Generates code for a classifier, for classes and interfaces only
      * at the moment.
      */
-    public String generateClassifier(Object cls) {
+    String generateClassifier(Object cls) {
         // If we're in the notation pane, do a special trick
         // to show both header and source
         if (generatorPass == NONE_PASS
@@ -1592,7 +1517,7 @@ public class GeneratorCpp extends Generator2
             Object attr = attrIter.next();
             int i = getVisibilityPart(attr);
 
-            part[i].append(indent).append(generate(attr));
+            part[i].append(indent).append(generateAttribute(attr, false));
 
             tv = generateTaggedValues(attr, ALL_BUT_DOC_TAGS);
             if (tv != null && tv.length() > 0) {
@@ -1660,7 +1585,7 @@ public class GeneratorCpp extends Generator2
                 Object type = Model.getFacade().getType(ae);
 
                 if (n != null && n.length() > 0) {
-                    name = generateName(n);
+                    name = n;
                 } else {
                     name = "my" + generateClassifierRef(type);
                 }
@@ -1865,7 +1790,7 @@ public class GeneratorCpp extends Generator2
             if (tb != null 
                 && ((generatorPass == HEADER_PASS) || mustGenBody))
             {
-                tb.append(generate(bf));
+                tb.append(generateOperation(bf, false));
                 
                 // helper for tagged values
                 String tv = generateTaggedValues(bf, ALL_BUT_DOC_TAGS);
@@ -2140,20 +2065,6 @@ public class GeneratorCpp extends Generator2
             s = generateTaggedValue(iter.next(), tagSelection);
             if (s != null && s.length() > 0) {
                 if (first) {
-                    /*
-                     * Corrected 2001-09-26 STEFFEN ZSCHALER
-                     *
-                     * Was:
-                     buf.append("// {");
-                     *
-                     * which caused problems with new lines characters
-                     * in tagged values (e.g. comments...). The new
-                     * version still has some problems with tagged
-                     * values containing "*"+"/" as this closes the
-                     * comment prematurely, but comments should be
-                     * taken out of the tagged values list anyway...
-                     */
-
                     if (tagSelection == DOC_COMMENT_TAGS) {
                         // insert main documentation for DocComment at first
                         String doc =
@@ -2185,14 +2096,7 @@ public class GeneratorCpp extends Generator2
                 buf.append(s);
             } // end tag not empty
         } // end while
-        /*
-         * Corrected 2001-09-26 STEFFEN ZSCHALER
-         *
-         * Was:
-         if (!first) buf.append("}\n");
-         *
-         * which caused problems with new-lines in tagged values.
-         */
+
         if (!first) {
             if (tagSelection == DOC_COMMENT_TAGS) {
                 buf.append(LINE_SEPARATOR).append(indent).append(" */")
@@ -2227,7 +2131,7 @@ public class GeneratorCpp extends Generator2
         }
         if ((tagSelection == DOC_COMMENT_TAGS)
                 && (isDocCommentTag(tagName))) {
-            return generateDocComment4Tag(generateName(tagName)) + s;
+            return generateDocComment4Tag(tagName) + s;
         } else if (((tagSelection == ALL_BUT_DOC_TAGS)
                      && (!isDocCommentTag(tagName))
                      && (!tagName.equals("documentation"))
@@ -2307,16 +2211,14 @@ public class GeneratorCpp extends Generator2
         else return "";
     }
 
-    /**
-     * @see org.argouml.notation.NotationProvider2#generateTaggedValue(java.lang.Object)
-     */
-    public String generateTaggedValue(Object tv) {
+
+    private String generateTaggedValue(Object tv) {
         if (tv == null) return "";
         String s = generateUninterpreted(Model.getFacade().getValueOfTag(tv));
         if (s == null || s.length() == 0 || s.equals("/** */")) return "";
         String t = Model.getFacade().getTagOfTag(tv);
         if (t != null && t.equals("documentation")) return "";
-        return generateName(t) + "=" + s;
+        return t + "=" + s;
     }
 
     /**
@@ -2341,7 +2243,7 @@ public class GeneratorCpp extends Generator2
      * @return the documentation comment for the specified model element, either
      * enhanced or completely generated
      */
-    public String generateConstraintEnrichedDocComment(Object me, Object ae) {
+    private String generateConstraintEnrichedDocComment(Object me, Object ae) {
         // list tagged values for documentation
         String s = generateTaggedValues (me, DOC_COMMENT_TAGS);
 
@@ -2386,14 +2288,6 @@ public class GeneratorCpp extends Generator2
             StringBuffer[] parts) {
         // TODO: does not handle n-ary associations
 
-        /*
-         * Moved into while loop 2001-09-26 STEFFEN ZSCHALER
-         *
-         * Was:
-         *
-         s += DocumentationManager.getDocs(a) + "\n" + indent;
-        */
-
         Collection connections = Model.getFacade().getConnections(a);
         Iterator connEnum = connections.iterator();
         while (connEnum.hasNext()) {
@@ -2402,10 +2296,6 @@ public class GeneratorCpp extends Generator2
                 int p = getVisibilityPart(ae2);
                 if (p >= 0) {
                     StringBuffer sb = parts[p];
-                    /**
-                     * Added generation of doccomment 2001-09-26 STEFFEN
-                     * ZSCHALER
-                     */
                     sb.append(LINE_SEPARATOR);
                     String assend = generateAssociationEnd(ae2);
                     if (assend.length() > 0) {
@@ -2426,17 +2316,13 @@ public class GeneratorCpp extends Generator2
         }
     }
 
-    /**
-     * @see org.argouml.notation.NotationProvider2#generateAssociation(java.lang.Object)
-     */
-    public String generateAssociation(Object handle) {
+
+    private String generateAssociation(Object handle) {
         return ""; // Maybe Model.getFacade().getName(handle) ???
     }
 
-    /**
-     * @see org.argouml.notation.NotationProvider2#generateAssociationEnd(java.lang.Object)
-     */
-    public String generateAssociationEnd(Object ae) {
+
+    private String generateAssociationEnd(Object ae) {
         if (!Model.getFacade().isNavigable(ae)) {
             return "";
         }
@@ -2454,9 +2340,9 @@ public class GeneratorCpp extends Generator2
         String name = null;
 
         if (n != null && n.length() > 0) {
-            name = generateName(n);
+            name = n;
         } else if (ascName != null && ascName.length() > 0) {
-            name = generateName(ascName);
+            name = ascName;
         } else {
             name = "my" + generateClassifierRef(Model.getFacade().getType(ae));
         }
@@ -2516,7 +2402,7 @@ public class GeneratorCpp extends Generator2
         return sb.toString();
     }
 
-    //  public String generateSpecification(Collection realizations) {
+    //  private String generateSpecification(Collection realizations) {
     private String generateSpecification(Object cls) {
         Collection deps = Model.getFacade().getClientDependencies(cls);
         Iterator depIterator = deps.iterator();
@@ -2552,7 +2438,7 @@ public class GeneratorCpp extends Generator2
      *
      * @return Generated notation for model element.
      */
-    public String generateEvent(Object modelElement) {
+    private String generateEvent(Object modelElement) {
         if (!Model.getFacade().isAEvent(modelElement)) {
             throw new ClassCastException(modelElement.getClass()
                     + " has wrong object type, Event required");
@@ -2561,10 +2447,8 @@ public class GeneratorCpp extends Generator2
         return "";
     }
 
-    /**
-     * @see org.argouml.notation.NotationProvider2#generateVisibility(java.lang.Object)
-     */
-    public String generateVisibility(Object o) {
+
+    private String generateVisibility(Object o) {
         if (Model.getFacade().isAAttribute(o)) {
             return "";
         }
@@ -2688,10 +2572,8 @@ public class GeneratorCpp extends Generator2
         return "";
     }
 
-    /**
-     * @see org.argouml.notation.NotationProvider2#generateMultiplicity(java.lang.Object)
-     */
-    public String generateMultiplicity(Object multiplicity) {
+
+    private String generateMultiplicity(Object multiplicity) {
         if (multiplicity == null
                 || "1".equals(Model.getFacade().toString(multiplicity))) {
             return "";
@@ -2805,32 +2687,26 @@ public class GeneratorCpp extends Generator2
      * in NotationHelper or in Generator2?   -- Daniele Tamino
      */
 
-    /**
-     * @see org.argouml.notation.NotationProvider2#generateState(java.lang.Object)
-     */
-    public String generateState(Object handle) {
+    private String generateState(Object handle) {
         return Model.getFacade().getName(handle);
     }
 
-    /**
-     * @see org.argouml.notation.NotationProvider2#generateStateBody(java.lang.Object)
-     */
-    public String generateStateBody(Object state) {
+    private String generateStateBody(Object state) {
         String s = "";
         Object entry = Model.getFacade().getEntry(state);
         Object exit = Model.getFacade().getExit(state);
         Object doact = Model.getFacade().getDoActivity(state);
         if (entry != null) {
-            String entryStr = generate(entry);
+            String entryStr = generateAction(entry);
             if (entryStr.length() > 0) s += "entry / " + entryStr;
         }
         if (exit != null) {
-            String doStr = generate(doact);
+            String doStr = generateAction(doact);
             if (s.length() > 0) s += LINE_SEPARATOR;
             if (doStr.length() > 0) s += "do / " + doStr;
         }
         if (exit != null) {
-            String exitStr = generate(exit);
+            String exitStr = generateAction(exit);
             if (s.length() > 0) s += LINE_SEPARATOR;
             if (exitStr.length() > 0) s += "exit / " + exitStr;
         }
@@ -2845,14 +2721,11 @@ public class GeneratorCpp extends Generator2
         return s;
     }
 
-    /**
-     * @see org.argouml.notation.NotationProvider2#generateTransition(java.lang.Object)
-     */
-    public String generateTransition(Object transition) {
-        String s = generate(Model.getFacade().getName(transition));
-        String t = generate(Model.getFacade().getTrigger(transition));
-        String g = generate(Model.getFacade().getGuard(transition));
-        String e = generate(Model.getFacade().getEffect(transition));
+    private String generateTransition(Object transition) {
+        String s = Model.getFacade().getName(transition);
+        String t = generateEvent(Model.getFacade().getTrigger(transition));
+        String g = generateGuard(Model.getFacade().getGuard(transition));
+        String e = generateAction(Model.getFacade().getEffect(transition));
         if (s.length() > 0) s += ": ";
         s += t;
         if (g.length() > 0) s += " [" + g + "]";
@@ -2860,20 +2733,14 @@ public class GeneratorCpp extends Generator2
         return s;
     }
 
-    /**
-     * @see org.argouml.notation.NotationProvider2#generateAction(java.lang.Object)
-     */
-    public String generateAction(Object m) {
+    private String generateAction(Object m) {
         Object script = Model.getFacade().getScript(m);
         if ((script != null) && (Model.getFacade().getBody(script) != null))
             return Model.getFacade().getBody(script).toString();
         return "";
     }
 
-    /**
-     * @see org.argouml.notation.NotationProvider2#generateActionState(java.lang.Object)
-     */
-    public String generateActionState(Object actionState) {
+    private String generateActionState(Object actionState) {
         String ret = "";
         Object action = Model.getFacade().getEntry(actionState);
         if (action != null) {
@@ -2885,50 +2752,24 @@ public class GeneratorCpp extends Generator2
         return ret;
     }
 
-    /**
-     * @see org.argouml.notation.NotationProvider2#generateGuard(java.lang.Object)
-     */
-    public String generateGuard(Object guard) {
+    private String generateGuard(Object guard) {
         if (Model.getFacade().getExpression(guard) != null)
             return generateExpression(Model.getFacade().getExpression(guard));
         return "";
     }
 
-    /**
-     * @see org.argouml.notation.NotationProvider2#generateMessage(java.lang.Object)
-     */
-    public String generateMessage(Object message) {
+    private String generateMessage(Object message) {
         if (message == null) {
             return "";
         }
-        return generateName(Model.getFacade().getName(message)) + "::"
+        return Model.getFacade().getName(message) + "::"
             + generateAction(Model.getFacade().getAction(message));
     }
 
-    /**
-     * @see org.argouml.application.api.ArgoModule#getModuleName()
-     */
-    public String getModuleName() { return "GeneratorCpp"; }
-    /**
-     * @see org.argouml.application.api.ArgoModule#getModuleDescription()
-     */
-    public String getModuleDescription() {
-        return "Cpp Notation and Code Generator";
-    }
-    /**
-     * @see org.argouml.application.api.ArgoModule#getModuleAuthor()
-     */
-    public String getModuleAuthor() { return "Achim Spangler"; }
-    /**
-     * @see org.argouml.application.api.ArgoModule#getModuleVersion()
-     */
-    public String getModuleVersion() { return "0.17.2"; }
-    /**
-     * @see org.argouml.application.api.ArgoModule#getModuleKey()
-     */
-    public String getModuleKey() { return "module.language.cpp.generator"; }
-
-    /** Load configurable parameters.
+    
+    /** 
+     * Load configurable parameters.
+     * TODO: Why is this public? - tfm
      */
     public void loadConfig() {
         int indWidth = Configuration.getInteger(KEY_CPP_INDENT, 4);
@@ -2944,6 +2785,8 @@ public class GeneratorCpp extends Generator2
         Section.setUseSect(useSect);
     }
 
+    // Methods used by Settings dialog
+    
     /**
      * @return true if the generator outputs a newline before the
      * curly brace starting a class declaration.
@@ -3049,7 +2892,7 @@ public class GeneratorCpp extends Generator2
         }
     }
     
-    /**
+    /*
      * Generate files for element 'o' (and dependencies, eventually).
      * Return the collection of files (as Strings).
      * Do nothing (and return an empty collection) it 'o' is in generatedFiles.
@@ -3174,11 +3017,11 @@ public class GeneratorCpp extends Generator2
         return ret;
     }
     
-    /**
+    /*
      * @see org.argouml.uml.generator.CodeGenerator#generate(java.util.Collection, boolean)
      */
     public Collection generate(Collection elements, boolean deps) {
-        Vector ret = new Vector();
+        List ret = new ArrayList();
         startFileGeneration();
         for (Iterator it = elements.iterator(); it.hasNext(); ) {
             Object elem = it.next();
@@ -3206,12 +3049,12 @@ public class GeneratorCpp extends Generator2
         return ret;
     }
 
-    /**
+    /*
      * @see org.argouml.uml.generator.CodeGenerator#generateFiles(java.util.Collection, java.lang.String, boolean)
      */
-    public Collection generateFiles(Collection elements, 
-                                    String path, boolean deps) {
-        Vector ret = new Vector();
+    public Collection generateFiles(Collection elements, String path,
+            boolean deps) {
+        List ret = new ArrayList();
         startFileGeneration();
         for (Iterator it = elements.iterator(); it.hasNext(); ) {
             Object elem = it.next();
@@ -3221,11 +3064,11 @@ public class GeneratorCpp extends Generator2
         return ret;
     }
 
-    /**
+    /*
      * @see org.argouml.uml.generator.CodeGenerator#generateFileList(java.util.Collection, boolean)
      */
     public Collection generateFileList(Collection elements, boolean deps) {
-        Vector ret = new Vector();
+        List ret = new ArrayList();
         startFileGeneration();
         for (Iterator it = elements.iterator(); it.hasNext(); ) {
             Object elem = it.next();
@@ -3236,4 +3079,27 @@ public class GeneratorCpp extends Generator2
         endFileGeneration();
         return null;
     }
+    
+    private static String generateExpression(Object expr) {
+        if (Model.getFacade().isAExpression(expr))
+            return generateUninterpreted(
+                    (String) Model.getFacade().getBody(expr));
+        else if (Model.getFacade().isAConstraint(expr))
+            return generateExpression(Model.getFacade().getBody(expr));
+        return "";
+    }
+    
+    private static String generateUninterpreted(String un) {
+        if (un == null)
+            return "";
+        return un;
+    }
+
+    private static String generateClassifierRef(Object cls) {
+        if (cls == null)
+            return "";
+        return Model.getFacade().getName(cls);
+    }
+    
+    
 } /* end class GeneratorCpp */

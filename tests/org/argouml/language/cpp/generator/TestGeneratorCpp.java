@@ -34,6 +34,7 @@ import junit.framework.TestSuite;
 
 import org.apache.log4j.Logger;
 import org.argouml.model.Model;
+import org.argouml.moduleloader.ModuleInterface;
 
 /**
  * Tests for the GeneratorCpp class.
@@ -156,7 +157,8 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
      */
     public void testCppGenerate() {
         // generate AClass::foo()
-        String strFooMethod = getGenerator().generate(getFooMethod());
+        String strFooMethod = 
+            getGenerator().generateOperation(getFooMethod(), false);
         assertNotNull(strFooMethod);
         assertEquals("virtual void foo()", strFooMethod.trim());
     }
@@ -179,14 +181,15 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
      * Test of getModuleName method.
      */
     public void testGetModuleName() {
-        assertNonNullNonZeroLengthString(getGenerator().getModuleName());
+        assertNonNullNonZeroLengthString(getModule().getName());
     }
 
     /**
-     * Test of getModuleDescription method.
+     * Test of getting module description.
      */
     public void testGetModuleDescription() {
-        assertNonNullNonZeroLengthString(getGenerator().getModuleDescription());
+        assertNonNullNonZeroLengthString(
+                getModule().getInfo(ModuleInterface.DESCRIPTION));
     }
 
     private void assertNonNullNonZeroLengthString(String s) {
@@ -195,24 +198,19 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
     }
 
     /**
-     * Test of getModuleAuthor method.
+     * Test getting Author.
      */
     public void testGetModuleAuthor() {
-        assertNonNullNonZeroLengthString(getGenerator().getModuleAuthor());
+        assertNonNullNonZeroLengthString(
+                getModule().getInfo(ModuleInterface.AUTHOR));
     }
 
     /**
-     * Test of getModuleVersion method.
+     * Test getting Version.
      */
     public void testGetModuleVersion() {
-        assertNonNullNonZeroLengthString(getGenerator().getModuleVersion());
-    }
-
-    /**
-     * Test of getModuleKey method.
-     */
-    public void testGetModuleKey() {
-        assertNonNullNonZeroLengthString(getGenerator().getModuleKey());
+        assertNonNullNonZeroLengthString(
+                getModule().getInfo(ModuleInterface.VERSION));
     }
 
     private void setTaggedValue(Object o, String name, String value) {
@@ -235,7 +233,7 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
             + "\\s*AInterface.*";
         assertTrue(code.matches(re));
 
-        code = getGenerator().generate(aExtended);
+        code = getGenerator().generateClassifier(aExtended);
         re = "(?m)(?s).*class\\s+AExtended\\s*:\\s*public\\s*AClass.*";
         assertTrue(code.matches(re));
 
@@ -247,7 +245,7 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
         re = "(?m)(?s).*class\\s+AClass\\s*:\\s*private\\s*AInterface.*";
         assertTrue(code.matches(re));
 
-        code = getGenerator().generate(aExtended);
+        code = getGenerator().generateClassifier(aExtended);
         re = "(?m)(?s).*class\\s+AExtended\\s*:\\s*private\\s*AClass.*";
         assertTrue(code.matches(re));   
     }
@@ -275,11 +273,11 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
     public void testAttributeMultiplicity0NAnd1N() {
         String re = "(?m)(?s)\\s*std\\s*::\\s*vector\\s*"
             + "<\\s*int\\s*>\\s+myAttr\\s*;";
-        String code = getGenerator().generate(
-            createAttrWithMultiplicity("myAttr", "0..n"));
+        String code = getGenerator().generateAttribute(
+            createAttrWithMultiplicity("myAttr", "0..n"), false);
         assertTrue(code.matches(re));
-        code = getGenerator().generate(
-            createAttrWithMultiplicity("myAttr", "0..n"));
+        code = getGenerator().generateAttribute(
+            createAttrWithMultiplicity("myAttr", "0..n"), false);
         assertTrue(code.matches(re));
     }
     
@@ -290,11 +288,11 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
     public void testAttributeMultiplicity0NAnd1NList() {
         String re = "(?m)(?s)\\s*std\\s*::\\s*list\\s*"
             + "<\\s*int\\s*>\\s+myAttr\\s*;";
-        String code = getGenerator().generate(
-            createAttrWithMultiplicity("myAttr", "0..n", "list"));
+        String code = getGenerator().generateAttribute(
+            createAttrWithMultiplicity("myAttr", "0..n", "list"), false);
         assertTrue(code.matches(re));
-        code = getGenerator().generate(
-            createAttrWithMultiplicity("myAttr", "1..n", "list"));
+        code = getGenerator().generateAttribute(
+            createAttrWithMultiplicity("myAttr", "1..n", "list"), false);
         assertTrue(code.matches(re));
     }
 
@@ -305,8 +303,8 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
     public void testAttributeMultiplicity0NAnd1NStringMap() {
         String re = "(?m)(?s)\\s*std\\s*::\\s*map\\s*"
             + "<\\s*std\\s*::\\s*string\\s*,\\s*int\\s*>\\s+myAttr\\s*;";
-        String code = getGenerator().generate(
-            createAttrWithMultiplicity("myAttr", "0..n", "stringmap"));
+        String code = getGenerator().generateAttribute(
+            createAttrWithMultiplicity("myAttr", "0..n", "stringmap"), false);
         assertTrue(code.matches(re));
     }
 
@@ -316,8 +314,8 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
      */
     public void testAttributeMultiplicity01() {
         String re = "(?m)(?s)\\s*int\\s*\\*\\s*myAttr\\s*;";
-        String code = getGenerator().generate(
-            createAttrWithMultiplicity("myAttr", "0..1"));
+        String code = getGenerator().generateAttribute(
+            createAttrWithMultiplicity("myAttr", "0..1"), false);
         assertTrue(code.matches(re));
     }
 
@@ -340,8 +338,8 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
      */
     public void testGenerateConstructor() {
         // generate AClass::AClass()
-        String strConstr = getGenerator().generate(
-            buildConstructor(getAClass()));
+        String strConstr = getGenerator().generateOperation(
+            buildConstructor(getAClass()), false);
         assertNotNull(strConstr);
         LOG.debug("generated constructor is '" + strConstr + "'");
         assertEquals("AClass()", strConstr.trim());

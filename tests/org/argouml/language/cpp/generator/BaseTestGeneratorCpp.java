@@ -31,6 +31,8 @@ import junit.framework.TestCase;
 import org.argouml.kernel.ProjectManager;
 import org.argouml.model.CoreFactory;
 import org.argouml.model.Model;
+import org.argouml.moduleloader.ModuleInterface;
+import org.argouml.uml.generator.GeneratorManager;
 
 /**
  * The Base class of all the TestCases for the GeneratorCpp class.
@@ -59,6 +61,11 @@ class BaseTestGeneratorCpp extends TestCase {
     private GeneratorCpp generator;
 
     /**
+     * The C++ module used in the test fixtures..
+     */
+    private ModuleInterface module;
+
+    /**
      * The AClass model element.
      */
     private Object aClass;
@@ -72,7 +79,11 @@ class BaseTestGeneratorCpp extends TestCase {
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() {
-        setGenerator(GeneratorCpp.getInstance());
+        setModule(new ModuleCpp());
+        getModule().enable();
+
+        setGenerator((GeneratorCpp) GeneratorManager.getInstance()
+                .getGenerator(GeneratorCpp.LANGUAGE_NAME));
         setFactory(Model.getCoreFactory());
         setAClass(getFactory().buildClass("AClass"));
 
@@ -155,6 +166,21 @@ class BaseTestGeneratorCpp extends TestCase {
         return generator;
     }
 
+    /**
+     * @param theModule the module to set.
+     */
+    protected void setModule(ModuleInterface theModule) {
+        module = theModule;
+    }
+
+    /**
+     * @return Returns the module.
+     */
+    protected ModuleInterface getModule() {
+        return module;
+    }
+
+    
     /**
      * @param theAClass The aClass to set.
      */

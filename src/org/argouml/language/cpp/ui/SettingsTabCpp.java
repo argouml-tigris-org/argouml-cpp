@@ -42,35 +42,36 @@ import javax.swing.SpinnerNumberModel;
 
 import org.apache.log4j.Logger;
 import org.argouml.application.ArgoVersion;
-import org.argouml.application.helpers.SettingsTabHelper;
+import org.argouml.i18n.Translator;
 import org.argouml.language.cpp.generator.GeneratorCpp;
 import org.argouml.language.cpp.generator.Section;
+import org.argouml.moduleloader.ModuleInterface;
+import org.argouml.ui.GUI;
+import org.argouml.ui.GUISettingsTabInterface;
 
 
 /**
  * Settings tab for the C++ code generator.
  */
-public class SettingsTabCpp extends SettingsTabHelper
-    
+public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
 {
     private static final Logger LOG = Logger.getLogger(SettingsTabCpp.class);
 
+    private JPanel topPanel;
     private JSpinner indent;
     private JCheckBox verboseDocs;
     private JCheckBox lfBeforeCurly;
     private JComboBox useSect;
 
-    /**
-     * Creates the widgets but do not initialize them with the values
-     * (this is handleSettingsTabRefresh() duty).
+    /*
+     * Build the panel to be used for our settings tab.
      */
-    public SettingsTabCpp() {
-        super();
+    private JPanel buildPanel() {
         LOG.debug("SettingsTabCpp being created...");
-
-        setLayout(new BorderLayout());
         JPanel top = new JPanel();
-        top.setLayout(new GridBagLayout());
+        top.setLayout(new BorderLayout());
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
 
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.anchor = GridBagConstraints.WEST;
@@ -83,7 +84,7 @@ public class SettingsTabCpp extends SettingsTabHelper
         constraints.insets = new Insets(0, 30, 0, 4);
 
         // adds indent width spinner
-        JLabel label = createLabel("cpp.indent");
+        JLabel label = new JLabel(Translator.localize("cpp.indent"));
         // The actual value is loaded in handleSettingsTabRefresh()
         Integer spinVal = new Integer(4); 
         Integer spinMin = new Integer(0);
@@ -98,40 +99,41 @@ public class SettingsTabCpp extends SettingsTabHelper
         indentPanel.add(Box.createRigidArea(new Dimension(5, 0)));
         indentPanel.add(indent);
         indentPanel.add(Box.createHorizontalGlue());
-        top.add(indentPanel, constraints);
+        panel.add(indentPanel, constraints);
         
-        verboseDocs = createCheckBox("cpp.verbose-docs");
-        top.add(verboseDocs, constraints);
+        verboseDocs = new JCheckBox(Translator.localize("cpp.verbose-docs"));
+        panel.add(verboseDocs, constraints);
 
-        lfBeforeCurly = createCheckBox("cpp.lf-before-curly");
-        top.add(lfBeforeCurly, constraints);
+        lfBeforeCurly = new JCheckBox(Translator
+                .localize("cpp.lf-before-curly"));
+        panel.add(lfBeforeCurly, constraints);
         
         // adds section combobox
         String[] sectOpts = new String[3];
-        sectOpts[Section.SECT_NONE] = localize("cpp.sections.none"); 
-        sectOpts[Section.SECT_NORMAL] = localize("cpp.sections.normal"); 
-        sectOpts[Section.SECT_BRIEF] = localize("cpp.sections.brief"); 
+        sectOpts[Section.SECT_NONE] = Translator.localize("cpp.sections.none");
+        sectOpts[Section.SECT_NORMAL] = Translator
+                .localize("cpp.sections.normal");
+        sectOpts[Section.SECT_BRIEF] = Translator
+                .localize("cpp.sections.brief"); 
         useSect = new JComboBox(sectOpts);
-        label = createLabel("cpp.sections");
+        label = new JLabel(Translator.localize("cpp.sections"));
         label.setLabelFor(useSect);
         JPanel sectPanel =
             new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
         sectPanel.add(label);
         sectPanel.add(useSect);
-        top.add(sectPanel, constraints);
+        panel.add(sectPanel, constraints);
         
 	// TODO: add more options
 
-        add(top, BorderLayout.NORTH);
+        top.add(panel, BorderLayout.NORTH);
 
         LOG.debug("SettingsTabCpp created!");
+        return top;
     }
     
-    /*** implements SettingsTabPanel ***/
-
-    /**
-     * Save any fields changed.
-     * @see org.argouml.application.api.SettingsTabPanel#handleSettingsTabSave
+    /*
+     * @see org.argouml.ui.GUISettingsTabInterface#handleSettingsTabSave()
      */
     public void handleSettingsTabSave() {
         GeneratorCpp cpp = GeneratorCpp.getInstance();
@@ -142,17 +144,14 @@ public class SettingsTabCpp extends SettingsTabHelper
         cpp.setUseSect(useSect.getSelectedIndex());
     }
 
-    /**
-     * Cancel any changes.
-     * @see org.argouml.application.api.SettingsTabPanel#handleSettingsTabCancel
+    /*
+     * @see org.argouml.ui.GUISettingsTabInterface#handleSettingsTabCancel()
      */
     public void handleSettingsTabCancel() {
-
     }
 
-    /**
-     * Load or reload field settings.
-     * @see org.argouml.application.api.SettingsTabPanel#handleSettingsTabRefresh
+    /*
+     * @see org.argouml.ui.GUISettingsTabInterface#handleSettingsTabRefresh()
      */
     public void handleSettingsTabRefresh() {
         GeneratorCpp cpp = GeneratorCpp.getInstance();
@@ -162,40 +161,70 @@ public class SettingsTabCpp extends SettingsTabHelper
         useSect.setSelectedIndex(cpp.getUseSect());
     }
 
-    /**
+    /*
      * @see org.argouml.ui.GUISettingsTabInterface#handleResetToDefault()
      */
     public void handleResetToDefault() {
         // Do nothing - these buttons are not shown.
     }
 
-    /**
+    /*
      * @see org.argouml.ui.GUISettingsTabInterface#getTabKey()
      */
     public String getTabKey() { return "cpp.tabname"; }
-
-    /**
-     * @see org.argouml.application.api.ArgoModule#getModuleName()
+    
+    /*
+     * @see org.argouml.ui.GUISettingsTabInterface#getTabPanel()
      */
-    public String getModuleName() { return "SettingsTabCpp"; }
+    public JPanel getTabPanel() {
+        // defer building this until needed
+        if (topPanel == null) {
+            topPanel = buildPanel();
+        }
+        return topPanel;
+    }
 
-    /**
-     * @see org.argouml.application.api.ArgoModule#getModuleDescription()
-     */
-    public String getModuleDescription() { return "C++ Settings"; }
 
-    /**
-     * @see org.argouml.application.api.ArgoModule#getModuleVersion()
+    /*
+     * @see org.argouml.moduleloader.ModuleInterface#getName()
      */
-    public String getModuleVersion() { return ArgoVersion.getVersion(); }
+    public String getName() {
+        return "SettingsTabCpp";
+    }
 
-    /**
-     * @see org.argouml.application.api.ArgoModule#getModuleAuthor()
+    /*
+     * @see org.argouml.moduleloader.ModuleInterface#getInfo(int)
      */
-    public String getModuleAuthor() { return "Daniele Tamino"; }
+    public String getInfo(int type) {
+        switch (type) {
+        case ModuleInterface.AUTHOR:
+            return "Daniele Tamino";
+        case ModuleInterface.DESCRIPTION:
+            return "C++ Settings";
+        case ModuleInterface.VERSION:
+            return ArgoVersion.getVersion();
+        default:
+            return null;
+        }
+    }
 
-    /**
-     * @see org.argouml.application.api.ArgoModule#getModuleKey()
+    /*
+     * @see org.argouml.moduleloader.ModuleInterface#enable()
      */
-    public String getModuleKey() { return "cpp.module"; }
+    public boolean enable() {
+        GUI.getInstance().addSettingsTab(this);
+        return true;
+    }
+    
+    /*
+     * Does nothing.  Settings tabs can't be removed after they've been added.
+     * 
+     * @see org.argouml.moduleloader.ModuleInterface#disable()
+     */
+    public boolean disable() {
+        return false;
+    }
+
+
+
 }
