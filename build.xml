@@ -111,15 +111,16 @@ round-trip engineering for C++ projects.
     <!-- Load ArgoUML properties, including the version -->
     <!-- we really need an absolute path for argo.root.dir -->
     <!-- if it is set in a property file before now, it must be absolute -->
-    <property name="argo.root.dir" value="${basedir}/../argouml"/>
+    <property name="argo.root.dir" value="${basedir}/.."/>
     <property file="${override.build.properties}"/>
 
- 	<!-- If not set by the override file we still need this one for antlr. -->
-    <property name="argo.src.dir" value="${argo.root.dir}/src_new"/>
+    <!-- If not set by the override file we still need this one for antlr. -->
+    <property name="argo.src.dir" value="${argo.root.dir}/argouml/src_new"/>
 
     <property file="${argo.src.dir}/default.properties"/>
-
- 	<property name="developer.lib.dir" value="${argo.build.dir}"/>
+   
+    <echo message="${argo.root.dir} ${argo.src.dir} ${junit.jar.path} ${ant.home}"/>
+    <property name="developer.lib.dir" value="${argo.build.dir}"/>
 
     <property name="debug" value="on"/>
     <property name="optimize" value="on"/>
@@ -150,11 +151,9 @@ round-trip engineering for C++ projects.
     <path id="module.antlr-genparser.classpath">
       <pathelement location="${antlrall.jar.path}"/>
     </path>
- 	
- 	<property name="argo.ant.home" value="${argo.tools.dir}/ant-1.6.2"/>
-    
+
     <path id="ant.optional.classpath">
-      <pathelement location="${argo.ant.home}/libopt/ant-junit.jar"/>
+      <pathelement location="${ant.home}/libopt/ant-junit.jar"/>
       <pathelement location="${junit.jar.path}"/>
       <pathelement location="${jdepend.jar.path}"/>
       <pathelement location="${javasrc.jar.path}"/>
@@ -162,13 +161,13 @@ round-trip engineering for C++ projects.
 
     <taskdef classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask" name="junit">
       <classpath>
-	      <path refid="ant.optional.classpath"/>
+        <path refid="ant.optional.classpath"/>
       </classpath>
     </taskdef>
-
+   
     <taskdef classname="org.apache.tools.ant.taskdefs.optional.junit.XMLResultAggregator" name="junitreport">
       <classpath>
-	      <path refid="ant.optional.classpath"/>
+        <path refid="ant.optional.classpath"/>
       </classpath>
     </taskdef>
 

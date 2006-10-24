@@ -47,7 +47,7 @@ fi
 #
 # build.sh always calls the version of ant distributed with ArgoUML
 #
-ANT_HOME=../argouml/tools/ant-1.6.2
+ANT_HOME=../argouml/tools/apache-ant-1.6.5
 
 # 	+--------------------------------------------------------------------+
 # 	| Add required .jar files to local classpath string                  |
