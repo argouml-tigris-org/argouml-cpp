@@ -304,20 +304,8 @@ public class ModelerImpl implements Modeler {
      * @return the operation
      */
     private Object buildOperation(Object me, Object returnType) {
-        Collection propertyChangeListeners = getPropertyChangeListeners(me);
-        return Model.getCoreFactory().buildOperation(me, getModel(),
-            returnType, propertyChangeListeners);
-    }
-
-    /**
-     * Retrieve the property change listeners for the given model element.
-     *
-     * @param me the model element
-     * @return property change listeners for me
-     */
-    private static Collection getPropertyChangeListeners(Object me) {
-        return ProjectManager.getManager().getCurrentProject()
-                .findFigsForMember(me);
+        return Model.getCoreFactory()
+                .buildOperation(me, getModel(), returnType);
     }
 
     /**
@@ -327,7 +315,7 @@ public class ModelerImpl implements Modeler {
         if (!ignore()) {
             Object oper = contextStack.pop();
             assert Model.getFacade().isAOperation(oper) : ""
-                + "The poped context (\"" + oper + "\") isn't an operation!";
+                + "The popped context (\"" + oper + "\") isn't an operation!";
             removeOperationIfDuplicate(oper);
         }
     }
@@ -394,15 +382,14 @@ public class ModelerImpl implements Modeler {
             if (Model.getFacade().isAOperation(contextStack.peek())) {
                 // set the operation return type
                 Object rv =
-		    Model.getCoreHelper().getReturnParameter(
-			contextStack.peek());
+		    Model.getCoreHelper().getReturnParameters(
+			contextStack.peek()).get(0);
                 Model.getCoreHelper().setType(rv, theType);
 
             } else if (Model.getFacade().isAClass(contextStack.peek())) {
                 Object attr =
 		    Model.getCoreFactory().buildAttribute(
-			    contextStack.peek(), getModel(), theType,
-			    getPropertyChangeListeners(contextStack.peek()));
+			    contextStack.peek(), getModel(), theType);
                 if (contextAccessSpecifier != null) {
                     Model.getCoreHelper().setVisibility(attr,
                         contextAccessSpecifier);
@@ -575,8 +562,7 @@ public class ModelerImpl implements Modeler {
                 Object param =
 		    Model.getCoreFactory().buildParameter(
 			    oper,
-			    getModel(), getVoid(),
-			    getPropertyChangeListeners(contextStack.peek()));
+			    getModel(), getVoid());
                 // add the created parameter to the stack
                 contextStack.push(param);
             }
