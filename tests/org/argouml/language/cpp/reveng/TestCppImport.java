@@ -33,6 +33,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -261,8 +262,11 @@ public class TestCppImport extends TestCase {
             "The Base::foo(xxx) operation doesn't exist in the model!",
             baseFooOper);
         assertTrue(Model.getFacade().isAbstract(baseFooOper));
-        Object baseFooRv =
-            Model.getCoreHelper().getReturnParameter(baseFooOper);
+        List returnParams = 
+            Model.getCoreHelper().getReturnParameters(baseFooOper);
+        assertEquals("Unexpected number of return parameters", 
+                1, returnParams.size());
+        Object baseFooRv = returnParams.get(0);
         assertEquals("unsigned int", Model.getFacade().getName(
             Model.getFacade().getType(baseFooRv)));
         Collection params = Model.getFacade().getParameters(baseFooOper);
@@ -288,19 +292,26 @@ public class TestCppImport extends TestCase {
             "The Base::makeMeADummy() operation doesn't exit in the model!",
             baseMakeMeADummyOper);
         assertTrue(Model.getFacade().isProtected(baseMakeMeADummyOper));
-        assertEquals(dummyStruct, Model.getFacade().getType(
-            Model.getCoreHelper().getReturnParameter(baseMakeMeADummyOper)));
+        
+        returnParams = 
+            Model.getCoreHelper().getReturnParameters(baseMakeMeADummyOper);
+        assertEquals("Unexpected number of return parameters", 1, returnParams
+                .size());
+        assertEquals(dummyStruct, 
+                Model.getFacade().getType(returnParams.get(0)));
 
         Object baseHelperMethodOper =
             findModelElementWithName(opers, "helperMethod");
         assertNotNull(
             "The Base::helperMethod(xxx) operation doesn't exist in the model!",
             baseHelperMethodOper);
+        returnParams = Model.getCoreHelper().getReturnParameters(
+                baseHelperMethodOper);
+        assertEquals("Unexpected number of return parameters", 1, 
+                returnParams.size());
         assertEquals("void", Model.getFacade()
                 .getName(
-                    Model.getFacade().getType(
-                        Model.getCoreHelper().getReturnParameter(
-                            baseHelperMethodOper))));
+                    Model.getFacade().getType(returnParams.get(0))));
         assertTrue(Model.getFacade().isPrivate(baseHelperMethodOper));
         params = Model.getFacade().getParameters(baseHelperMethodOper);
         Object baseHelperMethodCstrParam =
@@ -345,7 +356,8 @@ public class TestCppImport extends TestCase {
         assertNotNull(
                 findModelElementWithName(derivedCtorStereotypes, "create"));
         // verify Derived destructor
-        Object derivedDtor = findModelElementWithName(derivedOpers, "~Derived");
+        Object derivedDtor = findModelElementWithName(derivedOpers, 
+                "~Derived");
         assertNotNull("The Derived destructor wasn't found!", derivedDtor);
         Collection derivedDtorStereotypes =
             Model.getFacade().getStereotypes(derivedDtor);
