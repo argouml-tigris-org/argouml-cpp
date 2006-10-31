@@ -46,8 +46,7 @@ import org.argouml.kernel.ProjectManager;
 import org.argouml.model.Model;
 import org.argouml.uml.reveng.DiagramInterface;
 import org.argouml.uml.reveng.Import;
-import org.tigris.gef.base.Editor;
-import org.tigris.gef.base.Globals;
+import org.argouml.uml.reveng.ImportSettings;
 
 /**
  * Tests the {@link CppImport} class.
@@ -114,48 +113,24 @@ public class TestCppImport extends TestCase {
      */
     private Project proj;
 
-    /**
-     * The editor(?).
-     */
-    private Editor ed;
 
     /**
-     * The diagram interface.
+     * The import settings to be used for tests.
      */
-    private DiagramInterface di;
+    private ImportSettings settings; 
 
-    /**
-     * The Import that contains details about the user configured import.
-     */
-    private Import imp;
-
-    /**
-     * @throws Exception if something goes wrong
+    /*
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception {
         super.setUp();
         tmpDir = new File(System.getProperty(SYSPROPNAME_TMPDIR));
         proj = ProjectManager.getManager().getCurrentProject();
-        ed = Globals.curEditor();
-        di = new DiagramInterface(ed);
-        imp = null;
-        // FIXME: The following fails because it can't find PluggableImport
-        // modules. I must get ModuleLoader to load the CppImport module.
-        // From a different perspective, I don't like being too tied to the
-        // Import class, since it seams to be doing too much - i.e., it
-        // contains things related to the view, to the model and to the
-        // controller, while it should be only a controller. The view
-        // (e.g., details pannel) and the model (e.g.,
-        // CreateDiagramsChecked, DiscendDirectoriesRecursively and
-        // Attribute properties).
-        // Bottom line: for now I simply don't need it!
-        //!imp = new Import();
         cppImp = new CppImport();
+        settings = new DummySettings();
     }
 
-    /**
-     * @throws Exception
+    /*
      * @see junit.framework.TestCase#tearDown()
      */
     protected void tearDown() throws Exception {
@@ -187,7 +162,7 @@ public class TestCppImport extends TestCase {
         genDir = setUpDirectory4Test("testParseFileSimpleClass");
         File srcFile = setupSrcFile4Reverse("SimpleClass.cpp");
 
-        cppImp.parseFile(proj, srcFile, di, imp);
+        cppImp.parseFile(proj, srcFile, settings);
 
         Collection nss =
             Model.getModelManagementHelper().getAllNamespaces(proj.getModel());
@@ -228,7 +203,7 @@ public class TestCppImport extends TestCase {
         genDir = setUpDirectory4Test("testParseFileDerivedFromAbstract");
         File srcFile = setupSrcFile4Reverse("DerivedFromAbstract.cxx");
 
-        cppImp.parseFile(proj, srcFile, di, imp);
+        cppImp.parseFile(proj, srcFile, settings);
 
         // verify the Dummy struct reveng
         Collection classes =
@@ -449,8 +424,8 @@ public class TestCppImport extends TestCase {
         genDir = setUpDirectory4Test("testParseFileSimpleClass");
         File srcFile = setupSrcFile4Reverse("SimpleClass.cpp");
 
-        cppImp.parseFile(proj, srcFile, di, imp);
-        cppImp.parseFile(proj, srcFile, di, imp); // 2nd call on purpose!
+        cppImp.parseFile(proj, srcFile, settings);
+        cppImp.parseFile(proj, srcFile, settings); // 2nd call on purpose!
 
         Collection nss =
             Model.getModelManagementHelper().getAllNamespaces(proj.getModel());
@@ -481,4 +456,54 @@ public class TestCppImport extends TestCase {
         assertNull(findModelElementWithName(mes2, modelElementName));
         return pack;
     }
+    
+    /**
+     * We don't make use of any settings currently, so this throws an exception
+     * if any calls are made to it. If the importer implements support for some
+     * settings, this class must be modified to return appropriate defaults for
+     * the test setup.
+     */
+    private class DummySettings implements ImportSettings {
+
+        public DiagramInterface getDiagramInterface() {
+            throw new RuntimeException(
+                    "Unexpected call to ImportSettings method");
+        }
+
+        public int getImportLevel() {
+            throw new RuntimeException(
+                    "Unexpected call to ImportSettings method");
+        }
+
+        public Import getImportSession() {
+            throw new RuntimeException(
+                    "Unexpected call to ImportSettings method");
+        }
+
+        public String getInputSourceEncoding() {
+            throw new RuntimeException(
+                    "Unexpected call to ImportSettings method");
+        }
+
+        public boolean isAttributeSelected() {
+            throw new RuntimeException(
+                    "Unexpected call to ImportSettings method");
+        }
+
+        public boolean isChangedOnlySelected() {
+            throw new RuntimeException(
+                    "Unexpected call to ImportSettings method");
+        }
+
+        public boolean isDatatypeSelected() {
+            throw new RuntimeException(
+                    "Unexpected call to ImportSettings method");
+        }
+
+        public boolean isDescendSelected() {
+            throw new RuntimeException(
+                    "Unexpected call to ImportSettings method");
+        }
+    }
+
 }

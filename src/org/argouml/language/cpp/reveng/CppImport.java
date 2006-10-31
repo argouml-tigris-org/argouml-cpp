@@ -24,25 +24,23 @@
 
 package org.argouml.language.cpp.reveng;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
-
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
+import java.io.IOException;
 
 import org.apache.log4j.Logger;
 import org.argouml.application.api.Configuration;
 import org.argouml.application.api.ConfigurationKey;
 import org.argouml.kernel.Project;
-import org.argouml.uml.reveng.DiagramInterface;
-import org.argouml.uml.reveng.FileImportSupport;
-import org.argouml.uml.reveng.Import;
+import org.argouml.moduleloader.ModuleInterface;
+import org.argouml.uml.reveng.FileImportUtils;
+import org.argouml.uml.reveng.ImportInterface;
+import org.argouml.uml.reveng.ImportSettings;
+import org.argouml.uml.reveng.ImporterManager;
 import org.argouml.util.SuffixFilter;
+
+import antlr.RecognitionException;
+import antlr.TokenStreamException;
 
 /**
  * Implementation of the reverse engineering interface of ArgoUML,
@@ -55,7 +53,7 @@ import org.argouml.util.SuffixFilter;
  * @author Luis Sergio Oliveira (euluis)
  * @since 0.19.2
  */
-public class CppImport extends FileImportSupport {
+public class CppImport implements ModuleInterface, ImportInterface {
 
     /** logger */
     private static final Logger LOG = Logger.getLogger(CppImport.class);
@@ -74,44 +72,52 @@ public class CppImport extends FileImportSupport {
     private static final ConfigurationKey KEY_USER_WARNING = Configuration
             .makeKey("cpp", "reveng", "user", "warning");
 
+
     /**
-     * @see org.argouml.application.api.PluggableImport#parseFile(
-     *      org.argouml.kernel.Project, java.lang.Object,
-     *      org.argouml.uml.reveng.DiagramInterface,
-     *      org.argouml.uml.reveng.Import)
+     * Default constructor.
      */
-    public void parseFile(Project p, Object o, DiagramInterface diagram,
-            Import theImport) throws Exception {
+    public CppImport() {
+        super();
+    }
+    
+    /*
+     * @see org.argouml.uml.reveng.ImportInterface#parseFile(org.argouml.kernel.Project, java.lang.Object, org.argouml.uml.reveng.ImportSettings)
+     */
+    public void parseFile(Project p, Object o, ImportSettings settings)
+            throws ImportException {
+
         LOG.warn("Not fully implemented yet!");
 
         if (o instanceof File) {
             File f = (File) o;
-            FileInputStream in = new FileInputStream(f);
+            FileInputStream in;
+            try {
+                in = new FileInputStream(f);
+            } catch (IOException e) {
+                throw new ImportException("Error opening file " + f, e);
+            }
             try {
                 Modeler modeler = new ModelerImpl();
                 CPPLexer lexer = new CPPLexer(in);
                 CPPParser parser = new CPPParser(lexer);
-                parser.translation_unit(modeler);
-            } finally {
-                in.close();
-            }
-        } else
-            LOG.error("o isn't a File!");
-    }
+                try {
+                    parser.translation_unit(modeler);
+                } catch (RecognitionException e) {
+                    throw new ImportException("Error parsing " + f, e);
+                } catch (TokenStreamException e) {
+                    throw new ImportException("Error parsing " + f, e);
+                }
 
-    /**
-     * This method is overriden cause it is a nice place to show a warning to
-     * the user about the immaturity of the reveng. TODO: this should be changed
-     * to show options that will be used by the module in reveng.
-     * 
-     * @see org.argouml.application.api.PluggableImport#getConfigPanel()
-     */
-    public JComponent getConfigPanel() {
-        JComponent cfgPanel = super.getConfigPanel();
-        if (userWarning) {
-            warnUser(cfgPanel);
+            } finally {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    // ignore errors on clse
+                }
+            }
+        } else {
+            throw new ImportException("Object: " + o + " isn't a file");
         }
-        return cfgPanel;
     }
 
     /**
@@ -123,9 +129,13 @@ public class CppImport extends FileImportSupport {
      * change often in the future - hopefully removing limitations - so, would
      * the effort of i18n pay off? I don't think so.
      * 
+     * TODO: The method this warning was invoked from is no longer used, so 
+     * it needs to be moved someplace else.  Perhaps it could be put in the
+     * header of the generated source module? - tfm
+     * 
      * @param parentComponent
      */
-    private void warnUser(JComponent parentComponent) {
+    private void warnUser() {
         final String lineSepAndListIndent = System
                 .getProperty("line.separator")
             + "    * ";
@@ -145,21 +155,6 @@ public class CppImport extends FileImportSupport {
             + lineSepAndListIndent + "no operator overload support;"
             + lineSepAndListIndent
             + "very immature, certainly this list needs to grow!";
-        JOptionPane warnDlg = new JOptionPane(warnMsg,
-            JOptionPane.WARNING_MESSAGE);
-        JCheckBox warnAgainButton = new JCheckBox("Don't warn me again", true);
-        JButton okButton = new JButton("OK");
-        warnDlg.setOptions(new Object[] {warnAgainButton, okButton });
-        final JDialog dlg = warnDlg.createDialog(parentComponent,
-            "C++ reveng module limits");
-        okButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dlg.dispose();
-            }
-
-        });
-        dlg.show();
-        userWarning = warnAgainButton.isSelected();
         Configuration.setBoolean(KEY_USER_WARNING, userWarning);
         LOG.debug("userWarning = " + userWarning);
         // Even if the user didn't turn off the warning, we won't show it to
@@ -167,7 +162,7 @@ public class CppImport extends FileImportSupport {
         userWarning = false;
     }
 
-    /**
+    /*
      * The suffix filters for C++ files. Header sufixes are left out, since the
      * module should deal with files that originate translation units.
      */
@@ -178,49 +173,58 @@ public class CppImport extends FileImportSupport {
         new SuffixFilter("CPP", "C++ source files"),
         new SuffixFilter("cpp", "C++ source files"), };
 
-    /**
-     * TODO: I would like that an option to have all suffix applied to exist.
-     * Maybe this has to be fixed within ArgoUML...
-     * 
-     * @see org.argouml.uml.reveng.FileImportSupport#getSuffixFilters()
+    /*
+     * @see org.argouml.uml.reveng.ImportInterface#getSuffixFilters()
      */
     public SuffixFilter[] getSuffixFilters() {
         return CPP_SUFFIX_FILTERS;
     }
 
-    /**
-     * @see org.argouml.application.api.ArgoModule#getModuleName()
+    /*
+     * @see org.argouml.uml.reveng.ImportInterface#isParseable(java.io.File)
      */
-    public String getModuleName() {
+    public boolean isParseable(File file) {
+        return FileImportUtils.matchesSuffix(file, getSuffixFilters());
+    }
+    
+    /*
+     * @see org.argouml.moduleloader.ModuleInterface#enable()
+     */
+    public boolean enable() {
+        ImporterManager.getInstance().addimporter(this);
+        return true;
+    }
+
+    /*
+     * @see org.argouml.moduleloader.ModuleInterface#disable()
+     */
+    public boolean disable() {
+        // Nothing to do here either
+        return true;
+    }
+
+    /*
+     * @see org.argouml.moduleloader.ModuleInterface#getName()
+     */
+    public String getName() {
         return "C++";
     }
 
-    /**
-     * @see org.argouml.application.api.ArgoModule#getModuleDescription()
+    /*
+     * @see org.argouml.moduleloader.ModuleInterface#getInfo(int)
      */
-    public String getModuleDescription() {
-        return "C++ reverse engineering support";
+    public String getInfo(int type) {
+        switch (type) {
+        case AUTHOR:
+            return "Luis Sergio Oliveira (euluis)";
+        case DESCRIPTION:
+            return "C++ reverse engineering support";            
+        case VERSION:
+            return "0.00";
+        default:
+            return null;
+        }
     }
 
-    /**
-     * @see org.argouml.application.api.ArgoModule#getModuleKey()
-     */
-    public String getModuleKey() {
-        return "module.language.cpp.reveng";
-    }
-
-    /**
-     * @see org.argouml.application.api.ArgoModule#getModuleAuthor()
-     */
-    public String getModuleAuthor() {
-        return "Luis Sergio Oliveira (euluis)";
-    }
-
-    /**
-     * @see org.argouml.application.api.ArgoModule#getModuleVersion()
-     */
-    public String getModuleVersion() {
-        return "0.00";
-    }
 
 }
