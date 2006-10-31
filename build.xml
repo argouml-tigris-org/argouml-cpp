@@ -111,11 +111,11 @@ round-trip engineering for C++ projects.
     <!-- Load ArgoUML properties, including the version -->
     <!-- we really need an absolute path for argo.root.dir -->
     <!-- if it is set in a property file before now, it must be absolute -->
-    <property name="argo.root.dir" value="${basedir}/.."/>
+    <property name="argo.root.dir" value="${basedir}/../argouml"/>
     <property file="${override.build.properties}"/>
 
     <!-- If not set by the override file we still need this one for antlr. -->
-    <property name="argo.src.dir" value="${argo.root.dir}/argouml/src_new"/>
+    <property name="argo.src.dir" value="${argo.root.dir}/src_new"/>
 
     <property file="${argo.src.dir}/default.properties"/>
    
