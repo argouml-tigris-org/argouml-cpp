@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ArgoUML C++ module
+Bundle-Name: %pluginName
 Bundle-SymbolicName: org.argouml.module.cpp
 Bundle-Version: 1.0.0
 Bundle-ClassPath: argouml-module-cpp.jar,
@@ -13,3 +13,4 @@ Export-Package: META-INF,
  org.argouml.language.cpp.reveng,
  org.argouml.language.cpp.ui
 Require-Bundle: org.argouml
+Bundle-Vendor: %pluginProvider
