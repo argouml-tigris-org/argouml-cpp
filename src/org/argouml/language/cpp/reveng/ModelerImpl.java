@@ -74,21 +74,21 @@ public class ModelerImpl implements Modeler {
      */
     private static final Logger LOG = Logger.getLogger(ModelerImpl.class);
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#beginTranslationUnit()
      */
     public void beginTranslationUnit() {
         // for now we don't need to do anything here
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#endTranslationUnit()
      */
     public void endTranslationUnit() {
         // for now we don't need to do anything here
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#enterNamespaceScope(java.lang.String)
      */
     public void enterNamespaceScope(String nsName) {
@@ -159,18 +159,18 @@ public class ModelerImpl implements Modeler {
         return ProjectManager.getManager().getCurrentProject().getModel();
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#exitNamespaceScope()
      */
     public void exitNamespaceScope() {
         if (!ignore()) {
             Object ns = contextStack.pop();
-            assert Model.getFacade().isANamespace(ns) : "The poped context (\""
+            assert Model.getFacade().isANamespace(ns) : "The popped context (\""
                 + ns + "\") isn't a namespace!";
         }
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#makeNamespaceAlias(java.lang.String,
      *      java.lang.String)
      */
@@ -179,7 +179,7 @@ public class ModelerImpl implements Modeler {
         // modeled
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#beginClassDefinition(java.lang.String,
      *      java.lang.String)
      */
@@ -236,19 +236,19 @@ public class ModelerImpl implements Modeler {
         return null;
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#endClassDefinition()
      */
     public void endClassDefinition() {
         if (!ignore()) {
             Object cls = contextStack.pop();
-            assert Model.getFacade().isAClass(cls) : "The poped context (\""
+            assert Model.getFacade().isAClass(cls) : "The popped context (\""
                 + cls + "\") isn't a class!";
             contextAccessSpecifier = null;
         }
     }
 
-    /**
+    /*
      * FIXME: I think that with nested classes having only one access specifier
      * won't work. This must be implemented in a stack scheme, where the
      * constructs that can work with access specifiers will need to manage the
@@ -271,7 +271,7 @@ public class ModelerImpl implements Modeler {
         }
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#beginFunctionDeclaration()
      */
     public void beginFunctionDeclaration() {
@@ -308,7 +308,7 @@ public class ModelerImpl implements Modeler {
                 .buildOperation(me, getModel(), returnType);
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#endFunctionDeclaration()
      */
     public void endFunctionDeclaration() {
@@ -357,7 +357,7 @@ public class ModelerImpl implements Modeler {
         return true;
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#declarationSpecifiers(java.util.List)
      */
     public void declarationSpecifiers(List declSpecs) {
@@ -365,7 +365,7 @@ public class ModelerImpl implements Modeler {
 
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#simpleTypeSpecifier(java.util.List)
      */
     public void simpleTypeSpecifier(List sts) {
@@ -440,7 +440,7 @@ public class ModelerImpl implements Modeler {
         return typeName;
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#directDeclarator(java.lang.String)
      */
     public void directDeclarator(String id) {
@@ -480,14 +480,14 @@ public class ModelerImpl implements Modeler {
         }
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#storageClassSpecifier(java.lang.String)
      */
     public void storageClassSpecifier(String storageClassSpec) {
         // TODO: Auto-generated method stub
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#typeQualifier(java.lang.String)
      */
     public void typeQualifier(String typeQualifier) {
@@ -495,7 +495,7 @@ public class ModelerImpl implements Modeler {
 
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#beginFunctionDefinition()
      */
     public void beginFunctionDefinition() {
@@ -511,7 +511,7 @@ public class ModelerImpl implements Modeler {
         }
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#endFunctionDefinition()
      */
     public void endFunctionDefinition() {
@@ -534,7 +534,7 @@ public class ModelerImpl implements Modeler {
         return memberDeclarationCount > 0;
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#functionDirectDeclarator(java.lang.String)
      */
     public void functionDirectDeclarator(String identifier) {
@@ -551,7 +551,7 @@ public class ModelerImpl implements Modeler {
         return compoundStatementCount > 0 || ignoreableFunctionDefinition;
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#beginParameterDeclaration()
      */
     public void beginParameterDeclaration() {
@@ -569,7 +569,7 @@ public class ModelerImpl implements Modeler {
         }
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#endParameterDeclaration()
      */
     public void endParameterDeclaration() {
@@ -594,7 +594,7 @@ public class ModelerImpl implements Modeler {
         }
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#beginInitializer()
      */
     public void beginInitializer() {
@@ -608,42 +608,42 @@ public class ModelerImpl implements Modeler {
         }
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#endInitializer()
      */
     public void endInitializer() {
         // do nothing
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#beginMemberDeclaration()
      */
     public void beginMemberDeclaration() {
         memberDeclarationCount++;
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#endMemberDeclaration()
      */
     public void endMemberDeclaration() {
         memberDeclarationCount--;
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#beginCompoundStatement()
      */
     public void beginCompoundStatement() {
         compoundStatementCount++;
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#endCompoundStatement()
      */
     public void endCompoundStatement() {
         compoundStatementCount--;
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#beginPtrOperator()
      */
     public void beginPtrOperator() {
@@ -655,7 +655,7 @@ public class ModelerImpl implements Modeler {
         }
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#endPtrOperator()
      */
     public void endPtrOperator() {
@@ -666,7 +666,7 @@ public class ModelerImpl implements Modeler {
         }
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#ptrOperator(java.lang.String)
      */
     public void ptrOperator(String ptrSymbol) {
@@ -697,7 +697,7 @@ public class ModelerImpl implements Modeler {
         }
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#ptrToMember(java.lang.String,
      *      java.lang.String)
      */
@@ -710,7 +710,7 @@ public class ModelerImpl implements Modeler {
      */
     private BaseSpecifierModeler baseSpecifierModeler;
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#beginBaseSpecifier()
      */
     public void beginBaseSpecifier() {
@@ -719,7 +719,7 @@ public class ModelerImpl implements Modeler {
 	}
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#endBaseSpecifier()
      */
     public void endBaseSpecifier() {
@@ -729,7 +729,7 @@ public class ModelerImpl implements Modeler {
         }
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#baseSpecifier(java.lang.String,
      *      boolean)
      */
@@ -815,7 +815,7 @@ public class ModelerImpl implements Modeler {
      */
     private CtorModeler ctorModeler;
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#beginCtorDefinition()
      */
     public void beginCtorDefinition() {
@@ -856,7 +856,7 @@ public class ModelerImpl implements Modeler {
         return stereotype;
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#endCtorDefinition()
      */
     public void endCtorDefinition() {
@@ -865,7 +865,7 @@ public class ModelerImpl implements Modeler {
 	}
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#qualifiedCtorId(java.lang.String)
      */
     public void qualifiedCtorId(String identifier) {
@@ -941,14 +941,14 @@ public class ModelerImpl implements Modeler {
 
     private DtorModeler dtorModeler;
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#beginDtorHead()
      */
     public void beginDtorHead() {
         dtorModeler = new DtorModeler();
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#endDtorHead()
      */
     public void endDtorHead() {
@@ -956,7 +956,7 @@ public class ModelerImpl implements Modeler {
         dtorModeler = null;
     }
 
-    /**
+    /*
      * @see org.argouml.language.cpp.reveng.Modeler#dtorDeclarator(java.lang.String)
      */
     public void dtorDeclarator(String qualifiedId) {
