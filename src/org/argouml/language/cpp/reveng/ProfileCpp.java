@@ -33,7 +33,7 @@ import org.argouml.model.Model;
  * The UML profile for C++. This might also take the form of an UML model, but,
  * for now it is this way.
  * 
- * TODO: should extend <code>org.argouml.uml.Profile</code>, but, I don't
+ * TODO: should extend {@link org.argouml.uml.Profile}, but, I don't
  * really understand what is attempted there...
  * 
  * TODO: discuss with Daniele what to do about this problem. Both the generator
@@ -46,6 +46,10 @@ import org.argouml.model.Model;
  * ArgoUML model, using its model subsystem. This would be a simple way to offer
  * the user the functionality of applying the C++ profile into a model he is
  * working on!
+ * 
+ * TODO: The String tag types here should be upgraded to UML 1.4 TagDefinition
+ * tag types at some point.  These could be stored in an XMI file containing
+ * the C++ profile along with associated Stereotype definitions. - tfmorris
  * 
  * @author Luis Sergio Oliveira (euluis)
  * @since 0.19.3
