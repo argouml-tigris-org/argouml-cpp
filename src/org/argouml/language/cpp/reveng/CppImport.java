@@ -27,6 +27,7 @@ package org.argouml.language.cpp.reveng;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.argouml.application.api.Configuration;
@@ -224,6 +225,13 @@ public class CppImport implements ModuleInterface, ImportInterface {
         default:
             return null;
         }
+    }
+
+    /*
+     * @see org.argouml.uml.reveng.ImportInterface#getImportSettings()
+     */
+    public List getImportSettings() {
+        return null;
     }
 
 
