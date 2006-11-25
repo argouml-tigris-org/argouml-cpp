@@ -89,7 +89,7 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
     /** OtherClass is another class */
     private Object otherClass;
 
-    /**
+    /*
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() {

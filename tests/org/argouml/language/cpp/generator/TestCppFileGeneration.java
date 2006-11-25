@@ -107,7 +107,7 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
      */
     private Object otherClass;
 
-    /**
+    /*
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() {
@@ -120,7 +120,7 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
         tmpDir = new File(System.getProperty(SYSPROPNAME_TMPDIR));
     }
 
-    /**
+    /*
      * @see junit.framework.TestCase#tearDown()
      */
     protected void tearDown() throws IOException {

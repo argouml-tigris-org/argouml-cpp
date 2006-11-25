@@ -55,9 +55,9 @@ public class Section extends AbstractSection {
     private static final String LINE_SEPARATOR =
 	System.getProperty("line.separator");
 
-    /**
+    /*
      * @see org.argouml.uml.generator.AbstractSection#generate(
-     * java.lang.String, java.lang.String)
+     *      java.lang.String, java.lang.String)
      */
     public static String generate(String id, String indent) {
         return (generateTop(id, indent) + generateBottom(id, indent));

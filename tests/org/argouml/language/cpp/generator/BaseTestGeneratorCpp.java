@@ -75,7 +75,7 @@ class BaseTestGeneratorCpp extends TestCase {
      */
     private Object fooMethod;
 
-    /**
+    /*
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() {
