@@ -33,7 +33,6 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -237,11 +236,11 @@ public class TestCppImport extends TestCase {
             "The Base::foo(xxx) operation doesn't exist in the model!",
             baseFooOper);
         assertTrue(Model.getFacade().isAbstract(baseFooOper));
-        List returnParams = 
+        Collection returnParams = 
             Model.getCoreHelper().getReturnParameters(baseFooOper);
         assertEquals("Unexpected number of return parameters", 
                 1, returnParams.size());
-        Object baseFooRv = returnParams.get(0);
+        Object baseFooRv = returnParams.iterator().next();
         assertEquals("unsigned int", Model.getFacade().getName(
             Model.getFacade().getType(baseFooRv)));
         Collection params = Model.getFacade().getParameters(baseFooOper);
@@ -273,7 +272,7 @@ public class TestCppImport extends TestCase {
         assertEquals("Unexpected number of return parameters", 1, returnParams
                 .size());
         assertEquals(dummyStruct, 
-                Model.getFacade().getType(returnParams.get(0)));
+                Model.getFacade().getType(returnParams.iterator().next()));
 
         Object baseHelperMethodOper =
             findModelElementWithName(opers, "helperMethod");
@@ -286,7 +285,7 @@ public class TestCppImport extends TestCase {
                 returnParams.size());
         assertEquals("void", Model.getFacade()
                 .getName(
-                    Model.getFacade().getType(returnParams.get(0))));
+                    Model.getFacade().getType(returnParams.iterator().next())));
         assertTrue(Model.getFacade().isPrivate(baseHelperMethodOper));
         params = Model.getFacade().getParameters(baseHelperMethodOper);
         Object baseHelperMethodCstrParam =
@@ -412,7 +411,7 @@ public class TestCppImport extends TestCase {
 
     /**
      * Test two passes - call twice the
-     * {@link CppImport#parseFile(Project, Object, DiagramInterface, Import)
+     * {@link CppImport#parseFile(Project, Object, ImportSettings)
      * CppImport.parseFile(xxx)}
      * method on the same translation unit. The model elements shouldn't get
      * duplicated.

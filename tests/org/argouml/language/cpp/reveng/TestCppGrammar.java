@@ -30,10 +30,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-import org.easymock.MockControl;
-
 import junit.framework.TestCase;
+
+import org.easymock.MockControl;
 
 /**
  * Basic test of the C++ grammar. This should prove that the grammar generated 
@@ -44,10 +43,6 @@ import junit.framework.TestCase;
  */
 public class TestCppGrammar extends TestCase {
     
-    /**
-     * The Logger for this class.
-     */
-    private static final Logger LOG = Logger.getLogger(TestCppGrammar.class);
     private Modeler modeler;
     private MockControl modelerCtrl;
     

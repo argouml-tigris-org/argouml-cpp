@@ -131,6 +131,9 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
 
     /**
      * Generate a generalization from child to parent
+     * 
+     * @param child the model element which will be generalized by parent
+     * @param parent
      */
     private void setUpAGeneralization(Object child, Object parent) {
         aGeneralization = getFactory().buildGeneralization(child, parent);
@@ -138,6 +141,9 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
 
     /**
      * Generate a realization from cls to iface
+     * 
+     * @param cls
+     * @param iface
      */
     private void setUpARealization(Object cls, Object iface) {
         aRealization = getFactory().buildRealization(cls, iface, getModel());

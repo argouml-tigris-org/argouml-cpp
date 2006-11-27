@@ -42,6 +42,7 @@ import org.argouml.model.UUIDManager;
 /**
  * Tests for GeneratorCpp file generation functionalities, i.e., generateFile2
  * method.
+ * 
  * @see GeneratorCpp
  * @author euluis
  * @since 0.17.3
@@ -54,12 +55,14 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
     /**
      * System newline separator.
      */
-    private static final String LINE_SEPARATOR =
-	System.getProperty("line.separator");
+    private static final String LINE_SEPARATOR = System
+            .getProperty("line.separator");
 
     /**
      * Creates a new instance of TestCppFileGeneration.
-     * @param testName name of the test
+     * 
+     * @param testName
+     *            name of the test
      */
     public TestCppFileGeneration(String testName) {
         super(testName);
@@ -75,23 +78,25 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
 
     /**
      * Enables debugging in IDEs that don't support debugging unit tests...
-     * @param args the arguments given on the commandline
+     * 
+     * @param args
+     *            the arguments given on the commandline
      */
     public static void main(java.lang.String[] args) {
         junit.textui.TestRunner.run(suite());
     }
 
-    /** 
+    /**
      * System temporary directory property name.
      */
     static final String SYSPROPNAME_TMPDIR = "java.io.tmpdir";
 
-    /** 
+    /**
      * Path of the temporary directory in the system.
      */
     private File tmpDir;
 
-    /** 
+    /**
      * Directory to be deleted on tearDown if not null.
      */
     private File genDir;
@@ -102,8 +107,8 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
     private Object otherPack;
 
     /**
-     * The OtherClass class, contained in otherpack, also used in some
-     * of the tests.
+     * The OtherClass class, contained in otherpack, also used in some of the
+     * tests.
      */
     private Object otherClass;
 
@@ -113,8 +118,8 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
     protected void setUp() {
         super.setUp();
         String packageName = "pack";
-        Object aPackage = Model.getModelManagementFactory().
-            buildPackage(packageName, UUIDManager.getInstance().getNewUUID());
+        Object aPackage = Model.getModelManagementFactory().buildPackage(
+                packageName, UUIDManager.getInstance().getNewUUID());
         Model.getCoreHelper().setNamespace(getAClass(), aPackage);
 
         tmpDir = new File(System.getProperty(SYSPROPNAME_TMPDIR));
@@ -131,7 +136,9 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
 
     /**
      * Setup a directory with the given name for the caller test.
-     * @param dirName the directory to be created in the system temporary dir
+     * 
+     * @param dirName
+     *            the directory to be created in the system temporary dir
      * @return the created directory
      */
     private File setUpDirectory4Test(String dirName) {
@@ -139,16 +146,16 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
         generationDir.mkdirs();
         return generationDir;
     }
-    
+
     /*
-     * Get a file generated for the single modelelement elem, with
-     * extension 'ext' (either ".cpp" or ".h").
+     * Get a file generated for the single modelelement elem, with extension
+     * 'ext' (either ".cpp" or ".h").
      */
     private File generateFile(Object elem, String ext) {
         Vector v = new Vector();
         v.add(elem);
-        Collection files =
-            getGenerator().generateFiles(v, genDir.getPath(), false);
+        Collection files = getGenerator().generateFiles(v, genDir.getPath(),
+                false);
         assertFalse(files.isEmpty());
         File genFile = null;
         for (Iterator it = files.iterator(); it.hasNext();) {
@@ -164,9 +171,11 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
     /**
      * Test for file generation of a classifier, checking if in the second time
      * the empty method implementation is generated correctly (no extra curly
-     * braces each time the class is generated - issue 2828) and the added
-     * code is preserved.
-     * @throws IOException some unexpected file access problem occurred
+     * braces each time the class is generated - issue 2828) and the added code
+     * is preserved.
+     * 
+     * @throws IOException
+     *             some unexpected file access problem occurred
      */
     public void testGenerateAfterModifyAndIssue2828() throws IOException {
         genDir = setUpDirectory4Test("testIssue2828");
@@ -176,8 +185,8 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
         File genFile = generateFile(getAClass(), ".cpp");
         // create some content in the foo method implementation
         String encoding = getEncoding(genFile);
-        String originalGenerated = FileUtils.readFileToString(
-            genFile, encoding);
+        String originalGenerated = FileUtils
+                .readFileToString(genFile, encoding);
         StringBuffer modified = new StringBuffer();
         // look for the implementation
         int fooImplIndex = originalGenerated.indexOf("::foo(");
@@ -205,46 +214,48 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
     /**
      * Test that the model isn't used as a namespace - issue #2963.
      * 
-     * @throws IOException some unexpected file access problem occurred
+     * @throws IOException
+     *             some unexpected file access problem occurred
      */
     public void testModelIsNotNamespace() throws IOException {
         final String testName = "testModelIsNotNamespace";
         setUpNamespaces(testName);
 
         String generated = generateAClassFile(testName);
-        String modelNs = 
-            "namespace " + Model.getFacade().getName(getModel()) + " {";
+        String modelNs = "namespace " + Model.getFacade().getName(getModel())
+                + " {";
         assertTrue(generated.indexOf(modelNs) == -1);
-        String packNs = 
-            "namespace " + Model.getFacade().getName(getPack()) + " {";
+        String packNs = "namespace " + Model.getFacade().getName(getPack())
+                + " {";
         assertTrue(generated.indexOf(packNs) != -1);
     }
-    
+
     /**
-     * The model name shouldn't be used as namespace for types of arguments, 
+     * The model name shouldn't be used as namespace for types of arguments,
      * return values or attributes.
      * 
-     * @throws IOException when file access goes wrong
+     * @throws IOException
+     *             when file access goes wrong
      */
     public void testModelNameNotUsedForTypeNamespace() throws IOException {
         final String testName = "testModelNameNotUsedForTypeNamespace";
-        
+
         setUpNamespaces(testName);
         setUpOtherClassInOtherPackage();
         createAClassOperationWithOtherClassAsParamAndReturn();
-        
+
         String generatedCpp = generateAClassFile(testName);
-        
-        String correctName = Model.getFacade().getName(otherPack) + "::" 
-            + Model.getFacade().getName(otherClass);
+
+        String correctName = Model.getFacade().getName(otherPack) + "::"
+                + Model.getFacade().getName(otherClass);
         assertTrue(generatedCpp.indexOf(correctName) != -1);
-        String wrongName = Model.getFacade().getName(getModel()) + "::" 
-            + correctName;
+        String wrongName = Model.getFacade().getName(getModel()) + "::"
+                + correctName;
         assertTrue(generatedCpp.indexOf(wrongName) == -1);
     }
 
     /**
-     * Create an operation of AClass. 
+     * Create an operation of AClass.
      */
     private void createAClassOperationWithOtherClassAsParamAndReturn() {
         Object gee = buildOperation(getAClass(), otherClass, "gee");
@@ -252,12 +263,16 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
     }
 
     /**
-     * Generate the source file (cpp or h) for the AClass class and return it
-     * as String.
-     * @param testName name of the test calling this method
-     * @param header if true then generate header, else generate cpp
+     * Generate the source file (cpp or h) for the AClass class and return it as
+     * String.
+     * 
+     * @param testName
+     *            name of the test calling this method
+     * @param header
+     *            if true then generate header, else generate cpp
      * @return the generated source file as String
-     * @throws IOException if something goes wrong with file access
+     * @throws IOException
+     *             if something goes wrong with file access
      */
     private String generateAClassFile(String testName, boolean header)
         throws IOException {
@@ -267,17 +282,19 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
         assertTrue(genFile.exists());
 
         String encoding = getEncoding(genFile);
-        String generated = FileUtils.readFileToString(
-            genFile, encoding);
+        String generated = FileUtils.readFileToString(genFile, encoding);
         return generated;
     }
 
     /**
-     * Generate the source file (cpp) for the AClass class and return it as 
+     * Generate the source file (cpp) for the AClass class and return it as
      * String.
-     * @param testName name of the test calling this method
+     * 
+     * @param testName
+     *            name of the test calling this method
      * @return the generated cpp file as String
-     * @throws IOException if something goes wrong with file access
+     * @throws IOException
+     *             if something goes wrong with file access
      */
     private String generateAClassFile(String testName) throws IOException {
         return generateAClassFile(testName, false);
@@ -287,16 +304,18 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
      * Create OtherClass class in otherpack package.
      */
     private void setUpOtherClassInOtherPackage() {
-        otherPack = Model.getModelManagementFactory().buildPackage(
-                        "otherpack", UUIDManager.getInstance().getNewUUID());
+        otherPack = Model.getModelManagementFactory().buildPackage("otherpack",
+                UUIDManager.getInstance().getNewUUID());
         Model.getCoreHelper().setNamespace(otherPack, getModel());
         otherClass = getFactory().buildClass("OtherClass", otherPack);
     }
 
     /**
-     * Setup the namespaces, giving a name to the model and assigning the 
-     * model as the namespace of the pack package.
-     * @param modelName name to give to the model
+     * Setup the namespaces, giving a name to the model and assigning the model
+     * as the namespace of the pack package.
+     * 
+     * @param modelName
+     *            name to give to the model
      */
     private void setUpNamespaces(String modelName) {
         Model.getCoreHelper().setName(getModel(), modelName);
@@ -312,9 +331,12 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
 
     /**
      * Retrieve the encoding for the given file.
-     * @param f the file for which the encoding is wanted
+     * 
+     * @param f
+     *            the file for which the encoding is wanted
      * @return the file encoding as a string
-     * @throws IOException if something goes wrong in file access
+     * @throws IOException
+     *             if something goes wrong in file access
      */
     private static String getEncoding(File f) throws IOException {
         FileReader fin = new FileReader(f);
@@ -325,35 +347,36 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
 
     /**
      * Test that headers are wrapped into #ifndef ... #endif
-     *
-     * @throws IOException if something goes wrong with file access
+     * 
+     * @throws IOException
+     *             if something goes wrong with file access
      */
-    public void testMultipleInclusionGuardAndIssue3053()
-        throws IOException {
+    public void testMultipleInclusionGuardAndIssue3053() throws IOException {
         final String testName = "testMultipleInclusionGuardAndIssue3053";
         setUpNamespaces(testName);
 
         String genH = generateAClassFile(testName, true).trim();
         String guard = Model.getFacade().getName(getPack()) + "_"
-            + Model.getFacade().getName(getAClass()) + "_h";
-        String re = "(?m)(?s)\\s*#\\s*ifndef\\s+" + guard 
-            + "\\s*^\\s*#\\s*define\\s+" + guard + "\\s.*^\\s*#\\s*endif.*";
+                + Model.getFacade().getName(getAClass()) + "_h";
+        String re = "(?m)(?s)\\s*#\\s*ifndef\\s+" + guard
+                + "\\s*^\\s*#\\s*define\\s+" + guard + "\\s.*^\\s*#\\s*endif.*";
         if (!genH.matches(re)) {
             LOG.info("generated header was:\n" + genH);
         }
         assertTrue(genH.matches(re));
     }
-    
 
     private void setUpOtherClassInSamePackage() {
         otherClass = getFactory().buildClass("OtherClass", getPack());
     }
 
     /**
-     * Tests that #includes in other packages are generated as
-     * #include <package/Class.h> (issue 3086). Also, test that
-     * #includes are generated for parameter types (issue 3149).
-     * @throws IOException if something goes wrong with file access
+     * Tests that #includes in other packages are generated as #include
+     * <package/Class.h> (issue 3086). Also, test that #includes are generated
+     * for parameter types (issue 3149).
+     * 
+     * @throws IOException
+     *             if something goes wrong with file access
      */
     public void testExternalIncludes() throws IOException {
         final String testName = "testExternalIncludes";
@@ -370,9 +393,11 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
     }
 
     /**
-     * Tests that #includes in the same package or subpackages
-     * are generated as #include "subpack/Class.h" (issue 3086).
-     * @throws IOException if something goes wrong with file access
+     * Tests that #includes in the same package or subpackages are generated as
+     * #include "subpack/Class.h" (issue 3086).
+     * 
+     * @throws IOException
+     *             if something goes wrong with file access
      */
     public void testLocalIncludes() throws IOException {
         final String testName = "testLocalIncludes";
@@ -386,8 +411,8 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
             LOG.info("generated header was:\n" + genH);
         assertTrue(genH.matches(re));
         // move OtherClass to pack/otherpack/OtherClass
-        otherPack = Model.getModelManagementFactory().buildPackage(
-                        "otherpack", UUIDManager.getInstance().getNewUUID());
+        otherPack = Model.getModelManagementFactory().buildPackage("otherpack",
+                UUIDManager.getInstance().getNewUUID());
         Model.getCoreHelper().setNamespace(otherPack, getPack());
         Model.getCoreHelper().setNamespace(otherClass, otherPack);
         genH = generateAClassFile(testName, true);
@@ -396,37 +421,23 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
             LOG.info("generated header was:\n" + genH);
         assertTrue(genH.matches(re));
     }
-    
-    public void testOperationWithNullTaggedValueTag_Issue4393() 
-    throws IOException {
-    	final String testName = 
-    		"testOperationWithNullTaggedValueTag_Issue4393";
-    	setUpNamespaces(testName);
-    	assertGenerateAClassFileWithNullTaggedValueTag(testName, 
-    			getFooMethod());
-    }
 
-	private void assertGenerateAClassFileWithNullTaggedValueTag(
-			final String testName, Object me) throws IOException {
-		Model.getCoreHelper().setTaggedValue(me, "documentation", "docs");
-    	assertEquals(1, 
-    			Model.getFacade().getTaggedValuesCollection(me).size());
-    	Object documentationTV = Model.getFacade().getTaggedValues(
-    			me).next();
-    	assertEquals("documentation", 
-    			Model.getFacade().getTag(documentationTV));
-    	Object documentationTD = Model.getFacade().getTagDefinition(
-    			documentationTV);
-    	assertNotNull(documentationTD);
-    	Model.getExtensionMechanismsHelper().setType(documentationTV, null);
-    	assertNull(Model.getFacade().getTagDefinition(documentationTV));
-    	generateAClassFile(testName, true);
-	}
-    
-    public void testClassWithNullTaggedValueTag_Issue4393() 
-    throws IOException {
-    	final String testName = "testClassWithNullTaggedValueTag_Issue4393";
-    	setUpNamespaces(testName);
-    	assertGenerateAClassFileWithNullTaggedValueTag(testName, getAClass());
+    /**
+     * Changes to the model sub-system implementation make it impossible to 
+     * set the TD of a TV to null, therefore, I'm addapting the test to check 
+     * that this is kept in place!
+     */
+    public void testSetNullTagDefinition4TVIsDetectedIssue4393() {
+        Object documentationTV = Model.getExtensionMechanismsFactory()
+                .buildTaggedValue("documentation", "docs");
+        Object documentationTD = Model.getFacade().getTagDefinition(
+                documentationTV);
+        assertNotNull(documentationTD);
+        try {
+            Model.getExtensionMechanismsHelper().setType(documentationTV, null);
+            fail("A NPE should be thrown!");
+        } catch (NullPointerException e) {
+            // expected
+        }
     }
 }

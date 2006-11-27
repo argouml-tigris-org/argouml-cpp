@@ -383,7 +383,7 @@ public class ModelerImpl implements Modeler {
                 // set the operation return type
                 Object rv =
 		    Model.getCoreHelper().getReturnParameters(
-			contextStack.peek()).get(0);
+			contextStack.peek()).iterator().next();
                 Model.getCoreHelper().setType(rv, theType);
 
             } else if (Model.getFacade().isAClass(contextStack.peek())) {
