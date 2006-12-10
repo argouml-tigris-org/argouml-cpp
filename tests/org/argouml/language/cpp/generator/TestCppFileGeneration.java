@@ -112,8 +112,9 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
      */
     private Object otherClass;
 
-    /*
-     * @see junit.framework.TestCase#setUp()
+    /**
+     * Setup some of the commonly used objects.
+     * @see org.argouml.language.cpp.generator.BaseTestGeneratorCpp#setUp()
      */
     protected void setUp() {
         super.setUp();
@@ -125,7 +126,8 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
         tmpDir = new File(System.getProperty(SYSPROPNAME_TMPDIR));
     }
 
-    /*
+    /**
+     * @throws IOException error deleting directory
      * @see junit.framework.TestCase#tearDown()
      */
     protected void tearDown() throws IOException {
@@ -147,9 +149,12 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
         return generationDir;
     }
 
-    /*
+    /**
      * Get a file generated for the single modelelement elem, with extension
      * 'ext' (either ".cpp" or ".h").
+     * @param elem model element
+     * @param ext extension of the generated file
+     * @return the generated File
      */
     private File generateFile(Object elem, String ext) {
         Vector v = new Vector();
@@ -366,6 +371,9 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
         assertTrue(genH.matches(re));
     }
 
+    /**
+     * 
+     */
     private void setUpOtherClassInSamePackage() {
         otherClass = getFactory().buildClass("OtherClass", getPack());
     }
@@ -387,8 +395,9 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
         String genH = generateAClassFile(testName, true);
         String re = "(?m)(?s).*\\s*#\\s*include\\s*"
                 + "\\<otherpack/OtherClass\\.h\\>\\s*.*";
-        if (!genH.matches(re))
+        if (!genH.matches(re)) {
             LOG.info("generated header was:\n" + genH);
+        }
         assertTrue(genH.matches(re));
     }
 
@@ -407,8 +416,9 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
         // AClass uses pack/OtherClass
         String genH = generateAClassFile(testName, true);
         String re = "(?m)(?s).*\\s*#\\s*include\\s*\"OtherClass\\.h\"\\s*.*";
-        if (!genH.matches(re))
+        if (!genH.matches(re)) {
             LOG.info("generated header was:\n" + genH);
+        }
         assertTrue(genH.matches(re));
         // move OtherClass to pack/otherpack/OtherClass
         otherPack = Model.getModelManagementFactory().buildPackage("otherpack",
@@ -417,8 +427,9 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
         Model.getCoreHelper().setNamespace(otherClass, otherPack);
         genH = generateAClassFile(testName, true);
         re = "(?m)(?s).*\\s*#\\s*include\\s*\"otherpack/OtherClass\\.h\"\\s*.*";
-        if (!genH.matches(re))
+        if (!genH.matches(re)) {
             LOG.info("generated header was:\n" + genH);
+        }
         assertTrue(genH.matches(re));
     }
 
@@ -438,6 +449,7 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
             fail("A NPE should be thrown!");
         } catch (NullPointerException e) {
             // expected
+            ;
         }
     }
 }

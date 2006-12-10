@@ -1,0 +1,82 @@
+// $Id: eclipse-argo-codetemplates.xml 11347 2006-10-26 22:37:44Z linus $
+// Copyright (c) 2006 The Regents of the University of California. All
+// Rights Reserved. Permission to use, copy, modify, and distribute this
+// software and its documentation without fee, and without a written
+// agreement is hereby granted, provided that the above copyright notice
+// and this paragraph appear in all copies. This software program and
+// documentation are copyrighted by The Regents of the University of
+// California. The software program and documentation are supplied "AS
+// IS", without any accompanying services from The Regents. The Regents
+// does not warrant that the operation of the program will be
+// uninterrupted or error-free. The end-user understands that the program
+// was developed for research purposes and is advised not to rely
+// exclusively on the program for any reason. IN NO EVENT SHALL THE
+// UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT,
+// SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS,
+// ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
+// THE UNIVERSITY OF CALIFORNIA HAS BEEN ADVISED OF THE POSSIBILITY OF
+// SUCH DAMAGE. THE UNIVERSITY OF CALIFORNIA SPECIFICALLY DISCLAIMS ANY
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+// MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE SOFTWARE
+// PROVIDED HEREUNDER IS ON AN "AS IS" BASIS, AND THE UNIVERSITY OF
+// CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT,
+// UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+
+package org.argouml.language.cpp.notation;
+
+import java.util.HashMap;
+
+import org.argouml.uml.notation.AttributeNotation;
+
+/**
+ * 
+ * @author Luis Sergio Oliveira (euluis)
+ */
+public class Attribute extends AttributeNotation {
+
+    /**
+     * 
+     */
+    public Attribute() {
+        // TODO: Auto-generated constructor stub
+    }
+
+    private static final Attribute INSTANCE = new Attribute();
+
+    public static final Attribute getInstance() {
+        return INSTANCE;
+    }
+
+    /*
+     * @see org.argouml.uml.notation.NotationProvider#getParsingHelp()
+     */
+    public String getParsingHelp() {
+        // TODO: Auto-generated method stub
+        return null;
+    }
+
+    /*
+     * @see org.argouml.uml.notation.NotationProvider#parse(java.lang.Object,
+     *      java.lang.String)
+     */
+    public void parse(Object attribute, String text) {
+        // TODO: Auto-generated method stub
+
+    }
+
+    /**
+     * @param attribute
+     *            The Attribute for which to return the syntax representation in
+     *            C++.
+     * @param args
+     *            Configuration parameters for the notation.
+     * @return The C++ representation of attribute as a String.
+     * @see org.argouml.uml.notation.NotationProvider#toString(java.lang.Object,
+     *      java.util.HashMap)
+     */
+    public String toString(Object attribute, HashMap args) {
+        // TODO: Auto-generated method stub
+        return null;
+    }
+
+}

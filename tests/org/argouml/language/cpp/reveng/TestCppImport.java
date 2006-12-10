@@ -420,6 +420,8 @@ public class TestCppImport extends TestCase {
      * CppImport.parseFile(xxx)}
      * method on the same translation unit. The model elements shouldn't get
      * duplicated.
+     * 
+     * FIXME: fails under eclipse 3.2.1, but passes using the Ant build. 
      *
      * @throws Exception something went wrong
      */

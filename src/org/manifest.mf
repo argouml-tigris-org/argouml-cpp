@@ -30,3 +30,13 @@ Specification-Vendor: University of California
 Implementation-Vendor: Daniele Tamino
 Implementation-Version: 0.19.2
 Implementation-Title: ArgoUML C++ settings tab plugin
+
+
+Name: org/argouml/language/cpp/notation/NotationModuleCpp.class
+Extension-name: module.language.cpp.notation
+Specification-Title: ArgoUML Dynamic Load Module
+Specification-Version: 0.23.2
+Specification-Vendor: University of California
+Implementation-Vendor: Luis Sergio Oliveira
+Implementation-Version: 0.23.2
+Implementation-Title: ArgoUML C++ notation plugin

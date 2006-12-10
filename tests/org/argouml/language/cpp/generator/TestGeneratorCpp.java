@@ -142,8 +142,8 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
     /**
      * Generate a realization from cls to iface
      * 
-     * @param cls
-     * @param iface
+     * @param cls The Class that realizes iface.
+     * @param iface The Interface which is realized by cls.
      */
     private void setUpARealization(Object cls, Object iface) {
         aRealization = getFactory().buildRealization(cls, iface, getModel());

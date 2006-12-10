@@ -1006,7 +1006,7 @@ public class GeneratorCpp implements CodeGenerator {
      * -> generateOperation is language independent and seperates
      *    different tasks
      */
-    String generateOperation(Object op, boolean documented) {
+    public String generateOperation(Object op, boolean documented) {
         // generate nothing for abstract functions, if we generate the
         // source .cpp file at the moment
         if ((generatorPass == SOURCE_PASS) 
@@ -1396,7 +1396,7 @@ public class GeneratorCpp implements CodeGenerator {
      * Generates code for a classifier, for classes and interfaces only
      * at the moment.
      */
-    String generateClassifier(Object cls) {
+    public String generateClassifier(Object cls) {
         // If we're in the notation pane, do a special trick
         // to show both header and source
         if (generatorPass == NONE_PASS
