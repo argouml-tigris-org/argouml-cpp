@@ -25,6 +25,7 @@
 package org.argouml.language.cpp.reveng;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -73,12 +74,14 @@ public class ModelerImpl implements Modeler {
      * Logger.
      */
     private static final Logger LOG = Logger.getLogger(ModelerImpl.class);
+    
+    private Collection newElements;
 
     /*
      * @see org.argouml.language.cpp.reveng.Modeler#beginTranslationUnit()
      */
     public void beginTranslationUnit() {
-        // for now we don't need to do anything here
+        newElements = new HashSet();
     }
 
     /*
@@ -86,6 +89,13 @@ public class ModelerImpl implements Modeler {
      */
     public void endTranslationUnit() {
         // for now we don't need to do anything here
+    }
+    
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#getNewElements()
+     */
+    public Collection getNewElements() {
+        return newElements;
     }
 
     /*
@@ -100,6 +110,7 @@ public class ModelerImpl implements Modeler {
 		    Model.getModelManagementFactory().buildPackage(
 			    nsName,
 			    UUIDManager.getInstance().getNewUUID());
+                newElements.add(ns);
                 Model.getCoreHelper().setNamespace(ns, parentNs);
             }
             contextStack.push(ns);
@@ -194,6 +205,7 @@ public class ModelerImpl implements Modeler {
             Object cls = findClass(identifier, ns);
             if (cls == null) {
                 cls = Model.getCoreFactory().buildClass(identifier, ns);
+                newElements.add(cls);
             }
             contextStack.push(cls);
             if (CPPvariables.OT_CLASS.equals(oType)) {
@@ -985,4 +997,7 @@ public class ModelerImpl implements Modeler {
             Model.getCoreHelper().setName(contextStack.peek(), qualifiedId);
         }
     }
+    
+
+
 }

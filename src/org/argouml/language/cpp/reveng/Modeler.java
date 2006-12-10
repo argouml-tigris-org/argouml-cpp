@@ -25,6 +25,7 @@
 /*REMOVE_BEGIN*/
 package org.argouml.language.cpp.reveng;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -277,4 +278,13 @@ public interface Modeler {
      * @param identifier the destructor identifier
      */
     void dtorDeclarator(String identifier);
+    
+    /**
+     * Get the new model elements which have been created. We only keep track of
+     * major elements which are of classifier granularity (things which might be
+     * a separate figure in diagram).
+     * 
+     * @return the collection
+     */
+    Collection getNewElements();
 }

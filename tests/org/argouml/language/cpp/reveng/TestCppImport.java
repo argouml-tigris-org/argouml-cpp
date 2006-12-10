@@ -40,11 +40,13 @@ import junit.framework.TestSuite;
 
 import org.apache.commons.io.CopyUtils;
 import org.apache.commons.io.FileUtils;
+import org.argouml.application.api.ProgressMonitor;
 import org.argouml.kernel.Project;
 import org.argouml.kernel.ProjectManager;
 import org.argouml.model.Model;
+import org.argouml.persistence.ProgressEvent;
 import org.argouml.uml.reveng.DiagramInterface;
-import org.argouml.uml.reveng.Import;
+import org.argouml.uml.reveng.ImportCommon;
 import org.argouml.uml.reveng.ImportSettings;
 
 /**
@@ -160,8 +162,10 @@ public class TestCppImport extends TestCase {
     public void testParseFileSimpleClass() throws Exception {
         genDir = setUpDirectory4Test("testParseFileSimpleClass");
         File srcFile = setupSrcFile4Reverse("SimpleClass.cpp");
-
-        cppImp.parseFile(proj, srcFile, settings);
+        Collection files = new ArrayList();
+        files.add(srcFile);
+        
+        cppImp.parseFiles(proj, files, settings, new DummyMonitor());
 
         Collection nss =
             Model.getModelManagementHelper().getAllNamespaces(proj.getModel());
@@ -201,8 +205,9 @@ public class TestCppImport extends TestCase {
     public void testParseFileDerivedFromAbstract() throws Exception {
         genDir = setUpDirectory4Test("testParseFileDerivedFromAbstract");
         File srcFile = setupSrcFile4Reverse("DerivedFromAbstract.cxx");
-
-        cppImp.parseFile(proj, srcFile, settings);
+        Collection files = new ArrayList();
+        files.add(srcFile);
+        cppImp.parseFiles(proj, files, settings, new DummyMonitor());
 
         // verify the Dummy struct reveng
         Collection classes =
@@ -422,9 +427,11 @@ public class TestCppImport extends TestCase {
         throws Exception {
         genDir = setUpDirectory4Test("testParseFileSimpleClass");
         File srcFile = setupSrcFile4Reverse("SimpleClass.cpp");
-
-        cppImp.parseFile(proj, srcFile, settings);
-        cppImp.parseFile(proj, srcFile, settings); // 2nd call on purpose!
+        Collection files = new ArrayList();
+        files.add(srcFile);
+        
+        cppImp.parseFiles(proj, files, settings, new DummyMonitor());
+        cppImp.parseFiles(proj, files, settings, new DummyMonitor()); // 2nd call on purpose!
 
         Collection nss =
             Model.getModelManagementHelper().getAllNamespaces(proj.getModel());
@@ -474,7 +481,7 @@ public class TestCppImport extends TestCase {
                     "Unexpected call to ImportSettings method");
         }
 
-        public Import getImportSession() {
+        public ImportCommon getImportSession() {
             throw new RuntimeException(
                     "Unexpected call to ImportSettings method");
         }
@@ -503,6 +510,53 @@ public class TestCppImport extends TestCase {
             throw new RuntimeException(
                     "Unexpected call to ImportSettings method");
         }
+
+        public boolean isCreateDiagramsSelected() {
+            throw new RuntimeException(
+                    "Unexpected call to ImportSettings method");
+        }
+
+        public boolean isDiagramLayoutSelected() {
+            throw new RuntimeException(
+                    "Unexpected call to ImportSettings method");
+        }
+
+        public boolean isMinimizeFigsSelected() {
+            throw new RuntimeException(
+                    "Unexpected call to ImportSettings method");
+        }
+    }
+    
+    private class DummyMonitor implements ProgressMonitor {
+
+        public void close() {
+        }
+
+        public boolean isCanceled() {
+            return false;
+        }
+
+        public void notifyMessage(String title, String introduction, String message) {
+        }
+
+        public void notifyNullAction() {
+        }
+
+        public void setMaximumProgress(int max) { 
+        }
+
+        public void updateMainTask(String name) {
+        }
+
+        public void updateProgress(int progress) {
+        }
+
+        public void updateSubTask(String name) {
+        }
+
+        public void progress(ProgressEvent event) throws InterruptedException {
+        }
+        
     }
 
 }

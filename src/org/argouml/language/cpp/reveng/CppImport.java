@@ -27,11 +27,16 @@ package org.argouml.language.cpp.reveng;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.argouml.application.api.Configuration;
 import org.argouml.application.api.ConfigurationKey;
+import org.argouml.application.api.ProgressMonitor;
 import org.argouml.kernel.Project;
 import org.argouml.moduleloader.ModuleInterface;
 import org.argouml.uml.reveng.FileImportUtils;
@@ -75,50 +80,74 @@ public class CppImport implements ModuleInterface, ImportInterface {
 
 
     /**
+     * New top level model elements created during this reverse engineering
+     * session.
+     */
+    private Collection newElements;
+    
+    /**
      * Default constructor.
      */
     public CppImport() {
         super();
     }
-    
-    /*
-     * @see org.argouml.uml.reveng.ImportInterface#parseFile(org.argouml.kernel.Project, java.lang.Object, org.argouml.uml.reveng.ImportSettings)
-     */
-    public void parseFile(Project p, Object o, ImportSettings settings)
-            throws ImportException {
 
+    /*
+     * @see org.argouml.uml.reveng.ImportInterface#parseFiles(org.argouml.kernel.Project, java.util.Collection, org.argouml.uml.reveng.ImportSettings, org.argouml.application.api.ProgressMonitor)
+     */
+    public Collection parseFiles(Project p, Collection files,
+            ImportSettings settings, ProgressMonitor monitor)
+        throws ImportException {
+        
         LOG.warn("Not fully implemented yet!");
 
-        if (o instanceof File) {
-            File f = (File) o;
-            FileInputStream in;
-            try {
-                in = new FileInputStream(f);
-            } catch (IOException e) {
-                throw new ImportException("Error opening file " + f, e);
+        newElements = new HashSet();
+        monitor.setMaximumProgress(files.size());
+        int count = 1;
+        for (Iterator it = files.iterator(); it.hasNext();) {
+            Object file = it.next();
+            if (!(file instanceof File)) {
+                throw new ImportException("Invalid argument - not a file: " 
+                        + file);
             }
-            try {
-                Modeler modeler = new ModelerImpl();
-                CPPLexer lexer = new CPPLexer(in);
-                CPPParser parser = new CPPParser(lexer);
-                try {
-                    parser.translation_unit(modeler);
-                } catch (RecognitionException e) {
-                    throw new ImportException("Error parsing " + f, e);
-                } catch (TokenStreamException e) {
-                    throw new ImportException("Error parsing " + f, e);
-                }
-
-            } finally {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    // ignore errors on clse
-                }
-            }
-        } else {
-            throw new ImportException("Object: " + o + " isn't a file");
+            parseFile(p, (File) file, settings);
+            monitor.updateProgress(count++);
         }
+        return Collections.EMPTY_SET;
+    }
+    
+    /*
+     * Parse a single file
+     */
+    private void parseFile(Project p, File f, ImportSettings settings)
+        throws ImportException {
+
+        FileInputStream in;
+        try {
+            in = new FileInputStream(f);
+        } catch (IOException e) {
+            throw new ImportException("Error opening file " + f, e);
+        }
+        try {
+            Modeler modeler = new ModelerImpl();
+            CPPLexer lexer = new CPPLexer(in);
+            CPPParser parser = new CPPParser(lexer);
+            try {
+                parser.translation_unit(modeler);
+            } catch (RecognitionException e) {
+                throw new ImportException("Error parsing " + f, e);
+            } catch (TokenStreamException e) {
+                throw new ImportException("Error parsing " + f, e);
+            }
+            newElements.addAll(modeler.getNewElements());
+        } finally {
+            try {
+                in.close();
+            } catch (IOException e) {
+                // ignore errors on clse
+            }
+        }
+
     }
 
     /**
