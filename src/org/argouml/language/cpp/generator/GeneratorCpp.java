@@ -1174,7 +1174,7 @@ public class GeneratorCpp implements CodeGenerator {
     }
 
 
-    String generateAttribute(Object attr, boolean documented) {
+    public String generateAttribute(Object attr, boolean documented) {
         StringBuffer sb = new StringBuffer(80);
 
         // list tagged values for documentation
@@ -1251,7 +1251,7 @@ public class GeneratorCpp implements CodeGenerator {
      *
      * @return the generated start sequence
      */
-    StringBuffer generateClassifierStart(Object cls) {
+    public StringBuffer generateClassifierStart(Object cls) {
         StringBuffer sb = new StringBuffer (80);
 
         // don't create class-Start for implementation in .cpp

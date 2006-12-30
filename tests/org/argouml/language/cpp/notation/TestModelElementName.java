@@ -38,17 +38,46 @@ import org.argouml.model.Model;
  */
 public class TestModelElementName extends TestCase {
 
+    private Object theClass;
+
+    private ModelElementName meNotation;
+
+    private HashMap args;
+
+    protected void setUp() throws Exception {
+        super.setUp();
+        theClass = Model.getCoreFactory().buildClass("TheClass", getModel());
+        meNotation = new ModelElementName(theClass);
+        args = new HashMap();
+    }
+
     public void testToStringForClassEmptyArgs() {
-        Object theClass = Model.getCoreFactory().buildClass("TheClass",
-                getModel());
-        ModelElementName meNotation = new ModelElementName(theClass);
-        HashMap args = new HashMap();
         String meNameCpp = meNotation.toString(theClass, args);
         assertNotNull(meNameCpp);
         assertEquals("No curly braces in Name", -1, meNameCpp.lastIndexOf('{'));
+        assertEquals("class " + Model.getFacade().getName(theClass), meNameCpp);
     }
 
-    private Object getModel() {
+    /**
+     * TODO: This test excludes the possibility to have macros within the name 
+     * of classes. Since this is a common thing in C++ it is too restrictive.
+     */
+    public void testToStringForSpecializedClassEmptyArgs() {
+        Object baseClass = Model.getCoreFactory().buildClass("TheBaseClass",
+                getModel());
+        Model.getCoreFactory().buildGeneralization(theClass, baseClass);
+        String meNameCpp = meNotation.toString(theClass, args);
+        final String ignoredMatcher = "[\\s*\\n*\\r*]*";
+        String meNameCppMatcher = "class" + ignoredMatcher
+                + Model.getFacade().getName(theClass) + ignoredMatcher + ":"
+                + ignoredMatcher + "public" + ignoredMatcher
+                + Model.getFacade().getName(baseClass);
+        assertTrue("class \t TheClass:\npublic\tTheBaseClass"
+                .matches(meNameCppMatcher));
+        assertTrue(meNameCpp.matches(meNameCppMatcher));
+    }
+
+    Object getModel() {
         return ProjectManager.getManager().getCurrentProject().getModel();
     }
 

@@ -61,8 +61,13 @@ public class ModelElementName extends ModelElementNameNotation {
      */
     public String toString(Object me, HashMap args) {
         if (Model.getFacade().isAClass(me)
-                || Model.getFacade().isAInterface(me))
-            return "class " + Model.getFacade().getName(me);
+                || Model.getFacade().isAInterface(me)) {
+            String className = GeneratorCpp.getInstance()
+                    .generateClassifierStart(me).toString();
+            int leftCurlyIndex = className.indexOf('{');
+            className = className.substring(0, leftCurlyIndex);
+            return className.trim();
+        }
         return Model.getFacade().getName(me);
     }
 

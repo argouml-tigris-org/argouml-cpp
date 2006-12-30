@@ -26,6 +26,7 @@ package org.argouml.language.cpp.notation;
 
 import java.util.HashMap;
 
+import org.argouml.language.cpp.generator.GeneratorCpp;
 import org.argouml.uml.notation.AttributeNotation;
 
 /**
@@ -75,8 +76,7 @@ public class Attribute extends AttributeNotation {
      *      java.util.HashMap)
      */
     public String toString(Object attribute, HashMap args) {
-        // TODO: Auto-generated method stub
-        return null;
+        return GeneratorCpp.getInstance().generateAttribute(attribute, false);
     }
 
 }
