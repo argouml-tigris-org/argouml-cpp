@@ -1,5 +1,5 @@
-// $Id: eclipse-argo-codetemplates.xml 11347 2006-10-26 22:37:44Z linus $
-// Copyright (c) 2006 The Regents of the University of California. All
+// $Id: NotationModuleCpp.java 77 2006-10-26 22:37:44Z euluis $
+// Copyright (c) 2006-2007 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -24,7 +24,10 @@
 
 package org.argouml.language.cpp.notation;
 
-import org.argouml.application.helpers.ResourceLoaderWrapper;
+import java.net.URL;
+
+import javax.swing.ImageIcon;
+
 import org.argouml.moduleloader.ModuleInterface;
 import org.argouml.notation.Notation;
 import org.argouml.notation.NotationName;
@@ -39,8 +42,16 @@ public class NotationModuleCpp implements ModuleInterface {
     private NotationName name;
 
     public NotationModuleCpp() {
-        name = Notation.makeNotation("C++", null, ResourceLoaderWrapper
-                .lookupIconResource("JavaNotation"));
+        name = Notation.makeNotation("C++", null, loadIcon());
+    }
+
+    ImageIcon loadIcon() {
+        URL iconUrl = NotationModuleCpp.class.getClassLoader().getResource(
+            "org/argouml/Images/CppNotation.gif");
+        assert iconUrl != null;
+        ImageIcon icon = new ImageIcon(iconUrl);
+        assert icon != null;
+        return icon;
     }
 
     public boolean disable() {
@@ -51,11 +62,11 @@ public class NotationModuleCpp implements ModuleInterface {
         NotationProviderFactory2 npf = getNotationProviderFactory();
 
         npf.addNotationProvider(NotationProviderFactory2.TYPE_NAME, name,
-                ModelElementName.class);
+                ModelElementNameNotationCpp.class);
         npf.addNotationProvider(NotationProviderFactory2.TYPE_ATTRIBUTE, name,
-                Attribute.class);
+                AttributeNotationCpp.class);
         npf.addNotationProvider(NotationProviderFactory2.TYPE_OPERATION, name,
-                Operation.class);
+                OperationNotationCpp.class);
         return true;
     }
 

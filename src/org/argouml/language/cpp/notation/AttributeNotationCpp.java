@@ -1,5 +1,5 @@
-// $Id: eclipse-argo-codetemplates.xml 11347 2006-10-26 22:37:44Z linus $
-// Copyright (c) 2006 The Regents of the University of California. All
+// $Id: AttributeNotationCpp.java 77 2007-01-09 22:37:44Z euluis $
+// Copyright (c) 2006-2007 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -27,23 +27,28 @@ package org.argouml.language.cpp.notation;
 import java.util.HashMap;
 
 import org.argouml.language.cpp.generator.GeneratorCpp;
-import org.argouml.uml.notation.OperationNotation;
+import org.argouml.uml.notation.AttributeNotation;
 
 /**
- *
+ * 
  * @author Luis Sergio Oliveira (euluis)
  */
-public class Operation extends OperationNotation {
+public class AttributeNotationCpp extends AttributeNotation {
 
     /**
-     * @param operation The Operation for which this object provides notation 
-     * services.
+     * 
      */
-    public Operation(Object operation) {
-        super(operation);
+    public AttributeNotationCpp() {
     }
 
-    /* 
+    private static final AttributeNotationCpp INSTANCE = 
+        new AttributeNotationCpp();
+
+    public static final AttributeNotationCpp getInstance() {
+        return INSTANCE;
+    }
+
+    /*
      * @see org.argouml.uml.notation.NotationProvider#getParsingHelp()
      */
     public String getParsingHelp() {
@@ -51,30 +56,26 @@ public class Operation extends OperationNotation {
         return null;
     }
 
-    /**
-     * Parses the provided text and adapts the operation accordingly.
-     * 
-     * @param operation The Operation to be addapted according to the parsed 
-     * text.
-     * @param text The text to parse.
-     * @see org.argouml.uml.notation.NotationProvider#parse(java.lang.Object, java.lang.String)
+    /*
+     * @see org.argouml.uml.notation.NotationProvider#parse(java.lang.Object,
+     *      java.lang.String)
      */
-    public void parse(Object operation, String text) {
+    public void parse(Object attribute, String text) {
         // TODO: Auto-generated method stub
-
     }
 
     /**
-     * Generates a string representing the C++ syntax for the given operation 
-     * according to the provided args.
-     * 
-     * @param operation The operation for which to generate the representation. 
-     * @param args Configuration arguments that determine the notation.
-     * @return The string representation of the operation.
-     * @see org.argouml.uml.notation.NotationProvider#toString(java.lang.Object, java.util.HashMap)
+     * @param attribute
+     *            The Attribute for which to return the syntax representation in
+     *            C++.
+     * @param args
+     *            Configuration parameters for the notation.
+     * @return The C++ representation of attribute as a String.
+     * @see org.argouml.uml.notation.NotationProvider#toString(java.lang.Object,
+     *      java.util.HashMap)
      */
-    public String toString(Object operation, HashMap args) {
-        return GeneratorCpp.getInstance().generateOperation(operation, false);
+    public String toString(Object attribute, HashMap args) {
+        return GeneratorCpp.getInstance().generateAttribute(attribute, false);
     }
 
 }

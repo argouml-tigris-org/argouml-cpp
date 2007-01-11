@@ -1,5 +1,5 @@
 // $Id$
-// Copyright (c) 2006 The Regents of the University of California. All
+// Copyright (c) 2006-2007 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -33,16 +33,17 @@ import org.argouml.model.Model;
  * 
  * @author Luis Sergio Oliveira (euluis)
  */
-public class AttributeTest extends TestCase {
+public class TestAttributeNotationCpp extends TestCase {
 
     public void testToStringSimpleNoArgs() {
-        TestModelElementName helper = new TestModelElementName();
+        TestModelElementNameNotationCpp helper = 
+            new TestModelElementNameNotationCpp();
         Object theClass = Model.getCoreFactory().buildClass("TheClass",
                 helper.getModel());
         Object attr = Model.getCoreFactory().buildAttribute(theClass,
                 helper.getModel(), theClass);
         Model.getCoreHelper().setName(attr, "attrName");
-        Attribute notation = new Attribute();
+        AttributeNotationCpp notation = new AttributeNotationCpp();
         String attrNotation = notation.toString(attr, null);
         assertTrue(attrNotation.matches(Model.getFacade().getName(theClass)
                 + " " + Model.getFacade().getName(attr) + ";"));

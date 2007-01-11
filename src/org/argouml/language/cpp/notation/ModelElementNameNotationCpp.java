@@ -1,5 +1,5 @@
-// $Id: eclipse-argo-codetemplates.xml 11347 2006-10-26 22:37:44Z linus $
-// Copyright (c) 2006 The Regents of the University of California. All
+// $Id: ModelElementNameNotationCpp.java 77 2007-01-09 22:37:44Z euluis $
+// Copyright (c) 2006-2007 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -34,11 +34,10 @@ import org.argouml.uml.notation.ModelElementNameNotation;
  * 
  * @author Luis Sergio Oliveira (euluis)
  */
-public class ModelElementName extends ModelElementNameNotation {
+public class ModelElementNameNotationCpp extends ModelElementNameNotation {
 
-    public ModelElementName(Object modelElement) {
+    public ModelElementNameNotationCpp(Object modelElement) {
         super(modelElement);
-        // TODO: Auto-generated constructor stub
     }
 
     public String getParsingHelp() {
@@ -52,7 +51,6 @@ public class ModelElementName extends ModelElementNameNotation {
      */
     public void parse(Object modelElement, String text) {
         // TODO: Auto-generated method stub
-
     }
 
     /*
@@ -68,7 +66,8 @@ public class ModelElementName extends ModelElementNameNotation {
             className = className.substring(0, leftCurlyIndex);
             return className.trim();
         }
-        return Model.getFacade().getName(me);
+        String meName = Model.getFacade().getName(me);
+        return meName != null ? meName : "";
     }
 
 }

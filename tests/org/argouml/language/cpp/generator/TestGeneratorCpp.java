@@ -176,7 +176,10 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
         Collection params = Model.getFacade().getParameters(getFooMethod());
         assertEquals(1, params.size());
         Object returnVal = params.iterator().next();
-        Model.getCoreHelper().setTaggedValue(returnVal, "pointer", "true");
+        //Model.getCoreHelper().setTaggedValue(returnVal, "pointer", "true");
+        Object tv = Model.getExtensionMechanismsFactory().buildTaggedValue(
+                "pointer", "true");
+        Model.getCoreHelper().addTaggedValue(returnVal, tv);
         Model.getCoreHelper().setType(returnVal, getAClass());
         String genOp = getGenerator().generateOperation(getFooMethod(), false);
         LOG.info(genOp);

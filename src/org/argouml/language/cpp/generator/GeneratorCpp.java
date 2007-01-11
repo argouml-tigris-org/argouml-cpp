@@ -1,5 +1,5 @@
 // $Id$
-// Copyright (c) 1996-2006 The Regents of the University of California. All
+// Copyright (c) 1996-2007 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -243,15 +243,6 @@ public class GeneratorCpp implements CodeGenerator {
         cleanupGenerator();
         currClass = cls;
     }
-
-    /**
-     * @param o the object to be generated
-     * @return the generated string
-     */
-//    public static String cppGenerate(Object o) {
-//        return getInstance().generate(o);
-//    }
-
 
     /** Internal helper that generates the file content (.cpp or .h)
      * and returns it as a String, without actually creating a file.
@@ -895,31 +886,6 @@ public class GeneratorCpp implements CodeGenerator {
         return sb.toString();
     }
 
-
-    private String generateAssociationRole(Object m) {
-        return "";
-    }
-
-    private String generateSubmachine(Object m) {
-        Object c = Model.getFacade().getSubmachine(m);
-        if (c == null) {
-            return "include / ";
-        }
-        if (Model.getFacade().getName(c) == null) {
-            return "include / ";
-        }
-        if (Model.getFacade().getName(c).length() == 0) {
-            return "include / ";
-        }
-        return ("include / " + Model.getFacade().getName(c));
-    }
-
-    private String generateObjectFlowState(Object m) {
-        Object c = Model.getFacade().getType(m);
-        if (c == null) return "";
-        return Model.getFacade().getName(c);
-    }
-
     /** 2002-11-28 Achim Spangler
      * seperate generation of Operation Prefix from generateOperation
      * so that generateOperation is language independent
@@ -1005,6 +971,10 @@ public class GeneratorCpp implements CodeGenerator {
      * modified version from Jaap Branderhorst
      * -> generateOperation is language independent and seperates
      *    different tasks
+     * @param op The operation for which to generate code.
+     * @param documented If the documentation should be included in the 
+     * generated code or not.
+     * @return The C++ code for the operation.
      */
     public String generateOperation(Object op, boolean documented) {
         // generate nothing for abstract functions, if we generate the
@@ -2211,16 +2181,6 @@ public class GeneratorCpp implements CodeGenerator {
         else return "";
     }
 
-
-    private String generateTaggedValue(Object tv) {
-        if (tv == null) return "";
-        String s = generateUninterpreted(Model.getFacade().getValueOfTag(tv));
-        if (s == null || s.length() == 0 || s.equals("/** */")) return "";
-        String t = Model.getFacade().getTagOfTag(tv);
-        if (t != null && t.equals("documentation")) return "";
-        return t + "=" + s;
-    }
-
     /**
      * Enhance/Create the doccomment for the given model element,
      * including tags for any OCL constraints connected to the model
@@ -2315,12 +2275,6 @@ public class GeneratorCpp implements CodeGenerator {
             }
         }
     }
-
-
-    private String generateAssociation(Object handle) {
-        return ""; // Maybe Model.getFacade().getName(handle) ???
-    }
-
 
     private String generateAssociationEnd(Object ae) {
         if (!Model.getFacade().isNavigable(ae)) {
@@ -2430,23 +2384,6 @@ public class GeneratorCpp implements CodeGenerator {
         }
         return sb.toString();
     }
-
-    /**
-     * Generates the String representation for an Event.
-     *
-     * @param modelElement Model element to generate notation for.
-     *
-     * @return Generated notation for model element.
-     */
-    private String generateEvent(Object modelElement) {
-        if (!Model.getFacade().isAEvent(modelElement)) {
-            throw new ClassCastException(modelElement.getClass()
-                    + " has wrong object type, Event required");
-        }
-
-        return "";
-    }
-
 
     private String generateVisibility(Object o) {
         if (Model.getFacade().isAAttribute(o)) {
@@ -2560,28 +2497,6 @@ public class GeneratorCpp implements CodeGenerator {
         return "";
     }
 
-    /**
-     * Generates "synchronized" keyword for guarded operations.
-     * Not needed for c++, it doesn't handle concurrency directly.
-     * TODO: Maybe, implement this in the methods body using 
-     * some kind of API (posix, win32, ... as user wishes ...)?
-     * @param op The operation
-     * @return The synchronized keyword if the operation is guarded, else ""
-     */
-    private String generateConcurrency(Object op) {
-        return "";
-    }
-
-
-    private String generateMultiplicity(Object multiplicity) {
-        if (multiplicity == null
-                || "1".equals(Model.getFacade().toString(multiplicity))) {
-            return "";
-        } else {
-            return Model.getFacade().toString(multiplicity);
-        }
-    }
-
     private String generateMultiplicity(Object item, String name,
             Object m, String modifier) {
         String type = null;
@@ -2679,93 +2594,6 @@ public class GeneratorCpp implements CodeGenerator {
         }
         return sb.toString();
     }
-
-    /* TODO: The following methods (generateState/StateBody/Transition/
-     * Action/Guard/Message) are provided to comply with the interface
-     * NotationProvider2 but they aren't specific for C++ (mostly).
-     * Why don't we provide a default implementation for these methods
-     * in NotationHelper or in Generator2?   -- Daniele Tamino
-     */
-
-    private String generateState(Object handle) {
-        return Model.getFacade().getName(handle);
-    }
-
-    private String generateStateBody(Object state) {
-        String s = "";
-        Object entry = Model.getFacade().getEntry(state);
-        Object exit = Model.getFacade().getExit(state);
-        Object doact = Model.getFacade().getDoActivity(state);
-        if (entry != null) {
-            String entryStr = generateAction(entry);
-            if (entryStr.length() > 0) s += "entry / " + entryStr;
-        }
-        if (exit != null) {
-            String doStr = generateAction(doact);
-            if (s.length() > 0) s += LINE_SEPARATOR;
-            if (doStr.length() > 0) s += "do / " + doStr;
-        }
-        if (exit != null) {
-            String exitStr = generateAction(exit);
-            if (s.length() > 0) s += LINE_SEPARATOR;
-            if (exitStr.length() > 0) s += "exit / " + exitStr;
-        }
-        Collection trans = Model.getFacade().getInternalTransitions(state);
-        if (trans != null) {
-            Iterator iter = trans.iterator();
-            while (iter.hasNext()) {
-                if (s.length() > 0) s += LINE_SEPARATOR;
-                s += generateTransition(iter.next());
-            }
-        }
-        return s;
-    }
-
-    private String generateTransition(Object transition) {
-        String s = Model.getFacade().getName(transition);
-        String t = generateEvent(Model.getFacade().getTrigger(transition));
-        String g = generateGuard(Model.getFacade().getGuard(transition));
-        String e = generateAction(Model.getFacade().getEffect(transition));
-        if (s.length() > 0) s += ": ";
-        s += t;
-        if (g.length() > 0) s += " [" + g + "]";
-        if (e.length() > 0) s += " / " + e;
-        return s;
-    }
-
-    private String generateAction(Object m) {
-        Object script = Model.getFacade().getScript(m);
-        if ((script != null) && (Model.getFacade().getBody(script) != null))
-            return Model.getFacade().getBody(script).toString();
-        return "";
-    }
-
-    private String generateActionState(Object actionState) {
-        String ret = "";
-        Object action = Model.getFacade().getEntry(actionState);
-        if (action != null) {
-            Object expression = Model.getFacade().getScript(action);
-            if (expression != null) {
-                ret = generateExpression(expression);
-            }
-        }
-        return ret;
-    }
-
-    private String generateGuard(Object guard) {
-        if (Model.getFacade().getExpression(guard) != null)
-            return generateExpression(Model.getFacade().getExpression(guard));
-        return "";
-    }
-
-    private String generateMessage(Object message) {
-        if (message == null) {
-            return "";
-        }
-        return Model.getFacade().getName(message) + "::"
-            + generateAction(Model.getFacade().getAction(message));
-    }
-
     
     /** 
      * Load configurable parameters.
@@ -3078,15 +2906,6 @@ public class GeneratorCpp implements CodeGenerator {
         }
         endFileGeneration();
         return null;
-    }
-    
-    private static String generateExpression(Object expr) {
-        if (Model.getFacade().isAExpression(expr))
-            return generateUninterpreted(
-                    (String) Model.getFacade().getBody(expr));
-        else if (Model.getFacade().isAConstraint(expr))
-            return generateExpression(Model.getFacade().getBody(expr));
-        return "";
     }
     
     private static String generateUninterpreted(String un) {

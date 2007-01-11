@@ -433,7 +433,8 @@ public class TestCppImport extends TestCase {
         files.add(srcFile);
         
         cppImp.parseFiles(proj, files, settings, new DummyMonitor());
-        cppImp.parseFiles(proj, files, settings, new DummyMonitor()); // 2nd call on purpose!
+        // 2nd call on purpose!
+        cppImp.parseFiles(proj, files, settings, new DummyMonitor());
 
         Collection nss =
             Model.getModelManagementHelper().getAllNamespaces(proj.getModel());
@@ -538,7 +539,8 @@ public class TestCppImport extends TestCase {
             return false;
         }
 
-        public void notifyMessage(String title, String introduction, String message) {
+        public void notifyMessage(String title, String introduction, 
+                String message) {
         }
 
         public void notifyNullAction() {

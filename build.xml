@@ -100,6 +100,7 @@ round-trip engineering for C++ projects.
     <property name="module.tests.reports" value="${module.tests.build}/reports"/>
     <property name="argo.build.dest" value="${argo.build.dir}/classes"/>
     <property name="i18n.dir" value="org/argouml/i18n/"/>
+    <property name="images.dir" value="org/argouml/Images/"/>
 
     <property name="argo.jarfile"
               value="${argo.build.dir}/argouml.jar"/>
@@ -246,11 +247,14 @@ round-trip engineering for C++ projects.
         <classpath>
             <path refid="module.compile.classpath"/>
         </classpath>
-     </javac>
+    </javac>
+    <copy todir="${module.build.dest}/${images.dir}" overwrite="on">
+      <fileset dir="${module.src.dir}/${images.dir}"/>
+    </copy>
   </target>
 
   <!-- =================================================================== -->
-  <!-- Creates the class jar                                           -->
+  <!-- Creates the class jar                                               -->
   <!-- =================================================================== -->
   <target name="jar" depends="init, compile" 
           description="create the module jar">

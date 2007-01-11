@@ -1,5 +1,5 @@
-// $Id: eclipse-argo-codetemplates.xml 11347 2006-10-26 22:37:44Z linus $
-// Copyright (c) 2006 The Regents of the University of California. All
+// $Id: TestModelElementNameNotationCpp.java 77 2007-01-09 22:37:44Z euluis $
+// Copyright (c) 2006-2007 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -32,22 +32,26 @@ import org.argouml.kernel.ProjectManager;
 import org.argouml.model.Model;
 
 /**
- * Tests for the ModelElementName class.
+ * Tests for the ModelElementNameNotationCpp class.
  * 
  * @author Luis Sergio Oliveira (euluis)
  */
-public class TestModelElementName extends TestCase {
+public class TestModelElementNameNotationCpp extends TestCase {
 
     private Object theClass;
 
-    private ModelElementName meNotation;
+    private ModelElementNameNotationCpp meNotation;
 
     private HashMap args;
+
+    private Object baseClass;
+
+    private Object generalization;
 
     protected void setUp() throws Exception {
         super.setUp();
         theClass = Model.getCoreFactory().buildClass("TheClass", getModel());
-        meNotation = new ModelElementName(theClass);
+        meNotation = new ModelElementNameNotationCpp(theClass);
         args = new HashMap();
     }
 
@@ -59,13 +63,11 @@ public class TestModelElementName extends TestCase {
     }
 
     /**
-     * TODO: This test excludes the possibility to have macros within the name 
+     * TODO: This test excludes the possibility to have macros within the name
      * of classes. Since this is a common thing in C++ it is too restrictive.
      */
     public void testToStringForSpecializedClassEmptyArgs() {
-        Object baseClass = Model.getCoreFactory().buildClass("TheBaseClass",
-                getModel());
-        Model.getCoreFactory().buildGeneralization(theClass, baseClass);
+        setUpGeneralizationForTheClass();
         String meNameCpp = meNotation.toString(theClass, args);
         final String ignoredMatcher = "[\\s*\\n*\\r*]*";
         String meNameCppMatcher = "class" + ignoredMatcher
@@ -75,6 +77,18 @@ public class TestModelElementName extends TestCase {
         assertTrue("class \t TheClass:\npublic\tTheBaseClass"
                 .matches(meNameCppMatcher));
         assertTrue(meNameCpp.matches(meNameCppMatcher));
+    }
+
+    private void setUpGeneralizationForTheClass() {
+        baseClass = Model.getCoreFactory().buildClass("TheBaseClass",
+                getModel());
+        generalization = Model.getCoreFactory().buildGeneralization(theClass,
+                baseClass);
+    }
+
+    public void testToStringForUnnamedGeneralizationDoesntReturnNull() {
+        setUpGeneralizationForTheClass();
+        assertNotNull(meNotation.toString(generalization, args));
     }
 
     Object getModel() {
