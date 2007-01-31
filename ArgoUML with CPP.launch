@@ -22,7 +22,7 @@
 <listEntry value="4"/>
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="argouml-module-cpp"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dargouml.modules=org.argouml.language.cpp.CppInit"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Dargouml.modules=org.argouml.language.cpp.generator.ModuleCpp;org.argouml.language.cpp.notation.NotationModuleCpp"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
 <listEntry value="/argouml-module-cpp"/>
 </listAttribute>
