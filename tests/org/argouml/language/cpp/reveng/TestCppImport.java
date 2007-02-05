@@ -1,5 +1,5 @@
 // $Id$
-// Copyright (c) 1996-2006 The Regents of the University of California. All
+// Copyright (c) 1996-2007 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -450,6 +450,25 @@ public class TestCppImport extends TestCase {
 
         Collection attrs = Model.getCoreHelper().getAllAttributes(simpleClass);
         getModelElementAndAssertNotDuplicated(attrs, "newAttr");
+    }
+    
+    public void testIssue0006() throws Exception {
+        genDir = setUpDirectory4Test("testIssue0006");
+        File srcFile = setupSrcFile4Reverse("issue0006_test_preprocessed.cpp");
+        Collection files = new ArrayList();
+        files.add(srcFile);
+        
+        cppImp.parseFiles(proj, files, settings, new DummyMonitor());
+        Collection clss = Model.getCoreHelper().getAllClasses(proj.getModel());
+        Object clazzTest = getModelElementAndAssertNotDuplicated(clss, "Test");
+        Collection opers =
+            Model.getCoreHelper().getBehavioralFeatures(clazzTest);
+        Object ctor = getModelElementAndAssertNotDuplicated(opers, "Test");
+        Collection ctorStereotypes = Model.getFacade().getStereotypes(ctor);
+        assertNotNull(findModelElementWithName(ctorStereotypes, "create"));
+        Object dtor = getModelElementAndAssertNotDuplicated(opers, "~Test");
+        Collection dtorStereotypes = Model.getFacade().getStereotypes(dtor);
+        assertNotNull(findModelElementWithName(dtorStereotypes, "destroy"));
     }
 
     /**

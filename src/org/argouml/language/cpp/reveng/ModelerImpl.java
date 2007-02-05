@@ -1,5 +1,5 @@
 // $Id$
-// Copyright (c) 1996-2006 The Regents of the University of California. All
+// Copyright (c) 1996-2007 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -874,6 +874,7 @@ public class ModelerImpl implements Modeler {
     public void endCtorDefinition() {
         if (!ignore()) {
             ctorModeler.finish();
+            ctorModeler = null;
 	}
     }
 
@@ -882,7 +883,14 @@ public class ModelerImpl implements Modeler {
      */
     public void qualifiedCtorId(String identifier) {
         if (!ignore()) {
+            boolean onlyDeclaration = false;
+            if (ctorModeler == null) {
+                beginCtorDefinition();
+                onlyDeclaration = true;
+            }
             ctorModeler.qualifiedCtorId(identifier);
+            if (onlyDeclaration)
+                endCtorDefinition();
         }
     }
 
@@ -891,16 +899,21 @@ public class ModelerImpl implements Modeler {
      */
     private abstract class XtorModeler {
         private Object xtor;
+        private boolean ignoreXtor = false;
 
         /**
          * Initializes the XtorModeler with the stereotypeName, creates the
          * operation in the class and sets the stereotype with the given name.
+         * TODO: process definitions made outside of the class definition!
+         * TODO: how will I get the class name?
          *
          * @param stereotypeName "create" for ctors and "destroy" for dtors.
          */
         XtorModeler(String stereotypeName) {
-            // FIXME: this will fail when we try to process definitions made
-            // outside of the class definition!
+            if (contextStack.size() == 0) {
+                ignoreXtor = true;
+                return;
+            }
             assert Model.getFacade().isAClass(contextStack.peek());
             xtor = buildOperation(contextStack.peek(), getVoid());
             Model.getExtensionMechanismsHelper().addCopyStereotype(xtor,
@@ -923,9 +936,14 @@ public class ModelerImpl implements Modeler {
          * Pops the xtor from the <code>contextStack</code>.
          */
         void finish() {
+            if (ignoreXtor) return;
             Object poppedXtor = contextStack.pop();
             assert isTheXtor(poppedXtor);
             removeOperationIfDuplicate(xtor);
+        }
+        
+        boolean ignore() {
+            return ignoreXtor;
         }
     }
 
@@ -946,6 +964,7 @@ public class ModelerImpl implements Modeler {
          * @param identifier
          */
         void qualifiedCtorId(String identifier) {
+            if (ignore()) return;
             assert isTheXtor(contextStack.peek());
             Model.getCoreHelper().setName(contextStack.peek(), identifier);
         }
@@ -993,11 +1012,10 @@ public class ModelerImpl implements Modeler {
          * @param qualifiedId
          */
         void declarator(String qualifiedId) {
+            if (ignore()) return;
             assert isTheXtor(contextStack.peek());
             Model.getCoreHelper().setName(contextStack.peek(), qualifiedId);
         }
     }
-    
-
 
 }

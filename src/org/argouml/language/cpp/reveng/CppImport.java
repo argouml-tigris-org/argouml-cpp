@@ -1,5 +1,5 @@
 // $Id$
-// Copyright (c) 2005-2006 The Regents of the University of California. All
+// Copyright (c) 2005-2007 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -28,7 +28,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -45,12 +44,9 @@ import org.argouml.uml.reveng.ImportSettings;
 import org.argouml.uml.reveng.ImporterManager;
 import org.argouml.util.SuffixFilter;
 
-import antlr.RecognitionException;
-import antlr.TokenStreamException;
-
 /**
  * Implementation of the reverse engineering interface of ArgoUML,
- * <code>PluggableImport</code>, for the C++ module.
+ * <code>ImportInterface</code>, for the C++ module.
  * 
  * FIXME i18n support?!
  * 
@@ -100,6 +96,7 @@ public class CppImport implements ModuleInterface, ImportInterface {
         throws ImportException {
         
         LOG.warn("Not fully implemented yet!");
+        warnUser(monitor);
 
         newElements = new HashSet();
         monitor.setMaximumProgress(files.size());
@@ -113,7 +110,7 @@ public class CppImport implements ModuleInterface, ImportInterface {
             parseFile(p, (File) file, settings);
             monitor.updateProgress(count++);
         }
-        return Collections.EMPTY_SET;
+        return newElements;
     }
     
     /*
@@ -134,9 +131,7 @@ public class CppImport implements ModuleInterface, ImportInterface {
             CPPParser parser = new CPPParser(lexer);
             try {
                 parser.translation_unit(modeler);
-            } catch (RecognitionException e) {
-                throw new ImportException("Error parsing " + f, e);
-            } catch (TokenStreamException e) {
+            } catch (Exception e) {
                 throw new ImportException("Error parsing " + f, e);
             }
             newElements.addAll(modeler.getNewElements());
@@ -144,35 +139,30 @@ public class CppImport implements ModuleInterface, ImportInterface {
             try {
                 in.close();
             } catch (IOException e) {
-                // ignore errors on clse
+                LOG.error("Error on closing file " + f, e);
             }
         }
 
     }
 
     /**
+     * <p>
      * Show a dialog box to the user, warning that the C++ reveng is still very
      * limited. The list of obvious limitations must be shown. The user is given
      * the option of, by default, not seeing the warning again.
-     * 
-     * TODO: i18n, or not to-do?... This warning is temporary, and it will
+     * </p>
+     * <p>TODO: i18n, or not to-do?... This warning is temporary, and it will
      * change often in the future - hopefully removing limitations - so, would
      * the effort of i18n pay off? I don't think so.
-     * 
-     * TODO: The method this warning was invoked from is no longer used, so 
-     * it needs to be moved someplace else.  Perhaps it could be put in the
-     * header of the generated source module? - tfm
-     * 
-     * @param parentComponent
+     * </p>
+     * @param monitor The ProgressMonitor enables us to show the feedback to 
+     * the user without depending on the GUI.
      */
-    private void warnUser() {
+    private void warnUser(ProgressMonitor monitor) {
         final String lineSepAndListIndent = System
                 .getProperty("line.separator")
             + "    * ";
-        String warnMsg = "The C++ reverse engineering module is pre-alpha "
-            + "stage."
-            + System.getProperty("line.separator")
-            + "Its known limits are: "
+        String warnMsg = "Its known limits are: "
             + lineSepAndListIndent
             + "preprocessed files only, i.e., works on full translation units;"
             + lineSepAndListIndent
@@ -190,6 +180,9 @@ public class CppImport implements ModuleInterface, ImportInterface {
         // Even if the user didn't turn off the warning, we won't show it to
         // him again in this ArgoUML run.
         userWarning = false;
+        monitor.notifyMessage("C++ Import Limitations", 
+                "The C++ reverse engineering module is pre-alpha stage.", 
+                warnMsg);
     }
 
     /*
@@ -250,7 +243,7 @@ public class CppImport implements ModuleInterface, ImportInterface {
         case DESCRIPTION:
             return "C++ reverse engineering support";            
         case VERSION:
-            return "0.00";
+            return "0.01";
         default:
             return null;
         }
