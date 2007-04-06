@@ -101,6 +101,7 @@ round-trip engineering for C++ projects.
     <property name="argo.build.dest" value="${argo.build.dir}/classes"/>
     <property name="i18n.dir" value="org/argouml/i18n/"/>
     <property name="images.dir" value="org/argouml/Images/"/>
+    <property name="profile.file" value="org/argouml/language/cpp/profile/CppUmlProfile.xmi"/>
 
     <property name="argo.jarfile"
               value="${argo.build.dir}/argouml.jar"/>
@@ -242,8 +243,8 @@ round-trip engineering for C++ projects.
            debug="${debug}"
            deprecation="${deprecation}"
            optimize="${optimize}"
-           source="1.4"
-           target="1.4">
+           source="1.5"
+           target="1.5">
         <classpath>
             <path refid="module.compile.classpath"/>
         </classpath>
@@ -251,6 +252,8 @@ round-trip engineering for C++ projects.
     <copy todir="${module.build.dest}/${images.dir}" overwrite="on">
       <fileset dir="${module.src.dir}/${images.dir}"/>
     </copy>
+    <copy file="${module.src.dir}/${profile.file}" 
+    	tofile="${module.build.dest}/${profile.file}"/>
   </target>
 
   <!-- =================================================================== -->
@@ -352,8 +355,8 @@ round-trip engineering for C++ projects.
            debug="true"
            deprecation="false"
            optimize="false"
-           source="1.4"
-           target="1.4">
+           source="1.5"
+           target="1.5">
       <classpath>
         <path refid="module.compile-tests.classpath"/>
       </classpath>
@@ -375,6 +378,8 @@ round-trip engineering for C++ projects.
     <copy file="${tests.reveng.src}/CastExpressions.cpp"
       todir="${tests.reveng.classes}"/>
     <copy file="${tests.reveng.src}/DerivedFromAbstract.cxx"
+      todir="${tests.reveng.classes}"/>
+    <copy file="${tests.reveng.src}/issue0006_test_preprocessed.cpp"
       todir="${tests.reveng.classes}"/>
   </target> 
 

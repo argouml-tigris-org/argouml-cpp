@@ -33,8 +33,12 @@ import java.util.Stack;
 
 import org.apache.log4j.Logger;
 import org.argouml.kernel.ProjectManager;
+import org.argouml.model.IllegalModelElementConnectionException;
 import org.argouml.model.Model;
+import static org.argouml.model.Model.*;
 import org.argouml.model.UUIDManager;
+import org.argouml.language.cpp.profile.ProfileCpp;
+import static org.argouml.language.cpp.profile.ProfileCpp.*;
 
 /**
  * Implementation of the <code>Modeler</code> interface. This facade
@@ -76,6 +80,8 @@ public class ModelerImpl implements Modeler {
     private static final Logger LOG = Logger.getLogger(ModelerImpl.class);
     
     private Collection newElements;
+    
+    private ProfileCpp profile = new ProfileCpp(getModel());
 
     /*
      * @see org.argouml.language.cpp.reveng.Modeler#beginTranslationUnit()
@@ -129,7 +135,7 @@ public class ModelerImpl implements Modeler {
             parentNs = getModel();
         } else {
             parentNs = contextStack.peek();
-            assert Model.getFacade().isANamespace(parentNs);
+            assert getFacade().isANamespace(parentNs);
         }
         return parentNs;
     }
@@ -204,7 +210,9 @@ public class ModelerImpl implements Modeler {
             // C++?
             Object cls = findClass(identifier, ns);
             if (cls == null) {
-                cls = Model.getCoreFactory().buildClass(identifier, ns);
+                cls = getCoreFactory().buildClass(identifier, ns);
+                getCoreHelper().addStereotype(cls, 
+                        profile.getCppClassStereotype());
                 newElements.add(cls);
             }
             contextStack.push(cls);
@@ -217,7 +225,8 @@ public class ModelerImpl implements Modeler {
 		    Model.getExtensionMechanismsFactory()
                         .buildTaggedValue(ProfileCpp.TV_NAME_CLASS_SPECIFIER,
                             "struct");
-                Model.getCoreHelper().addTaggedValue(cls, classSpecifierTV);
+                Model.getExtensionMechanismsHelper().addTaggedValue(cls, 
+                        classSpecifierTV);
             } else if (CPPvariables.OT_UNION.equals(oType)) {
                 // TODO: implement union specifics.
                 ;
@@ -316,8 +325,7 @@ public class ModelerImpl implements Modeler {
      * @return the operation
      */
     private Object buildOperation(Object me, Object returnType) {
-        return Model.getCoreFactory()
-                .buildOperation(me, getModel(), returnType);
+        return Model.getCoreFactory().buildOperation(me, returnType);
     }
 
     /*
@@ -400,8 +408,8 @@ public class ModelerImpl implements Modeler {
 
             } else if (Model.getFacade().isAClass(contextStack.peek())) {
                 Object attr =
-		    Model.getCoreFactory().buildAttribute(
-			    contextStack.peek(), getModel(), theType);
+		    Model.getCoreFactory().buildAttribute2(
+                            contextStack.peek(), theType);
                 if (contextAccessSpecifier != null) {
                     Model.getCoreHelper().setVisibility(attr,
                         contextAccessSpecifier);
@@ -426,7 +434,7 @@ public class ModelerImpl implements Modeler {
     private Object findOrCreateType(String typeName) {
         Object theType = null;
         List taggedValues = new LinkedList();
-        String strippedTypeName = processPtrOperators(typeName, taggedValues);
+        processPtrOperators(typeName, taggedValues);
         if (ProfileCpp.isBuiltIn(typeName)) {
             theType = ProfileCpp.getBuiltIn(typeName);
         } else {
@@ -572,9 +580,7 @@ public class ModelerImpl implements Modeler {
             if (Model.getFacade().isAOperation(oper)) {
                 // create a parameter within the operation
                 Object param =
-		    Model.getCoreFactory().buildParameter(
-			    oper,
-			    getModel(), getVoid());
+		    Model.getCoreFactory().buildParameter(oper, getVoid());
                 // add the created parameter to the stack
                 contextStack.push(param);
             }
@@ -674,7 +680,8 @@ public class ModelerImpl implements Modeler {
         if (!ignore()) {
             Object ptrTV = contextStack.pop();
             assert Model.getFacade().isATaggedValue(ptrTV);
-            Model.getCoreHelper().addTaggedValue(contextStack.peek(), ptrTV);
+            Model.getExtensionMechanismsHelper().addTaggedValue(
+                    contextStack.peek(), ptrTV);
         }
     }
 
@@ -781,8 +788,12 @@ public class ModelerImpl implements Modeler {
             Object parent = findOrCreateType(identifier);
             generalization =
 		findOrCreateGeneralization(parent, contextStack.peek());
-            Model.getCoreHelper().setTaggedValue(generalization,
-                ProfileCpp.TV_VIRTUAL_INHERITANCE, Boolean.toString(isVirtual));
+            Object tv = getExtensionMechanismsFactory().buildTaggedValue(
+                    ProfileCpp.TV_VIRTUAL_INHERITANCE, 
+                    Boolean.toString(isVirtual));
+            getExtensionMechanismsHelper().setType(tv, 
+                    profile.getVirtualInheritanceTagDefinition());
+            getExtensionMechanismsHelper().addTaggedValue(generalization, tv);
         }
 
         /**
@@ -793,9 +804,9 @@ public class ModelerImpl implements Modeler {
             if (contextAccessSpecifier == null) { // default is private
                 contextAccessSpecifier = Model.getVisibilityKind().getPrivate();
             }
-            Model.getCoreHelper().setTaggedValue(generalization,
-                ProfileCpp.TV_INHERITANCE_VISIBILITY,
-                Model.getFacade().getName(contextAccessSpecifier));
+            getExtensionMechanismsFactory().buildTaggedValue(
+                    TV_INHERITANCE_VISIBILITY, 
+                    getFacade().getName(contextAccessSpecifier));
             // finish the base specifier by setting the context to the
             // previous state
             contextAccessSpecifier = previousAccessSpecifier;
@@ -811,14 +822,35 @@ public class ModelerImpl implements Modeler {
      * @return the found Generalization model element if found, otherwise a
      *         newly created
      */
-    private static Object findOrCreateGeneralization(Object parent,
+    private Object findOrCreateGeneralization(Object parent,
             Object child) {
         Object generalization =
 	    Model.getFacade().getGeneralization(child, parent);
+        Object stereotype = null;
         if (generalization == null) {
-            generalization =
-		Model.getCoreFactory().buildGeneralization(child, parent);
-	}
+            try {
+                generalization = getUmlFactory().buildConnection(
+                        getMetaTypes().getGeneralization(), child, null, 
+                        parent, null, null, null);
+            } catch (IllegalModelElementConnectionException e) {
+                LOG.error("Exception while creating generalization.", e);
+                throw new RuntimeException(e);
+            }
+	} else {
+            Collection stereotypes = getFacade().getStereotypes(generalization);
+            for (Object aStereotype : stereotypes) {
+                if (ProfileCpp.STEREO_NAME_GENERALIZATION.equals(
+                        getFacade().getName(aStereotype))) {
+                    stereotype = aStereotype;
+                }
+            }
+        }
+        assert generalization != null;
+        if (stereotype == null) {
+            stereotype = profile.getCppGeneralizationStereotype();
+            assert stereotype != null;
+            getCoreHelper().addStereotype(generalization, stereotype);
+        }
         return generalization;
     }
 

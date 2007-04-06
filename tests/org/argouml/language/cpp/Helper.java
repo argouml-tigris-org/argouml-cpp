@@ -1,5 +1,5 @@
 // $Id$
-// Copyright (c) 2006-2007 The Regents of the University of California. All
+// Copyright (c) 2007 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -22,30 +22,23 @@
 // CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT,
 // UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-package org.argouml.language.cpp.notation;
+package org.argouml.language.cpp;
 
-import junit.framework.TestCase;
-
-import org.argouml.language.cpp.Helper;
-import org.argouml.model.Model;
+import org.argouml.kernel.ProjectManager;
 
 /**
- * Tests for the Attribute class.
- * 
+ * An Helper for test classes.
+ *
  * @author Luis Sergio Oliveira (euluis)
  */
-public class TestAttributeNotationCpp extends TestCase {
+public class Helper {
 
-    public void testToStringSimpleNoArgs() {
-        Object theClass = Model.getCoreFactory().buildClass("TheClass",
-                Helper.getModel());
-        Object attr = Model.getCoreFactory().buildAttribute2(theClass,
-                theClass);
-        Model.getCoreHelper().setName(attr, "attrName");
-        AttributeNotationCpp notation = new AttributeNotationCpp();
-        String attrNotation = notation.toString(attr, null);
-        assertTrue(attrNotation.matches(Model.getFacade().getName(theClass)
-                + " " + Model.getFacade().getName(attr) + ";"));
+    public static Object getModel() {
+        return ProjectManager.getManager().getCurrentProject().getModel();
+    }
+
+    public static void newModel() {
+        ProjectManager.getManager().makeEmptyProject();
     }
 
 }

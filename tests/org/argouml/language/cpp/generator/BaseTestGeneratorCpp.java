@@ -78,7 +78,7 @@ class BaseTestGeneratorCpp extends TestCase {
     /*
      * @see junit.framework.TestCase#setUp()
      */
-    protected void setUp() {
+    protected void setUp() throws Exception {
         setModule(new ModuleCpp());
         getModule().enable();
 
@@ -102,8 +102,8 @@ class BaseTestGeneratorCpp extends TestCase {
      */
     protected Object buildOperation(Object me, Object returnType, 
             String opName) {
-        return Model.getCoreFactory().buildOperation(me,
-                getModel(), returnType, opName);
+        return Model.getCoreFactory().buildOperation2(me,
+                returnType, opName);
     }
 
     /**
@@ -115,8 +115,7 @@ class BaseTestGeneratorCpp extends TestCase {
      */
     protected Object buildAttribute(Object me, Object type, 
             String attrName) {
-        Object attr = Model.getCoreFactory()
-            .buildAttribute(me, getModel(), type);
+        Object attr = Model.getCoreFactory().buildAttribute2(me, type);
         Model.getCoreHelper().setName(attr, attrName);
         return attr;
     }

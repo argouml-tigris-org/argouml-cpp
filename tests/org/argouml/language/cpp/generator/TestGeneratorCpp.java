@@ -33,7 +33,9 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.apache.log4j.Logger;
+import org.argouml.model.IllegalModelElementConnectionException;
 import org.argouml.model.Model;
+import static org.argouml.model.Model.*;
 import org.argouml.moduleloader.ModuleInterface;
 
 /**
@@ -92,7 +94,7 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
     /*
      * @see junit.framework.TestCase#setUp()
      */
-    protected void setUp() {
+    protected void setUp() throws Exception {
         super.setUp();
         setUpAInterface();
         setUpAExtended();
@@ -106,7 +108,8 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
      * Generate the AInterface interface
      */
     private void setUpAInterface() {
-        aInterface = getFactory().buildInterface("AInterface");
+        aInterface = getUmlFactory().buildNode(getMetaTypes().getInterface());
+        getCoreHelper().setName(aInterface, "AInterface");
         Object voidType = ProjectManager.getManager().getCurrentProject()
                 .findType("void");
         buildOperation(aInterface, voidType, "foo");
@@ -136,7 +139,7 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
      * @param parent
      */
     private void setUpAGeneralization(Object child, Object parent) {
-        aGeneralization = getFactory().buildGeneralization(child, parent);
+        aGeneralization = getFactory().buildGeneralization(child, parent, "");
     }
 
     /**
@@ -144,9 +147,13 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
      * 
      * @param cls The Class that realizes iface.
      * @param iface The Interface which is realized by cls.
+     * @throws IllegalModelElementConnectionException 
      */
-    private void setUpARealization(Object cls, Object iface) {
-        aRealization = getFactory().buildRealization(cls, iface, getModel());
+    private void setUpARealization(Object cls, Object iface) 
+        throws IllegalModelElementConnectionException {
+        aRealization = getUmlFactory().buildConnection(
+                getMetaTypes().getAbstraction(), 
+                cls, null, iface, null, null, null);
     }
 
     /**
@@ -176,10 +183,9 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
         Collection params = Model.getFacade().getParameters(getFooMethod());
         assertEquals(1, params.size());
         Object returnVal = params.iterator().next();
-        //Model.getCoreHelper().setTaggedValue(returnVal, "pointer", "true");
         Object tv = Model.getExtensionMechanismsFactory().buildTaggedValue(
                 "pointer", "true");
-        Model.getCoreHelper().addTaggedValue(returnVal, tv);
+        Model.getExtensionMechanismsHelper().addTaggedValue(returnVal, tv);
         Model.getCoreHelper().setType(returnVal, getAClass());
         String genOp = getGenerator().generateOperation(getFooMethod(), false);
         LOG.info(genOp);
@@ -227,7 +233,7 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
         Object tv = Model.getExtensionMechanismsFactory().buildTaggedValue(
             name, value);
         tvs.addElement(tv);
-        Model.getCoreHelper().setTaggedValues(o, tvs);
+        Model.getExtensionMechanismsHelper().setTaggedValue(o, tvs);
     }
     /**
      * Test that default inheritance is public for classes and "virtual public"
@@ -333,8 +339,7 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
 	String name = Model.getFacade().getName(cls);
         Object voidType = ProjectManager.getManager().getCurrentProject()
                 .findType("void");
-        Object c = Model.getCoreFactory().buildOperation(cls, getModel(),
-            voidType, name);
+        Object c = Model.getCoreFactory().buildOperation2(cls, voidType, name);
         Object stereo = Model.getExtensionMechanismsFactory().buildStereotype(
             c, "create", getModel());
         Model.getExtensionMechanismsHelper().addBaseClass(stereo,

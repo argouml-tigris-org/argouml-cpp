@@ -115,8 +115,9 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
     /**
      * Setup some of the commonly used objects.
      * @see org.argouml.language.cpp.generator.BaseTestGeneratorCpp#setUp()
+     * @throws Exception if something goes wrong.
      */
-    protected void setUp() {
+    protected void setUp() throws Exception {
         super.setUp();
         String packageName = "pack";
         Object aPackage = Model.getModelManagementFactory().buildPackage(
@@ -264,7 +265,7 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
      */
     private void createAClassOperationWithOtherClassAsParamAndReturn() {
         Object gee = buildOperation(getAClass(), otherClass, "gee");
-        getFactory().buildParameter(gee, getModel(), otherClass);
+        getFactory().buildParameter(gee, otherClass);
     }
 
     /**

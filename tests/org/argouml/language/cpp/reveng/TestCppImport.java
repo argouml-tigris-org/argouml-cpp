@@ -48,6 +48,7 @@ import org.argouml.persistence.ProgressEvent;
 import org.argouml.uml.reveng.DiagramInterface;
 import org.argouml.uml.reveng.ImportCommon;
 import org.argouml.uml.reveng.ImportSettings;
+import org.argouml.language.cpp.profile.ProfileCpp;
 
 /**
  * Tests the {@link CppImport} class.
@@ -124,14 +125,25 @@ public class TestCppImport extends TestCase {
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception {
-        super.setUp();
         tmpDir = new File(System.getProperty(SYSPROPNAME_TMPDIR));
-        proj = ProjectManager.getManager().getCurrentProject();
+        proj = ProjectManager.getManager().makeEmptyProject();
         cppImp = new CppImport();
         settings = new DummySettings();
     }
 
-    /*
+    /**
+     * IMPORTANT: if you get a failure inline with the following:
+     * java.io.IOException: Unable to delete file: 
+     * D:\tmp\testIssue0006DeleteFileFails\issue0006_test_preprocessed2.cpp
+     *  at org.apache.commons.io.FileUtils.forceDelete(FileUtils.java:659) 
+     *  at org.apache.commons.io.FileUtils.cleanDirectory(FileUtils.java:540) 
+     *  at org.apache.commons.io.FileUtils.deleteDirectory(FileUtils.java:509) 
+     *  at org.argouml.language.cpp.reveng.TestCppImport.tearDown(
+     *  TestCppImport.java:139)
+     * It is because you must add the file copy to the Ant's script 
+     * task copy-tests-resources.
+     * 
+     * @throws Exception When there is a problem in deleting the directory.
      * @see junit.framework.TestCase#tearDown()
      */
     protected void tearDown() throws Exception {
@@ -420,8 +432,6 @@ public class TestCppImport extends TestCase {
      * CppImport.parseFile(xxx)}
      * method on the same translation unit. The model elements shouldn't get
      * duplicated.
-     * 
-     * FIXME: fails under eclipse 3.2.1, but passes using the Ant build. 
      *
      * @throws Exception something went wrong
      */
@@ -452,6 +462,18 @@ public class TestCppImport extends TestCase {
         getModelElementAndAssertNotDuplicated(attrs, "newAttr");
     }
     
+    /**
+     * A user reported this very simple example which was failing to be 
+     * imported.
+     * The error was caused by unfinished work in the import of constructors 
+     * and destructors which should support separate definition, outside of 
+     * the class definition. 
+     * 
+     * @throws Exception Something went wrong.
+     * @see <a 
+     * href="http://argouml-cpp.tigris.org/issues/show_bug.cgi?id=6">issue 
+     * 6</a> 
+     */
     public void testIssue0006() throws Exception {
         genDir = setUpDirectory4Test("testIssue0006");
         File srcFile = setupSrcFile4Reverse("issue0006_test_preprocessed.cpp");

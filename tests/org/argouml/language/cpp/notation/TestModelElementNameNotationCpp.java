@@ -28,8 +28,8 @@ import java.util.HashMap;
 
 import junit.framework.TestCase;
 
-import org.argouml.kernel.ProjectManager;
 import org.argouml.model.Model;
+import static org.argouml.language.cpp.Helper.*;
 
 /**
  * Tests for the ModelElementNameNotationCpp class.
@@ -80,19 +80,15 @@ public class TestModelElementNameNotationCpp extends TestCase {
     }
 
     private void setUpGeneralizationForTheClass() {
-        baseClass = Model.getCoreFactory().buildClass("TheBaseClass",
+        baseClass = Model.getCoreFactory().buildClass("TheBaseClass", 
                 getModel());
         generalization = Model.getCoreFactory().buildGeneralization(theClass,
-                baseClass);
+                baseClass, "");
     }
 
     public void testToStringForUnnamedGeneralizationDoesntReturnNull() {
         setUpGeneralizationForTheClass();
         assertNotNull(meNotation.toString(generalization, args));
-    }
-
-    Object getModel() {
-        return ProjectManager.getManager().getCurrentProject().getModel();
     }
 
 }
