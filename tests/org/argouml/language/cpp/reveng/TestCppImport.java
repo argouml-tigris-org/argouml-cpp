@@ -40,11 +40,11 @@ import junit.framework.TestSuite;
 
 import org.apache.commons.io.CopyUtils;
 import org.apache.commons.io.FileUtils;
-import org.argouml.application.api.ProgressMonitor;
 import org.argouml.kernel.Project;
 import org.argouml.kernel.ProjectManager;
 import org.argouml.model.Model;
 import org.argouml.persistence.ProgressEvent;
+import org.argouml.persistence.ProgressMonitor;
 import org.argouml.uml.reveng.DiagramInterface;
 import org.argouml.uml.reveng.ImportCommon;
 import org.argouml.uml.reveng.ImportSettings;
