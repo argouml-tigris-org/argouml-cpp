@@ -27,7 +27,7 @@ package org.argouml.language.cpp.notation;
 import java.util.HashMap;
 
 import org.argouml.language.cpp.generator.GeneratorCpp;
-import org.argouml.uml.notation.AttributeNotation;
+import org.argouml.notation.providers.AttributeNotation;
 
 /**
  * 
@@ -49,7 +49,7 @@ public class AttributeNotationCpp extends AttributeNotation {
     }
 
     /*
-     * @see org.argouml.uml.notation.NotationProvider#getParsingHelp()
+     * @see org.argouml.notation.providers.NotationProvider#getParsingHelp()
      */
     public String getParsingHelp() {
         // TODO: Auto-generated method stub
@@ -57,7 +57,7 @@ public class AttributeNotationCpp extends AttributeNotation {
     }
 
     /*
-     * @see org.argouml.uml.notation.NotationProvider#parse(java.lang.Object,
+     * @see org.argouml.notation.providers.NotationProvider#parse(java.lang.Object,
      *      java.lang.String)
      */
     public void parse(Object attribute, String text) {
@@ -71,7 +71,7 @@ public class AttributeNotationCpp extends AttributeNotation {
      * @param args
      *            Configuration parameters for the notation.
      * @return The C++ representation of attribute as a String.
-     * @see org.argouml.uml.notation.NotationProvider#toString(java.lang.Object,
+     * @see org.argouml.notation.providers.NotationProvider#toString(java.lang.Object,
      *      java.util.HashMap)
      */
     public String toString(Object attribute, HashMap args) {

@@ -28,7 +28,7 @@ import java.util.HashMap;
 
 import org.argouml.language.cpp.generator.GeneratorCpp;
 import org.argouml.model.Model;
-import org.argouml.uml.notation.ModelElementNameNotation;
+import org.argouml.notation.providers.ModelElementNameNotation;
 
 /**
  * 
@@ -46,7 +46,7 @@ public class ModelElementNameNotationCpp extends ModelElementNameNotation {
     }
 
     /*
-     * @see org.argouml.uml.notation.NotationProvider#parse(java.lang.Object,
+     * @see org.argouml.notation.providers.NotationProvider#parse(java.lang.Object,
      *      java.lang.String)
      */
     public void parse(Object modelElement, String text) {
@@ -54,7 +54,7 @@ public class ModelElementNameNotationCpp extends ModelElementNameNotation {
     }
 
     /*
-     * @see org.argouml.uml.notation.NotationProvider#toString(java.lang.Object,
+     * @see org.argouml.notation.providers.NotationProvider#toString(java.lang.Object,
      *      java.util.HashMap)
      */
     public String toString(Object me, HashMap args) {
