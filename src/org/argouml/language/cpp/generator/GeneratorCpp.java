@@ -45,8 +45,8 @@ import java.util.TreeSet;
 import java.util.Vector;
 
 import org.apache.log4j.Logger;
-import org.argouml.application.configuration.Configuration;
-import org.argouml.application.configuration.ConfigurationKey;
+import org.argouml.configuration.Configuration;
+import org.argouml.configuration.ConfigurationKey;
 import org.argouml.model.Model;
 import org.argouml.uml.DocumentationManager;
 import org.argouml.uml.UUIDHelper;

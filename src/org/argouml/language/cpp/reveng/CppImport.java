@@ -33,8 +33,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.argouml.application.configuration.Configuration;
-import org.argouml.application.configuration.ConfigurationKey;
+import org.argouml.configuration.Configuration;
+import org.argouml.configuration.ConfigurationKey;
 import org.argouml.kernel.Project;
 import org.argouml.moduleloader.ModuleInterface;
 import org.argouml.taskmgmt.ProgressMonitor;
