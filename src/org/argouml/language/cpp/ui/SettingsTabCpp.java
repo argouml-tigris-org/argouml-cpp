@@ -1,5 +1,5 @@
 // $Id$
-// Copyright (c) 1996-2006 The Regents of the University of California. All
+// Copyright (c) 1996-2007 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -41,7 +41,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 import org.apache.log4j.Logger;
-import org.argouml.application.ArgoVersion;
+import org.argouml.application.helpers.ApplicationVersion;
 import org.argouml.i18n.Translator;
 import org.argouml.language.cpp.generator.GeneratorCpp;
 import org.argouml.language.cpp.generator.Section;
@@ -202,7 +202,7 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
         case ModuleInterface.DESCRIPTION:
             return "C++ Settings";
         case ModuleInterface.VERSION:
-            return ArgoVersion.getVersion();
+            return ApplicationVersion.getVersion();
         default:
             return null;
         }
