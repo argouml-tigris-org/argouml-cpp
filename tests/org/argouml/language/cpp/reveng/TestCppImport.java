@@ -334,9 +334,9 @@ public class TestCppImport extends TestCase {
         assertEquals("Base", Model.getFacade().getName(
             Model.getFacade().getParent(baseGeneralization)));
         assertEquals("false", Model.getFacade().getTaggedValueValue(
-            baseGeneralization, ProfileCpp.TV_VIRTUAL_INHERITANCE));
-        assertTaggedValueExistsAndValueIs(baseGeneralization,
-            ProfileCpp.TV_INHERITANCE_VISIBILITY, "public");
+            baseGeneralization, ProfileCpp.TV_NAME_VIRTUAL_INHERITANCE));
+        assertTaggedValueExistsAndValueIs(baseGeneralization, 
+            ProfileCpp.TV_NAME_INHERITANCE_VISIBILITY, "public");
         // verify Derived constructor
         Collection derivedOpers =
             Model.getCoreHelper().getBehavioralFeatures(derivedClass);

@@ -27,6 +27,7 @@ package org.argouml.language.cpp.profile;
 import static org.argouml.language.cpp.Helper.*;
 
 import java.util.Collection;
+import java.util.Collections;
 
 import org.argouml.model.Model;
 import static org.argouml.model.Model.*;
@@ -43,11 +44,21 @@ import junit.framework.TestCase;
 public class TestProfileCpp extends TestCase {
     private Object model;
     private ProfileCpp profile;
+    private Object aClass;
+    private Object attribute;
+    private Object operation;
+    private Object param;
 
     protected void setUp() throws Exception {
         newModel();
         model = Model.getModelManagementFactory().getRootModel();
         profile = new ProfileCpp(model);
+        aClass = getCoreFactory().buildClass("AClass", getModel());
+        attribute = getCoreFactory().buildAttribute2(aClass, aClass);
+        operation = getCoreFactory().buildOperation2(aClass, 
+                ProfileCpp.getBuiltIn("int"), "anInt");
+        param = getCoreFactory().buildParameter(operation, 
+                ProfileCpp.getBuiltIn("int"));
     }
 
     public void testCtorHappyPath() throws UmlException {
@@ -65,10 +76,93 @@ public class TestProfileCpp extends TestCase {
     
     public void testGetCppClassStereotype() throws Exception {
         Object stereotype = profile.getCppClassStereotype();
+        validateCppStereotypeGetter(stereotype, ProfileCpp.STEREO_NAME_CLASS);
+    }
+    
+    public void testGetCppAttributeStereotype() throws Exception {
+        Object stereotype = profile.getCppAttributeStereotype();
+        validateCppStereotypeGetter(stereotype, 
+                ProfileCpp.STEREO_NAME_ATTRIBUTE);
+    }
+    
+    void validateCppStereotypeGetter(Object stereotype, String stereoName) {
         assertNotNull(stereotype);
+        assertEquals(stereoName, getFacade().getName(stereotype));
         assertEquals(model, getFacade().getModel(stereotype));
         Collection tagDefinitions = getFacade().getTagDefinitions(stereotype);
         assertNotNull(tagDefinitions);
         assertTrue(tagDefinitions.size() > 0);
+    }
+    
+    public void testGetClassSpecifierTagDefinition() throws Exception {
+        Object tagDefinition = profile.getClassSpecifierTagDefinition();
+        assertNotNull(tagDefinition);
+        assertEquals(model, getFacade().getModel(tagDefinition));
+    }
+    
+    public void testApplyCppClassStereotype() throws Exception {
+        profile.applyCppClassStereotype(aClass);
+        Collection stereotypes = getFacade().getStereotypes(aClass);
+        Object cppClassStereotype = profile.getCppClassStereotype();
+        assertTrue(stereotypes.contains(cppClassStereotype));
+        assertEquals(1, Collections.frequency(stereotypes, cppClassStereotype));
+        profile.applyCppClassStereotype(aClass);
+        assertEquals(1, Collections.frequency(stereotypes, cppClassStereotype));
+    }
+    
+    public void testApplyCppAttributeStereotype() throws Exception {
+        profile.applyCppAttributeStereotype(attribute);
+        assertTrue(getFacade().getStereotypes(attribute).contains(
+                profile.getCppAttributeStereotype()));
+    }
+    
+    public void testApplyClassSpecifierTaggedValue() throws Exception {
+        profile.applyCppClassStereotype(aClass);
+        profile.applyClassSpecifierTaggedValue(aClass, "struct");
+        Object taggedValue = getFacade().getTaggedValue(aClass, 
+                ProfileCpp.TV_NAME_CLASS_SPECIFIER);
+        assertNotNull(taggedValue);
+        assertEquals(profile.getClassSpecifierTagDefinition(), 
+                getFacade().getType(taggedValue));
+        assertEquals("struct", getFacade().getValueOfTag(taggedValue));
+    }
+    
+    public void testApplyMultiplicityTypeTaggedValue() throws Exception {
+        profile.applyCppAttributeStereotype(attribute);
+        profile.applyMultiplicityTypeTaggedValue(attribute, "vector");
+        Object taggedValue = getFacade().getTaggedValue(attribute, 
+                ProfileCpp.TV_NAME_MULTIPLICITY_TYPE);
+        assertNotNull(taggedValue);
+        assertEquals(profile.getMultiplicityTypeTagDefinition(), 
+                getFacade().getType(taggedValue));
+        assertEquals("vector", getFacade().getValueOfTag(taggedValue));
+    }
+    
+    public void testApplyCppParameterStereotype() throws Exception {
+        profile.applyCppParameterStereotype(param);
+        assertTrue(getFacade().getStereotypes(param).contains(
+                profile.getCppParameterStereotype()));
+    }
+    
+    public void testApplyPointerTaggedValue2Parameter() throws Exception {
+        profile.applyCppParameterStereotype(param);
+        profile.applyPointerTaggedValue2Parameter(param, "true");
+        Object taggedValue = getFacade().getTaggedValue(param, 
+                ProfileCpp.TV_NAME_POINTER);
+        assertNotNull(taggedValue);
+        assertEquals(profile.getPointerTagDefinition4Parameter(), 
+                getFacade().getType(taggedValue));
+        assertEquals("true", getFacade().getValueOfTag(taggedValue));
+    }
+    
+    public void testApplyReferenceTaggedValue2Parameter() throws Exception {
+        profile.applyCppParameterStereotype(param);
+        profile.applyReferenceTaggedValue2Parameter(param, "true");
+        Object taggedValue = getFacade().getTaggedValue(param, 
+                ProfileCpp.TV_NAME_REFERENCE);
+        assertNotNull(taggedValue);
+        assertEquals(profile.getReferenceTagDefinition4Parameter(), 
+                getFacade().getType(taggedValue));
+        assertEquals("true", getFacade().getValueOfTag(taggedValue));
     }
 }

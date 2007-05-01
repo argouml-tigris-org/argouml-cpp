@@ -211,22 +211,16 @@ public class ModelerImpl implements Modeler {
             Object cls = findClass(identifier, ns);
             if (cls == null) {
                 cls = getCoreFactory().buildClass(identifier, ns);
-                getCoreHelper().addStereotype(cls, 
-                        profile.getCppClassStereotype());
+                profile.applyCppClassStereotype(cls);
                 newElements.add(cls);
             }
             contextStack.push(cls);
             if (CPPvariables.OT_CLASS.equals(oType)) {
                 // the default visibility for a C++ class
-                contextAccessSpecifier = Model.getVisibilityKind().getPrivate();
+                contextAccessSpecifier = getVisibilityKind().getPrivate();
             } else if (CPPvariables.OT_STRUCT.equals(oType)) {
-                contextAccessSpecifier = Model.getVisibilityKind().getPublic();
-                Object classSpecifierTV =
-		    Model.getExtensionMechanismsFactory()
-                        .buildTaggedValue(ProfileCpp.TV_NAME_CLASS_SPECIFIER,
-                            "struct");
-                Model.getExtensionMechanismsHelper().addTaggedValue(cls, 
-                        classSpecifierTV);
+                contextAccessSpecifier = getVisibilityKind().getPublic();
+                profile.applyClassSpecifierTaggedValue(cls, "struct");
             } else if (CPPvariables.OT_UNION.equals(oType)) {
                 // TODO: implement union specifics.
                 ;
@@ -602,9 +596,9 @@ public class ModelerImpl implements Modeler {
                 // FIXME: this won't work when we have const reference
                 // parameters!
                 if (Model.getFacade().getTaggedValueValue(param,
-                    ProfileCpp.TV_NAME_REFERENCE).equals("true")
+                    TV_NAME_REFERENCE).equals("true")
                     || Model.getFacade().getTaggedValueValue(param,
-                        ProfileCpp.TV_NAME_POINTER).equals("true")) {
+                        TV_NAME_POINTER).equals("true")) {
                     Model.getCoreHelper().setKind(param,
                         Model.getDirectionKind().getInOutParameter());
                 }
@@ -690,26 +684,38 @@ public class ModelerImpl implements Modeler {
      */
     public void ptrOperator(String ptrSymbol) {
         if (!ignore()) {
-            if (ptrSymbol.equals("&")) {
+            if (ptrSymbol.equals("&") || ptrSymbol.equals("*")) {
                 // arrrg we must discard the tagged value created before cause
                 // we can't change its name
                 Object discardedTV = contextStack.pop();
-                assert Model.getFacade().isATaggedValue(discardedTV);
+                assert getFacade().isATaggedValue(discardedTV);
 
-                Object refTV =
-		    Model.getExtensionMechanismsFactory()
-                        .buildTaggedValue("reference", "true");
-                contextStack.push(refTV);
-
-            } else if (ptrSymbol.equals("*")) {
-                // arrrg ditto!
-                Object discardedTV = contextStack.pop();
-                assert Model.getFacade().isATaggedValue(discardedTV);
-
-                Object ptrTV =
-		    Model.getExtensionMechanismsFactory()
-                        .buildTaggedValue("pointer", "true");
-                contextStack.push(ptrTV);
+                Object paramOrAttribute = contextStack.peek();
+                assert getFacade().isAParameter(paramOrAttribute) 
+                    || getFacade().isAAttribute(paramOrAttribute);
+                String stereoName = null;
+                if (getFacade().isAParameter(paramOrAttribute)) {
+                    stereoName = STEREO_NAME_PARAMETER;
+                }
+                else if (getFacade().isAAttribute(paramOrAttribute)) {
+                    stereoName = STEREO_NAME_ATTRIBUTE;
+                }
+                else {
+                    LOG.warn("Unexpected reveng context: " + paramOrAttribute);
+                    return;
+                }
+                profile.applyStereotype(stereoName, paramOrAttribute);
+                String tvName = null;
+                if (ptrSymbol.equals("&")) {
+                    tvName = TV_NAME_REFERENCE;
+                } else if (ptrSymbol.equals("*")) {
+                    tvName = TV_NAME_POINTER;
+                }
+                profile.applyTaggedValue(stereoName, tvName, paramOrAttribute, 
+                        "true");
+                Object tv = getFacade().getTaggedValue(contextStack.peek(), 
+                        tvName);
+                contextStack.push(tv);
             } else {
                 LOG.warn("unprocessed ptrSymbol: " + ptrSymbol);
             }
@@ -788,12 +794,8 @@ public class ModelerImpl implements Modeler {
             Object parent = findOrCreateType(identifier);
             generalization =
 		findOrCreateGeneralization(parent, contextStack.peek());
-            Object tv = getExtensionMechanismsFactory().buildTaggedValue(
-                    ProfileCpp.TV_VIRTUAL_INHERITANCE, 
+            profile.applyVirtualInheritanceTaggedValue(generalization, 
                     Boolean.toString(isVirtual));
-            getExtensionMechanismsHelper().setType(tv, 
-                    profile.getVirtualInheritanceTagDefinition());
-            getExtensionMechanismsHelper().addTaggedValue(generalization, tv);
         }
 
         /**
@@ -804,8 +806,8 @@ public class ModelerImpl implements Modeler {
             if (contextAccessSpecifier == null) { // default is private
                 contextAccessSpecifier = Model.getVisibilityKind().getPrivate();
             }
-            getExtensionMechanismsFactory().buildTaggedValue(
-                    TV_INHERITANCE_VISIBILITY, 
+            profile.applyInheritanceVisibilityTaggedValue2Generalization(
+                    generalization, 
                     getFacade().getName(contextAccessSpecifier));
             // finish the base specifier by setting the context to the
             // previous state
@@ -839,7 +841,7 @@ public class ModelerImpl implements Modeler {
 	} else {
             Collection stereotypes = getFacade().getStereotypes(generalization);
             for (Object aStereotype : stereotypes) {
-                if (ProfileCpp.STEREO_NAME_GENERALIZATION.equals(
+                if (STEREO_NAME_GENERALIZATION.equals(
                         getFacade().getName(aStereotype))) {
                     stereotype = aStereotype;
                 }

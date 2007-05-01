@@ -1,5 +1,5 @@
 // $Id$
-// Copyright (c) 1996-2006 The Regents of the University of California. All
+// Copyright (c) 1996-2007 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -24,18 +24,20 @@
 
 package org.argouml.language.cpp.generator;
 
-import org.argouml.kernel.ProjectManager;
+import static org.argouml.model.Model.getCoreHelper;
+import static org.argouml.model.Model.getMetaTypes;
+import static org.argouml.model.Model.getUmlFactory;
 
 import java.util.Collection;
-import java.util.Vector;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.apache.log4j.Logger;
+import org.argouml.kernel.ProjectManager;
+import org.argouml.language.cpp.profile.ProfileCpp;
 import org.argouml.model.IllegalModelElementConnectionException;
 import org.argouml.model.Model;
-import static org.argouml.model.Model.*;
 import org.argouml.moduleloader.ModuleInterface;
 
 /**
@@ -91,6 +93,8 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
     /** OtherClass is another class */
     private Object otherClass;
 
+    private ProfileCpp profileCpp;
+
     /*
      * @see junit.framework.TestCase#setUp()
      */
@@ -102,6 +106,7 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
         setUpARealization(getAClass(), aInterface);
         setUpAGeneralization(aExtended, getAClass());
 	otherClass = getFactory().buildClass("OtherClass");
+        profileCpp = new ProfileCpp(getModel());
     }
 
     /**
@@ -183,9 +188,8 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
         Collection params = Model.getFacade().getParameters(getFooMethod());
         assertEquals(1, params.size());
         Object returnVal = params.iterator().next();
-        Object tv = Model.getExtensionMechanismsFactory().buildTaggedValue(
-                "pointer", "true");
-        Model.getExtensionMechanismsHelper().addTaggedValue(returnVal, tv);
+        profileCpp.applyCppParameterStereotype(returnVal);
+        profileCpp.applyPointerTaggedValue2Parameter(returnVal, "true");
         Model.getCoreHelper().setType(returnVal, getAClass());
         String genOp = getGenerator().generateOperation(getFooMethod(), false);
         LOG.info(genOp);
@@ -228,17 +232,11 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
                 getModule().getInfo(ModuleInterface.VERSION));
     }
 
-    private void setTaggedValue(Object o, String name, String value) {
-        Vector tvs = new Vector(Model.getFacade().getTaggedValuesCollection(o));
-        Object tv = Model.getExtensionMechanismsFactory().buildTaggedValue(
-            name, value);
-        tvs.addElement(tv);
-        Model.getExtensionMechanismsHelper().setTaggedValue(o, tvs);
-    }
     /**
      * Test that default inheritance is public for classes and "virtual public"
-     * for interfaces. Test also if the tag "visibility" is used, overriding any
-     * default (issue 3055).
+     * for interfaces. 
+     * Test also if the tag "cpp_inheritance_visibility" is used, overriding 
+     * any default (issue 3055).
      */
     public void testInheritanceDefaultsToPublicOrVirtualPublic() {
         String code;
@@ -253,8 +251,12 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
         assertTrue(code.matches(re));
 
         // add tagged value visibility and check that it's used
-        setTaggedValue(aRealization, "visibility", "private");
-        setTaggedValue(aGeneralization, "visibility", "private");
+        profileCpp.applyCppRealizationStereotype(aRealization);
+        profileCpp.applyInheritanceVisibilityTaggedValue2Realization(
+                aRealization, "private");
+        profileCpp.applyCppGeneralizationStereotype(aGeneralization);
+        profileCpp.applyInheritanceVisibilityTaggedValue2Generalization(
+                aGeneralization, "private");
 
         code = getGenerator().generateH(getAClass());
         re = "(?m)(?s).*class\\s+AClass\\s*:\\s*private\\s*AInterface.*";
@@ -277,7 +279,8 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
     private Object createAttrWithMultiplicity(String name, String mult,
                 String multType) {
         Object attr = createAttrWithMultiplicity(name, mult);
-        setTaggedValue(attr, "MultiplicityType", multType);
+        profileCpp.applyCppAttributeStereotype(attr);
+        profileCpp.applyMultiplicityTypeTaggedValue(attr, multType);
         return attr;
     }
 

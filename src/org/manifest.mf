@@ -8,8 +8,8 @@ Specification-Title: ArgoUML Dynamic Load Module
 Specification-Version: 0.17.1
 Specification-Vendor: University of California
 Implementation-Vendor: Achim Spangler
-Implementation-Version: 0.17.1
-Implementation-Title: ArgoUML C++ code generator plugin for JDK 1.2+
+Implementation-Version: 0.25.2
+Implementation-Title: ArgoUML C++ code generator module
 
 
 Name: org/argouml/language/cpp/reveng/CppImport.class
@@ -18,8 +18,8 @@ Specification-Title: ArgoUML Dynamic Load Module
 Specification-Version: 0.19.2
 Specification-Vendor: University of California
 Implementation-Vendor: Luis Sergio Oliveira
-Implementation-Version: 0.19.2
-Implementation-Title: ArgoUML C++ reverse engineering plugin
+Implementation-Version: 0.25.2
+Implementation-Title: ArgoUML C++ reverse engineering module
 
 
 Name: org/argouml/language/cpp/ui/SettingsTabCpp.class
@@ -29,7 +29,7 @@ Specification-Version: 0.19.2
 Specification-Vendor: University of California
 Implementation-Vendor: Daniele Tamino
 Implementation-Version: 0.19.2
-Implementation-Title: ArgoUML C++ settings tab plugin
+Implementation-Title: ArgoUML C++ settings tab module
 
 
 Name: org/argouml/language/cpp/notation/NotationModuleCpp.class
@@ -38,5 +38,5 @@ Specification-Title: ArgoUML Dynamic Load Module
 Specification-Version: 0.23.2
 Specification-Vendor: University of California
 Implementation-Vendor: Luis Sergio Oliveira
-Implementation-Version: 0.23.2
-Implementation-Title: ArgoUML C++ notation plugin
+Implementation-Version: 0.25.2
+Implementation-Title: ArgoUML C++ notation module

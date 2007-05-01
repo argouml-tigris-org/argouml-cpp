@@ -47,6 +47,8 @@ import java.util.Vector;
 import org.apache.log4j.Logger;
 import org.argouml.configuration.Configuration;
 import org.argouml.configuration.ConfigurationKey;
+import static org.argouml.language.cpp.profile.ProfileCpp.*;
+
 import org.argouml.model.Model;
 import org.argouml.uml.DocumentationManager;
 import org.argouml.uml.UUIDHelper;
@@ -464,10 +466,12 @@ public class GeneratorCpp implements CodeGenerator {
     private void writeTemplate(Object cls, String path, BufferedWriter fos) {
         String templatePathName = path + "/templates/";
         String fileName = Model.getFacade().getName(cls);
-        String tagTemplatePathName =
-            Model.getFacade().getTaggedValueValue(cls, "TemplatePath");
-        String authorTag = Model.getFacade().getTaggedValueValue(cls, "author");
-        String emailTag = Model.getFacade().getTaggedValueValue(cls, "email");
+        String tagTemplatePathName = Model.getFacade().getTaggedValueValue(
+                cls, TV_NAME_TEMPLATE_PATH);
+        String authorTag = Model.getFacade().getTaggedValueValue(cls, 
+                TV_NAME_AUTHOR);
+        String emailTag = Model.getFacade().getTaggedValueValue(cls, 
+                TV_NAME_EMAIL);
         if (tagTemplatePathName != null && tagTemplatePathName.length() > 0)
             templatePathName = tagTemplatePathName;
         if (generatorPass == HEADER_PASS) {
@@ -577,12 +581,13 @@ public class GeneratorCpp implements CodeGenerator {
             Object tv = iter.next();
             String tag = Model.getFacade().getTagOfTag(tv);
             if (tag != null) {
-                if (tag.equals("usage")) {
+                if (tag.equals(TV_NAME_USAGE)) {
                     usageTag = Model.getFacade().getValueOfTag(tv);
                 }
 
-                if (tag.indexOf("ref") != -1 || tag.equals("&")
-                        || tag.indexOf("pointer") != -1 || tag.equals("*")) {
+                if (tag.indexOf(TV_NAME_REFERENCE) != -1 || tag.equals("&")
+                        || tag.indexOf(TV_NAME_POINTER) != -1 
+                        || tag.equals("*")) {
                     predeclareCandidate = true;
                 }
             }
@@ -634,15 +639,14 @@ public class GeneratorCpp implements CodeGenerator {
         Iterator iter = Model.getFacade().getTaggedValues(cls);
         String tagPrefix;
         if (source)
-            tagPrefix = "source";
+            tagPrefix = TV_NAME_SOURCE_INCL;
         else
-            tagPrefix = "header";
+            tagPrefix = TV_NAME_HEADER_INCL;
             
         while (iter.hasNext()) {
             Object tv = iter.next();
             String tag = Model.getFacade().getTagOfTag(tv);
-            if (tag != null && (tag.equals(tagPrefix + "_incl")
-                    || tag.equals(tagPrefix + "_include"))) {
+            if (tag != null && tag.equals(tagPrefix)) {
                 String name = Model.getFacade().getValueOfTag(tv);
                 if (name.length() > 2 && name.charAt(0) == '<') {
                     systemInc.add(name.substring(1, name.length() - 1));
@@ -1077,10 +1081,10 @@ public class GeneratorCpp implements CodeGenerator {
             String tag = Model.getFacade().getTagOfTag(tv);
             String val = Model.getFacade().getValueOfTag(tv);
             if (tag != null) {
-                if (tag.indexOf("ref") != -1 || tag.equals("&")) {
+                if (tag.equals(TV_NAME_REFERENCE) || tag.equals("&")) {
                     return val.equals("false") ? NORMAL_MOD
                             : REFERENCE_MOD;
-                } else if (tag.indexOf("pointer") != -1 || tag.equals("*")) {
+                } else if (tag.equals(TV_NAME_POINTER) || tag.equals("*")) {
                     return val.equals("false") ? NORMAL_MOD
                             : POINTER_MOD;
                 }
@@ -1695,7 +1699,8 @@ public class GeneratorCpp implements CodeGenerator {
         Iterator strEnum = strs.iterator();
         while (strEnum.hasNext()) {
             Object attr = strEnum.next();
-            accessTag = Model.getFacade().getTaggedValueValue(attr, "set");
+            accessTag = Model.getFacade().getTaggedValueValue(attr, 
+                    TV_NAME_SET);
             if (accessTag != null && accessTag.length() > 0) {
                 if (accessTag.indexOf("public") != -1) {
                     generateSingleAttributeSet(attr, funcPublic);
@@ -1708,7 +1713,8 @@ public class GeneratorCpp implements CodeGenerator {
                 }
             }
 
-            accessTag = Model.getFacade().getTaggedValueValue(attr, "get");
+            accessTag = Model.getFacade().getTaggedValueValue(attr, 
+                    TV_NAME_GET);
             if (accessTag != null && accessTag.length() > 0) {
                 if (accessTag.indexOf("public") != -1) {
                     generateSingleAttributeGet(attr, funcPublic);
@@ -1790,11 +1796,11 @@ public class GeneratorCpp implements CodeGenerator {
     private void generateClassifierBodyTypedefs(Object cls, StringBuffer sb) {
         if (generatorPass == HEADER_PASS) {
             Collection publicTypedefStatements =
-                findTagValues(cls, "typedef_public");
+                findTagValues(cls, TV_NAME_TYPEDEF_PUBLIC);
             Collection protectedTypedefStatements =
-                findTagValues(cls, "typedef_protected");
+                findTagValues(cls, TV_NAME_TYPEDEF_PROTECTED);
             Collection privateTypedefStatements =
-                findTagValues(cls, "typedef_private");
+                findTagValues(cls, TV_NAME_TYPEDEF_PRIVATE);
             if (!publicTypedefStatements.isEmpty()) {
                 sb.append(LINE_SEPARATOR).append(" public:")
                     .append(LINE_SEPARATOR).append(indent);
@@ -2338,7 +2344,7 @@ public class GeneratorCpp implements CodeGenerator {
                 if (sb.length() > 0) sb.append(", ");
                 String visTag =
                     Model.getFacade().getTaggedValueValue(generalization,
-                                            "visibility").trim();
+                            TV_NAME_INHERITANCE_VISIBILITY).trim();
                 if (visTag != null && !visTag.equals("")) {
                     sb.append(visTag).append(" ");
                 } else {
@@ -2371,7 +2377,7 @@ public class GeneratorCpp implements CodeGenerator {
                     .iterator().next();
                 String visTag =
                     Model.getFacade().getTaggedValueValue(dependency,
-                                            "visibility").trim();
+                            TV_NAME_INHERITANCE_VISIBILITY).trim();
                 if (visTag != null && !visTag.equals("")) {
                     sb.append(visTag).append(" ");
                 } else {
@@ -2546,7 +2552,8 @@ public class GeneratorCpp implements CodeGenerator {
             // else search for tag:
             // <MultipliciyType> : vector|list|slist|map|stack|stringmap
             String multType =
-                Model.getFacade().getTaggedValueValue(item, "MultiplicityType");
+                Model.getFacade().getTaggedValueValue(item, 
+                        TV_NAME_MULTIPLICITY_TYPE);
             if (multType != null && multType.length() > 0) {
                 if (multType.equals("vector")) {
                     containerType = "vector";
@@ -2571,8 +2578,8 @@ public class GeneratorCpp implements CodeGenerator {
                     sb.append(type).append(modifier);
                     sb.append(" > ").append(name);
                 } else {
-                    LOG.warn("unknown MultiplicityType \"" + multType
-                            + "\", using default");
+                    LOG.warn("unknown " + TV_NAME_MULTIPLICITY_TYPE + " \"" 
+                            + multType + "\", using default");
                     containerType = "vector";
                 }
             } else {
