@@ -26,8 +26,14 @@ package org.argouml.language.cpp.profile;
 
 import static org.argouml.language.cpp.Helper.*;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.argouml.model.Model;
 import static org.argouml.model.Model.*;
@@ -164,5 +170,40 @@ public class TestProfileCpp extends TestCase {
         assertEquals(profile.getReferenceTagDefinition4Parameter(), 
                 getFacade().getType(taggedValue));
         assertEquals("true", getFacade().getValueOfTag(taggedValue));
+    }
+    
+    @SuppressWarnings("serial")
+    public void testCopyAllCppStereotypesToModel() throws Exception {
+        profile.copyAllCppStereotypesToModel();
+        Collection stereotypes = getExtensionMechanismsHelper().getStereotypes(
+                getModel());
+        // Initialize a Map with the names of the C++ stereotypes contained in 
+        // the profile with all values false.
+        // NOTE: uses initializer block syntax, described in 
+        // http://java.sun.com/docs/books/tutorial/java/javaOO/initial.html
+        Map<String, Boolean> stereotypesFoundMap = new 
+        HashMap<String, Boolean>() { {
+                Field[] fields = ProfileCpp.class.getDeclaredFields();
+                List<String> stereoNames = new ArrayList<String>();
+                for (Field field : fields) {
+                    if (field.getName().contains("STEREO_NAME_"))
+                        stereoNames.add((String) field.get(null));
+                }
+                for (String stereoName : stereoNames) {
+                    put(stereoName, false);
+                }
+            } 
+        };
+        for (Object stereotype : stereotypes) {
+            String stereoName = getFacade().getName(stereotype);
+            if (stereotypesFoundMap.containsKey(stereoName)) {
+                stereotypesFoundMap.put(stereoName, true);
+            }
+        }
+        Set<String> stereotypeNames = stereotypesFoundMap.keySet();
+        for (String stereotypeName : stereotypeNames) {
+            assertTrue("Stereotype " + stereotypeName + " not found in model!",
+                    stereotypesFoundMap.get(stereotypeName));
+        }
     }
 }

@@ -33,6 +33,7 @@ import java.awt.Insets;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -81,7 +82,7 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
         constraints.gridwidth = 1;
         constraints.gridheight = 1;
         constraints.weightx = 1.0;
-        constraints.insets = new Insets(0, 30, 0, 4);
+        constraints.insets = new Insets(0, 30, 0, 5);
 
         // adds indent width spinner
         JLabel label = new JLabel(Translator.localize("cpp.indent"));
@@ -123,6 +124,13 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
         sectPanel.add(label);
         sectPanel.add(useSect);
         panel.add(sectPanel, constraints);
+        
+        JButton copyProfile = new JButton(new CopyCppProfileToModelAction());
+        copyProfile.setText(Translator.localize("cpp.copy.profile.to.model"));
+        JPanel copyProfilePanel =
+            new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 2));
+        copyProfilePanel.add(copyProfile);
+        panel.add(copyProfilePanel, constraints);
         
 	// TODO: add more options
 

@@ -25,8 +25,10 @@
 package org.argouml.language.cpp.profile;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -476,6 +478,25 @@ public class ProfileCpp {
         getExtensionMechanismsHelper().setType(tv, td);
         getExtensionMechanismsHelper().setValueOfTag(tv, tvv);
         getExtensionMechanismsHelper().addTaggedValue(me, tv);
+    }
+
+    public void copyAllCppStereotypesToModel() {
+        List<String> cppStereoTypesNames = getAllCppStereotypeNames();
+        for (String cppStereotypeName : cppStereoTypesNames) {
+            getCppStereotypeInModel(cppStereotypeName);
+        }
+    }
+
+    private List<String> getAllCppStereotypeNames() {
+        List<String> cppStereotypesNames = new ArrayList<String>();
+        Collection stereotypes = getExtensionMechanismsHelper().getStereotypes(
+                profile);
+        for (Object stereotype : stereotypes) {
+            String name = getFacade().getName(stereotype);
+            if (name.startsWith("cpp"))
+                cppStereotypesNames.add(name);
+        }
+        return cppStereotypesNames;
     }
 
 }
