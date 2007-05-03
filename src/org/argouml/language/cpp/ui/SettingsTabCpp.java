@@ -42,7 +42,6 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 import org.apache.log4j.Logger;
-import org.argouml.application.helpers.ApplicationVersion;
 import org.argouml.i18n.Translator;
 import org.argouml.language.cpp.generator.GeneratorCpp;
 import org.argouml.language.cpp.generator.Section;
@@ -210,7 +209,7 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
         case ModuleInterface.DESCRIPTION:
             return "C++ Settings";
         case ModuleInterface.VERSION:
-            return ApplicationVersion.getVersion();
+            return "Revision date: $Date$";
         default:
             return null;
         }
