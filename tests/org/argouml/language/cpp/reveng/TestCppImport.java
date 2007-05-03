@@ -24,6 +24,8 @@
 
 package org.argouml.language.cpp.reveng;
 
+import static org.argouml.language.cpp.Helper.createProject;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -41,14 +43,13 @@ import junit.framework.TestSuite;
 import org.apache.commons.io.CopyUtils;
 import org.apache.commons.io.FileUtils;
 import org.argouml.kernel.Project;
-import org.argouml.kernel.ProjectManager;
+import org.argouml.language.cpp.profile.ProfileCpp;
 import org.argouml.model.Model;
 import org.argouml.taskmgmt.ProgressEvent;
 import org.argouml.taskmgmt.ProgressMonitor;
 import org.argouml.uml.reveng.DiagramInterface;
 import org.argouml.uml.reveng.ImportCommon;
 import org.argouml.uml.reveng.ImportSettings;
-import org.argouml.language.cpp.profile.ProfileCpp;
 
 /**
  * Tests the {@link CppImport} class.
@@ -126,7 +127,7 @@ public class TestCppImport extends TestCase {
      */
     protected void setUp() throws Exception {
         tmpDir = new File(System.getProperty(SYSPROPNAME_TMPDIR));
-        proj = ProjectManager.getManager().makeEmptyProject();
+        proj = createProject();
         cppImp = new CppImport();
         settings = new DummySettings();
     }

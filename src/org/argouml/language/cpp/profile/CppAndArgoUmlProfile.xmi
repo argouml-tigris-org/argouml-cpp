@@ -1,8 +1,8 @@
 <?xml version = '1.0' encoding = 'UTF-8' ?>
-<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Tue May 01 14:31:58 BST 2007'>
+<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Thu May 03 23:46:40 BST 2007'>
   <XMI.header>    <XMI.documentation>
       <XMI.exporter>ArgoUML (using Netbeans XMI Writer version 1.0)</XMI.exporter>
-      <XMI.exporterVersion>0.24(5) revised on $Date: 2006-11-06 19:55:22 +0100 (Mon, 06 Nov 2006) $ </XMI.exporterVersion>
+      <XMI.exporterVersion>PRE-0.25.3(5) revised on $Date: 2006-11-06 18:55:22 +0000 (seg, 06 Nov 2006) $ </XMI.exporterVersion>
     </XMI.documentation>
     <XMI.metamodel xmi.name="UML" xmi.version="1.4"/></XMI.header>
   <XMI.content>
@@ -304,149 +304,6 @@ Note: you may simply use the Author property in the documentation property panel
             </UML:TagDefinition>
           </UML:Stereotype.definedTag>
         </UML:Stereotype>
-        <UML:Class xmi.id = '1:0000000000000872' name = 'Xpto' visibility = 'public'
-          isSpecification = 'false' isRoot = 'false' isLeaf = 'false' isAbstract = 'false'
-          isActive = 'false'>
-          <UML:ModelElement.stereotype>
-            <UML:Stereotype xmi.idref = '1:000000000000085A'/>
-          </UML:ModelElement.stereotype>
-          <UML:ModelElement.taggedValue>
-            <UML:TaggedValue xmi.id = '1:000000000000085B' isSpecification = 'false'>
-              <UML:TaggedValue.dataValue>true</UML:TaggedValue.dataValue>
-              <UML:TaggedValue.type>
-                <UML:TagDefinition xmi.idref = '1:0000000000000826'/>
-              </UML:TaggedValue.type>
-            </UML:TaggedValue>
-            <UML:TaggedValue xmi.id = '1:000000000000085C' isSpecification = 'false'>
-              <UML:TaggedValue.dataValue>foo.h</UML:TaggedValue.dataValue>
-              <UML:TaggedValue.type>
-                <UML:TagDefinition xmi.idref = '1:000000000000082C'/>
-              </UML:TaggedValue.type>
-            </UML:TaggedValue>
-            <UML:TaggedValue xmi.id = '1:000000000000085D' isSpecification = 'false'>
-              <UML:TaggedValue.dataValue>Dummy class just for demonstration purposes.</UML:TaggedValue.dataValue>
-              <UML:TaggedValue.type>
-                <UML:TagDefinition xmi.idref = '1:0000000000000892'/>
-              </UML:TaggedValue.type>
-            </UML:TaggedValue>
-            <UML:TaggedValue xmi.id = '1:000000000000085E' isSpecification = 'false'>
-              <UML:TaggedValue.dataValue>C:\luis\programacao\ArgoUML\issues\3771 - Add tag definitions for tags used by the cpp generator</UML:TaggedValue.dataValue>
-              <UML:TaggedValue.type>
-                <UML:TagDefinition xmi.idref = '1:0000000000000895'/>
-              </UML:TaggedValue.type>
-            </UML:TaggedValue>
-            <UML:TaggedValue xmi.id = '1:000000000000085F' isSpecification = 'false'>
-              <UML:TaggedValue.dataValue>cpp</UML:TaggedValue.dataValue>
-              <UML:TaggedValue.type>
-                <UML:TagDefinition xmi.idref = '1:0000000000000898'/>
-              </UML:TaggedValue.type>
-            </UML:TaggedValue>
-          </UML:ModelElement.taggedValue>
-          <UML:Classifier.feature>
-            <UML:Attribute xmi.id = '1:0000000000000865' name = 'statusPort' visibility = 'public'
-              isSpecification = 'false' ownerScope = 'instance' changeability = 'changeable'
-              targetScope = 'instance'>
-              <UML:StructuralFeature.multiplicity>
-                <UML:Multiplicity xmi.id = '1:0000000000000861'>
-                  <UML:Multiplicity.range>
-                    <UML:MultiplicityRange xmi.id = '1:0000000000000860' lower = '1' upper = '1'/>
-                  </UML:Multiplicity.range>
-                </UML:Multiplicity>
-              </UML:StructuralFeature.multiplicity>
-              <UML:Attribute.initialValue>
-                <UML:Expression xmi.id = '1:0000000000000862' language = 'Java' body = ''/>
-              </UML:Attribute.initialValue>
-              <UML:ModelElement.stereotype>
-                <UML:Stereotype xmi.idref = '1:000000000000088F'/>
-              </UML:ModelElement.stereotype>
-              <UML:ModelElement.taggedValue>
-                <UML:TaggedValue xmi.id = '1:0000000000000863' isSpecification = 'false'>
-                  <UML:TaggedValue.dataValue>true</UML:TaggedValue.dataValue>
-                  <UML:TaggedValue.type>
-                    <UML:TagDefinition xmi.idref = '1:0000000000000886'/>
-                  </UML:TaggedValue.type>
-                </UML:TaggedValue>
-                <UML:TaggedValue xmi.id = '1:0000000000000864' isSpecification = 'false'>
-                  <UML:TaggedValue.dataValue>public</UML:TaggedValue.dataValue>
-                  <UML:TaggedValue.type>
-                    <UML:TagDefinition xmi.idref = '1:000000000000087D'/>
-                  </UML:TaggedValue.type>
-                </UML:TaggedValue>
-              </UML:ModelElement.taggedValue>
-              <UML:StructuralFeature.type>
-                <UML:DataType xmi.idref = '1:0000000000000874'/>
-              </UML:StructuralFeature.type>
-            </UML:Attribute>
-            <UML:Attribute xmi.id = '1:000000000000086B' name = 'brotherXpto' visibility = 'public'
-              isSpecification = 'false' ownerScope = 'instance' changeability = 'changeable'
-              targetScope = 'instance'>
-              <UML:StructuralFeature.multiplicity>
-                <UML:Multiplicity xmi.id = '1:0000000000000867'>
-                  <UML:Multiplicity.range>
-                    <UML:MultiplicityRange xmi.id = '1:0000000000000866' lower = '1' upper = '1'/>
-                  </UML:Multiplicity.range>
-                </UML:Multiplicity>
-              </UML:StructuralFeature.multiplicity>
-              <UML:ModelElement.stereotype>
-                <UML:Stereotype xmi.idref = '1:000000000000088F'/>
-              </UML:ModelElement.stereotype>
-              <UML:ModelElement.taggedValue>
-                <UML:TaggedValue xmi.id = '1:0000000000000868' isSpecification = 'false'>
-                  <UML:TaggedValue.dataValue>public</UML:TaggedValue.dataValue>
-                  <UML:TaggedValue.type>
-                    <UML:TagDefinition xmi.idref = '1:0000000000000881'/>
-                  </UML:TaggedValue.type>
-                </UML:TaggedValue>
-                <UML:TaggedValue xmi.id = '1:0000000000000869' isSpecification = 'false'>
-                  <UML:TaggedValue.dataValue>public</UML:TaggedValue.dataValue>
-                  <UML:TaggedValue.type>
-                    <UML:TagDefinition xmi.idref = '1:000000000000087D'/>
-                  </UML:TaggedValue.type>
-                </UML:TaggedValue>
-                <UML:TaggedValue xmi.id = '1:000000000000086A' isSpecification = 'false'>
-                  <UML:TaggedValue.dataValue>true</UML:TaggedValue.dataValue>
-                  <UML:TaggedValue.type>
-                    <UML:TagDefinition xmi.idref = '1:000000000000088A'/>
-                  </UML:TaggedValue.type>
-                </UML:TaggedValue>
-              </UML:ModelElement.taggedValue>
-              <UML:StructuralFeature.type>
-                <UML:Class xmi.idref = '1:0000000000000872'/>
-              </UML:StructuralFeature.type>
-            </UML:Attribute>
-            <UML:Operation xmi.id = '1:0000000000000871' name = 'reset' visibility = 'public'
-              isSpecification = 'false' ownerScope = 'instance' isQuery = 'false' concurrency = 'sequential'
-              isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
-              <UML:BehavioralFeature.parameter>
-                <UML:Parameter xmi.id = '1:000000000000086C' name = 'return' isSpecification = 'false'
-                  kind = 'return'>
-                  <UML:Parameter.type>
-                    <UML:DataType xmi.idref = '1:00000000000008A3'/>
-                  </UML:Parameter.type>
-                </UML:Parameter>
-                <UML:Parameter xmi.id = '1:0000000000000870' name = 'brother' isSpecification = 'false'>
-                  <UML:Parameter.defaultValue>
-                    <UML:Expression xmi.id = '1:000000000000086D' language = 'Java' body = '0'/>
-                  </UML:Parameter.defaultValue>
-                  <UML:ModelElement.stereotype>
-                    <UML:Stereotype xmi.idref = '1:00000000000008A2'/>
-                  </UML:ModelElement.stereotype>
-                  <UML:ModelElement.taggedValue>
-                    <UML:TaggedValue xmi.id = '1:000000000000086E' isSpecification = 'false'>
-                      <UML:TaggedValue.type>
-                        <UML:TagDefinition xmi.idref = '1:0000000000000892'/>
-                      </UML:TaggedValue.type>
-                    </UML:TaggedValue>
-                    <UML:TaggedValue xmi.id = '1:000000000000086F' isSpecification = 'false'/>
-                  </UML:ModelElement.taggedValue>
-                  <UML:Parameter.type>
-                    <UML:Class xmi.idref = '1:0000000000000872'/>
-                  </UML:Parameter.type>
-                </UML:Parameter>
-              </UML:BehavioralFeature.parameter>
-            </UML:Operation>
-          </UML:Classifier.feature>
-        </UML:Class>
         <UML:DataType xmi.id = '1:0000000000000873' name = 'int' isSpecification = 'false'
           isRoot = 'false' isLeaf = 'false' isAbstract = 'false'/>
         <UML:DataType xmi.id = '1:0000000000000874' name = 'bool' isSpecification = 'false'
@@ -574,9 +431,9 @@ false (default) – no reference modifier is applied.</UML:TaggedValue.dataValue
         <UML:TagDefinition xmi.id = '1:0000000000000892' name = 'documentation'
           isSpecification = 'false' tagType = 'String'>
           <UML:TagDefinition.multiplicity>
-            <UML:Multiplicity xmi.id = '127-0-0-1--3e74cd45:11241a13c12:-8000:000000000000088C'>
+            <UML:Multiplicity xmi.id = '10-0-1-5--6f4d6bc4:112541528f6:-8000:00000000000009A5'>
               <UML:Multiplicity.range>
-                <UML:MultiplicityRange xmi.id = '127-0-0-1--3e74cd45:11241a13c12:-8000:000000000000088B'
+                <UML:MultiplicityRange xmi.id = '10-0-1-5--6f4d6bc4:112541528f6:-8000:00000000000009A4'
                   lower = '0' upper = '1'/>
               </UML:Multiplicity.range>
             </UML:Multiplicity>
@@ -709,44 +566,6 @@ If false (default), no pointer modifier is applied.</UML:TaggedValue.dataValue>
         <UML:DataType xmi.id = '10-0-1-4-8c436b:10bce9cf2cc:-8000:000000000000086F'
           name = 'unsigned long' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
           isAbstract = 'false'/>
-        <UML:Class xmi.id = '-64--88-1-2-914f6a:111b9c5054e:-8000:0000000000000870'
-          name = 'Derived' visibility = 'public' isSpecification = 'false' isRoot = 'false'
-          isLeaf = 'false' isAbstract = 'false' isActive = 'false'>
-          <UML:ModelElement.stereotype>
-            <UML:Stereotype xmi.idref = '1:000000000000085A'/>
-          </UML:ModelElement.stereotype>
-          <UML:GeneralizableElement.generalization>
-            <UML:Generalization xmi.idref = '-64--88-1-2-914f6a:111b9c5054e:-8000:0000000000000872'/>
-          </UML:GeneralizableElement.generalization>
-        </UML:Class>
-        <UML:Generalization xmi.id = '-64--88-1-2-914f6a:111b9c5054e:-8000:0000000000000872'
-          name = 'exampleCppGeneralization' isSpecification = 'false'>
-          <UML:ModelElement.stereotype>
-            <UML:Stereotype xmi.idref = '-64--88-1-2-914f6a:111b9c5054e:-8000:0000000000000873'/>
-          </UML:ModelElement.stereotype>
-          <UML:ModelElement.taggedValue>
-            <UML:TaggedValue xmi.id = '-64--88-1-2-914f6a:111b9c5054e:-8000:000000000000088D'
-              isSpecification = 'false'>
-              <UML:TaggedValue.dataValue>true</UML:TaggedValue.dataValue>
-              <UML:TaggedValue.type>
-                <UML:TagDefinition xmi.idref = '-64--88-1-2-914f6a:111b9c5054e:-8000:0000000000000879'/>
-              </UML:TaggedValue.type>
-            </UML:TaggedValue>
-            <UML:TaggedValue xmi.id = '-64--88-1-2-914f6a:111b9c5054e:-8000:000000000000088E'
-              isSpecification = 'false'>
-              <UML:TaggedValue.dataValue>private</UML:TaggedValue.dataValue>
-              <UML:TaggedValue.type>
-                <UML:TagDefinition xmi.idref = '-64--88-1-2-914f6a:111b9c5054e:-8000:0000000000000885'/>
-              </UML:TaggedValue.type>
-            </UML:TaggedValue>
-          </UML:ModelElement.taggedValue>
-          <UML:Generalization.child>
-            <UML:Class xmi.idref = '-64--88-1-2-914f6a:111b9c5054e:-8000:0000000000000870'/>
-          </UML:Generalization.child>
-          <UML:Generalization.parent>
-            <UML:Class xmi.idref = '1:0000000000000872'/>
-          </UML:Generalization.parent>
-        </UML:Generalization>
         <UML:Stereotype xmi.id = '-64--88-1-2-914f6a:111b9c5054e:-8000:0000000000000873'
           name = 'cppGeneralization' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
           isAbstract = 'false'>
@@ -823,29 +642,6 @@ If false (default), no pointer modifier is applied.</UML:TaggedValue.dataValue>
         <UML:DataType xmi.id = '-64--88-1-2-914f6a:111b9c5054e:-8000:000000000000089D'
           name = 'double' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
           isAbstract = 'false'/>
-        <UML:Interface xmi.id = '10-0-1-5--c7850e9:112476951ff:-8000:000000000000088B'
-          name = 'AnInterface' visibility = 'public' isSpecification = 'false' isRoot = 'false'
-          isLeaf = 'false' isAbstract = 'false'/>
-        <UML:Class xmi.id = '10-0-1-5--c7850e9:112476951ff:-8000:000000000000088D'
-          name = 'AnImplementation' visibility = 'public' isSpecification = 'false'
-          isRoot = 'false' isLeaf = 'false' isAbstract = 'false' isActive = 'false'>
-          <UML:ModelElement.clientDependency>
-            <UML:Abstraction xmi.idref = '10-0-1-5--c7850e9:112476951ff:-8000:000000000000088F'/>
-          </UML:ModelElement.clientDependency>
-        </UML:Class>
-        <UML:Abstraction xmi.id = '10-0-1-5--c7850e9:112476951ff:-8000:000000000000088F'
-          name = 'exampleCppRealization' isSpecification = 'false'>
-          <UML:ModelElement.stereotype>
-            <UML:Stereotype xmi.idref = '10-0-1-5--c7850e9:112476951ff:-8000:0000000000000890'/>
-            <UML:Stereotype xmi.idref = '10-0-1-5--c7850e9:112476951ff:-8000:0000000000000891'/>
-          </UML:ModelElement.stereotype>
-          <UML:Dependency.client>
-            <UML:Class xmi.idref = '10-0-1-5--c7850e9:112476951ff:-8000:000000000000088D'/>
-          </UML:Dependency.client>
-          <UML:Dependency.supplier>
-            <UML:Interface xmi.idref = '10-0-1-5--c7850e9:112476951ff:-8000:000000000000088B'/>
-          </UML:Dependency.supplier>
-        </UML:Abstraction>
         <UML:Stereotype xmi.id = '10-0-1-5--c7850e9:112476951ff:-8000:0000000000000890'
           name = 'realize' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
           isAbstract = 'false'>
@@ -854,8 +650,8 @@ If false (default), no pointer modifier is applied.</UML:TaggedValue.dataValue>
         <UML:Stereotype xmi.id = '10-0-1-5--c7850e9:112476951ff:-8000:0000000000000891'
           name = 'cppRealization' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
           isAbstract = 'false'>
-          <UML:Stereotype.baseClass>Abstraction</UML:Stereotype.baseClass>
           <UML:Stereotype.baseClass>Model</UML:Stereotype.baseClass>
+          <UML:Stereotype.baseClass>Abstraction</UML:Stereotype.baseClass>
           <UML:Stereotype.definedTag>
             <UML:TagDefinition xmi.id = '10-0-1-5--c7850e9:112476951ff:-8000:000000000000089A'
               name = 'cpp_inheritance_visibility' isSpecification = 'false' tagType = 'String'>
@@ -879,9 +675,6 @@ If false (default), no pointer modifier is applied.</UML:TaggedValue.dataValue>
             </UML:TagDefinition>
           </UML:Stereotype.definedTag>
         </UML:Stereotype>
-        <!-- End of Cpp Profile -->
-
-        <!--  Beginning of ArgoUML profile -->
         <UML:Stereotype xmi.id = '.:0000000000000821' name = 'access' isSpecification = 'false'
           isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
           <UML:Stereotype.baseClass>Permission</UML:Stereotype.baseClass>
@@ -1070,73 +863,6 @@ If false (default), no pointer modifier is applied.</UML:TaggedValue.dataValue>
           isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
           <UML:Stereotype.baseClass>Package</UML:Stereotype.baseClass>
         </UML:Stereotype>
-        <UML:Package xmi.id = '.:0000000000000869' name = 'java' isSpecification = 'false'
-          isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
-          <UML:Namespace.ownedElement>
-            <UML:Package xmi.id = '.:000000000000085A' name = 'lang' isSpecification = 'false'
-              isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
-              <UML:Namespace.ownedElement>
-                <UML:Class xmi.id = '.:0000000000000850' name = 'Object' isSpecification = 'false'
-                  isRoot = 'false' isLeaf = 'false' isAbstract = 'false' isActive = 'false'/>
-                <UML:Class xmi.id = '.:0000000000000851' name = 'Char' isSpecification = 'false'
-                  isRoot = 'false' isLeaf = 'false' isAbstract = 'false' isActive = 'false'/>
-                <UML:Class xmi.id = '.:0000000000000852' name = 'Byte' isSpecification = 'false'
-                  isRoot = 'false' isLeaf = 'false' isAbstract = 'false' isActive = 'false'/>
-                <UML:Class xmi.id = '.:0000000000000853' name = 'Boolean' isSpecification = 'false'
-                  isRoot = 'false' isLeaf = 'false' isAbstract = 'false' isActive = 'false'/>
-                <UML:Class xmi.id = '.:0000000000000854' name = 'Short' isSpecification = 'false'
-                  isRoot = 'false' isLeaf = 'false' isAbstract = 'false' isActive = 'false'/>
-                <UML:Class xmi.id = '.:0000000000000855' name = 'Integer' isSpecification = 'false'
-                  isRoot = 'false' isLeaf = 'false' isAbstract = 'false' isActive = 'false'/>
-                <UML:Class xmi.id = '.:0000000000000856' name = 'Long' isSpecification = 'false'
-                  isRoot = 'false' isLeaf = 'false' isAbstract = 'false' isActive = 'false'/>
-                <UML:Class xmi.id = '.:0000000000000857' name = 'Float' isSpecification = 'false'
-                  isRoot = 'false' isLeaf = 'false' isAbstract = 'false' isActive = 'false'/>
-                <UML:Class xmi.id = '.:0000000000000858' name = 'Double' isSpecification = 'false'
-                  isRoot = 'false' isLeaf = 'false' isAbstract = 'false' isActive = 'false'/>
-                <UML:Class xmi.id = '.:0000000000000859' name = 'String' isSpecification = 'false'
-                  isRoot = 'false' isLeaf = 'false' isAbstract = 'false' isActive = 'false'/>
-              </UML:Namespace.ownedElement>
-            </UML:Package>
-            <UML:Package xmi.id = '.:0000000000000863' name = 'util' isSpecification = 'false'
-              isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
-              <UML:Namespace.ownedElement>
-                <UML:Class xmi.id = '.:000000000000085B' name = 'Vector' isSpecification = 'false'
-                  isRoot = 'false' isLeaf = 'false' isAbstract = 'false' isActive = 'false'/>
-                <UML:Interface xmi.id = '.:000000000000085C' name = 'Collection' isSpecification = 'false'
-                  isRoot = 'false' isLeaf = 'false' isAbstract = 'false'/>
-                <UML:Interface xmi.id = '.:000000000000085D' name = 'Iterator' isSpecification = 'false'
-                  isRoot = 'false' isLeaf = 'false' isAbstract = 'false'/>
-                <UML:Interface xmi.id = '.:000000000000085E' name = 'List' isSpecification = 'false'
-                  isRoot = 'false' isLeaf = 'false' isAbstract = 'false'/>
-                <UML:Class xmi.id = '.:000000000000085F' name = 'Date' isSpecification = 'false'
-                  isRoot = 'false' isLeaf = 'false' isAbstract = 'false' isActive = 'false'/>
-                <UML:Class xmi.id = '.:0000000000000860' name = 'Time' isSpecification = 'false'
-                  isRoot = 'false' isLeaf = 'false' isAbstract = 'false' isActive = 'false'/>
-                <UML:Interface xmi.id = '.:0000000000000861' name = 'Set' isSpecification = 'false'
-                  isRoot = 'false' isLeaf = 'false' isAbstract = 'false'/>
-                <UML:Interface xmi.id = '.:0000000000000862' name = 'SortedSet' isSpecification = 'false'
-                  isRoot = 'false' isLeaf = 'false' isAbstract = 'false'/>
-              </UML:Namespace.ownedElement>
-            </UML:Package>
-            <UML:Package xmi.id = '.:0000000000000866' name = 'math' isSpecification = 'false'
-              isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
-              <UML:Namespace.ownedElement>
-                <UML:Class xmi.id = '.:0000000000000864' name = 'BigDecimal' isSpecification = 'false'
-                  isRoot = 'false' isLeaf = 'false' isAbstract = 'false' isActive = 'false'/>
-                <UML:Class xmi.id = '.:0000000000000865' name = 'BigInteger' isSpecification = 'false'
-                  isRoot = 'false' isLeaf = 'false' isAbstract = 'false' isActive = 'false'/>
-              </UML:Namespace.ownedElement>
-            </UML:Package>
-            <UML:Package xmi.id = '.:0000000000000868' name = 'net' isSpecification = 'false'
-              isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
-              <UML:Namespace.ownedElement>
-                <UML:Class xmi.id = '.:0000000000000867' name = 'URL' isSpecification = 'false'
-                  isRoot = 'false' isLeaf = 'false' isAbstract = 'false' isActive = 'false'/>
-              </UML:Namespace.ownedElement>
-            </UML:Package>
-          </UML:Namespace.ownedElement>
-        </UML:Package>
         <UML:Stereotype xmi.id = '.:000000000000086A' name = 'signalflow' isSpecification = 'false'
           isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
           <UML:Stereotype.baseClass>ObjectFlowState</UML:Stereotype.baseClass>
@@ -1183,17 +909,6 @@ If false (default), no pointer modifier is applied.</UML:TaggedValue.dataValue>
           isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
           <UML:Stereotype.baseClass>Constraint</UML:Stereotype.baseClass>
         </UML:Stereotype>
-        <UML:TagDefinition xmi.id = '.:000000000000087C' name = 'documentation'
-          isSpecification = 'false' tagType = 'String'>
-          <UML:TagDefinition.multiplicity>
-            <UML:Multiplicity xmi.id = '.:000000000000087D'>
-              <UML:Multiplicity.range>
-                <UML:MultiplicityRange xmi.id = '.:000000000000087E' lower = '0' upper = '1'/>
-              </UML:Multiplicity.range>
-            </UML:Multiplicity>
-          </UML:TagDefinition.multiplicity>
-        </UML:TagDefinition>
-        
       </UML:Namespace.ownedElement>
     </UML:Model>
   </XMI.content>

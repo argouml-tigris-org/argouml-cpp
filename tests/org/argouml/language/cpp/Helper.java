@@ -24,7 +24,12 @@
 
 package org.argouml.language.cpp;
 
+import junit.framework.TestCase;
+
+import org.argouml.kernel.Project;
 import org.argouml.kernel.ProjectManager;
+import org.argouml.model.Model;
+import org.argouml.model.ModelImplementation;
 
 /**
  * An Helper for test classes.
@@ -38,7 +43,49 @@ public class Helper {
     }
 
     public static void newModel() {
-        ProjectManager.getManager().makeEmptyProject();
+        createProject();
+    }
+
+    public static Project createProject() {
+        ensureModelSubsystemInitialized();
+        return ProjectManager.getManager().makeEmptyProject();
+    }
+    
+    static void ensureModelSubsystemInitialized() {
+        if (!Model.isInitiated())
+            initializeMDR();
+    }
+
+    /**
+     * Initialize the Model subsystem with the MDR ModelImplementation.
+     */
+    static void initializeMDR() {
+        initializeModelImplementation(
+                "org.argouml.model.mdr.MDRModelImplementation");
+    }
+
+    private static ModelImplementation initializeModelImplementation(
+            String name) {
+        ModelImplementation impl = null;
+
+        Class implType;
+        try {
+            implType =
+                Class.forName(name);
+        } catch (ClassNotFoundException e) {
+            TestCase.fail(e.toString());
+            return null;
+        }
+
+        try {
+            impl = (ModelImplementation) implType.newInstance();
+        } catch (InstantiationException e) {
+            TestCase.fail(e.toString());
+        } catch (IllegalAccessException e) {
+            TestCase.fail(e.toString());
+        }
+        Model.setImplementation(impl);
+        return impl;
     }
 
 }

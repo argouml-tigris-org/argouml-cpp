@@ -214,7 +214,7 @@ public class CppImport implements ModuleInterface, ImportInterface {
      * @see org.argouml.moduleloader.ModuleInterface#enable()
      */
     public boolean enable() {
-        ImporterManager.getInstance().addimporter(this);
+        ImporterManager.getInstance().addImporter(this);
         return true;
     }
 
