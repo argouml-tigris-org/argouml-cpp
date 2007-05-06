@@ -50,6 +50,7 @@ public class TestModelElementNameNotationCpp extends TestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
+        newModel();
         theClass = Model.getCoreFactory().buildClass("TheClass", getModel());
         meNotation = new ModelElementNameNotationCpp(theClass);
         args = new HashMap();

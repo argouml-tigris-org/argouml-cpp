@@ -29,6 +29,8 @@ import java.util.Collection;
 import junit.framework.TestCase;
 
 import org.argouml.kernel.ProjectManager;
+import org.argouml.language.cpp.Helper;
+import org.argouml.language.cpp.profile.ProfileCpp;
 import org.argouml.model.CoreFactory;
 import org.argouml.model.Model;
 import org.argouml.moduleloader.ModuleInterface;
@@ -79,18 +81,18 @@ class BaseTestGeneratorCpp extends TestCase {
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception {
-        setModule(new ModuleCpp());
+        module = new ModuleCpp();
         getModule().enable();
 
-        setGenerator((GeneratorCpp) GeneratorManager.getInstance()
+        generator = ((GeneratorCpp) GeneratorManager.getInstance()
                 .getGenerator(GeneratorCpp.LANGUAGE_NAME));
-        setFactory(Model.getCoreFactory());
-        setAClass(getFactory().buildClass("AClass"));
+        Helper.newModel();
+        factory = Model.getCoreFactory();
+        aClass = factory.buildClass("AClass");
 
         Object me = getAClass();
-        Object voidType =
-            ProjectManager.getManager().getCurrentProject().findType("void");
-        setFooMethod(buildOperation(me, voidType, "foo"));
+        Object voidType = ProfileCpp.getBuiltIn("void");
+        fooMethod = buildOperation(me, voidType, "foo");
     }
 
     /**
@@ -102,8 +104,7 @@ class BaseTestGeneratorCpp extends TestCase {
      */
     protected Object buildOperation(Object me, Object returnType, 
             String opName) {
-        return Model.getCoreFactory().buildOperation2(me,
-                returnType, opName);
+        return factory.buildOperation2(me, returnType, opName);
     }
 
     /**
@@ -134,14 +135,7 @@ class BaseTestGeneratorCpp extends TestCase {
      * @return the model
      */
     protected Object getModel() {
-        return ProjectManager.getManager().getCurrentProject().getModel();
-    }
-
-    /**
-     * @param theFactory The factory to set.
-     */
-    protected void setFactory(CoreFactory theFactory) {
-        this.factory = theFactory;
+        return Helper.getModel();
     }
 
     /**
@@ -152,24 +146,10 @@ class BaseTestGeneratorCpp extends TestCase {
     }
 
     /**
-     * @param theGenerator The generator to set.
-     */
-    protected void setGenerator(GeneratorCpp theGenerator) {
-        this.generator = theGenerator;
-    }
-
-    /**
      * @return Returns the generator.
      */
     protected GeneratorCpp getGenerator() {
         return generator;
-    }
-
-    /**
-     * @param theModule the module to set.
-     */
-    protected void setModule(ModuleInterface theModule) {
-        module = theModule;
     }
 
     /**
@@ -181,24 +161,10 @@ class BaseTestGeneratorCpp extends TestCase {
 
     
     /**
-     * @param theAClass The aClass to set.
-     */
-    protected void setAClass(Object theAClass) {
-        this.aClass = theAClass;
-    }
-
-    /**
      * @return Returns the aClass.
      */
     protected Object getAClass() {
         return aClass;
-    }
-
-    /**
-     * @param theFooMethod The fooMethod to set.
-     */
-    protected void setFooMethod(Object theFooMethod) {
-        this.fooMethod = theFooMethod;
     }
 
     /**

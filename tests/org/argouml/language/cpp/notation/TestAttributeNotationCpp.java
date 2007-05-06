@@ -35,6 +35,11 @@ import org.argouml.model.Model;
  * @author Luis Sergio Oliveira (euluis)
  */
 public class TestAttributeNotationCpp extends TestCase {
+    
+    @Override
+    protected void setUp() throws Exception {
+        Helper.newModel();
+    }
 
     public void testToStringSimpleNoArgs() {
         Object theClass = Model.getCoreFactory().buildClass("TheClass",
