@@ -206,4 +206,26 @@ public class TestProfileCpp extends TestCase {
                     stereotypesFoundMap.get(stereotypeName));
         }
     }
+    
+    @SuppressWarnings("serial")
+    public void testCopyAllDataTypesToModel() {
+        profile.copyAllDataTypesToModel();
+        Collection dataTypes = getCoreHelper().getAllDataTypes(model);
+        Map<String, Integer> dtNames2Check = new HashMap<String, Integer>() { {
+                put("__int64", 0);
+                put("signed", 0);
+                put("int", 0);
+            } 
+        };
+        for (Object dt : dataTypes) {
+            String dtName = getFacade().getName(dt);
+            if (dtNames2Check.containsKey(dtName))
+                dtNames2Check.put(dtName, dtNames2Check.get(dtName) + 1);
+        }
+        for (String dtName : dtNames2Check.keySet()) {
+            assertEquals("DataType " + dtName 
+                    + " found in model with different number than expected!", 
+                    1, (int) dtNames2Check.get(dtName));
+        }
+    }
 }

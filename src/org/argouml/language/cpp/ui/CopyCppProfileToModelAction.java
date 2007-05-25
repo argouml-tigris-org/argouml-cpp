@@ -29,6 +29,7 @@ import java.beans.PropertyChangeListener;
 
 import javax.swing.Action;
 
+import org.argouml.kernel.ProjectManager;
 import org.argouml.language.cpp.profile.ProfileCpp;
 import org.argouml.model.Model;
 
@@ -66,7 +67,10 @@ public class CopyCppProfileToModelAction implements Action {
     }
 
     public void actionPerformed(ActionEvent arg0) {
-        new ProfileCpp(getModel()).copyAllCppStereotypesToModel();
+        ProfileCpp profileCpp = new ProfileCpp(getModel());
+        profileCpp.copyAllCppStereotypesToModel();
+        profileCpp.copyAllDataTypesToModel();
+        ProjectManager.getManager().setSaveEnabled(true);
     }
 
 }

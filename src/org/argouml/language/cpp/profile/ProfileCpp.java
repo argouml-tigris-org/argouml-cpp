@@ -27,6 +27,7 @@ package org.argouml.language.cpp.profile;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -497,6 +498,28 @@ public class ProfileCpp {
                 cppStereotypesNames.add(name);
         }
         return cppStereotypesNames;
+    }
+
+    /**
+     * TODO: copy the documentation of the DataType.
+     */
+    @SuppressWarnings("serial")
+    public void copyAllDataTypesToModel() {
+        Collection dataTypes = getCoreHelper().getAllDataTypes(profile);
+        final Collection modelDataTypes = getCoreHelper().
+            getAllDataTypes(model);
+        HashMap<String, Object> modelDTsMap = new HashMap<String, Object>() { {
+                for (Object dt : modelDataTypes) {
+                    put(getFacade().getName(dt), dt);
+                }
+            }
+        };
+        for (Object dt : dataTypes) {
+            String dtName = getFacade().getName(dt);
+            if (!modelDTsMap.containsKey(dtName)) {
+                getCoreFactory().buildDataType(dtName, model);
+            }
+        }
     }
 
 }
