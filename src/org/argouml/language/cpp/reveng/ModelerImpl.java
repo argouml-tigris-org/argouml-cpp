@@ -429,8 +429,8 @@ public class ModelerImpl implements Modeler {
         Object theType = null;
         List taggedValues = new LinkedList();
         processPtrOperators(typeName, taggedValues);
-        if (ProfileCpp.isBuiltIn(typeName)) {
-            theType = ProfileCpp.getBuiltIn(typeName);
+        if (profile.isBuiltIn(typeName)) {
+            theType = profile.getBuiltIn(typeName);
         } else {
             theType =
 		ProjectManager.getManager().getCurrentProject().findType(

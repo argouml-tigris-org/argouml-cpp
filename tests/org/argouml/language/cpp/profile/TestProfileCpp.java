@@ -42,7 +42,8 @@ import org.argouml.model.UmlException;
 import junit.framework.TestCase;
 
 /**
- * The tests for the C++ UML profile and its helper class {@link ProfileCpp}.
+ * The tests for the C++ UML profile and its helper classes {@link ProfileCpp} 
+ * and {@link BaseProfile}.
  * 
  * @author Luis Sergio Oliveira (euluis)
  * @since 0.25.2
@@ -62,9 +63,9 @@ public class TestProfileCpp extends TestCase {
         aClass = getCoreFactory().buildClass("AClass", getModel());
         attribute = getCoreFactory().buildAttribute2(aClass, aClass);
         operation = getCoreFactory().buildOperation2(aClass, 
-                ProfileCpp.getBuiltIn("int"), "anInt");
+                profile.getBuiltIn("int"), "anInt");
         param = getCoreFactory().buildParameter(operation, 
-                ProfileCpp.getBuiltIn("int"));
+                profile.getBuiltIn("int"));
     }
 
     public void testCtorHappyPath() throws UmlException {
@@ -227,5 +228,76 @@ public class TestProfileCpp extends TestCase {
                     + " found in model with different number than expected!", 
                     1, (int) dtNames2Check.get(dtName));
         }
+    }
+    
+    public void testGetBuiltIn() {
+        String longDouble = "long double";
+        Object builtIn = profile.getBuiltIn(longDouble);
+        assertNotNull(builtIn);
+        assertEquals(longDouble, getFacade().getName(builtIn));
+        assertDataTypeExistsInModel(longDouble, model);
+    }
+
+    private static void assertDataTypeExistsInModel(String dtName, 
+            Object model) {
+        Collection dataTypes = getCoreHelper().getAllDataTypes(model);
+        boolean dtFound = false;
+        for (Object dt : dataTypes) {
+            if (getFacade().getName(dt).equals(dtName))
+                dtFound = true;
+        }
+        assertTrue("Data Type " + dtName + " not found in model!", 
+                dtFound);
+    }
+    
+    public void testIsBuiltInWithInvalidModifiers() {
+        assertFalse(profile.isBuiltIn("long float"));
+        assertFalse(profile.isBuiltIn("signed float"));
+        assertFalse(profile.isBuiltIn("unsigned double"));
+    }
+    
+    public void testTrimAndEnsureOneSpaceOnlyBetweenTokens() {
+        assertEquals("bla foo bla", 
+                ProfileCpp.trimAndEnsureOneSpaceOnlyBetweenTokens(
+                    " bla\t\tfoo  bla   "));
+    }
+    
+    /**
+     * There are so many combinations, that, I might introduce duplicates by 
+     * mistake.
+     * The computer and this test checks it ;-)
+     */
+    public void testNoDuplicateDataTypesInProfile() {
+        Collection allDataTypes = getCoreHelper().getAllDataTypes(
+                profile.getProfile());
+        Map<String, Integer> dataTypeCounts = new HashMap<String, Integer>();
+        for (Object dt : allDataTypes) {
+            String dtName = getFacade().getName(dt);
+            if (dataTypeCounts.containsKey(dtName))
+                dataTypeCounts.put(dtName, dataTypeCounts.get(dtName) + 1);
+            else
+                dataTypeCounts.put(dtName, 1);
+        }
+        for (String dtName : dataTypeCounts.keySet()) {
+            assertEquals(1, (int) dataTypeCounts.get(dtName));
+        }
+    }
+    
+    public void testGetBuiltInCopiesDataTypeDocumentation() {
+        Object originalDT = ProfileCpp.findDataType("int", 
+                profile.getProfile());
+        Object originalDocuTV = getExtensionMechanismsFactory().
+            buildTaggedValue(ProfileCpp.TV_NAME_DOCUMENTATION, 
+                "the C++ standard integer built-in type");
+        getExtensionMechanismsHelper().addTaggedValue(originalDT, 
+                originalDocuTV);
+        
+        Object modelDT = profile.getBuiltIn("int");
+        
+        Object modelDocuTV = getFacade().getTaggedValue(modelDT, 
+                ProfileCpp.TV_NAME_DOCUMENTATION);
+        assertNotNull(modelDocuTV);
+        assertEquals(getFacade().getValueOfTag(originalDocuTV), 
+                getFacade().getValueOfTag(modelDocuTV));
     }
 }

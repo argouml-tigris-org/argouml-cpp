@@ -30,9 +30,10 @@ import junit.framework.TestCase;
 
 import org.argouml.kernel.ProjectManager;
 import org.argouml.language.cpp.Helper;
+import static org.argouml.language.cpp.Helper.*;
 import org.argouml.language.cpp.profile.ProfileCpp;
 import org.argouml.model.CoreFactory;
-import org.argouml.model.Model;
+import static org.argouml.model.Model.*;
 import org.argouml.moduleloader.ModuleInterface;
 import org.argouml.uml.generator.GeneratorManager;
 
@@ -77,6 +78,8 @@ class BaseTestGeneratorCpp extends TestCase {
      */
     private Object fooMethod;
 
+    private ProfileCpp profile;
+
     /*
      * @see junit.framework.TestCase#setUp()
      */
@@ -86,12 +89,13 @@ class BaseTestGeneratorCpp extends TestCase {
 
         generator = ((GeneratorCpp) GeneratorManager.getInstance()
                 .getGenerator(GeneratorCpp.LANGUAGE_NAME));
-        Helper.newModel();
-        factory = Model.getCoreFactory();
+        newModel();
+        factory = getCoreFactory();
         aClass = factory.buildClass("AClass");
 
         Object me = getAClass();
-        Object voidType = ProfileCpp.getBuiltIn("void");
+        profile = new ProfileCpp(getModel());
+        Object voidType = profile.getBuiltIn("void");
         fooMethod = buildOperation(me, voidType, "foo");
     }
 
@@ -116,8 +120,8 @@ class BaseTestGeneratorCpp extends TestCase {
      */
     protected Object buildAttribute(Object me, Object type, 
             String attrName) {
-        Object attr = Model.getCoreFactory().buildAttribute2(me, type);
-        Model.getCoreHelper().setName(attr, attrName);
+        Object attr = getCoreFactory().buildAttribute2(me, type);
+        getCoreHelper().setName(attr, attrName);
         return attr;
     }
 

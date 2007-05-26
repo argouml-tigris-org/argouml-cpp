@@ -209,7 +209,8 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
         case ModuleInterface.DESCRIPTION:
             return "C++ Settings";
         case ModuleInterface.VERSION:
-            return "Revision date: $Date$";
+            return "Revision date: " 
+                + "$Date$";
         default:
             return null;
         }

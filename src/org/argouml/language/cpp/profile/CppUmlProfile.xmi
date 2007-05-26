@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8' ?>
-<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Tue May 01 14:31:58 BST 2007'>
+<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Fri May 25 20:20:03 BST 2007'>
   <XMI.header>    <XMI.documentation>
       <XMI.exporter>ArgoUML (using Netbeans XMI Writer version 1.0)</XMI.exporter>
       <XMI.exporterVersion>0.24(5) revised on $Date: 2006-11-06 19:55:22 +0100 (Mon, 06 Nov 2006) $ </XMI.exporterVersion>
@@ -879,6 +879,42 @@ If false (default), no pointer modifier is applied.</UML:TaggedValue.dataValue>
             </UML:TagDefinition>
           </UML:Stereotype.definedTag>
         </UML:Stereotype>
+        <UML:DataType xmi.id = '127-0-0-1-736e6ab1:112c4a4e27a:-8000:0000000000000896'
+          name = 'signed char' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+          isAbstract = 'false'/>
+        <UML:DataType xmi.id = '127-0-0-1-736e6ab1:112c4a4e27a:-8000:0000000000000897'
+          name = 'signed int' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+          isAbstract = 'false'/>
+        <UML:DataType xmi.id = '127-0-0-1-736e6ab1:112c4a4e27a:-8000:0000000000000898'
+          name = 'unsigned short int' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+          isAbstract = 'false'/>
+        <UML:DataType xmi.id = '127-0-0-1-736e6ab1:112c4a4e27a:-8000:0000000000000899'
+          name = 'unsigned short' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+          isAbstract = 'false'/>
+        <UML:DataType xmi.id = '127-0-0-1-736e6ab1:112c4a4e27a:-8000:000000000000089A'
+          name = 'unsigned long int' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+          isAbstract = 'false'/>
+        <UML:DataType xmi.id = '127-0-0-1-736e6ab1:112c4a4e27a:-8000:000000000000089B'
+          name = 'signed long int' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+          isAbstract = 'false'/>
+        <UML:DataType xmi.id = '127-0-0-1-736e6ab1:112c4a4e27a:-8000:000000000000089C'
+          name = 'signed long' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+          isAbstract = 'false'/>
+        <UML:DataType xmi.id = '127-0-0-1-736e6ab1:112c4a4e27a:-8000:000000000000089D'
+          name = 'long int' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+          isAbstract = 'false'/>
+        <UML:DataType xmi.id = '127-0-0-1-736e6ab1:112c4a4e27a:-8000:000000000000089E'
+          name = 'signed short int' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+          isAbstract = 'false'/>
+        <UML:DataType xmi.id = '127-0-0-1-736e6ab1:112c4a4e27a:-8000:000000000000089F'
+          name = 'signed short' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+          isAbstract = 'false'/>
+        <UML:DataType xmi.id = '127-0-0-1-736e6ab1:112c4a4e27a:-8000:00000000000008A0'
+          name = 'short int' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+          isAbstract = 'false'/>
+        <UML:DataType xmi.id = '127-0-0-1-736e6ab1:112c4a4e27a:-8000:00000000000008A1'
+          name = 'long double' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+          isAbstract = 'false'/>
       </UML:Namespace.ownedElement>
     </UML:Model>
   </XMI.content>

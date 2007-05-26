@@ -24,56 +24,22 @@
 
 package org.argouml.language.cpp.profile;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import org.apache.log4j.Logger;
-import static org.argouml.model.Model.*;
-
-import org.argouml.kernel.ProjectManager;
-import org.argouml.model.Model;
-import org.argouml.model.UmlException;
-import org.argouml.model.XmiReader;
-import org.xml.sax.InputSource;
 
 /**
- * <p>A class that facilitates access to the UML profile for C++ 
- * (CppUmlProfile.xmi). 
- * It also provides means to overcome the current 
- * limitation of ArgoUML that prevents the existance of two models in one 
- * project.
- * This is done by copying the stereotypes, built-ins and other model elements 
- * of the profile into the model which is being used.
- * </p>
- * <p>TODO: should extend {@link org.argouml.uml.Profile}, but, I don't
- * think that what is attempted there is possible with the limitation of 
- * ArgoUML only having one profile at a given time.
- * </p>
- * <p>TODO: discuss in the mailing list the approach I'm taking about this 
- * problem. 
- * Both the generator and the importer must use the same profile, 
- * if not we are going to make future RTE very difficult. 
- * Also, the users of the module are going to be
- * confused. The main point in favor of this is that there is no open source UML
- * profile for C++. 
- * Lets be pioneers here ;-)
- * </p>
+ * This is the class that provides easy access to the other modules of the 
+ * ArgoUML C++ module to the contents of the UML profile for C++.
+ * 
+ * Note that this class is very shallow and the {@link BaseProfile} is doing 
+ * the heavy lifting.
+ * 
+ * TODO: this class is a candidate for being generated from the profile with 
+ * a MDA tool like AndroMDA.
  * 
  * @author Luis Sergio Oliveira (euluis)
  * @since 0.19.3
  * @see Issue 3771 (http://argouml.tigris.org/issues/show_bug.cgi?id=3771)
  */
-public class ProfileCpp {
-
-    private static final Logger LOG = Logger.getLogger(ProfileCpp.class);
-    
-    private static final String PROFILE_FILE_NAME = 
-            "org/argouml/language/cpp/profile/CppUmlProfile.xmi";
+public class ProfileCpp extends BaseProfile {
     
     /**
      * Name of the C++ UML profile Class stereotype.
@@ -107,6 +73,8 @@ public class ProfileCpp {
      * FIXME: Maybe we should have a more powerfull representation of the
      * TaggedValues in the profile. I would like that restrictions, default
      * value, value range and naming format to be enforced.
+     * This is possible with Typed TaggedValues and OCL constraints in UML, 
+     * but, the former aren't possible and the later I haven't checked yet...
      */
     public static final String TV_NAME_CLASS_SPECIFIER = "cpp_class_specifier";
     
@@ -220,100 +188,9 @@ public class ProfileCpp {
      * Name of the multiplicity type tagged value. Applicable to attributes.
      */
     public static final String TV_NAME_MULTIPLICITY_TYPE = "MultiplicityType";
-
-    /**
-     * Set of built in types tokens.
-     * 
-     * FIXME: replace by usage of the datatypes contained in CppUmlProfile.xmi.
-     * Thus, remove the static nature.
-     */
-    private static final Set BUILT_IN_TYPES;
-
-    static {
-        BUILT_IN_TYPES = new HashSet();
-        BUILT_IN_TYPES.add("char");
-        BUILT_IN_TYPES.add("wchar_t");
-        BUILT_IN_TYPES.add("bool");
-        BUILT_IN_TYPES.add("short");
-        BUILT_IN_TYPES.add("int");
-        BUILT_IN_TYPES.add("__int64");
-        BUILT_IN_TYPES.add("__w64");
-        BUILT_IN_TYPES.add("long");
-        BUILT_IN_TYPES.add("signed");
-        BUILT_IN_TYPES.add("unsigned");
-        BUILT_IN_TYPES.add("float");
-        BUILT_IN_TYPES.add("double");
-        BUILT_IN_TYPES.add("void");
-    }
-
-    /**
-     * Checks if the given type is a C++ builtin type.
-     * 
-     * @param typeName name of the type to check
-     * @return true if typeName is a builtin type, false otherwise
-     */
-    public static boolean isBuiltIn(String typeName) {
-        if (BUILT_IN_TYPES.contains(typeName.split(" ")[0])) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Retrieves the given builtin type model element representation as a
-     * DataType.
-     * 
-     * @param typeName name of the type
-     * @return the model element that models the C++ builtin type
-     */
-    public static Object getBuiltIn(String typeName) {
-        assert isBuiltIn(typeName) : "Must be a C++ built in!";
-        Object builtinType = ProjectManager.getManager().getCurrentProject()
-                .findType(typeName.toString(), false);
-        if (builtinType == null) {
-            builtinType = Model.getCoreFactory().buildDataType(typeName,
-                getModel());
-        }
-        return builtinType;
-    }
     
-    private Object model;
-    
-    /**
-     * The C++ UML profile as loaded from CppUmlProfile.xmi.
-     */
-    private Object profile;
-
-    /**
-     * FIXME: legacy method to be used in static initialization. Remove when 
-     * the need for static initialization goes away.
-     * 
-     * @return the model
-     */
-    private static Object getModel() {
-        return ProjectManager.getManager().getCurrentProject().getModel();
-    }
-
     public ProfileCpp(Object projectModel) {
-        this.model = projectModel;
-        InputStream inputStream = getClass().getClassLoader().
-            getResourceAsStream(PROFILE_FILE_NAME);
-        assert inputStream != null 
-                : "The resource containing the C++ UML profile can't be null.";
-        try {
-            XmiReader xmiReader = getXmiReader();
-            InputSource inputSource = new InputSource(inputStream);
-            LOG.info("Loaded profile '" + PROFILE_FILE_NAME + "'");
-            Collection elements = xmiReader.parse(inputSource, true);
-            if (elements.size() != 1) {
-                LOG.error("Error loading profile '" + PROFILE_FILE_NAME
-                        + "' expected 1 top level element" + " found "
-                        + elements.size());
-            }
-            profile = elements.iterator().next();
-        } catch (UmlException e) {
-            throw new RuntimeException(e);
-        }
+        super(projectModel);
     }
 
     public Object getCppClassStereotype() {
@@ -330,39 +207,6 @@ public class ProfileCpp {
 
     public Object getCppParameterStereotype() {
         return getCppStereotypeInModel(STEREO_NAME_PARAMETER);
-    }
-
-    private Object getCppStereotypeInModel(String stereotypeName) {
-        Object cppStereotype = getStereotype(model, stereotypeName);
-        if (cppStereotype == null) {
-            cppStereotype = getStereotype(profile, stereotypeName);
-            assert cppStereotype != null;
-            Object modelStereotype = getExtensionMechanismsFactory().
-                copyStereotype(cppStereotype, model);
-            Collection tagDefinitions = getFacade().getTagDefinitions(
-                    cppStereotype);
-            for (Object td : tagDefinitions) {
-                getExtensionMechanismsFactory().copyTagDefinition(td, 
-                        modelStereotype);
-            }
-            
-            cppStereotype = modelStereotype;
-        }
-        return cppStereotype;
-    }
-
-    private Object getStereotype(Object aModel, String stereotypeName) {
-        Collection stereotypes = getExtensionMechanismsHelper().getStereotypes(
-                aModel);
-        for (Object stereotype : stereotypes) {
-            if (stereotypeName.equals(getFacade().getName(stereotype)))
-                return stereotype;
-        }
-        return null;
-    }
-
-    public Object getProfile() {
-        return profile;
     }
 
     public Object getVirtualInheritanceTagDefinition() {
@@ -389,18 +233,6 @@ public class ProfileCpp {
                 TV_NAME_REFERENCE);
     }
     
-    private Object getTagDefinition(String stereoName, String tdName) {
-        Object stereo = getCppStereotypeInModel(stereoName);
-        assert model.equals(getFacade().getModel(stereo));
-        Collection tagDefinitions = getFacade().getTagDefinitions(stereo);
-        for (Object tagDefinition : tagDefinitions) {
-            if (tdName.equals(getFacade().getName(tagDefinition))) {
-                return tagDefinition;
-            }
-        }
-        return null;
-    }
-
     public void applyCppClassStereotype(Object aClass) {
         applyStereotype(STEREO_NAME_CLASS, aClass);
     }
@@ -419,12 +251,6 @@ public class ProfileCpp {
 
     public void applyCppGeneralizationStereotype(Object generalization) {
         applyStereotype(STEREO_NAME_GENERALIZATION, generalization);
-    }
-
-    public void applyStereotype(String stereoName, Object modelElement) {
-        assert model.equals(getFacade().getModel(modelElement));
-        Object stereo = getCppStereotypeInModel(stereoName);
-        getCoreHelper().addStereotype(modelElement, stereo);
     }
 
     public void applyClassSpecifierTaggedValue(Object modelElement, 
@@ -467,59 +293,6 @@ public class ProfileCpp {
             Object realization, String visibility) {
         applyTaggedValue(STEREO_NAME_REALIZATION, 
                 TV_NAME_INHERITANCE_VISIBILITY, realization, visibility);
-    }
-    
-    public void applyTaggedValue(String stereoName, String tdName, Object me, 
-            String tvv) {
-        assert model.equals(getFacade().getModel(me));
-        assert getFacade().getStereotypes(me).contains(
-                getCppStereotypeInModel(stereoName));
-        Object td = getTagDefinition(stereoName, tdName);
-        Object tv = getExtensionMechanismsFactory().createTaggedValue();
-        getExtensionMechanismsHelper().setType(tv, td);
-        getExtensionMechanismsHelper().setValueOfTag(tv, tvv);
-        getExtensionMechanismsHelper().addTaggedValue(me, tv);
-    }
-
-    public void copyAllCppStereotypesToModel() {
-        List<String> cppStereoTypesNames = getAllCppStereotypeNames();
-        for (String cppStereotypeName : cppStereoTypesNames) {
-            getCppStereotypeInModel(cppStereotypeName);
-        }
-    }
-
-    private List<String> getAllCppStereotypeNames() {
-        List<String> cppStereotypesNames = new ArrayList<String>();
-        Collection stereotypes = getExtensionMechanismsHelper().getStereotypes(
-                profile);
-        for (Object stereotype : stereotypes) {
-            String name = getFacade().getName(stereotype);
-            if (name.startsWith("cpp"))
-                cppStereotypesNames.add(name);
-        }
-        return cppStereotypesNames;
-    }
-
-    /**
-     * TODO: copy the documentation of the DataType.
-     */
-    @SuppressWarnings("serial")
-    public void copyAllDataTypesToModel() {
-        Collection dataTypes = getCoreHelper().getAllDataTypes(profile);
-        final Collection modelDataTypes = getCoreHelper().
-            getAllDataTypes(model);
-        HashMap<String, Object> modelDTsMap = new HashMap<String, Object>() { {
-                for (Object dt : modelDataTypes) {
-                    put(getFacade().getName(dt), dt);
-                }
-            }
-        };
-        for (Object dt : dataTypes) {
-            String dtName = getFacade().getName(dt);
-            if (!modelDTsMap.containsKey(dtName)) {
-                getCoreFactory().buildDataType(dtName, model);
-            }
-        }
     }
 
 }
