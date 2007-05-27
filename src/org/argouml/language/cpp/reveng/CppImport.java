@@ -36,7 +36,6 @@ import org.apache.log4j.Logger;
 import org.argouml.configuration.Configuration;
 import org.argouml.configuration.ConfigurationKey;
 import org.argouml.kernel.Project;
-import org.argouml.moduleloader.ModuleInterface;
 import org.argouml.taskmgmt.ProgressMonitor;
 import org.argouml.uml.reveng.FileImportUtils;
 import org.argouml.uml.reveng.ImportInterface;
@@ -55,7 +54,7 @@ import org.argouml.util.SuffixFilter;
  * @author Luis Sergio Oliveira (euluis)
  * @since 0.19.2
  */
-public class CppImport implements ModuleInterface, ImportInterface {
+public class CppImport implements ImportInterface {
 
     /** logger */
     private static final Logger LOG = Logger.getLogger(CppImport.class);
