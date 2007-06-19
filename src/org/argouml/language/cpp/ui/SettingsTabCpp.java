@@ -42,12 +42,12 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 import org.apache.log4j.Logger;
+import org.argouml.application.api.GUISettingsTabInterface;
 import org.argouml.i18n.Translator;
 import org.argouml.language.cpp.generator.GeneratorCpp;
 import org.argouml.language.cpp.generator.Section;
 import org.argouml.moduleloader.ModuleInterface;
 import org.argouml.ui.GUI;
-import org.argouml.ui.GUISettingsTabInterface;
 
 
 /**
