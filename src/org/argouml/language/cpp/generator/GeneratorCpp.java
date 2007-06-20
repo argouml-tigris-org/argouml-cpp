@@ -49,7 +49,7 @@ import org.argouml.configuration.Configuration;
 import org.argouml.configuration.ConfigurationKey;
 import static org.argouml.language.cpp.profile.ProfileCpp.*;
 
-import org.argouml.model.Model;
+import static org.argouml.model.Model.*;
 import org.argouml.uml.DocumentationManager;
 import org.argouml.uml.UUIDHelper;
 import org.argouml.uml.generator.CodeGenerator;
@@ -251,8 +251,7 @@ public class GeneratorCpp implements CodeGenerator {
      */
     private String generateFileAsString(Object o, String pathname) {
         setupGenerator(o);
-        if (generatorPass == SOURCE_PASS 
-                && Model.getFacade().isAInterface(o))
+        if (generatorPass == SOURCE_PASS  && getFacade().isAInterface(o))
             return ""; // don't generate the .cpp, it's useless.
 
         String headerTop = generateHeaderTop(pathname);
@@ -264,7 +263,7 @@ public class GeneratorCpp implements CodeGenerator {
         // this must be *after* generate()
         StringBuffer incl = new StringBuffer();
         if (generatorPass == SOURCE_PASS) {
-            localInc.add(Model.getFacade().getName(o) + ".h");
+            localInc.add(getFacade().getName(o) + ".h");
         }
         generateIncludes(incl);
         if (generatorPass == HEADER_PASS) {
@@ -274,7 +273,7 @@ public class GeneratorCpp implements CodeGenerator {
         // paste all the pieces in the final result
         StringBuffer result = new StringBuffer();
         if (generatorPass == HEADER_PASS) {
-            String name = Model.getFacade().getName(o);
+            String name = getFacade().getName(o);
             String guardPack =
                 generateRelativePackage(o, null, "_").substring(1);
             String guard = name + getFileExtension().replace('.', '_');
@@ -307,7 +306,7 @@ public class GeneratorCpp implements CodeGenerator {
         String name =
             generateRelativePackage(o, null, "/").substring(1);
         if (name.length() > 0) name += "/";
-        name += Model.getFacade().getName(o) + ".cpp";
+        name += getFacade().getName(o) + ".cpp";
         String ret = generateFileAsString(o, name);
         cleanupGenerator();
         generatorPass = NONE_PASS;
@@ -324,7 +323,7 @@ public class GeneratorCpp implements CodeGenerator {
         String name =
             generateRelativePackage(o, null, "/").substring(1);
         if (name.length() > 0) name += "/";
-        name += Model.getFacade().getName(o) + ".h";
+        name += getFacade().getName(o) + ".h";
         String ret = generateFileAsString(o, name);
         cleanupGenerator();
         generatorPass = NONE_PASS;
@@ -347,13 +346,13 @@ public class GeneratorCpp implements CodeGenerator {
             String sep) {
         StringBuffer packagePath = new StringBuffer();
         // avoid model being used as a package name
-        Object parent = Model.getFacade().getNamespace(cls);
+        Object parent = getFacade().getNamespace(cls);
 
         while (parent != null && parent != pack) {
             // ommit root package name; it's the model's root
-            Object grandParent = Model.getFacade().getNamespace(parent); 
+            Object grandParent = getFacade().getNamespace(parent); 
             if (grandParent != null) {
-                String name = Model.getFacade().getName(parent);
+                String name = getFacade().getName(parent);
                 if (packagePath.length() > 0) {
                     packagePath.insert(0, sep);
                 }
@@ -392,7 +391,7 @@ public class GeneratorCpp implements CodeGenerator {
      * @return Returns the filename with full path of cls.
      */
     private String createDirectoriesPathname(Object cls, String path) {
-        String name = Model.getFacade().getName(cls);
+        String name = getFacade().getName(cls);
         if (name == null || name.length() == 0) {
             return "";
         }
@@ -438,8 +437,8 @@ public class GeneratorCpp implements CodeGenerator {
      * another class (not within a package).
      */
     private static boolean isAInnerClass(Object cls) {
-        Object parent = Model.getFacade().getNamespace(cls);
-        return parent != null && !Model.getFacade().isAPackage(parent);
+        Object parent = getFacade().getNamespace(cls);
+        return parent != null && !getFacade().isAPackage(parent);
     }
 
     /** 2002-12-07 Achim Spangler
@@ -465,12 +464,12 @@ public class GeneratorCpp implements CodeGenerator {
      */
     private void writeTemplate(Object cls, String path, BufferedWriter fos) {
         String templatePathName = path + "/templates/";
-        String fileName = Model.getFacade().getName(cls);
-        String tagTemplatePathName = Model.getFacade().getTaggedValueValue(
+        String fileName = getFacade().getName(cls);
+        String tagTemplatePathName = getFacade().getTaggedValueValue(
                 cls, TV_NAME_TEMPLATE_PATH);
-        String authorTag = Model.getFacade().getTaggedValueValue(cls, 
+        String authorTag = getFacade().getTaggedValueValue(cls, 
                 TV_NAME_AUTHOR);
-        String emailTag = Model.getFacade().getTaggedValueValue(cls, 
+        String emailTag = getFacade().getTaggedValueValue(cls, 
                 TV_NAME_EMAIL);
         if (tagTemplatePathName != null && tagTemplatePathName.length() > 0)
             templatePathName = tagTemplatePathName;
@@ -576,13 +575,13 @@ public class GeneratorCpp implements CodeGenerator {
         String usageTag = "";
         boolean predeclareCandidate = false;
 
-        Iterator iter = Model.getFacade().getTaggedValues(cls);
+        Iterator iter = getFacade().getTaggedValues(cls);
         while (iter.hasNext()) {
             Object tv = iter.next();
-            String tag = Model.getFacade().getTagOfTag(tv);
+            String tag = getFacade().getTagOfTag(tv);
             if (tag != null) {
                 if (tag.equals(TV_NAME_USAGE)) {
-                    usageTag = Model.getFacade().getValueOfTag(tv);
+                    usageTag = getFacade().getValueOfTag(tv);
                 }
 
                 if (tag.indexOf(TV_NAME_REFERENCE) != -1 || tag.equals("&")
@@ -620,7 +619,7 @@ public class GeneratorCpp implements CodeGenerator {
     private StringBuffer generatePredeclare(StringBuffer sb) {
         for (Iterator it = predeclCls.iterator(); it.hasNext(); ) {
             Object cls = it.next();
-            String name = Model.getFacade().getName(cls);
+            String name = getFacade().getName(cls);
             sb.append(generateHeaderPackageStart(cls));
             sb.append("class ").append(name);
             sb.append(";").append(LINE_SEPARATOR);
@@ -636,7 +635,7 @@ public class GeneratorCpp implements CodeGenerator {
      * @param source if true parses source_incl tags, else header_incl.
      */
     private void addUserHeaders(Object cls, boolean source) {
-        Iterator iter = Model.getFacade().getTaggedValues(cls);
+        Iterator iter = getFacade().getTaggedValues(cls);
         String tagPrefix;
         if (source)
             tagPrefix = TV_NAME_SOURCE_INCL;
@@ -645,9 +644,9 @@ public class GeneratorCpp implements CodeGenerator {
             
         while (iter.hasNext()) {
             Object tv = iter.next();
-            String tag = Model.getFacade().getTagOfTag(tv);
+            String tag = getFacade().getTagOfTag(tv);
             if (tag != null && tag.equals(tagPrefix)) {
-                String name = Model.getFacade().getValueOfTag(tv);
+                String name = getFacade().getValueOfTag(tv);
                 if (name.length() > 2 && name.charAt(0) == '<') {
                     systemInc.add(name.substring(1, name.length() - 1));
                 } else if (name.length() > 2 && name.charAt(0) == '"') {
@@ -669,8 +668,7 @@ public class GeneratorCpp implements CodeGenerator {
         if (generatorPass == NONE_PASS) {
             return; // skip dependencies if generating notation
         }
-        if (!(Model.getFacade().isAClass(dep))
-            && !(Model.getFacade().isAInterface(dep))) {
+        if (!(getFacade().isAClass(dep)) && !(getFacade().isAInterface(dep))) {
             // Do nothing for things such as datatypes, etc.
             // TODO: check for namespace when using directives are implemented
             return;
@@ -685,8 +683,8 @@ public class GeneratorCpp implements CodeGenerator {
             }
             if (includeCls.add(dep)) {
                 // dep was not already in includeCls
-                Object ns = Model.getFacade().getNamespace(currClass);
-                String name = Model.getFacade().getName(dep);
+                Object ns = getFacade().getNamespace(currClass);
+                String name = getFacade().getName(dep);
                 // use '/', not FILE_SEPARATOR (this is intentional)
                 String path =
                     generateRelativePackage(dep, ns, "/");
@@ -706,7 +704,7 @@ public class GeneratorCpp implements CodeGenerator {
 
     private String generateHeaderPackageStartSingle(Object pkg) {
         StringBuffer sb = new StringBuffer(30);
-        String packageName = Model.getFacade().getName(pkg);
+        String packageName = getFacade().getName(pkg);
         StringTokenizer st = new StringTokenizer(packageName, ".");
         String token = "";
 
@@ -722,7 +720,7 @@ public class GeneratorCpp implements CodeGenerator {
 
     private String generateHeaderPackageEndSingle(Object pkg) {
         StringBuffer sb = new StringBuffer(30);
-        String packageName = Model.getFacade().getName(pkg);
+        String packageName = getFacade().getName(pkg);
         StringTokenizer st = new StringTokenizer(packageName, ".");
         String token = "";
         while (st.hasMoreTokens()) {
@@ -750,7 +748,7 @@ public class GeneratorCpp implements CodeGenerator {
         if (pack.length() > 0) {
             pack += "::";
         }
-        return pack + Model.getFacade().getName(pkg);
+        return pack + getFacade().getName(pkg);
     }
 
     /** Generate the name of item with package prefix relative to localPkg.
@@ -761,23 +759,23 @@ public class GeneratorCpp implements CodeGenerator {
             return "void ";
         }
         Object pkg = null;
-        if (Model.getFacade().isADataType(item)) {
-            return Model.getFacade().getName(item);
-        } else if (Model.getFacade().isAParameter(item)
-                   || Model.getFacade().isAAttribute(item)
-                   || Model.getFacade().isAAssociationEnd(item)
-                   || Model.getFacade().isAClassifier(item)) {
+        if (getFacade().isADataType(item)) {
+            return getFacade().getName(item);
+        } else if (getFacade().isAParameter(item)
+                   || getFacade().isAAttribute(item)
+                   || getFacade().isAAssociationEnd(item)
+                   || getFacade().isAClassifier(item)) {
             pkg = getNamespaceWithoutModel(item);
         }
 
         if (pkg == null) {
-            return Model.getFacade().getName(item);
+            return getFacade().getName(item);
         }
         String packPrefix = generateRelativePackage(item, localPkg, "::");
         if (packPrefix.length() > 0) {
             packPrefix += "::";
         }
-        return packPrefix + Model.getFacade().getName(item);
+        return packPrefix + getFacade().getName(item);
     }
 
     /** Generate name with package specs, relative to actualNamespace.
@@ -841,8 +839,8 @@ public class GeneratorCpp implements CodeGenerator {
      * containing namespace for <code>me</code>
      */
     private Object getNamespaceWithoutModel(Object me) {
-        Object parent = Model.getFacade().getNamespace(me);
-        if (parent != null && Model.getFacade().getNamespace(parent) != null) 
+        Object parent = getFacade().getNamespace(me);
+        if (parent != null && getFacade().getNamespace(parent) != null) 
             return parent;
         return null;
     }
@@ -900,9 +898,7 @@ public class GeneratorCpp implements CodeGenerator {
         //sb.append(generateConcurrency(op));
         if (generatorPass != SOURCE_PASS) {
             // make all operations to virtual - as long as they are not "leaf"
-            Object scope = Model.getFacade().getOwnerScope(op);
-            if (Model.getFacade().isLeaf(op)
-                    && !Model.getFacade().isRoot(op)) {
+            if (getFacade().isLeaf(op) && !getFacade().isRoot(op)) {
                 // there's no way to make a leaf method that it's not root in
                 // c++, so warn the user and ignore the 'root' attribute
                 // (or it may be better to ignore the 'leaf' attribute?)
@@ -915,13 +911,12 @@ public class GeneratorCpp implements CodeGenerator {
             // not marked as static, which disallows "virtual"
             // alternatively every abstract function is defined as
             // virtual
-            if ((!Model.getFacade().isLeaf(op)
-                    && !Model.getFacade().isConstructor(op)
-                    && (!(Model.getScopeKind().getClassifier().equals(scope))))
-                    || (Model.getFacade().isAbstract(op))) {
+            if ((!getFacade().isLeaf(op) && !getFacade().isConstructor(op)
+                    && (!(getFacade().isStatic(op))))
+                    || (getFacade().isAbstract(op))) {
                 sb.append("virtual ");
             }
-            sb.append(generateOwnerScope(op));
+            sb.append(generateScope(op));
         }
         return sb.toString();
     }
@@ -947,22 +942,22 @@ public class GeneratorCpp implements CodeGenerator {
     private boolean generateOperationNameAndTestForConstructor(Object op,
             StringBuffer sb) {
         if (generatorPass == SOURCE_PASS) {
-            Object cls = Model.getFacade().getOwner(op);
+            Object cls = getFacade().getOwner(op);
             String prefix = new String();
-            while (!Model.getFacade().isAPackage(cls)) {
-                prefix = Model.getFacade().getName(cls) + "::" + prefix;
-                cls = Model.getFacade().getNamespace(cls);
+            while (!getFacade().isAPackage(cls)) {
+                prefix = getFacade().getName(cls) + "::" + prefix;
+                cls = getFacade().getNamespace(cls);
             }
             sb.append(prefix);
         }
         boolean constructor = false;
         String name;
-        if (Model.getFacade().isConstructor(op)) {
+        if (getFacade().isConstructor(op)) {
             // constructor
-            name = Model.getFacade().getName(Model.getFacade().getOwner(op));
+            name = getFacade().getName(getFacade().getOwner(op));
             constructor = true;
         } else {
-            name = Model.getFacade().getName(op);
+            name = getFacade().getName(op);
         }
         sb.append(name);
         return constructor;
@@ -983,8 +978,7 @@ public class GeneratorCpp implements CodeGenerator {
     public String generateOperation(Object op, boolean documented) {
         // generate nothing for abstract functions, if we generate the
         // source .cpp file at the moment
-        if ((generatorPass == SOURCE_PASS) 
-                && (Model.getFacade().isAbstract(op))) {
+        if ((generatorPass == SOURCE_PASS) && (getFacade().isAbstract(op))) {
             return "";
         }
         StringBuffer sb = new StringBuffer(80);
@@ -1006,7 +1000,7 @@ public class GeneratorCpp implements CodeGenerator {
             .append(generateOperationPrefix(op));
 
         // pick out return type
-        Collection returnParams = Model.getCoreHelper().getReturnParameters(op);
+        Collection returnParams = getCoreHelper().getReturnParameters(op);
         Object rp;
         if (returnParams.size() == 0) {
             rp = null;
@@ -1016,11 +1010,11 @@ public class GeneratorCpp implements CodeGenerator {
         if (returnParams.size() > 1)  {
             LOG.warn("C++ generator only handles one return parameter"
                     + " - Found " + returnParams.size()
-                    + " for " + Model.getFacade().getName(op));
+                    + " for " + getFacade().getName(op));
         }
         if (!constructor) {
             if (rp != null) {
-                Object returnType = Model.getFacade().getType(rp);
+                Object returnType = getFacade().getType(rp);
                 if (returnType == null) {
                     sb.append("void ");
                 }
@@ -1037,7 +1031,7 @@ public class GeneratorCpp implements CodeGenerator {
         }
 
         // name and params
-        Vector params = new Vector(Model.getFacade().getParameters(op));
+        Vector params = new Vector(getFacade().getParameters(op));
         params.remove(rp); // If there are several return parameters, just
                            // the one found above will be removed.
 
@@ -1075,11 +1069,11 @@ public class GeneratorCpp implements CodeGenerator {
      */
     private int getAttributeModifierType(Object elem) {
         // first check whether the parameter shall be a pointer of reference
-        Iterator iter = Model.getFacade().getTaggedValues(elem);
+        Iterator iter = getFacade().getTaggedValues(elem);
         while (iter.hasNext()) {
             Object tv = iter.next();
-            String tag = Model.getFacade().getTagOfTag(tv);
-            String val = Model.getFacade().getValueOfTag(tv);
+            String tag = getFacade().getTagOfTag(tv);
+            String val = getFacade().getValueOfTag(tv);
             if (tag != null) {
                 if (tag.equals(TV_NAME_REFERENCE) || tag.equals("&")) {
                     return val.equals("false") ? NORMAL_MOD
@@ -1101,15 +1095,15 @@ public class GeneratorCpp implements CodeGenerator {
         // if attr has an abstract type it must be pointer or reference
         if (modType == NORMAL_MOD || modType == -1) {
             // this is used for association classes to; skip them
-            if (!Model.getFacade().isAAssociationClass(attr)) {
-                Object type = Model.getFacade().getType(attr);
+            if (!getFacade().isAAssociationClass(attr)) {
+                Object type = getFacade().getType(attr);
                 if (type == null) {
                     // model corrupt (this really happened -- aslo)
                     LOG.error(attr + " has no type!");
                     return "";
                 }
-                if (Model.getFacade().isAbstract(type)
-                    || Model.getFacade().isAInterface(type)) {
+                if (getFacade().isAbstract(type)
+                    || getFacade().isAInterface(type)) {
                     if (modType == NORMAL_MOD) {
                         // user explicitly requested no modifier
                         LOG.warn("Requested no reference or pointer "
@@ -1129,11 +1123,11 @@ public class GeneratorCpp implements CodeGenerator {
         } else if (modType == POINTER_MOD) {
             return "*";
         } else if (def.length() == 0) {
-            if (Model.getFacade().isAParameter(attr)
-                    && (Model.getDirectionKind().getOutParameter().equals(
-                        Model.getFacade().getKind(attr))
-                    || Model.getDirectionKind().getInOutParameter().equals(
-                        Model.getFacade().getKind(attr)))) {
+            if (getFacade().isAParameter(attr)
+                    && (getDirectionKind().getOutParameter().equals(
+                        getFacade().getKind(attr))
+                    || getDirectionKind().getInOutParameter().equals(
+                        getFacade().getKind(attr)))) {
                 // out or inout parameters are defaulted to reference if
                 // not specified else
                 return "&";
@@ -1160,13 +1154,11 @@ public class GeneratorCpp implements CodeGenerator {
         }
         // cat.info("generate Visibility for Attribute");
         sb.append(generateVisibility(attr));
-        sb.append(generateOwnerScope(attr));
+        sb.append(generateScope(attr));
         sb.append(generateStructuralFeatureChangeability(attr));
         sb.append(
-                generateMultiplicity(
-                        attr,
-                        Model.getFacade().getName(attr),
-                        Model.getFacade().getMultiplicity(attr),
+                generateMultiplicity(attr, getFacade().getName(attr), 
+                        getFacade().getMultiplicity(attr),
                         generateAttributeParameterModifier(attr)));
         sb.append(";");
         if (generatorPass != NONE_PASS)
@@ -1174,7 +1166,7 @@ public class GeneratorCpp implements CodeGenerator {
 
         // add the type of the attribute in the dependency list
         boolean predecl = !checkIncludeNeeded4Element(attr);
-        addDependency(Model.getFacade().getType(attr), predecl);
+        addDependency(getFacade().getType(attr), predecl);
 
         return sb.toString();
     }
@@ -1186,20 +1178,20 @@ public class GeneratorCpp implements CodeGenerator {
         // generate const for references or pointers which are
         // defined as IN - other qualifiers are not important for
         // C++ parameters
-        Object type = Model.getFacade().getType(param);
+        Object type = getFacade().getType(param);
         sb.append(generateParameterChangeability(param));
         //TODO: stereotypes...
         sb.append(generateNameWithPkgSelection(type));
         sb.append(' ');
         sb.append(generateAttributeParameterModifier(param));
-        sb.append(Model.getFacade().getName(param));
+        sb.append(getFacade().getName(param));
 
         // insert default value, if we are generating the header or notation
         if (generatorPass != SOURCE_PASS) {
-            Object defvalObj = Model.getFacade().getDefaultValue(param);
+            Object defvalObj = getFacade().getDefaultValue(param);
             if (defvalObj != null) {
                 String defval =
-                    Model.getFacade().getBody(defvalObj).toString().trim();
+                    getFacade().getBody(defvalObj).toString().trim();
                 if (defval.length() > 0) {
                     sb.append(" = ").append(defval);
                 }
@@ -1232,8 +1224,7 @@ public class GeneratorCpp implements CodeGenerator {
         if (generatorPass == SOURCE_PASS) return sb;
 
         String sClassifierKeyword;
-        if (Model.getFacade().isAClass(cls) 
-                || Model.getFacade().isAInterface(cls)) {
+        if (getFacade().isAClass(cls) || getFacade().isAInterface(cls)) {
             sClassifierKeyword = "class";
         } else {
             return null; // actors, use cases etc.
@@ -1252,11 +1243,11 @@ public class GeneratorCpp implements CodeGenerator {
 
         // add classifier keyword and classifier name
         sb.append(sClassifierKeyword).append(" ");
-        sb.append(Model.getFacade().getName(cls));
+        sb.append(getFacade().getName(cls));
 
         // add base class/interface
         String baseClass =
-            generateGeneralization(Model.getFacade().getGeneralizations(cls));
+            generateGeneralization(getFacade().getGeneralizations(cls));
         if (!baseClass.equals ("")) {
             sb.append (" : ")
                 .append (baseClass);
@@ -1264,7 +1255,7 @@ public class GeneratorCpp implements CodeGenerator {
         }
 
         // add implemented interfaces, if needed (uml: realizations)
-        if (Model.getFacade().isAClass(cls)) {
+        if (getFacade().isAClass(cls)) {
             String interfaces = generateSpecification(cls);
             if (!interfaces.equals ("")) {
                 if (!hasBaseClass) sb.append (" : ");
@@ -1290,11 +1281,10 @@ public class GeneratorCpp implements CodeGenerator {
 
     private StringBuffer generateClassifierEnd(Object cls) {
         StringBuffer sb = new StringBuffer();
-        if (Model.getFacade().isAClass(cls) 
-                || Model.getFacade().isAInterface(cls)) {
+        if (getFacade().isAClass(cls) || getFacade().isAInterface(cls)) {
             if ((verboseDocs) && (generatorPass != SOURCE_PASS)) {
                 String classifierkeyword = null;
-                if (Model.getFacade().isAClass(cls)) {
+                if (getFacade().isAClass(cls)) {
                     classifierkeyword = "class";
                 } else {
                     classifierkeyword = "class";
@@ -1302,7 +1292,7 @@ public class GeneratorCpp implements CodeGenerator {
                 sb.append(LINE_SEPARATOR)
                     .append("//end of ")
                         .append(classifierkeyword)
-                            .append(" ").append(Model.getFacade().getName(cls))
+                            .append(" ").append(getFacade().getName(cls))
                                 .append(LINE_SEPARATOR);
             }
             if (generatorPass != SOURCE_PASS)
@@ -1334,14 +1324,14 @@ public class GeneratorCpp implements CodeGenerator {
     }
     
     private int getVisibilityPart(Object o) {
-        if (Model.getFacade().isPublic(o)) {
+        if (getFacade().isPublic(o)) {
             return PUBLIC_PART;
-        } else if (Model.getFacade().isProtected(o)) {
+        } else if (getFacade().isProtected(o)) {
             return PROTECTED_PART;
-        } else if (Model.getFacade().isPrivate(o)) {
+        } else if (getFacade().isPrivate(o)) {
             return PRIVATE_PART;
         } else {
-            LOG.warn(Model.getFacade().getName(o)
+            LOG.warn(getFacade().getName(o)
                     + " is not public, nor protected, "
                     + "nor private!!! (ignored)");
             return -1;
@@ -1373,20 +1363,19 @@ public class GeneratorCpp implements CodeGenerator {
     public String generateClassifier(Object cls) {
         // If we're in the notation pane, do a special trick
         // to show both header and source
-        if (generatorPass == NONE_PASS
-                && (Model.getFacade().isAClass(cls)
-                    || Model.getFacade().isAInterface(cls))) {
+        if (generatorPass == NONE_PASS && (getFacade().isAClass(cls) 
+                || getFacade().isAInterface(cls))) {
             // for inner classes, show source of top level class
             // TODO: don't know if this is the best thing to do
             while (isAInnerClass(cls)) {
-                cls = Model.getFacade().getNamespace(cls);
+                cls = getFacade().getNamespace(cls);
             }
             StringBuffer sb = new StringBuffer();
-            String name = Model.getFacade().getName(cls);
+            String name = getFacade().getName(cls);
             sb.append("// ").append(name).append(".h");
             sb.append(LINE_SEPARATOR);
             sb.append(generateH(cls));
-            if (Model.getFacade().isAClass(cls)) {
+            if (getFacade().isAClass(cls)) {
                 sb.append(LINE_SEPARATOR);
                 sb.append("// ").append(name).append(".cpp");
                 sb.append(LINE_SEPARATOR);
@@ -1421,8 +1410,7 @@ public class GeneratorCpp implements CodeGenerator {
      */
     private StringBuffer generateGlobalTypedefs(Object cls) {
         StringBuffer sb = new StringBuffer();
-        if (Model.getFacade().isAClass(cls) 
-                || Model.getFacade().isAInstance(cls)) {
+        if (getFacade().isAClass(cls) || getFacade().isAInstance(cls)) {
             // add typedefs
             if (generatorPass == HEADER_PASS) {
                 Collection globalTypedefStatements =
@@ -1471,13 +1459,13 @@ public class GeneratorCpp implements CodeGenerator {
      */
     private void generateClassifierBodyAttributes(Object cls,
             StringBuffer sb) {
-        Collection attrs = Model.getFacade().getAttributes(cls);
+        Collection attrs = getFacade().getAttributes(cls);
         if (attrs.isEmpty() || (generatorPass != HEADER_PASS)) {
             return;
         }
         String tv = null; // helper for tagged values
         sb.append(LINE_SEPARATOR);
-        if (verboseDocs && Model.getFacade().isAClass(cls)) {
+        if (verboseDocs && getFacade().isAClass(cls)) {
             sb.append(indent).append("// Attributes").append(LINE_SEPARATOR);
         }
 
@@ -1512,11 +1500,11 @@ public class GeneratorCpp implements CodeGenerator {
         if (generatorPass == SOURCE_PASS)
             return;
 
-        Collection ends = Model.getFacade().getAssociationEnds(cls);
+        Collection ends = getFacade().getAssociationEnds(cls);
         if (!ends.isEmpty()) {
 
             sb.append(LINE_SEPARATOR);
-            if (verboseDocs && Model.getFacade().isAClass(cls)) {
+            if (verboseDocs && getFacade().isAClass(cls)) {
                 sb.append(indent).append("// Associations").append(
                         LINE_SEPARATOR);
             }
@@ -1528,14 +1516,14 @@ public class GeneratorCpp implements CodeGenerator {
             Iterator endEnum = ends.iterator();
             while (endEnum.hasNext()) {
                 Object ae = endEnum.next();
-                Object a = Model.getFacade().getAssociation(ae);
+                Object a = getFacade().getAssociation(ae);
                 generateAssociationFrom(a, ae, part);
             }
             sb.append(generateAllParts(part));
         }
         // if this is an association class, generate attributes for
         // all the AssociationEnds
-        if (Model.getFacade().isAAssociationClass(cls)) {
+        if (getFacade().isAAssociationClass(cls)) {
             if (verboseDocs) {
                 sb.append(LINE_SEPARATOR).append(indent);
                 sb.append("// AssociationClass associated classes");
@@ -1545,7 +1533,7 @@ public class GeneratorCpp implements CodeGenerator {
             // these protected? (private is too restrictive anyway, IMHO)
             // TODO: make it configurable, with a tag 
             sb.append(LINE_SEPARATOR).append(" public:").append(LINE_SEPARATOR);
-            ends = Model.getFacade().getConnections(cls);
+            ends = getFacade().getConnections(cls);
             Iterator iter = ends.iterator();
             while (iter.hasNext()) {
                 Object ae = iter.next();
@@ -1554,9 +1542,9 @@ public class GeneratorCpp implements CodeGenerator {
                 if (comment.length() > 0)
                     sb.append(comment).append(indent);
 
-                String n = Model.getFacade().getName(ae);
+                String n = getFacade().getName(ae);
                 String name;
-                Object type = Model.getFacade().getType(ae);
+                Object type = getFacade().getType(ae);
 
                 if (n != null && n.length() > 0) {
                     name = n;
@@ -1589,12 +1577,12 @@ public class GeneratorCpp implements CodeGenerator {
      */
     private boolean checkGenerateOperationBody(Object cls) {
         boolean result = !((generatorPass == HEADER_PASS)
-            || (Model.getFacade().isAbstract(cls))
-            || Model.getFacade().isAInterface(Model.getFacade().getOwner(cls)));
+            || (getFacade().isAbstract(cls))
+            || getFacade().isAInterface(getFacade().getOwner(cls)));
 
         // if this operation has Tag "inline" the method shall be
         // generated in header
-        if (Model.getFacade().getTaggedValue(cls, "inline") != null) {
+        if (getFacade().getTaggedValue(cls, "inline") != null) {
             result = generatorPass == HEADER_PASS;
         }
         return result;
@@ -1604,7 +1592,7 @@ public class GeneratorCpp implements CodeGenerator {
      * generate a single set function for a given attribute and StringBuffer
      */
     private void generateSingleAttributeSet(Object attr, StringBuffer sb) {
-        if (Model.getFacade().getType(attr) == null) {
+        if (getFacade().getType(attr) == null) {
             return;
         }
         // generate for attributes with class-type:
@@ -1614,33 +1602,32 @@ public class GeneratorCpp implements CodeGenerator {
         // generate: "indent void set_<name>( "
         sb.append(LINE_SEPARATOR).append(indent);
         sb.append("/** simple access function to set the attribute ");
-        sb.append(Model.getFacade().getName(attr));
+        sb.append(getFacade().getName(attr));
         sb.append(" by function").append(LINE_SEPARATOR).append(indent);
         sb.append("  * @param value value to set for the attribute ");
-        sb.append(Model.getFacade().getName(attr)).append(LINE_SEPARATOR);
+        sb.append(getFacade().getName(attr)).append(LINE_SEPARATOR);
         sb.append(indent).append("  */").append(LINE_SEPARATOR);
         sb.append(indent);
-        sb.append("void set_").append(Model.getFacade().getName(attr))
+        sb.append("void set_").append(getFacade().getName(attr))
             .append("( ");
         String modifier = generateAttributeParameterModifier(attr);
         if (modifier != null && modifier.length() > 0) {
             // generate: "const <type> <modifier>value"
             if (modifier.equals("&")) sb.append("const ");
-            sb.append(generateClassifierRef(Model.getFacade().getType(attr)))
+            sb.append(generateClassifierRef(getFacade().getType(attr)))
                 .append(' ').append(modifier).append("value");
-        } else if (Model.getFacade().isAClass(
-                Model.getFacade().getType(attr))) {
+        } else if (getFacade().isAClass(getFacade().getType(attr))) {
             // generate: "const <type> &value"
             sb.append("const ");
-            sb.append(generateClassifierRef(Model.getFacade().getType(attr)));
+            sb.append(generateClassifierRef(getFacade().getType(attr)));
             sb.append(" &value");
         } else {
             // generate: "<type> value"
-            sb.append(generateClassifierRef(Model.getFacade().getType(attr)))
+            sb.append(generateClassifierRef(getFacade().getType(attr)))
                 .append(" value");
         }
         // generate: " ) { <name> = value; };"
-        sb.append(" ) { ").append(Model.getFacade().getName(attr));
+        sb.append(" ) { ").append(getFacade().getName(attr));
         sb.append(" = value; };").append(LINE_SEPARATOR);
     }
 
@@ -1648,7 +1635,7 @@ public class GeneratorCpp implements CodeGenerator {
      * generate a single get function for a given attribute and StringBuffer
      */
     private void generateSingleAttributeGet(Object attr, StringBuffer sb) {
-        if (Model.getFacade().getType(attr) == null) return;
+        if (getFacade().getType(attr) == null) return;
         // generate for attributes with class-type:
         // "const <type>& get_<name>( void ) { return <name>; };"
         // generate for other (small) data types
@@ -1656,28 +1643,27 @@ public class GeneratorCpp implements CodeGenerator {
         // generate: "indent"
         sb.append(LINE_SEPARATOR).append(indent);
         sb.append("/** simple access function to get the attribute ");
-        sb.append(Model.getFacade().getName(attr));
+        sb.append(getFacade().getName(attr));
         sb.append(" by function */").append(LINE_SEPARATOR).append(indent);
         String modifier = generateAttributeParameterModifier(attr);
         if (modifier != null && modifier.length() > 0) {
             // generate: "const <type><modifier>"
             sb.append("const ");
-            sb.append(generateClassifierRef(Model.getFacade().getType(attr)));
+            sb.append(generateClassifierRef(getFacade().getType(attr)));
             sb.append(modifier);
-        } else if (Model.getFacade().isAClass(
-                Model.getFacade().getType(attr))) {
+        } else if (getFacade().isAClass(getFacade().getType(attr))) {
             // generate: "const <type>&"
             sb.append("const ");
-            sb.append(generateClassifierRef(Model.getFacade().getType(attr)));
+            sb.append(generateClassifierRef(getFacade().getType(attr)));
             sb.append("&");
         } else {
             // generate: "<type>"
-            sb.append(generateClassifierRef(Model.getFacade().getType(attr)));
+            sb.append(generateClassifierRef(getFacade().getType(attr)));
         }
         // generate: " get_<name>( void ) const { return <name>; };"
-        sb.append(" get_").append(Model.getFacade().getName(attr));
+        sb.append(" get_").append(getFacade().getName(attr));
         sb.append("( void ) const { return ")
-            .append(Model.getFacade().getName(attr));
+            .append(getFacade().getName(attr));
         sb.append("; };").append(LINE_SEPARATOR);
     }
 
@@ -1690,7 +1676,7 @@ public class GeneratorCpp implements CodeGenerator {
             StringBuffer funcPrivate,
             StringBuffer funcProtected,
             StringBuffer funcPublic) {
-        Collection strs = Model.getFacade().getAttributes(cls);
+        Collection strs = getFacade().getAttributes(cls);
         if (strs.isEmpty() || (generatorPass != HEADER_PASS)) {
             return;
         }
@@ -1699,7 +1685,7 @@ public class GeneratorCpp implements CodeGenerator {
         Iterator strEnum = strs.iterator();
         while (strEnum.hasNext()) {
             Object attr = strEnum.next();
-            accessTag = Model.getFacade().getTaggedValueValue(attr, 
+            accessTag = getFacade().getTaggedValueValue(attr, 
                     TV_NAME_SET);
             if (accessTag != null && accessTag.length() > 0) {
                 if (accessTag.indexOf("public") != -1) {
@@ -1713,7 +1699,7 @@ public class GeneratorCpp implements CodeGenerator {
                 }
             }
 
-            accessTag = Model.getFacade().getTaggedValueValue(attr, 
+            accessTag = getFacade().getTaggedValueValue(attr, 
                     TV_NAME_GET);
             if (accessTag != null && accessTag.length() > 0) {
                 if (accessTag.indexOf("public") != -1) {
@@ -1736,7 +1722,7 @@ public class GeneratorCpp implements CodeGenerator {
      */
     private void generateClassifierBodyOperations(Object cls,
             StringBuffer sb) {
-        Collection behs = Model.getFacade().getOperations(cls);
+        Collection behs = getFacade().getOperations(cls);
         if (behs.isEmpty()) return;
         sb.append(LINE_SEPARATOR);
         if (verboseDocs) {
@@ -1771,9 +1757,9 @@ public class GeneratorCpp implements CodeGenerator {
                 // helper for tagged values
                 String tv = generateTaggedValues(bf, ALL_BUT_DOC_TAGS);
                 
-                if (mustGenBody && (Model.getFacade().isAClass(cls))
-                        && (Model.getFacade().isAOperation(bf))
-                        && (!Model.getFacade().isAbstract(bf))) {
+                if (mustGenBody && (getFacade().isAClass(cls))
+                        && (getFacade().isAOperation(bf))
+                        && (!getFacade().isAbstract(bf))) {
                     // there is no ReturnType in behavioral feature (uml)
                     tb.append(LINE_SEPARATOR).append(generateMethodBody(bf));
                 } else {
@@ -1858,13 +1844,13 @@ public class GeneratorCpp implements CodeGenerator {
      * @param sb the buffer to where the generate code goes
      */
     private void generateClassifierDestructor(Object cls, StringBuffer sb) {
-        if (Model.getFacade().isAInterface(cls) 
+        if (getFacade().isAInterface(cls) 
                 && generatorPass == HEADER_PASS) {
             sb.append(LINE_SEPARATOR).append("public:").append(LINE_SEPARATOR);
             sb.append(indent).append("// virtual destructor for interface ")
                 .append(LINE_SEPARATOR);
             sb.append(indent).append("virtual ").append('~').append(
-                Model.getFacade().getName(cls)).append("() { }")
+                getFacade().getName(cls)).append("() { }")
                     .append(LINE_SEPARATOR);
         }
     }
@@ -1874,11 +1860,11 @@ public class GeneratorCpp implements CodeGenerator {
         for (int i = 0; i < part.length; i++)
             part[i] = new StringBuffer(80);
 
-        Collection inners = Model.getFacade().getOwnedElements(cls);
+        Collection inners = getFacade().getOwnedElements(cls);
         for (Iterator it = inners.iterator(); it.hasNext();) {
             Object inner = it.next();
-            if (Model.getFacade().isAClass(inner)
-                || Model.getFacade().isAInterface(inner)) {
+            if (getFacade().isAClass(inner)
+                || getFacade().isAInterface(inner)) {
                 String innerCode = generateClassifier(inner);
                 int p = getVisibilityPart(inner);
                 part[p].append(LINE_SEPARATOR);
@@ -1900,8 +1886,7 @@ public class GeneratorCpp implements CodeGenerator {
      */
     private StringBuffer generateClassifierBody(Object cls) {
         StringBuffer sb = new StringBuffer();
-        if (Model.getFacade().isAClass(cls) 
-                || Model.getFacade().isAInterface(cls))
+        if (getFacade().isAClass(cls) || getFacade().isAInterface(cls))
         { 
             // Inner classes
             generateClassifierInnerClasses(cls, sb);
@@ -1935,7 +1920,7 @@ public class GeneratorCpp implements CodeGenerator {
     private String generateMethodBody(Object op) {
         if (op != null) {
             StringBuffer sb = new StringBuffer(80);
-            Collection methods = Model.getFacade().getMethods(op);
+            Collection methods = getFacade().getMethods(op);
             Iterator i = methods.iterator();
             Object method = null;
             boolean methodFound = false;
@@ -1960,10 +1945,10 @@ public class GeneratorCpp implements CodeGenerator {
                 method = i.next();
 
                 if (method != null) {
-                    if ((Model.getFacade().getBody(method) != null)
+                    if ((getFacade().getBody(method) != null)
                             && (!methodFound)) {
-                        Object body = Model.getFacade().getBody(method);
-                        sb.append(Model.getFacade().getBody(body));
+                        Object body = getFacade().getBody(method);
+                        sb.append(getFacade().getBody(body));
                         methodFound = true;
                         break;
                     }
@@ -1972,7 +1957,7 @@ public class GeneratorCpp implements CodeGenerator {
 
             if (!methodFound) {
                 // pick out return type as default method body
-                Collection returnParams = Model.getCoreHelper()
+                Collection returnParams = getCoreHelper()
                         .getReturnParameters(op);
                 Object rp;
                 if (returnParams.size() == 0) {
@@ -1983,10 +1968,10 @@ public class GeneratorCpp implements CodeGenerator {
                 if (returnParams.size() > 1)  {
                     LOG.warn("C++ generator only handles one return parameter"
                             + " - Found " + returnParams.size()
-                            + " for " + Model.getFacade().getName(op));
+                            + " for " + getFacade().getName(op));
                 }
                 if (rp != null) {
-                    Object returnType = Model.getFacade().getType(rp);
+                    Object returnType = getFacade().getType(rp);
                     sb.append(generateDefaultReturnStatement(returnType));
                 }
             }
@@ -2011,7 +1996,7 @@ public class GeneratorCpp implements CodeGenerator {
     private String generateDefaultReturnStatement(Object cls) {
         if (cls == null) return "";
 
-        String clsName = Model.getFacade().getName(cls);
+        String clsName = getFacade().getName(cls);
         String res = null;
         if (clsName.equals("void")) res = "";
         else if (clsName.equals("char")) res = "return 'x';";
@@ -2029,7 +2014,7 @@ public class GeneratorCpp implements CodeGenerator {
     }
 
     private String generateTaggedValues(Object e, int tagSelection) {
-        Iterator iter = Model.getFacade().getTaggedValues(e);
+        Iterator iter = getFacade().getTaggedValues(e);
         if (!iter.hasNext()) {
             return "";
         }
@@ -2096,9 +2081,9 @@ public class GeneratorCpp implements CodeGenerator {
 
     private String generateTaggedValue(Object tv, int tagSelection) {
         if (tv == null) return "";
-        String s = generateUninterpreted(Model.getFacade().getValueOfTag(tv));
+        String s = generateUninterpreted(getFacade().getValueOfTag(tv));
 
-        String tagName = Model.getFacade().getTagOfTag(tv);
+        String tagName = getFacade().getTagOfTag(tv);
         if (s == null || s.length() == 0 || s.equals("/** */")
             || tagName == null 
             || (tagName.indexOf("include") != -1)
@@ -2123,13 +2108,13 @@ public class GeneratorCpp implements CodeGenerator {
     private Collection findTagValues(Object item, String searchedName) {
         Collection result = new Vector();
 
-        Iterator iter = Model.getFacade().getTaggedValues(item);
+        Iterator iter = getFacade().getTaggedValues(item);
         String s = null;
         while (iter.hasNext()) {
             Object tag = iter.next();
-            String tagOfTag = Model.getFacade().getTagOfTag(tag);
+            String tagOfTag = getFacade().getTagOfTag(tag);
             if (tagOfTag != null && tagOfTag.equals(searchedName)) {
-                s = Model.getFacade().getValueOfTag(tag);
+                s = getFacade().getValueOfTag(tag);
                 if (s != null && s.length() != 0) result.add(s);
             }
         }
@@ -2213,7 +2198,7 @@ public class GeneratorCpp implements CodeGenerator {
         // list tagged values for documentation
         String s = generateTaggedValues (me, DOC_COMMENT_TAGS);
 
-        if (Model.getFacade().getUpper(ae) != 1) {
+        if (getFacade().getUpper(ae) != 1) {
             // Multiplicity greater 1, that means we will generate some sort of
             // collection, so we need to specify the element type tag
             StringBuffer sDocComment = new StringBuffer(80);
@@ -2230,10 +2215,10 @@ public class GeneratorCpp implements CodeGenerator {
             }
 
             // Build doccomment
-            Object type = Model.getFacade().getType(ae);
+            Object type = getFacade().getType(ae);
             if (type != null) {
                 sDocComment.append(" @element-type ");
-                sDocComment.append(Model.getFacade().getName(type));
+                sDocComment.append(getFacade().getName(type));
             }
             sDocComment.append(LINE_SEPARATOR).append(indent)
                 .append(" */").append(LINE_SEPARATOR);
@@ -2254,7 +2239,7 @@ public class GeneratorCpp implements CodeGenerator {
             StringBuffer[] parts) {
         // TODO: does not handle n-ary associations
 
-        Collection connections = Model.getFacade().getConnections(a);
+        Collection connections = getFacade().getConnections(a);
         Iterator connEnum = connections.iterator();
         while (connEnum.hasNext()) {
             Object ae2 = connEnum.next();
@@ -2283,20 +2268,20 @@ public class GeneratorCpp implements CodeGenerator {
     }
 
     private String generateAssociationEnd(Object ae) {
-        if (!Model.getFacade().isNavigable(ae)) {
+        if (!getFacade().isNavigable(ae)) {
             return "";
         }
-        if (Model.getFacade().isAbstract(
-                Model.getFacade().getAssociation(ae))) {
+        if (getFacade().isAbstract(
+                getFacade().getAssociation(ae))) {
             return "";
         }
         StringBuffer sb = new StringBuffer(80);
 
-        sb.append(generateAssociationEndScope(ae));
+        sb.append(generateScope(ae));
 
-        String n = Model.getFacade().getName(ae);
-        Object asc = Model.getFacade().getAssociation(ae);
-        String ascName = Model.getFacade().getName(asc);
+        String n = getFacade().getName(ae);
+        Object asc = getFacade().getAssociation(ae);
+        String ascName = getFacade().getName(asc);
         String name = null;
 
         if (n != null && n.length() > 0) {
@@ -2304,11 +2289,11 @@ public class GeneratorCpp implements CodeGenerator {
         } else if (ascName != null && ascName.length() > 0) {
             name = ascName;
         } else {
-            name = "my" + generateClassifierRef(Model.getFacade().getType(ae));
+            name = "my" + generateClassifierRef(getFacade().getType(ae));
         }
 
         String modifier;
-        if (Model.getFacade().isAAssociationClass(asc)) {
+        if (getFacade().isAAssociationClass(asc)) {
             // With an association class, we actually make an association
             // between us and the association class itself.
             // Usually, this is a pointer or a reference, so default
@@ -2320,11 +2305,11 @@ public class GeneratorCpp implements CodeGenerator {
             modifier = generateAttributeParameterModifier(ae);
             // add the type of the association end in the dependency list
             boolean predecl = !checkIncludeNeeded4Element(ae);
-            addDependency(Model.getFacade().getType(ae), predecl);
+            addDependency(getFacade().getType(ae), predecl);
         }
         
         sb.append(generateMultiplicity(ae, name,
-                             Model.getFacade().getMultiplicity(ae),
+                             getFacade().getMultiplicity(ae),
                              modifier));
 
         return (sb.append(";").append(LINE_SEPARATOR)).toString();
@@ -2339,16 +2324,16 @@ public class GeneratorCpp implements CodeGenerator {
         Iterator genEnum = generalizations.iterator();
         while (genEnum.hasNext()) {
             Object generalization = genEnum.next();
-            Object ge = Model.getFacade().getParent(generalization);
+            Object ge = getFacade().getGeneral(generalization);
             if (ge != null) {
                 if (sb.length() > 0) sb.append(", ");
                 String visTag =
-                    Model.getFacade().getTaggedValueValue(generalization,
+                    getFacade().getTaggedValueValue(generalization,
                             TV_NAME_INHERITANCE_VISIBILITY).trim();
                 if (visTag != null && !visTag.equals("")) {
                     sb.append(visTag).append(" ");
                 } else {
-                    if (Model.getFacade().isAInterface(ge)) {
+                    if (getFacade().isAInterface(ge)) {
                         sb.append("virtual public ");
                     } else {
                         sb.append("public ");
@@ -2364,19 +2349,19 @@ public class GeneratorCpp implements CodeGenerator {
 
     //  private String generateSpecification(Collection realizations) {
     private String generateSpecification(Object cls) {
-        Collection deps = Model.getFacade().getClientDependencies(cls);
+        Collection deps = getFacade().getClientDependencies(cls);
         Iterator depIterator = deps.iterator();
         StringBuffer sb = new StringBuffer(80);
 
         while (depIterator.hasNext()) {
             Object dependency = depIterator.next();
-            if (Model.getFacade().isAAbstraction(dependency)
-                    && Model.getFacade().isRealize(dependency)) {
+            if (getFacade().isAAbstraction(dependency)
+                    && getFacade().isRealize(dependency)) {
                 if (sb.length() > 0) sb.append(", ");
-                Object iFace = Model.getFacade().getSuppliers(dependency)
+                Object iFace = getFacade().getSuppliers(dependency)
                     .iterator().next();
                 String visTag =
-                    Model.getFacade().getTaggedValueValue(dependency,
+                    getFacade().getTaggedValueValue(dependency,
                             TV_NAME_INHERITANCE_VISIBILITY).trim();
                 if (visTag != null && !visTag.equals("")) {
                     sb.append(visTag).append(" ");
@@ -2392,14 +2377,14 @@ public class GeneratorCpp implements CodeGenerator {
     }
 
     private String generateVisibility(Object o) {
-        if (Model.getFacade().isAAttribute(o)) {
+        if (getFacade().isAAttribute(o)) {
             return "";
         }
         // cut'n'pasted from GeneratorJava.java
-        if (Model.getFacade().isAFeature(o)) {
-            Object tv = Model.getFacade().getTaggedValue(o, "src_visibility");
+        if (getFacade().isAFeature(o)) {
+            Object tv = getFacade().getTaggedValue(o, "src_visibility");
             if (tv != null) {
-                String tagged = (String) Model.getFacade().getValue(tv);
+                String tagged = (String) getFacade().getValue(tv);
                 if (tagged != null) {
                     if (tagged.trim().equals("")
                             || tagged.trim().toLowerCase().equals("default")
@@ -2411,45 +2396,37 @@ public class GeneratorCpp implements CodeGenerator {
                 }
             }
         }
-        if (Model.getFacade().isAModelElement(o)) {
-            if (Model.getFacade().isPublic(o))
+        if (getFacade().isAModelElement(o)) {
+            if (getFacade().isPublic(o))
                 return "public: ";
-            if (Model.getFacade().isPrivate(o))
+            if (getFacade().isPrivate(o))
                 return "private: ";
-            if (Model.getFacade().isProtected(o))
+            if (getFacade().isProtected(o))
                 return "protected: ";
-            if (Model.getFacade().isPackage(o))
+            if (getFacade().isPackage(o))
                 // TODO: is default visibility the right thing here?
                 return "";
         }
-        if (Model.getFacade().isAVisibilityKind(o)) {
-            if (Model.getVisibilityKind().getPublic().equals(o))
+        if (getFacade().isAVisibilityKind(o)) {
+            if (getVisibilityKind().getPublic().equals(o))
                 return "public: ";
-            if (Model.getVisibilityKind().getPrivate().equals(o))
+            if (getVisibilityKind().getPrivate().equals(o))
                 return "private: ";
-            if (Model.getVisibilityKind().getProtected().equals(o))
+            if (getVisibilityKind().getProtected().equals(o))
                 return "protected: ";
-            if (Model.getVisibilityKind().getPackage().equals(o))
+            if (getVisibilityKind().getPackage().equals(o))
                 // TODO: is default visibility the right thing here?
                 return "";
         }
         return "";
     }
 
-    private String generateAssociationEndScope(Object ae) {
-        return generateScope(Model.getFacade().getTargetScope(ae));
-    }
-
-    private String generateOwnerScope(Object f) {
-        return generateScope(Model.getFacade().getOwnerScope(f));
-    }
-
     /**
-     * @param scope The scope to compare.
+     * @param me The model element to generate scope for.
      * @return The generated text representing the scope.
      */
-    private String generateScope(Object scope) {
-        if (Model.getScopeKind().getClassifier().equals(scope)) {
+    private String generateScope(Object me) {
+        if (getFacade().isStatic(me)) {
             return "static ";
         }
         return "";
@@ -2464,9 +2441,8 @@ public class GeneratorCpp implements CodeGenerator {
     private String generateAbstractness(Object op) {
         // use Model subsystem Facade to check if the operation is 
         // owned by an interface
-        Object opOwner = Model.getFacade().getOwner(op);
-        if (Model.getFacade().isAbstract(op) 
-                || Model.getFacade().isAInterface(opOwner)) {
+        Object opOwner = getFacade().getOwner(op);
+        if (getFacade().isAbstract(op) || getFacade().isAInterface(opOwner)) {
             return " = 0";
         }
         return "";
@@ -2476,7 +2452,7 @@ public class GeneratorCpp implements CodeGenerator {
      * Generate "const" keyword for query operations.
      */
     private String generateOperationChangeability(Object op) {
-        if (Model.getFacade().isQuery(op)) {
+        if (getFacade().isQuery(op)) {
             return "const ";
         }
         return "";
@@ -2488,16 +2464,15 @@ public class GeneratorCpp implements CodeGenerator {
     private String generateParameterChangeability(Object par) {
         int parType = getAttributeModifierType(par);
         if (parType != -1 && parType != NORMAL_MOD
-                && (Model.getFacade().getKind(par)).equals(
-                        Model.getDirectionKind().getInParameter())) {
+                && (getFacade().getKind(par)).equals(
+                        getDirectionKind().getInParameter())) {
             return "const ";
         }
         return "";
     }
 
     private String generateStructuralFeatureChangeability(Object sf) {
-        Object changeableKind = Model.getFacade().getChangeability(sf);
-        if (Model.getChangeableKind().getFrozen().equals(changeableKind)) {
+        if (getFacade().isReadOnly(sf)) {
             return "const ";
         }
         return "";
@@ -2508,19 +2483,17 @@ public class GeneratorCpp implements CodeGenerator {
         String type = null;
         String containerType = null;
         Object typeCls = null;
-        if (Model.getFacade().isAAssociationEnd(item)) {
+        if (getFacade().isAAssociationEnd(item)) {
             // take into account association classes
-            Object assoc = Model.getFacade().getAssociation(item);
-            if (Model.getFacade().isAAssociationClass(assoc)) {
+            Object assoc = getFacade().getAssociation(item);
+            if (getFacade().isAAssociationClass(assoc)) {
                 typeCls = assoc;
                 name += "Assoc";
             }
-            else
-                typeCls = Model.getFacade().getType(item);
-        } else if (Model.getFacade().isAAttribute(item)) {
-            typeCls = Model.getFacade().getType(item);
-        } else if (Model.getFacade().isAClassifier(item)) {
-            //type = Model.getFacade().getName(item);
+            else typeCls = getFacade().getType(item);
+        } else if (getFacade().isAAttribute(item)) {
+            typeCls = getFacade().getType(item);
+        } else if (getFacade().isAClassifier(item)) {
             typeCls = item;
         } else {
             type = "";
@@ -2532,8 +2505,8 @@ public class GeneratorCpp implements CodeGenerator {
             return (type + " " + modifier + name);
         }
         StringBuffer sb = new StringBuffer(80);
-        int countUpper = Model.getFacade().getUpper(m);
-        int countLower = Model.getFacade().getLower(m);
+        int countUpper = getFacade().getUpper(m);
+        int countLower = getFacade().getLower(m);
 
         if (countUpper == 1 && countLower == 1) {
             // simple generate identifier for default 1:1 multiplicity
@@ -2552,7 +2525,7 @@ public class GeneratorCpp implements CodeGenerator {
             // else search for tag:
             // <MultipliciyType> : vector|list|slist|map|stack|stringmap
             String multType =
-                Model.getFacade().getTaggedValueValue(item, 
+                getFacade().getTaggedValueValue(item, 
                         TV_NAME_MULTIPLICITY_TYPE);
             if (multType != null && multType.length() > 0) {
                 if (multType.equals("vector")) {
@@ -2738,12 +2711,11 @@ public class GeneratorCpp implements CodeGenerator {
         if (generatedFiles.contains(o)) {
             return ret; // generated already
         }
-        if (!Model.getFacade().isAClass(o)
-                && !Model.getFacade().isAInterface(o)) {
+        if (!getFacade().isAClass(o) && !getFacade().isAInterface(o)) {
             return ret; // not a class or interface
         }
         while (isAInnerClass(o)) {
-            o = Model.getFacade().getNamespace(o);
+            o = getFacade().getNamespace(o);
         }
         String pathname = null;
 
@@ -2866,10 +2838,8 @@ public class GeneratorCpp implements CodeGenerator {
 
             for (generatorPass = HEADER_PASS;
                  generatorPass <= SOURCE_PASS;
-                 generatorPass++)
-            {
-                String name =
-                    Model.getFacade().getName(elem) + getFileExtension();
+                 generatorPass++) {
+                String name = getFacade().getName(elem) + getFileExtension();
                 String content = generateFileAsString(elem, path + name);
                 SourceUnit su = new SourceUnit(name, path, content);
                 ret.add(su);
@@ -2908,8 +2878,8 @@ public class GeneratorCpp implements CodeGenerator {
         for (Iterator it = elements.iterator(); it.hasNext(); ) {
             Object elem = it.next();
             // FIXME: check for interfaces, inner classes, deps, etc. 
-            ret.add(Model.getFacade().getName(elem) + ".cpp");
-            ret.add(Model.getFacade().getName(elem) + ".h");
+            ret.add(getFacade().getName(elem) + ".cpp");
+            ret.add(getFacade().getName(elem) + ".h");
         }
         endFileGeneration();
         return null;
@@ -2924,7 +2894,7 @@ public class GeneratorCpp implements CodeGenerator {
     private static String generateClassifierRef(Object cls) {
         if (cls == null)
             return "";
-        return Model.getFacade().getName(cls);
+        return getFacade().getName(cls);
     }
     
     

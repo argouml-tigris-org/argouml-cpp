@@ -84,7 +84,7 @@ public class TestModelElementNameNotationCpp extends TestCase {
         baseClass = Model.getCoreFactory().buildClass("TheBaseClass", 
                 getModel());
         generalization = Model.getCoreFactory().buildGeneralization(theClass,
-                baseClass, "");
+                baseClass);
     }
 
     public void testToStringForUnnamedGeneralizationDoesntReturnNull() {

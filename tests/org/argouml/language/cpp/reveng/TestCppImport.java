@@ -331,9 +331,9 @@ public class TestCppImport extends TestCase {
         assertNotNull("The Base generalization wasn't found!",
             baseGeneralization);
         assertEquals("Derived", Model.getFacade().getName(
-            Model.getFacade().getChild(baseGeneralization)));
+            Model.getFacade().getSpecific(baseGeneralization)));
         assertEquals("Base", Model.getFacade().getName(
-            Model.getFacade().getParent(baseGeneralization)));
+            Model.getFacade().getGeneral(baseGeneralization)));
         assertEquals("false", Model.getFacade().getTaggedValueValue(
             baseGeneralization, ProfileCpp.TV_NAME_VIRTUAL_INHERITANCE));
         assertTaggedValueExistsAndValueIs(baseGeneralization, 

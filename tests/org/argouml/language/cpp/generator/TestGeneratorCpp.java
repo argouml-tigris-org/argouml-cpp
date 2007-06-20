@@ -144,7 +144,7 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
      * @param parent
      */
     private void setUpAGeneralization(Object child, Object parent) {
-        aGeneralization = getFactory().buildGeneralization(child, parent, "");
+        aGeneralization = getFactory().buildGeneralization(child, parent);
     }
 
     /**
