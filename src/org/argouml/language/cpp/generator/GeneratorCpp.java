@@ -939,7 +939,7 @@ public class GeneratorCpp implements CodeGenerator {
      *
      * @param sb Where to put the result.
      */
-    private boolean generateOperationNameAndTestForConstructor(Object op,
+    private void generateOperationNameAndTestForConstructor(Object op,
             StringBuffer sb) {
         if (generatorPass == SOURCE_PASS) {
             Object cls = getFacade().getOwner(op);
@@ -950,17 +950,19 @@ public class GeneratorCpp implements CodeGenerator {
             }
             sb.append(prefix);
         }
-        boolean constructor = false;
         String name;
         if (getFacade().isConstructor(op)) {
-            // constructor
             name = getFacade().getName(getFacade().getOwner(op));
-            constructor = true;
+        } else if (isDestructor(op)) {
+            name = "~" + getFacade().getName(getFacade().getOwner(op));
         } else {
             name = getFacade().getName(op);
         }
         sb.append(name);
-        return constructor;
+    }
+
+    private boolean isDestructor(Object op) {
+        return getExtensionMechanismsHelper().hasStereoType(op, "destroy");
     }
 
     /**
@@ -984,8 +986,7 @@ public class GeneratorCpp implements CodeGenerator {
         StringBuffer sb = new StringBuffer(80);
         StringBuffer nameBuffer = new StringBuffer(20);
         String operationIndent = (generatorPass == HEADER_PASS) ? indent : "";
-        boolean constructor =
-            generateOperationNameAndTestForConstructor(op, nameBuffer);
+        generateOperationNameAndTestForConstructor(op, nameBuffer);
 
         // if generating a file always document
         if (documented || generatorPass != NONE_PASS) {
@@ -1012,7 +1013,7 @@ public class GeneratorCpp implements CodeGenerator {
                     + " - Found " + returnParams.size()
                     + " for " + getFacade().getName(op));
         }
-        if (!constructor) {
+        if (!getFacade().isConstructor(op) && !isDestructor(op)) {
             if (rp != null) {
                 Object returnType = getFacade().getType(rp);
                 if (returnType == null) {

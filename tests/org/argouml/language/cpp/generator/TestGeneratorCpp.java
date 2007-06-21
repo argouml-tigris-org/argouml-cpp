@@ -38,6 +38,7 @@ import org.argouml.kernel.ProjectManager;
 import org.argouml.language.cpp.profile.ProfileCpp;
 import org.argouml.model.IllegalModelElementConnectionException;
 import org.argouml.model.Model;
+import static org.argouml.model.Model.*;
 import org.argouml.moduleloader.ModuleInterface;
 
 /**
@@ -337,14 +338,23 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
         assertTrue(code.matches(re));
     }
 
-
     private Object buildConstructor(Object cls) {
-	String name = Model.getFacade().getName(cls);
-        Object voidType = ProjectManager.getManager().getCurrentProject()
-                .findType("void");
-        Object c = Model.getCoreFactory().buildOperation2(cls, voidType, name);
-        Object stereo = Model.getExtensionMechanismsFactory().buildStereotype(
+	String name = getFacade().getName(cls);
+        Object voidType = profileCpp.getBuiltIn("void");
+        Object c = getCoreFactory().buildOperation2(cls, voidType, name);
+        Object stereo = getExtensionMechanismsFactory().buildStereotype(
             c, "create", getModel());
+        Model.getExtensionMechanismsHelper().addBaseClass(stereo,
+            "BehavioralFeature");
+        return c;
+    }
+
+    private Object buildDestructor(Object cls) {
+        String name = "~" + getFacade().getName(cls);
+        Object voidType = profileCpp.getBuiltIn("void");
+        Object c = getCoreFactory().buildOperation2(cls, voidType, name);
+        Object stereo = getExtensionMechanismsFactory().buildStereotype(
+            c, "destroy", getModel());
         Model.getExtensionMechanismsHelper().addBaseClass(stereo,
             "BehavioralFeature");
         return c;
@@ -360,6 +370,18 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
         assertNotNull(strConstr);
         LOG.debug("generated constructor is '" + strConstr + "'");
         assertEquals("AClass()", strConstr.trim());
+    }
+
+    /**
+     * Test of cppGenerate method for destructors.
+     */
+    public void testGenerateDestructor() {
+        // generate AClass::~AClass()
+        String strDestr = getGenerator().generateOperation(
+            buildDestructor(getAClass()), false);
+        assertNotNull(strDestr);
+        LOG.debug("generated destructor is '" + strDestr + "'");
+        assertEquals("virtual ~AClass()", strDestr.trim());
     }
 
     private Object setUpInner() {
