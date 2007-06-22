@@ -339,25 +339,21 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
     }
 
     private Object buildConstructor(Object cls) {
-	String name = getFacade().getName(cls);
-        Object voidType = profileCpp.getBuiltIn("void");
-        Object c = getCoreFactory().buildOperation2(cls, voidType, name);
-        Object stereo = getExtensionMechanismsFactory().buildStereotype(
-            c, "create", getModel());
-        Model.getExtensionMechanismsHelper().addBaseClass(stereo,
-            "BehavioralFeature");
-        return c;
+        return buildXctor(cls, getFacade().getName(cls), "create");
     }
 
     private Object buildDestructor(Object cls) {
-        String name = "~" + getFacade().getName(cls);
+        return buildXctor(cls, "~" + getFacade().getName(cls), "destroy");
+    }
+
+    private Object buildXctor(Object cls, String name, String stereoName) {
         Object voidType = profileCpp.getBuiltIn("void");
-        Object c = getCoreFactory().buildOperation2(cls, voidType, name);
+        Object xctor = getCoreFactory().buildOperation2(cls, voidType, name);
         Object stereo = getExtensionMechanismsFactory().buildStereotype(
-            c, "destroy", getModel());
+            xctor, stereoName, getModel());
         Model.getExtensionMechanismsHelper().addBaseClass(stereo,
             "BehavioralFeature");
-        return c;
+        return xctor;
     }
 
     /**
