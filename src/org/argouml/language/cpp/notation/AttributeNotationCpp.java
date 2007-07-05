@@ -71,7 +71,7 @@ public class AttributeNotationCpp extends AttributeNotation {
      * @param args
      *            Configuration parameters for the notation.
      * @return The C++ representation of attribute as a String.
-     * @see org.argouml.notation.providers.NotationProvider#toString(java.lang.Object,
+     * @see org.argouml.notation.NotationProvider#toString(java.lang.Object,
      *      java.util.HashMap)
      */
     public String toString(Object attribute, HashMap args) {
