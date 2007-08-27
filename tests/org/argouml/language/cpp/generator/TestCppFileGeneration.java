@@ -37,6 +37,7 @@ import junit.framework.TestSuite;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.argouml.model.Model;
+import static org.argouml.model.Model.*;
 import org.argouml.model.UUIDManager;
 
 /**
@@ -436,7 +437,7 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
 
     /**
      * Changes to the model sub-system implementation make it impossible to 
-     * set the TD of a TV to null, therefore, I'm addapting the test to check 
+     * set the TD of a TV to null, therefore, I'm adapting the test to check 
      * that this is kept in place!
      */
     public void testSetNullTagDefinition4TVIsDetectedIssue4393() {
@@ -445,12 +446,49 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
         Object documentationTD = Model.getFacade().getTagDefinition(
                 documentationTV);
         assertNotNull(documentationTD);
-        try {
-            Model.getExtensionMechanismsHelper().setType(documentationTV, null);
-            fail("A NPE should be thrown!");
-        } catch (NullPointerException e) {
-            // expected
-            ;
-        }
+        Model.getExtensionMechanismsHelper().setType(documentationTV, null);
+    }
+    
+    /**
+     * It is possible to have a TD of a TV null. Test that the code 
+     * generator will not throw NPE when generating an operation.
+     * @throws IOException
+     */
+    public void testOperationWithNullTaggedValueTag_Issue4393() 
+    throws IOException {
+    	final String testName = 
+    		"testOperationWithNullTaggedValueTag_Issue4393";
+    	setUpNamespaces(testName);
+    	assertGenerateAClassFileWithNullTaggedValueTag(testName, 
+    			getFooMethod());
+    }
+
+	private void assertGenerateAClassFileWithNullTaggedValueTag(
+			final String testName, Object me) throws IOException {
+        Object documentationTV = getExtensionMechanismsFactory()
+        	.buildTaggedValue("documentation", "docs");
+		getExtensionMechanismsHelper().addTaggedValue(me, documentationTV);
+    	assertEquals(1, 
+    			Model.getFacade().getTaggedValuesCollection(me).size());
+    	assertEquals("documentation", 
+    			Model.getFacade().getTag(documentationTV));
+    	Object documentationTD = Model.getFacade().getTagDefinition(
+    			documentationTV);
+    	assertNotNull(documentationTD);
+    	Model.getExtensionMechanismsHelper().setType(documentationTV, null);
+    	assertNull(Model.getFacade().getTagDefinition(documentationTV));
+    	generateAClassFile(testName, true);
+	}
+    
+    /**
+     * It is possible to have a TD of a TV null. Test that the code 
+     * generator will not throw NPE when generating a class.
+     * @throws IOException
+     */
+    public void testClassWithNullTaggedValueTag_Issue4393() 
+    throws IOException {
+    	final String testName = "testClassWithNullTaggedValueTag_Issue4393";
+    	setUpNamespaces(testName);
+    	assertGenerateAClassFileWithNullTaggedValueTag(testName, getAClass());
     }
 }
