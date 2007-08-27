@@ -68,9 +68,9 @@ public class ProfileCpp extends BaseProfile {
     
     /**
      * Name of the C++ class specifier tagged value. Possible values are: class,
-     * union, and struct. When this is ommited, class is used.
+     * union, and struct. When this is omitted, class is used.
      * 
-     * FIXME: Maybe we should have a more powerfull representation of the
+     * FIXME: Maybe we should have a more powerful representation of the
      * TaggedValues in the profile. I would like that restrictions, default
      * value, value range and naming format to be enforced.
      * This is possible with Typed TaggedValues and OCL constraints in UML, 
