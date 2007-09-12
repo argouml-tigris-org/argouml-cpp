@@ -91,7 +91,7 @@ public class GeneratorCpp implements CodeGenerator {
     private static Section sect;
 
     /**
-     * Store actual namespace, to avoid unneeded curley braces.
+     * Store actual namespace, to avoid unneeded curly braces.
      *
      * @author Achim Spangler
      * @since 2002-12-07
@@ -138,7 +138,7 @@ public class GeneratorCpp implements CodeGenerator {
      * C++ doesn't place visibility information for each class member
      * --> sort items during generation and store visibility state
      * of lastly generated member in central class variable, so that
-     * the appropriate lines: "public:\n", "protected:\n", "private:\n"
+     * the appropriate lines: "public:", "protected:", "private:"
      * can be created.
      *
      * @author Achim Spangler
@@ -173,7 +173,7 @@ public class GeneratorCpp implements CodeGenerator {
 
     /**
      * use Tag generation for generation of: doccomment, simple tags of
-     * tags which are not used for doccomment or simple tags for all.
+     * tags which are not used for document or simple tags for all.
      *
      * @author Achim Spangler
      * @since 2002-12-05
@@ -520,7 +520,7 @@ public class GeneratorCpp implements CodeGenerator {
     }
 
     /**
-     * Replace the first occurences of tokenName with tokenValue.
+     * Replace the first occurrences of tokenName with tokenValue.
      *
      * @param line is the line where we do the replacing.
      * @param tokenName is the string we search for.
@@ -539,7 +539,7 @@ public class GeneratorCpp implements CodeGenerator {
     }
 
     /** 2002-11-28 Achim Spangler
-     * seperate constant Header Top into function
+     * separate constant Header Top into function
      */
     private String generateHeaderTop(String pathname) {
         StringBuffer sb = new StringBuffer(80);
@@ -611,7 +611,7 @@ public class GeneratorCpp implements CodeGenerator {
         if (extInc.size() > 0) sb.append(LINE_SEPARATOR);
         for (Iterator it = localInc.iterator(); it.hasNext(); ) {
             String inc = (String) it.next();
-            sb.append("#include \"").append(inc).append("\"\n");
+            sb.append("#include \"").append(inc).append("\"" + LINE_SEPARATOR);
         }
         return sb;
     }
@@ -630,7 +630,7 @@ public class GeneratorCpp implements CodeGenerator {
 
     /**
      * Parses header_incl or source_incl tags and adds the
-     * user-speficied headers to localInc or systemInc.
+     * user-specified headers to localInc or systemInc.
      * @param cls The classifier which code is being generated for.
      * @param source if true parses source_incl tags, else header_incl.
      */
@@ -889,7 +889,7 @@ public class GeneratorCpp implements CodeGenerator {
     }
 
     /** 2002-11-28 Achim Spangler
-     * seperate generation of Operation Prefix from generateOperation
+     * separate generation of Operation Prefix from generateOperation
      * so that generateOperation is language independent
      */
     private String generateOperationPrefix(Object op) {
@@ -906,7 +906,7 @@ public class GeneratorCpp implements CodeGenerator {
                          + "C++ can't handle this properly");
                 LOG.warn("    Ignoring the 'root' attribute");
             }
-            // generate a function as virtual, if it can be overriden
+            // generate a function as virtual, if it can be overridden
             // or override another function AND if this function is
             // not marked as static, which disallows "virtual"
             // alternatively every abstract function is defined as
@@ -922,7 +922,7 @@ public class GeneratorCpp implements CodeGenerator {
     }
 
     /** 2002-11-28 Achim Spangler
-     * seperate generation of Operation Suffix from generateOperation
+     * separate generation of Operation Suffix from generateOperation
      * so that generateOperation is language independent
      */
     private String generateOperationSuffix(Object op) {
@@ -933,7 +933,7 @@ public class GeneratorCpp implements CodeGenerator {
     }
 
     /** 2002-11-28 Achim Spangler
-     * seperate generation of Operation Name from generateOperation
+     * separate generation of Operation Name from generateOperation
      * so that generateOperation is language independent
      * -> for C++: if we create .cpp we must prepend Owner name
      *
@@ -962,7 +962,7 @@ public class GeneratorCpp implements CodeGenerator {
     }
 
     private boolean isDestructor(Object op) {
-        return getExtensionMechanismsHelper().hasStereoType(op, "destroy");
+        return getExtensionMechanismsHelper().hasStereotype(op, "destroy");
     }
 
     /**
@@ -970,7 +970,7 @@ public class GeneratorCpp implements CodeGenerator {
      * 
      * 2002-11-28 Achim Spangler
      * modified version from Jaap Branderhorst
-     * -> generateOperation is language independent and seperates
+     * -> generateOperation is language independent and separates
      *    different tasks
      * @param op The operation for which to generate code.
      * @param documented If the documentation should be included in the 
@@ -1212,7 +1212,7 @@ public class GeneratorCpp implements CodeGenerator {
      * everything from the preceding javadoc comment to the opening curly brace.
      * Start sequences are non-empty for classes and interfaces only.
      *
-     * This method is intented for package internal usage only.
+     * This method is intended for package internal usage only.
      *
      * @param cls the classifier for which to generate the start sequence
      *
@@ -1347,6 +1347,7 @@ public class GeneratorCpp implements CodeGenerator {
             ind += indent;
         // This works only with jdk 1.5: return s.replace("\n", "\n" + ind);
         StringBuffer result = new StringBuffer();
+        // FIXME: replace hard-coded '\n' with LINE_SEPARATOR
         for (int i = s.indexOf('\n'); i != -1; i = s.indexOf('\n')) {
             result.append(ind).append(s.substring(0, i + 1));
             s = s.substring(i + 1);
@@ -1571,7 +1572,7 @@ public class GeneratorCpp implements CodeGenerator {
 
     /**
      * Check whether an operation body shall be generated within the actual
-     * pass. This is normally done during the imeplementation path.
+     * pass. This is normally done during the implementation path.
      * But if the Tag "inline" exists, the method body shall be defined as
      * as inline in header file
      * @return true -> generate body in actual path
@@ -1934,10 +1935,10 @@ public class GeneratorCpp implements CodeGenerator {
                 sb.append(operationIndent).append(tv).append(LINE_SEPARATOR);
             }
 
-            // place the curley braces within the protected area, to
-            // allow placement of preserved contructor initialisers in
+            // place the curly braces within the protected area, to
+            // allow placement of preserved constructor initializers in
             // this area otherwise all possible constructor-attribute
-            // initialisers would have to be autogenerated with an
+            // initializers would have to be autogenerated with an
             // army of special tags
             sb.append(generateSectionTop(op, operationIndent))
                 .append(operationIndent).append("{").append(LINE_SEPARATOR);
@@ -2278,7 +2279,10 @@ public class GeneratorCpp implements CodeGenerator {
         }
         StringBuffer sb = new StringBuffer(80);
 
-        sb.append(generateScope(ae));
+        // UML2INCOMP: targetScope isn't supported in UML 2.x
+        if (getScopeKind().getClassifier().equals(
+                getFacade().getTargetScope(ae)))
+            sb.append("static ");
 
         String n = getFacade().getName(ae);
         Object asc = getFacade().getAssociation(ae);
@@ -2348,7 +2352,6 @@ public class GeneratorCpp implements CodeGenerator {
         return sb.toString();
     }
 
-    //  private String generateSpecification(Collection realizations) {
     private String generateSpecification(Object cls) {
         Collection deps = getFacade().getClientDependencies(cls);
         Iterator depIterator = deps.iterator();
