@@ -37,6 +37,7 @@ import org.argouml.model.IllegalModelElementConnectionException;
 import org.argouml.model.Model;
 import static org.argouml.model.Model.*;
 import org.argouml.model.UUIDManager;
+import org.argouml.uml.StereotypeUtility;
 import org.argouml.language.cpp.profile.ProfileCpp;
 import static org.argouml.language.cpp.profile.ProfileCpp.*;
 
@@ -885,12 +886,8 @@ public class ModelerImpl implements Modeler {
      */
     private Object getStereotype(Object modelElement, String stereotypeName) {
         Object stereotype = null;
-        Collection stereotypes =
-	    Model
-                .getExtensionMechanismsHelper()
-                .getAllPossibleStereotypes(
-                    ProjectManager.getManager().getCurrentProject().getModels(),
-                    modelElement);
+        Collection stereotypes = StereotypeUtility.getAvailableStereotypes(
+                modelElement);
         for (Iterator it = stereotypes.iterator(); it.hasNext();) {
             Object candidateStereotype = it.next();
             if (Model.getFacade().getName(candidateStereotype).equals(
