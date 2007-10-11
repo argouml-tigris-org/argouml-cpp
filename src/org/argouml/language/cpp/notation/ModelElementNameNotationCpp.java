@@ -24,7 +24,7 @@
 
 package org.argouml.language.cpp.notation;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import org.argouml.language.cpp.generator.GeneratorCpp;
 import org.argouml.model.Model;
@@ -55,9 +55,9 @@ public class ModelElementNameNotationCpp extends ModelElementNameNotation {
 
     /*
      * @see org.argouml.notation.providers.NotationProvider#toString(java.lang.Object,
-     *      java.util.HashMap)
+     *      java.util.Map)
      */
-    public String toString(Object me, HashMap args) {
+    public String toString(Object me, Map args) {
         if (Model.getFacade().isAClass(me)
                 || Model.getFacade().isAInterface(me)) {
             String className = GeneratorCpp.getInstance()

@@ -24,7 +24,7 @@
 
 package org.argouml.language.cpp.notation;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import org.argouml.language.cpp.generator.GeneratorCpp;
 import org.argouml.notation.providers.AttributeNotation;
@@ -72,9 +72,9 @@ public class AttributeNotationCpp extends AttributeNotation {
      *            Configuration parameters for the notation.
      * @return The C++ representation of attribute as a String.
      * @see org.argouml.notation.NotationProvider#toString(java.lang.Object,
-     *      java.util.HashMap)
+     *      java.util.Map)
      */
-    public String toString(Object attribute, HashMap args) {
+    public String toString(Object attribute, Map args) {
         return GeneratorCpp.getInstance().generateAttribute(attribute, false);
     }
 
