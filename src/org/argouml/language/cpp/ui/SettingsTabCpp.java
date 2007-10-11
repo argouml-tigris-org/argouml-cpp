@@ -86,9 +86,9 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
         // adds indent width spinner
         JLabel label = new JLabel(Translator.localize("cpp.indent"));
         // The actual value is loaded in handleSettingsTabRefresh()
-        Integer spinVal = new Integer(4); 
-        Integer spinMin = new Integer(0);
-        Integer spinStep = new Integer(1);
+        Integer spinVal = Integer.valueOf(4); 
+        Integer spinMin = Integer.valueOf(0);
+        Integer spinStep = Integer.valueOf(1);
         indent = new JSpinner(
                 new SpinnerNumberModel(spinVal, spinMin, null, spinStep));
         label.setLabelFor(indent);
@@ -164,7 +164,7 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
         GeneratorCpp cpp = GeneratorCpp.getInstance();
         lfBeforeCurly.setSelected(cpp.isLfBeforeCurly());
         verboseDocs.setSelected(cpp.isVerboseDocs());
-        indent.setValue(new Integer(cpp.getIndent()));
+        indent.setValue(Integer.valueOf(cpp.getIndent()));
         useSect.setSelectedIndex(cpp.getUseSect());
     }
 
