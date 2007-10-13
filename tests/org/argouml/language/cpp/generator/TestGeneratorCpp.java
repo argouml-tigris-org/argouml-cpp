@@ -73,7 +73,7 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
     /**
      * to enable debugging in poor IDEs...
      * 
-     * @param args the arguments given on the commandline
+     * @param args the arguments given on the command line
      */
     public static void main(java.lang.String[] args) {
         junit.textui.TestRunner.run(suite());
@@ -106,7 +106,7 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
         setUpNamespaces("AModel");
         setUpARealization(getAClass(), aInterface);
         setUpAGeneralization(aExtended, getAClass());
-	otherClass = getFactory().buildClass("OtherClass");
+        otherClass = getFactory().buildClass("OtherClass");
         profileCpp = new ProfileCpp(getModel());
     }
 

@@ -24,6 +24,9 @@
 
 package org.argouml.language.cpp.profile;
 
+import java.util.HashSet;
+import java.util.Set;
+
 
 /**
  * This is the class that provides easy access to the other modules of the 
@@ -163,6 +166,19 @@ public class ProfileCpp extends BaseProfile {
      * <code>GeneratorCpp</code>.
      */
     public static final String TV_NAME_POINTER = "pointer";
+    
+    private static final Set<String> PTR_N_REF_TV_NAMES = new HashSet<String>();
+    
+    static {
+        PTR_N_REF_TV_NAMES.add("&");
+        PTR_N_REF_TV_NAMES.add("*");
+        PTR_N_REF_TV_NAMES.add(ProfileCpp.TV_NAME_POINTER);
+        PTR_N_REF_TV_NAMES.add(ProfileCpp.TV_NAME_REFERENCE);
+    }
+    
+    public static boolean isPtrOrRefTVName(String name) {
+        return PTR_N_REF_TV_NAMES.contains(name);
+    }
 
     /**
      * Name of the virtual inheritance flag tagged value for a UML 

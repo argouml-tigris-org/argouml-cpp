@@ -545,6 +545,8 @@ public class GeneratorCpp implements CodeGenerator {
         StringBuffer sb = new StringBuffer(80);
         //TODO: add user-defined copyright
         if (verboseDocs) {
+            // FIXME: replace hard-coded path separator with 
+            // CodeGenerator.FILE_SEPARATOR
             sb.append("// FILE: ").append(pathname.replace('\\', '/'));
             sb.append(LINE_SEPARATOR).append(LINE_SEPARATOR);
         }
@@ -1519,7 +1521,14 @@ public class GeneratorCpp implements CodeGenerator {
             while (endEnum.hasNext()) {
                 Object ae = endEnum.next();
                 Object a = getFacade().getAssociation(ae);
-                generateAssociationFrom(a, ae, part);
+                AssociationEndHandler aeHandler = new AssociationEndHandler(
+                        ae);
+                try {
+                    aeHandler.pre();
+                    generateAssociationFrom(a, ae, part);
+                } finally {
+                    aeHandler.post();
+                }
             }
             sb.append(generateAllParts(part));
         }

@@ -452,22 +452,23 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
     /**
      * It is possible to have a TD of a TV null. Test that the code 
      * generator will not throw NPE when generating an operation.
-     * @throws IOException
+     * 
+     * @throws IOException when something goes wrong with the file
      */
-    public void testOperationWithNullTaggedValueTag_Issue4393() 
-    throws IOException {
+    public void testOperationWithNullTaggedValueTagIssue4393() 
+        throws IOException {
     	final String testName = 
-    		"testOperationWithNullTaggedValueTag_Issue4393";
+    		"testOperationWithNullTaggedValueTagIssue4393";
     	setUpNamespaces(testName);
     	assertGenerateAClassFileWithNullTaggedValueTag(testName, 
     			getFooMethod());
     }
-
-	private void assertGenerateAClassFileWithNullTaggedValueTag(
-			final String testName, Object me) throws IOException {
+    
+    private void assertGenerateAClassFileWithNullTaggedValueTag(
+            final String testName, Object me) throws IOException {
         Object documentationTV = getExtensionMechanismsFactory()
-        	.buildTaggedValue("documentation", "docs");
-		getExtensionMechanismsHelper().addTaggedValue(me, documentationTV);
+                .buildTaggedValue("documentation", "docs");
+        getExtensionMechanismsHelper().addTaggedValue(me, documentationTV);
     	assertEquals(1, 
     			Model.getFacade().getTaggedValuesCollection(me).size());
     	assertEquals("documentation", 
@@ -478,16 +479,17 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
     	Model.getExtensionMechanismsHelper().setType(documentationTV, null);
     	assertNull(Model.getFacade().getTagDefinition(documentationTV));
     	generateAClassFile(testName, true);
-	}
+    }
     
     /**
      * It is possible to have a TD of a TV null. Test that the code 
      * generator will not throw NPE when generating a class.
-     * @throws IOException
+     * 
+     * @throws IOException when something goes wrong with the file.
      */
-    public void testClassWithNullTaggedValueTag_Issue4393() 
-    throws IOException {
-    	final String testName = "testClassWithNullTaggedValueTag_Issue4393";
+    public void testClassWithNullTaggedValueTagIssue4393() 
+        throws IOException {
+    	final String testName = "testClassWithNullTaggedValueTagIssue4393";
     	setUpNamespaces(testName);
     	assertGenerateAClassFileWithNullTaggedValueTag(testName, getAClass());
     }
