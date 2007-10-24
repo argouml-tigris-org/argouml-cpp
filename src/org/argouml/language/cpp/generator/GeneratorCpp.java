@@ -2476,7 +2476,8 @@ public class GeneratorCpp implements CodeGenerator {
      */
     private String generateParameterChangeability(Object par) {
         int parType = getAttributeModifierType(par);
-        if (parType != -1 && parType != NORMAL_MOD
+        if (parType != -1 && parType != NORMAL_MOD 
+                && getFacade().getKind(par) != null 
                 && (getFacade().getKind(par)).equals(
                         getDirectionKind().getInParameter())) {
             return "const ";
