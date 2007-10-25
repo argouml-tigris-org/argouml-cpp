@@ -2395,6 +2395,8 @@ public class GeneratorCpp implements CodeGenerator {
         }
         // cut'n'pasted from GeneratorJava.java
         if (getFacade().isAFeature(o)) {
+            // TODO: The src_visibility tag doesn't appear to be created
+            // anywhere by ArgoUML currently
             Object tv = getFacade().getTaggedValue(o, "src_visibility");
             if (tv != null) {
                 String tagged = (String) getFacade().getValue(tv);
