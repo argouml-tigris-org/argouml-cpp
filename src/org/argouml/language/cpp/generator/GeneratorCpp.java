@@ -1152,7 +1152,8 @@ public class GeneratorCpp implements CodeGenerator {
         if (documented || generatorPass != NONE_PASS) {
             String tv = generateTaggedValues (attr, DOC_COMMENT_TAGS);
             if (tv != null && tv.length() > 0) {
-                sb.append (LINE_SEPARATOR).append (indent).append (tv);
+                sb.append (LINE_SEPARATOR).append(indent).append(tv).
+                    append(indent);
             }
         }
         // cat.info("generate Visibility for Attribute");
