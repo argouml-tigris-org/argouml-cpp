@@ -42,6 +42,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
+import java.util.UUID;
 import java.util.Vector;
 
 import org.apache.log4j.Logger;
@@ -77,7 +78,10 @@ public class GeneratorCpp implements CodeGenerator {
     private boolean verboseDocs = false;
     private boolean lfBeforeCurly = false;
     private String indent = "    "; // customizable (non final) indent
-
+    
+    private boolean hdrGuardUpperCase = false;
+    private boolean hdrGuardGUID = false;
+    
     // Configuration keys for the above configurable variables
     private static final ConfigurationKey KEY_CPP_INDENT =
         Configuration.makeKey(LANGUAGE_NAME, "indent");
@@ -87,6 +91,10 @@ public class GeneratorCpp implements CodeGenerator {
         Configuration.makeKey(LANGUAGE_NAME, "verbose-comments");
     private static final ConfigurationKey KEY_CPP_SECT =
         Configuration.makeKey(LANGUAGE_NAME, "sections");
+    private static final ConfigurationKey KEY_CPP_HEADER_GUARD_UPPERCASE =
+        Configuration.makeKey(LANGUAGE_NAME, "header-guard-case");
+    private static final ConfigurationKey KEY_CPP_HEADER_GUARD_GUID =
+        Configuration.makeKey(LANGUAGE_NAME, "header-guard-guid");
 
     private static Section sect;
 
@@ -272,14 +280,23 @@ public class GeneratorCpp implements CodeGenerator {
         }
         // paste all the pieces in the final result
         StringBuffer result = new StringBuffer();
+        String guard = new String();
         if (generatorPass == HEADER_PASS) {
             String name = getFacade().getName(o);
             String guardPack =
                 generateRelativePackage(o, null, "_").substring(1);
-            String guard = name + getFileExtension().replace('.', '_');
+            guard = name + getFileExtension().replace('.', '_');
             if (guardPack.length() > 0) {
                 guard = guardPack + "_" + guard;
             }
+            if (hdrGuardGUID) {
+            	guard = guard + "_" 
+            	    + UUID.randomUUID().toString().replace("-", "_");
+            }
+            if (hdrGuardUpperCase) {
+            	guard = guard.toUpperCase();
+            }
+            
             result.append("#ifndef " + guard + LINE_SEPARATOR 
                       + "#define " + guard 
                       + LINE_SEPARATOR + LINE_SEPARATOR);
@@ -290,7 +307,8 @@ public class GeneratorCpp implements CodeGenerator {
         result.append(src);
         result.append(footer);
         if (generatorPass == HEADER_PASS) {
-            result.append("#endif");
+            result.append(LINE_SEPARATOR);
+            result.append("#endif" + " // " + guard);
             result.append(LINE_SEPARATOR);
         }
         return result.toString();
@@ -2608,6 +2626,10 @@ public class GeneratorCpp implements CodeGenerator {
         int useSect = Configuration.getInteger(KEY_CPP_SECT,
                                                Section.SECT_NORMAL);
         Section.setUseSect(useSect);
+        hdrGuardUpperCase = Configuration.getBoolean(
+                KEY_CPP_HEADER_GUARD_UPPERCASE, false);
+        hdrGuardGUID = Configuration.getBoolean(
+                KEY_CPP_HEADER_GUARD_GUID, false);
     }
 
     // Methods used by Settings dialog
@@ -2686,6 +2708,38 @@ public class GeneratorCpp implements CodeGenerator {
     public void setUseSect(int use) {
         Section.setUseSect(use);
         Configuration.setInteger(KEY_CPP_SECT, use);
+    }
+
+    /**
+     * @return true if the generator outputs a header guard in upper case.
+     */
+    public boolean isHeaderGuardUpperCase() {
+        return hdrGuardUpperCase;
+    }
+
+    /**
+     * Sets how to output header guard.
+     * @param upperCase true to generate upper case header guard.
+     */
+    public void setHeaderGuardUpperCase(boolean upperCase) {
+        this.hdrGuardUpperCase = upperCase;
+        Configuration.setBoolean(KEY_CPP_HEADER_GUARD_UPPERCASE, upperCase);
+    }
+    
+    /**
+     * @return true if the generator should add GUID to header guard.
+     */
+    public boolean isHeaderGuardGUID() {
+        return hdrGuardGUID;
+    }
+
+    /**
+     * Sets how to output header guard.
+     * @param addGUID true to add GUID to header guard.
+     */
+    public void setHeaderGuardGUID(boolean addGUID) {
+        this.hdrGuardGUID = addGUID;
+        Configuration.setBoolean(KEY_CPP_HEADER_GUARD_UPPERCASE, addGUID);
     }
 
     /*

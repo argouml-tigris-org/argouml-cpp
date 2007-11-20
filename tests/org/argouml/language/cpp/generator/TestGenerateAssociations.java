@@ -62,24 +62,13 @@ public class TestGenerateAssociations extends BaseTestGeneratorCpp {
     public void testGenerateBidirectionalAggregation() {
         setUpAggregation();
         String codeA = getGenerator().generateH(classA);
-        String reA = "(?m)(?s)#ifndef\\s+ClassA_h\\s+"
-                + "#define\\s+ClassA_h\\s+"
-                + "class\\s+ClassB;\\s+" 
-                + "class\\s+ClassA\\s*\\{"
-                + "\\s*public\\s*:\\s*"
-                + "ClassB\\s+\\*\\s*theAssociation\\s*;\\s*"
-                + "}\\s*;\\s+#endif\\s*";
-        assertMatches(reA, codeA, "Mismatch in code for ClassA!");
+        String resA[] = {"\\s*class\\s+ClassB;\\s*", 
+            "\\s*ClassB\\s+\\*\\s*theAssociation\\s*;\\s*"};
+        assertMatches(resA, codeA, "Mismatch in code for ClassA!");
         String codeB = getGenerator().generateH(classB);
-        String reB = "(?m)(?s)#ifndef\\s+ClassB_h\\s+"
-            + "#define\\s+ClassB_h\\s+"
-            + "class\\s+ClassA;\\s+"
-            + "class\\s+ClassB\\s*\\{"
-            + "\\s*public\\s*:\\s*" 
-            + "ClassA\\s+\\*\\s*theAssociation\\s*;\\s*"
-            + "}\\s*;\\s*#endif\\s*";
-        assertTrue(codeB.matches(reB));
-        assertMatches(reB, codeB, "Mismatch in code for classB!");
+        String resB[] = {"\\s*class\\s+ClassA;\\s*", 
+            "\\s*ClassA\\s+\\*\\s*theAssociation\\s*;\\s*"};
+        assertMatches(resB, codeB, "Mismatch in code for classB!");
     }
 
     /**
@@ -89,31 +78,33 @@ public class TestGenerateAssociations extends BaseTestGeneratorCpp {
     public void testGenerateBidirectionalComposition() {
         setUpComposition();
         String codeA = getGenerator().generateH(classA);
-        String reA = "(?m)(?s)#ifndef\\s+ClassA_h\\s+"
-            + "#define\\s+ClassA_h\\s+"
-            + "#include\\s+\"ClassB\\.h\"\\s+" 
-            + "class\\s+ClassA\\s*\\{"
-            + "\\s*public\\s*:\\s*"
-            + "ClassB\\s+theAssociation\\s*;\\s*"
-            + "}\\s*;\\s+#endif\\s*";
-        assertMatches(reA, codeA, "Mismatch in code for ClassA!");
+        String[] resA = {"\\s*#include\\s+\"ClassB\\.h\"\\s*",
+            "\\s*ClassB\\s+theAssociation\\s*;\\s*"};
+        assertMatches(resA, codeA, "Mismatch in code for ClassA!");
         String codeB = getGenerator().generateH(classB);
-        String reB = "(?m)(?s)#ifndef\\s+ClassB_h\\s+"
-            + "#define\\s+ClassB_h\\s+"
-            + "class\\s+ClassA;\\s+"
-            + "class\\s+ClassB\\s*\\{"
-            + "\\s*public\\s*:\\s*" 
-            + "ClassA\\s+\\*\\s*theAssociation\\s*;\\s*"
-            + "}\\s*;\\s*#endif\\s*";
-        assertMatches(reB, codeB, "Mismatch in code for classB!");
+        String[] resB = {"\\s*class\\s+ClassA;\\s*", 
+            "\\s*ClassA\\s+\\*\\s*theAssociation\\s*;\\s*"};
+        assertMatches(resB, codeB, "Mismatch in code for classB!");
     }
 
-    private void assertMatches(String re, String code, String logMsg) {
-        if (!code.matches(re)) {
+    private void assertMatches(String[] res, String code, String logMsg) {
+        int i = 0;
+        boolean match = false;
+        String[] lines = code.split("\n");
+        for (String line : lines) {
+            if (line.matches(res[i])) {
+                i++;
+                if (i == res.length) {
+                    match = true;
+                    break;
+                }
+            }
+        }
+        if (!match) {
             LOG.warn(logMsg);
             LOG.warn(code);
         }
-        assertTrue(code.matches(re));
+        assertTrue(logMsg, match);
     }
 
     private void setUpAggregation() {

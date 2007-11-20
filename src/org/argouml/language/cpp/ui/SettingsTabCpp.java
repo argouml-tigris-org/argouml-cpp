@@ -62,7 +62,9 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
     private JCheckBox verboseDocs;
     private JCheckBox lfBeforeCurly;
     private JComboBox useSect;
-
+    private JCheckBox headerGuardUpperCase;
+    private JCheckBox headerGuardGUID;    
+    
     /*
      * Build the panel to be used for our settings tab.
      */
@@ -124,14 +126,21 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
         sectPanel.add(useSect);
         panel.add(sectPanel, constraints);
         
+        headerGuardUpperCase = new JCheckBox(Translator
+                .localize("cpp.header-guard-case"));
+        panel.add(headerGuardUpperCase, constraints);
+
+        headerGuardGUID = new JCheckBox(Translator
+                .localize("cpp.header-guard-guid"));
+        panel.add(headerGuardGUID, constraints);
+
+        // TODO: add more options
         JButton copyProfile = new JButton(new CopyCppProfileToModelAction());
         copyProfile.setText(Translator.localize("cpp.copy.profile.to.model"));
         JPanel copyProfilePanel =
             new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 2));
         copyProfilePanel.add(copyProfile);
         panel.add(copyProfilePanel, constraints);
-        
-	// TODO: add more options
 
         top.add(panel, BorderLayout.NORTH);
 
@@ -149,6 +158,8 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
         cpp.setLfBeforeCurly(lfBeforeCurly.isSelected());
         cpp.setVerboseDocs(verboseDocs.isSelected());
         cpp.setUseSect(useSect.getSelectedIndex());
+        cpp.setHeaderGuardUpperCase(headerGuardUpperCase.isSelected());
+        cpp.setHeaderGuardGUID(headerGuardGUID.isSelected());
     }
 
     /*
@@ -166,6 +177,8 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
         verboseDocs.setSelected(cpp.isVerboseDocs());
         indent.setValue(Integer.valueOf(cpp.getIndent()));
         useSect.setSelectedIndex(cpp.getUseSect());
+        headerGuardUpperCase.setSelected(cpp.isHeaderGuardUpperCase());
+        headerGuardGUID.setSelected(cpp.isHeaderGuardGUID());
     }
 
     /*
@@ -211,6 +224,8 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
         case ModuleInterface.VERSION:
             return "Revision date: " 
                 + "$Date$";
+        case ModuleInterface.DOWNLOADSITE:
+            return "http://argouml-downloads.tigris.org/";
         default:
             return null;
         }
