@@ -2802,7 +2802,7 @@ public class GeneratorCpp implements CodeGenerator {
      */
     public void setHeaderGuardGUID(boolean addGUID) {
         this.hdrGuardGUID = addGUID;
-        Configuration.setBoolean(KEY_CPP_HEADER_GUARD_UPPERCASE, addGUID);
+        Configuration.setBoolean(KEY_CPP_HEADER_GUARD_GUID, addGUID);
     }
 
     /*
