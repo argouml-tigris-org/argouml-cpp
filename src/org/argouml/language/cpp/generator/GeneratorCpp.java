@@ -201,6 +201,8 @@ public class GeneratorCpp implements CodeGenerator {
     private static final int NORMAL_MOD = 0;
     private static final int REFERENCE_MOD = 1;
     private static final int POINTER_MOD = 2;
+    private static final int CONST_MOD = 3;
+    private static final int INLINE_MOD = 4;
 
     private static GeneratorCpp singleton;
 
@@ -1034,6 +1036,10 @@ public class GeneratorCpp implements CodeGenerator {
                     + " for " + getFacade().getName(op));
         }
         if (!getFacade().isConstructor(op) && !isDestructor(op)) {
+            String inlineModifier = generateInlineOperationModifier(op);
+        	if (inlineModifier != null) {
+        		sb.append(inlineModifier).append(' ');
+        	}
             if (rp != null) {
                 Object returnType = getFacade().getType(rp);
                 if (returnType == null) {
@@ -1157,6 +1163,59 @@ public class GeneratorCpp implements CodeGenerator {
         return def;
     }
 
+    /**
+     * @param elem element to check
+     * @return CONST_MOD or -1 if no specific tag is found
+     */
+    private int getConstAttributeModifierType(Object elem) {
+        Iterator iter = getFacade().getTaggedValues(elem);
+        while (iter.hasNext()) {
+            Object tv = iter.next();
+            String tag = getFacade().getTagOfTag(tv);
+            String val = getFacade().getValueOfTag(tv);
+            if (tag != null) {
+                if (tag.equals(TV_NAME_CONST)) {
+                    return val.equals("false") ? NORMAL_MOD
+                    		: CONST_MOD;
+                }
+            }
+        }    
+        return -1; /* no tag found */
+    }
+
+    private String generateConstAttributeParameterModifier(Object attr) {
+    	if (getConstAttributeModifierType(attr) == CONST_MOD) {
+    		return "const";
+    	}
+    	return "";
+    }
+
+    /**
+     * @param elem element to check
+     * @return INLINE_MOD or -1 if no specific tag is found
+     */
+    private int getInlineOperationModifierType(Object elem) {
+        Iterator iter = getFacade().getTaggedValues(elem);
+        while (iter.hasNext()) {
+            Object tv = iter.next();
+            String tag = getFacade().getTagOfTag(tv);
+            String val = getFacade().getValueOfTag(tv);
+            if (tag != null) {
+                if (tag.equals(TV_NAME_INLINE)) {
+                    return val.equals("false") ? NORMAL_MOD
+                    		: INLINE_MOD;
+                }
+            }
+        }
+        return -1; /* no tag found */
+    }
+
+    private String generateInlineOperationModifier(Object attr) {
+    	if (getInlineOperationModifierType(attr) == INLINE_MOD) {
+    		return "inline";
+    	}
+    	return "";
+    }
     
     private String generateAttributeParameterModifier(Object attr) {
         return generateAttributeParameterModifier(attr, "");
@@ -1203,6 +1262,8 @@ public class GeneratorCpp implements CodeGenerator {
         Object type = getFacade().getType(param);
         sb.append(generateParameterChangeability(param));
         //TODO: stereotypes...
+        sb.append(generateConstAttributeParameterModifier(param));
+        sb.append(' ');
         sb.append(generateNameWithPkgSelection(type));
         sb.append(' ');
         sb.append(generateAttributeParameterModifier(param));
@@ -1612,7 +1673,7 @@ public class GeneratorCpp implements CodeGenerator {
 
         // if this operation has Tag "inline" the method shall be
         // generated in header
-        if (getFacade().getTaggedValue(cls, "inline") != null) {
+        if (getFacade().getTaggedValue(cls, TV_NAME_INLINE) != null) {
             result = generatorPass == HEADER_PASS;
         }
         return result;

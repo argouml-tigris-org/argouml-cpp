@@ -205,6 +205,17 @@ public class ProfileCpp extends BaseProfile {
      */
     public static final String TV_NAME_MULTIPLICITY_TYPE = "MultiplicityType";
     
+    /**
+     * Name of const tagged value used in <code>GeneratorCpp</code>.
+     */
+    public static final String TV_NAME_CONST = "const";
+    	
+    /**
+     * Name of C99 inline keyword tagged value used in
+     * <code>GeneratorCpp</code>.
+     */
+    public static final String TV_NAME_INLINE = "inline";
+    
     public ProfileCpp(Object projectModel) {
         super(projectModel);
     }
