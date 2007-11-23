@@ -1187,7 +1187,7 @@ public class GeneratorCpp implements CodeGenerator {
     	if (getConstAttributeModifierType(attr) == CONST_MOD) {
     		return "const";
     	}
-    	return "";
+    	return null;
     }
 
     /**
@@ -1214,7 +1214,7 @@ public class GeneratorCpp implements CodeGenerator {
     	if (getInlineOperationModifierType(attr) == INLINE_MOD) {
     		return "inline";
     	}
-    	return "";
+    	return null;
     }
     
     private String generateAttributeParameterModifier(Object attr) {
@@ -1262,8 +1262,10 @@ public class GeneratorCpp implements CodeGenerator {
         Object type = getFacade().getType(param);
         sb.append(generateParameterChangeability(param));
         //TODO: stereotypes...
-        sb.append(generateConstAttributeParameterModifier(param));
-        sb.append(' ');
+        String constModifier = generateConstAttributeParameterModifier(param); 
+        if (constModifier != null) {
+        	sb.append(constModifier).append(' ');
+        }
         sb.append(generateNameWithPkgSelection(type));
         sb.append(' ');
         sb.append(generateAttributeParameterModifier(param));
