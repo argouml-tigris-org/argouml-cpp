@@ -70,6 +70,11 @@ public class ProfileCpp extends BaseProfile {
     public static final String STEREO_NAME_PARAMETER = "cppParameter";
     
     /**
+     * Name of the C++ UML profile Operation stereotype.
+     */
+    public static final String STEREO_NAME_OPERATION = "cppOperation";
+    
+    /**
      * Name of the C++ class specifier tagged value. Possible values are: class,
      * union, and struct. When this is omitted, class is used.
      * 
@@ -211,7 +216,7 @@ public class ProfileCpp extends BaseProfile {
     public static final String TV_NAME_CONST = "const";
     	
     /**
-     * Name of C99 inline keyword tagged value used in
+     * Name of inline keyword (C99) tagged value used in
      * <code>GeneratorCpp</code>.
      */
     public static final String TV_NAME_INLINE = "inline";
@@ -234,6 +239,10 @@ public class ProfileCpp extends BaseProfile {
 
     public Object getCppParameterStereotype() {
         return getCppStereotypeInModel(STEREO_NAME_PARAMETER);
+    }
+
+    public Object getCppOperationStereotype() {
+        return getCppStereotypeInModel(STEREO_NAME_OPERATION);
     }
 
     public Object getVirtualInheritanceTagDefinition() {
@@ -260,6 +269,16 @@ public class ProfileCpp extends BaseProfile {
                 TV_NAME_REFERENCE);
     }
     
+    public Object getConstTagDefinition4Parameter() {
+        return getTagDefinition(STEREO_NAME_PARAMETER, 
+                TV_NAME_CONST);
+    }
+    
+    public Object getInlineTagDefinition4Operation() {
+        return getTagDefinition(STEREO_NAME_OPERATION, 
+                TV_NAME_INLINE);
+    }
+
     public void applyCppClassStereotype(Object aClass) {
         applyStereotype(STEREO_NAME_CLASS, aClass);
     }
@@ -278,6 +297,10 @@ public class ProfileCpp extends BaseProfile {
 
     public void applyCppGeneralizationStereotype(Object generalization) {
         applyStereotype(STEREO_NAME_GENERALIZATION, generalization);
+    }
+
+    public void applyCppOperationStereotype(Object operation) {
+        applyStereotype(STEREO_NAME_OPERATION, operation);
     }
 
     public void applyClassSpecifierTaggedValue(Object modelElement, 
@@ -304,6 +327,12 @@ public class ProfileCpp extends BaseProfile {
                 param, isReference);
     }
 
+    public void applyConstTaggedValue2Parameter(Object param, 
+            String isConst) {
+        applyTaggedValue(STEREO_NAME_PARAMETER, TV_NAME_CONST, 
+                param, isConst);
+    }
+
     public void applyInheritanceVisibilityTaggedValue2Generalization(
             Object generalization, String visibility) {
         applyTaggedValue(STEREO_NAME_GENERALIZATION, 
@@ -322,4 +351,9 @@ public class ProfileCpp extends BaseProfile {
                 TV_NAME_INHERITANCE_VISIBILITY, realization, visibility);
     }
 
+    public void applyInlineTaggedValue2Operation(Object operation, 
+            String isInline) {
+        applyTaggedValue(STEREO_NAME_OPERATION, TV_NAME_INLINE, 
+                operation, isInline);
+    }
 }
