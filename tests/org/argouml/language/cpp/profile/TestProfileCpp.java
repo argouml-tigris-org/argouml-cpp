@@ -92,6 +92,12 @@ public class TestProfileCpp extends TestCase {
                 ProfileCpp.STEREO_NAME_ATTRIBUTE);
     }
     
+    public void testGetCppOperationStereotype() throws Exception {
+        Object stereotype = profile.getCppOperationStereotype();
+        validateCppStereotypeGetter(stereotype, 
+                ProfileCpp.STEREO_NAME_OPERATION);
+    }
+    
     void validateCppStereotypeGetter(Object stereotype, String stereoName) {
         assertNotNull(stereotype);
         assertEquals(stereoName, getFacade().getName(stereotype));
@@ -173,6 +179,28 @@ public class TestProfileCpp extends TestCase {
         assertEquals("true", getFacade().getValueOfTag(taggedValue));
     }
     
+    public void testApplyConstTaggedValue2Parameter() throws Exception {
+        profile.applyCppParameterStereotype(param);
+        profile.applyConstTaggedValue2Parameter(param, "true");
+        Object taggedValue = getFacade().getTaggedValue(param, 
+                ProfileCpp.TV_NAME_CONST);
+        assertNotNull(taggedValue);
+        assertEquals(profile.getConstTagDefinition4Parameter(), 
+                getFacade().getType(taggedValue));
+        assertEquals("true", getFacade().getValueOfTag(taggedValue));
+    }
+    
+    public void testApplyInlineTaggedValue2Operation() throws Exception {
+        profile.applyCppOperationStereotype(operation);
+        profile.applyInlineTaggedValue2Operation(operation, "true");
+        Object taggedValue = getFacade().getTaggedValue(operation, 
+                ProfileCpp.TV_NAME_INLINE);
+        assertNotNull(taggedValue);
+        assertEquals(profile.getInlineTagDefinition4Operation(), 
+                getFacade().getType(taggedValue));
+        assertEquals("true", getFacade().getValueOfTag(taggedValue));
+    }
+
     @SuppressWarnings("serial")
     public void testCopyAllCppStereotypesToModel() throws Exception {
         profile.copyAllCppStereotypesToModel();
