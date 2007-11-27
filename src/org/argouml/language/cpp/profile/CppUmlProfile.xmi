@@ -1,8 +1,8 @@
 <?xml version = '1.0' encoding = 'UTF-8' ?>
-<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Fri May 25 20:20:03 BST 2007'>
+<XMI xmi.version = '1.2' xmlns:UML = 'org.omg.xmi.namespace.UML' timestamp = 'Mon Nov 26 19:15:39 CET 2007'>
   <XMI.header>    <XMI.documentation>
       <XMI.exporter>ArgoUML (using Netbeans XMI Writer version 1.0)</XMI.exporter>
-      <XMI.exporterVersion>0.24(5) revised on $Date: 2006-11-06 19:55:22 +0100 (Mon, 06 Nov 2006) $ </XMI.exporterVersion>
+      <XMI.exporterVersion>PRE-0.25.4(5) revised on $Date: 2007-05-12 08:08:08 +0200 (So, 12 maj 2007) $ </XMI.exporterVersion>
     </XMI.documentation>
     <XMI.metamodel xmi.name="UML" xmi.version="1.4"/></XMI.header>
   <XMI.content>
@@ -10,6 +10,7 @@
       isRoot = 'false' isLeaf = 'false' isAbstract = 'false'>
       <UML:ModelElement.stereotype>
         <UML:Stereotype xmi.idref = '-64--88-1-2-914f6a:111b9c5054e:-8000:0000000000000895'/>
+        <UML:Stereotype xmi.idref = '85--35--127-126-57735a61:1167d2379d2:-8000:000000000000084C'/>
       </UML:ModelElement.stereotype>
       <UML:ModelElement.taggedValue>
         <UML:TaggedValue xmi.id = '.:00000000000008A6' isSpecification = 'false'>
@@ -660,6 +661,17 @@ If false (default), no pointer modifier is applied.</UML:TaggedValue.dataValue>
                 </UML:TaggedValue>
               </UML:ModelElement.taggedValue>
             </UML:TagDefinition>
+            <UML:TagDefinition xmi.id = '85--35--127-126-57735a61:1167d2379d2:-8000:0000000000000847'
+              name = 'const' isSpecification = 'false' tagType = 'String'>
+              <UML:TagDefinition.multiplicity>
+                <UML:Multiplicity xmi.id = '85--35--127-126-57735a61:1167d2379d2:-8000:000000000000084B'>
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange xmi.id = '85--35--127-126-57735a61:1167d2379d2:-8000:000000000000084A'
+                      lower = '0' upper = '1'/>
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:TagDefinition.multiplicity>
+            </UML:TagDefinition>
           </UML:Stereotype.definedTag>
         </UML:Stereotype>
         <UML:DataType xmi.id = '.:00000000000008A3' name = 'void' isSpecification = 'false'
@@ -915,6 +927,24 @@ If false (default), no pointer modifier is applied.</UML:TaggedValue.dataValue>
         <UML:DataType xmi.id = '127-0-0-1-736e6ab1:112c4a4e27a:-8000:00000000000008A1'
           name = 'long double' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
           isAbstract = 'false'/>
+        <UML:Stereotype xmi.id = '85--35--127-126-57735a61:1167d2379d2:-8000:000000000000084C'
+          name = 'cppOperation' isSpecification = 'false' isRoot = 'false' isLeaf = 'false'
+          isAbstract = 'false'>
+          <UML:Stereotype.baseClass>Model</UML:Stereotype.baseClass>
+          <UML:Stereotype.definedTag>
+            <UML:TagDefinition xmi.id = '85--35--127-126-57735a61:1167d2379d2:-8000:000000000000084D'
+              name = 'inline' isSpecification = 'false' tagType = 'String'>
+              <UML:TagDefinition.multiplicity>
+                <UML:Multiplicity xmi.id = '85--35--127-126-57735a61:1167d2379d2:-8000:000000000000084E'>
+                  <UML:Multiplicity.range>
+                    <UML:MultiplicityRange xmi.id = '85--35--127-126-57735a61:1167d2379d2:-8000:000000000000084F'
+                      lower = '0' upper = '1'/>
+                  </UML:Multiplicity.range>
+                </UML:Multiplicity>
+              </UML:TagDefinition.multiplicity>
+            </UML:TagDefinition>
+          </UML:Stereotype.definedTag>
+        </UML:Stereotype>
       </UML:Namespace.ownedElement>
     </UML:Model>
   </XMI.content>
