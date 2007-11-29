@@ -1037,9 +1037,9 @@ public class GeneratorCpp implements CodeGenerator {
         }
         if (!getFacade().isConstructor(op) && !isDestructor(op)) {
             String inlineModifier = generateInlineOperationModifier(op);
-        	if (inlineModifier != null) {
-        		sb.append(inlineModifier).append(' ');
-        	}
+            if (inlineModifier != null) {
+                sb.append(inlineModifier).append(' ');
+            }
             if (rp != null) {
                 Object returnType = getFacade().getType(rp);
                 if (returnType == null) {
@@ -1185,7 +1185,7 @@ public class GeneratorCpp implements CodeGenerator {
 
     private String generateConstAttributeParameterModifier(Object attr) {
     	if (getConstAttributeModifierType(attr) == CONST_MOD) {
-    		return "const";
+    	    return "const";
     	}
     	return null;
     }
@@ -1212,7 +1212,7 @@ public class GeneratorCpp implements CodeGenerator {
 
     private String generateInlineOperationModifier(Object attr) {
     	if (getInlineOperationModifierType(attr) == INLINE_MOD) {
-    		return "inline";
+    	    return "inline";
     	}
     	return null;
     }
@@ -1264,7 +1264,7 @@ public class GeneratorCpp implements CodeGenerator {
         //TODO: stereotypes...
         String constModifier = generateConstAttributeParameterModifier(param); 
         if (constModifier != null) {
-        	sb.append(constModifier).append(' ');
+            sb.append(constModifier).append(' ');
         }
         sb.append(generateNameWithPkgSelection(type));
         sb.append(' ');
