@@ -30,6 +30,7 @@ import org.argouml.kernel.Project;
 import org.argouml.kernel.ProjectManager;
 import org.argouml.model.Model;
 import org.argouml.model.ModelImplementation;
+import org.argouml.profile.InitProfileSubsystem;
 
 /**
  * An Helper for test classes.
@@ -48,6 +49,7 @@ public class Helper {
 
     public static Project createProject() {
         ensureModelSubsystemInitialized();
+        new InitProfileSubsystem().init();
         return ProjectManager.getManager().makeEmptyProject();
     }
     
