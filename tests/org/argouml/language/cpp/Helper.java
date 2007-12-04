@@ -93,4 +93,12 @@ public class Helper {
         return impl;
     }
 
+    public static void assertNotEmpty(String string) {
+        TestCase.assertNotNull(
+            "Ha! The freaking string is null and you're asking about its " 
+            + "emptyness!", string);
+        TestCase.assertTrue("The string size must be bigger than 0.", 
+                string.length() > 0);
+    }
+
 }

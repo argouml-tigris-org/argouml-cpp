@@ -22,23 +22,33 @@
 // CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT,
 // UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-// Issue #0006 example of some really simple example that fails to be 
-// parsed. 
-// The problem was in the implementation of the Ctor and Dtor parsing 
-// which didn't supported definitions outside of the class definition.
-
-class Test {
-
+// Test for issue #4932 of ArgoUML issue DB. 
+class CBraceNode {
     public:
-        Test();
-        virtual ~Test();
-
+        CBraceNode * pnext;
+        int lineNumber, columnNumber, ch;
+        CBraceNode() {
+            lineNumber=0;
+            columnNumber=0;
+            ch=0;
+            pnext=NULL;
+        }
+        CBraceNode(int ln, int col, int c, CBraceNode * next) {
+            lineNumber=ln;
+            columnNumber=col;
+            ch=c;
+            pnext=next;
+        }
+        int lineNum() {
+            return lineNumber;
+        }
+        int colNum() {
+            return columnNumber;
+        }
+        int c(){
+            return ch;
+        }
+        CBraceNode * next() {
+            return pnext;
+        }
 };
-
-
-Test::Test() {
-}
-
-Test::~Test() {
-}
-

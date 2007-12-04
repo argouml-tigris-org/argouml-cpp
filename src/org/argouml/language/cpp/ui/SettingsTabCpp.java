@@ -218,14 +218,16 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
     public String getInfo(int type) {
         switch (type) {
         case ModuleInterface.AUTHOR:
-            return "Daniele Tamino";
+            return "Daniele Tamino"; //$NON-NLS-1$
         case ModuleInterface.DESCRIPTION:
+            // TODO: i18n
             return "C++ Settings";
         case ModuleInterface.VERSION:
-            return "Revision date: " 
-                + "$Date$";
+            return "Revision date: " // TODO: i18n
+                + "$Date$"; //$NON-NLS-1$
+        // TODO: remove duplication here and in ProfileModule.getInfo.
         case ModuleInterface.DOWNLOADSITE:
-            return "http://argouml-downloads.tigris.org/";
+            return "http://argouml-downloads.tigris.org/"; //$NON-NLS-1$
         default:
             return null;
         }

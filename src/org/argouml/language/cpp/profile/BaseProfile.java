@@ -155,24 +155,29 @@ public class BaseProfile {
     
     protected BaseProfile(Object projectModel) {
         this.model = projectModel;
-        InputStream inputStream = getClass().getClassLoader().
+        profile = loadProfileModels().iterator().next();
+    }
+
+    static Collection loadProfileModels() {
+        InputStream inputStream = BaseProfile.class.getClassLoader().
             getResourceAsStream(PROFILE_FILE_NAME);
         assert inputStream != null 
                 : "The resource containing the C++ UML profile can't be null.";
+        Collection elements = null;
         try {
             XmiReader xmiReader = getXmiReader();
             InputSource inputSource = new InputSource(inputStream);
             LOG.info("Loaded profile '" + PROFILE_FILE_NAME + "'");
-            Collection elements = xmiReader.parse(inputSource, true);
+            elements = xmiReader.parse(inputSource, true);
             if (elements.size() != 1) {
                 LOG.error("Error loading profile '" + PROFILE_FILE_NAME
                         + "' expected 1 top level element" + " found "
                         + elements.size());
             }
-            profile = elements.iterator().next();
         } catch (UmlException e) {
             throw new RuntimeException(e);
         }
+        return elements;
     }
 
     protected Object getCppStereotypeInModel(String stereotypeName) {

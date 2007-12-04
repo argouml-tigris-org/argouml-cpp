@@ -22,23 +22,12 @@
 // CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT,
 // UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-// Issue #0006 example of some really simple example that fails to be 
-// parsed. 
-// The problem was in the implementation of the Ctor and Dtor parsing 
-// which didn't supported definitions outside of the class definition.
+// test for issue 25 of ArgoUML C++ module.
+typedef int myThing;
 
-class Test {
-
-    public:
-        Test();
-        virtual ~Test();
-
+class blabla  {
+public:
+   myThing name() const;
 };
 
-
-Test::Test() {
-}
-
-Test::~Test() {
-}
-
+myThing blabla::name() { return 0; }

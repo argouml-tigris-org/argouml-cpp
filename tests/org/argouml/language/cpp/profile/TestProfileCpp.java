@@ -27,6 +27,7 @@ package org.argouml.language.cpp.profile;
 import static org.argouml.language.cpp.Helper.*;
 
 import java.lang.reflect.Field;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -38,6 +39,7 @@ import java.util.Set;
 import org.argouml.model.Model;
 import static org.argouml.model.Model.*;
 import org.argouml.model.UmlException;
+//import org.argouml.profile.ResourceModelLoader;
 
 import junit.framework.TestCase;
 
@@ -120,6 +122,7 @@ public class TestProfileCpp extends TestCase {
         assertTrue(stereotypes.contains(cppClassStereotype));
         assertEquals(1, Collections.frequency(stereotypes, cppClassStereotype));
         profile.applyCppClassStereotype(aClass);
+        stereotypes = getFacade().getStereotypes(aClass);
         assertEquals(1, Collections.frequency(stereotypes, cppClassStereotype));
     }
     
@@ -327,5 +330,20 @@ public class TestProfileCpp extends TestCase {
         assertNotNull(modelDocuTV);
         assertEquals(getFacade().getValueOfTag(originalDocuTV), 
                 getFacade().getValueOfTag(modelDocuTV));
+    }
+    
+    /**
+     * Tests the loading of the UML profile for C++ using the 
+     * {@link ResourceModelLoader}. 
+     * 
+     * @throws Exception when a loading error occurs.
+     */
+    public void testResourceModelLoaderFromModule() throws Exception {
+//        ResourceModelLoader loader = new ResourceModelLoader(ProfileCpp.class);
+//        URL resource = getClass().getClassLoader().getResource(
+//                "org/argouml/language/cpp/profile/CppUmlProfile.xmi");
+//        assertNotNull(resource);
+//        Collection loadedModel = loader.loadModel(resource.getPath());
+//        assertNotNull(loadedModel);
     }
 }
