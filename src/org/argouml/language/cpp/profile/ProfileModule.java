@@ -42,6 +42,9 @@ import org.argouml.profile.ProfileFacade;
  */
 public class ProfileModule implements ModuleInterface {
     
+    private static final String REVISION_DATE = 
+        "$Date$"; //$NON-NLS-1$
+
     private static final Logger LOG = Logger.getLogger(ProfileModule.class);
 
     private Profile profileCpp;
@@ -109,7 +112,7 @@ public class ProfileModule implements ModuleInterface {
                     put(ModuleInterface.DOWNLOADSITE, 
                         "http://argouml-downloads.tigris.org/"); //$NON-NLS-1$
                     put(ModuleInterface.VERSION, "Revision date: " 
-                        + "$Date$"); //$NON-NLS-1$
+                        + REVISION_DATE);
                 }
             };
         }

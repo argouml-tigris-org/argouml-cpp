@@ -55,6 +55,9 @@ import org.argouml.ui.GUI;
  */
 public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
 {
+    private static final String REVISION_DATE = 
+        "$Date$"; //$NON-NLS-1$
+
     private static final Logger LOG = Logger.getLogger(SettingsTabCpp.class);
 
     private JPanel topPanel;
@@ -224,7 +227,7 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
             return "C++ Settings";
         case ModuleInterface.VERSION:
             return "Revision date: " // TODO: i18n
-                + "$Date$"; //$NON-NLS-1$
+                + REVISION_DATE;
         // TODO: remove duplication here and in ProfileModule.getInfo.
         case ModuleInterface.DOWNLOADSITE:
             return "http://argouml-downloads.tigris.org/"; //$NON-NLS-1$
