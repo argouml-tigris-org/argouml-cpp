@@ -24,6 +24,8 @@
 
 package org.argouml.language.cpp;
 
+import java.util.Collection;
+
 import junit.framework.TestCase;
 
 import org.argouml.kernel.Project;
@@ -41,6 +43,10 @@ public class Helper {
 
     public static Object getModel() {
         return ProjectManager.getManager().getCurrentProject().getModel();
+    }
+
+    public static Collection<Object> getModels() {
+        return ProjectManager.getManager().getCurrentProject().getModels();
     }
 
     public static void newModel() {

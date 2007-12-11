@@ -107,7 +107,7 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
         setUpARealization(getAClass(), aInterface);
         setUpAGeneralization(aExtended, getAClass());
         otherClass = getFactory().buildClass("OtherClass");
-        profileCpp = new ProfileCpp(getModel());
+        profileCpp = new ProfileCpp(getModels());
     }
 
     /**

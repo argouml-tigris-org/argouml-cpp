@@ -24,13 +24,17 @@
 
 package org.argouml.language.cpp.profile;
 
-import static org.argouml.model.Model.*;
+import static org.argouml.model.Model.getCoreFactory;
+import static org.argouml.model.Model.getCoreHelper;
+import static org.argouml.model.Model.getExtensionMechanismsFactory;
+import static org.argouml.model.Model.getExtensionMechanismsHelper;
+import static org.argouml.model.Model.getFacade;
+import static org.argouml.model.Model.getXmiReader;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -47,13 +51,7 @@ import org.xml.sax.InputSource;
  * This is done by copying the stereotypes, built-ins and other model elements 
  * of the profile into the model which is being used.
  * </p>
- * <p>TODO: should extend {@link org.argouml.uml.Profile}, but, I don't
- * think that what is attempted there is possible with the limitation of 
- * ArgoUML only having one profile at a given time.
- * </p>
- * <p>TODO: discuss in the mailing list the approach I'm taking about this 
- * problem. 
- * Both the generator and the importer must use the same profile, 
+ * <p>Both the generator and the importer must use the same profile, 
  * if not we are going to make future RTE very difficult. 
  * Also, the users of the module are going to be
  * confused. 
@@ -72,10 +70,10 @@ public class BaseProfile {
 
     private static final Logger LOG = Logger.getLogger(BaseProfile.class);
 
-    private static final String PROFILE_FILE_NAME = 
+    static final String PROFILE_FILE_NAME = 
         "org/argouml/language/cpp/profile/CppUmlProfile.xmi";
     
-    private Object model;
+    private Collection<Object> models;
     
     /**
      * The C++ UML profile as loaded from CppUmlProfile.xmi.
@@ -121,10 +119,14 @@ public class BaseProfile {
      */
     public Object getBuiltIn(String typeName) {
         assert isBuiltIn(typeName) : "Must be a C++ built in!";
-        Object builtinType = findDataType(typeName, model);
+        Object builtinType = null;
+        for (Object model : models) {
+            builtinType = findDataType(typeName, model);
+            if (builtinType != null) break;
+        }
         if (builtinType == null) {
             builtinType = getCoreFactory().buildDataType(typeName, 
-                model);
+                models.iterator().next());
         }
         // copy the documentation from the profile if it exists
         Object profileDT = findDataType(typeName, profile);
@@ -152,12 +154,18 @@ public class BaseProfile {
     Object getProfile() {
         return profile;
     }
-    
-    protected BaseProfile(Object projectModel) {
-        this.model = projectModel;
+
+    protected BaseProfile(Collection<Object> theModels) {
+        this.models = theModels;
         profile = loadProfileModels().iterator().next();
     }
 
+    /**
+     * TODO: replace by the usage of the ModelLoader.load after committing 
+     * changes to StreamModelLoader.
+     * 
+     * @return the Collection containing the profile models.
+     */
     static Collection loadProfileModels() {
         InputStream inputStream = BaseProfile.class.getClassLoader().
             getResourceAsStream(PROFILE_FILE_NAME);
@@ -181,12 +189,16 @@ public class BaseProfile {
     }
 
     protected Object getCppStereotypeInModel(String stereotypeName) {
-        Object cppStereotype = getStereotype(model, stereotypeName);
+        Object cppStereotype = null;
+        for (Object model : models) {
+            cppStereotype = getStereotype(model, stereotypeName);
+            if (cppStereotype != null) break;
+        }
         if (cppStereotype == null) {
             cppStereotype = getStereotype(profile, stereotypeName);
             assert cppStereotype != null;
             Object modelStereotype = getExtensionMechanismsFactory().
-                copyStereotype(cppStereotype, model);
+                copyStereotype(cppStereotype, models.iterator().next());
             Collection tagDefinitions = getFacade().getTagDefinitions(
                     cppStereotype);
             for (Object td : tagDefinitions) {
@@ -211,7 +223,7 @@ public class BaseProfile {
 
     protected Object getTagDefinition(String stereoName, String tdName) {
         Object stereo = getCppStereotypeInModel(stereoName);
-        assert model.equals(getFacade().getModel(stereo));
+        assertModelElementContainedInModels(stereo);
         Collection tagDefinitions = getFacade().getTagDefinitions(stereo);
         for (Object tagDefinition : tagDefinitions) {
             if (tdName.equals(getFacade().getName(tagDefinition))) {
@@ -222,14 +234,24 @@ public class BaseProfile {
     }
 
     public void applyStereotype(String stereoName, Object modelElement) {
-        assert model.equals(getFacade().getModel(modelElement));
+        assertModelElementContainedInModels(modelElement);
         Object stereo = getCppStereotypeInModel(stereoName);
         getCoreHelper().addStereotype(modelElement, stereo);
     }
 
+    private void assertModelElementContainedInModels(Object modelElement) {
+        boolean contained = false;
+        for (Object model : models) {
+            contained = model.equals(getFacade().getModel(modelElement));
+            if (contained) break;
+        }
+        assert contained : "model element (" + modelElement + ") not contained "
+        		+ "in models.";
+    }
+
     public void applyTaggedValue(String stereoName, String tdName, 
             Object me, String tvv) {
-        assert model.equals(getFacade().getModel(me));
+        assertModelElementContainedInModels(me);
         assert getFacade().getStereotypes(me).contains(
                 getCppStereotypeInModel(stereoName));
         Object td = getTagDefinition(stereoName, tdName);
@@ -237,33 +259,6 @@ public class BaseProfile {
         getExtensionMechanismsHelper().setType(tv, td);
         getExtensionMechanismsHelper().setValueOfTag(tv, tvv);
         getExtensionMechanismsHelper().addTaggedValue(me, tv);
-    }
-
-    public void copyAllCppStereotypesToModel() {
-        List<String> cppStereoTypesNames = getAllCppStereotypeNames();
-        for (String cppStereotypeName : cppStereoTypesNames) {
-            getCppStereotypeInModel(cppStereotypeName);
-        }
-    }
-
-    private List<String> getAllCppStereotypeNames() {
-        List<String> cppStereotypesNames = new ArrayList<String>();
-        Collection stereotypes = getExtensionMechanismsHelper().getStereotypes(
-                profile);
-        for (Object stereotype : stereotypes) {
-            String name = getFacade().getName(stereotype);
-            if (name.startsWith("cpp"))
-                cppStereotypesNames.add(name);
-        }
-        return cppStereotypesNames;
-    }
-
-    public void copyAllDataTypesToModel() {
-        Collection dataTypes = getCoreHelper().getAllDataTypes(profile);
-        for (Object dt : dataTypes) {
-            String dtName = getFacade().getName(dt);
-            getBuiltIn(dtName);
-        }
     }
 
 }

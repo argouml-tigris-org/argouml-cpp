@@ -82,7 +82,7 @@ public class ModelerImpl implements Modeler {
     
     private Collection newElements;
     
-    private ProfileCpp profile = new ProfileCpp(getModel());
+    private ProfileCpp profile = new ProfileCpp(getModels());
 
     /*
      * @see org.argouml.language.cpp.reveng.Modeler#beginTranslationUnit()
@@ -175,6 +175,10 @@ public class ModelerImpl implements Modeler {
      */
     private static Object getModel() {
         return ProjectManager.getManager().getCurrentProject().getModel();
+    }
+    
+    private static Collection<Object> getModels() {
+        return ProjectManager.getManager().getCurrentProject().getModels();
     }
 
     /*

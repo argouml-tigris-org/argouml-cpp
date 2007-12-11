@@ -24,24 +24,30 @@
 
 package org.argouml.language.cpp.profile;
 
-import static org.argouml.language.cpp.Helper.*;
+import static org.argouml.language.cpp.Helper.getModel;
+import static org.argouml.language.cpp.Helper.getModels;
+import static org.argouml.language.cpp.Helper.newModel;
+import static org.argouml.model.Model.getCoreFactory;
+import static org.argouml.model.Model.getCoreHelper;
+import static org.argouml.model.Model.getExtensionMechanismsFactory;
+import static org.argouml.model.Model.getExtensionMechanismsHelper;
+import static org.argouml.model.Model.getFacade;
 
-import java.lang.reflect.Field;
+import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
-import org.argouml.model.Model;
-import static org.argouml.model.Model.*;
-import org.argouml.model.UmlException;
-//import org.argouml.profile.ResourceModelLoader;
 
 import junit.framework.TestCase;
+
+import org.argouml.kernel.Project;
+import org.argouml.kernel.ProjectManager;
+import org.argouml.model.Model;
+import org.argouml.model.UmlException;
+import org.argouml.profile.Profile;
+import org.argouml.profile.ResourceModelLoader;
 
 /**
  * The tests for the C++ UML profile and its helper classes {@link ProfileCpp} 
@@ -61,7 +67,7 @@ public class TestProfileCpp extends TestCase {
     protected void setUp() throws Exception {
         newModel();
         model = Model.getModelManagementFactory().getRootModel();
-        profile = new ProfileCpp(model);
+        profile = new ProfileCpp(getModels());
         aClass = getCoreFactory().buildClass("AClass", getModel());
         attribute = getCoreFactory().buildAttribute2(aClass, aClass);
         operation = getCoreFactory().buildOperation2(aClass, 
@@ -80,7 +86,7 @@ public class TestProfileCpp extends TestCase {
     public void testGetVirtualInheritanceTagDefinition() throws Exception {
         Object tagDefinition = profile.getVirtualInheritanceTagDefinition();
         assertNotNull(tagDefinition);
-        assertEquals(model, getFacade().getModel(tagDefinition));
+        assertTrue(getModels().contains(getFacade().getModel(tagDefinition)));
     }
     
     public void testGetCppClassStereotype() throws Exception {
@@ -103,7 +109,7 @@ public class TestProfileCpp extends TestCase {
     void validateCppStereotypeGetter(Object stereotype, String stereoName) {
         assertNotNull(stereotype);
         assertEquals(stereoName, getFacade().getName(stereotype));
-        assertEquals(model, getFacade().getModel(stereotype));
+        assertTrue(getModels().contains(getFacade().getModel(stereotype)));
         Collection tagDefinitions = getFacade().getTagDefinitions(stereotype);
         assertNotNull(tagDefinitions);
         assertTrue(tagDefinitions.size() > 0);
@@ -112,7 +118,7 @@ public class TestProfileCpp extends TestCase {
     public void testGetClassSpecifierTagDefinition() throws Exception {
         Object tagDefinition = profile.getClassSpecifierTagDefinition();
         assertNotNull(tagDefinition);
-        assertEquals(model, getFacade().getModel(tagDefinition));
+        assertTrue(getModels().contains(getFacade().getModel(tagDefinition)));
     }
     
     public void testApplyCppClassStereotype() throws Exception {
@@ -203,63 +209,6 @@ public class TestProfileCpp extends TestCase {
                 getFacade().getType(taggedValue));
         assertEquals("true", getFacade().getValueOfTag(taggedValue));
     }
-
-    @SuppressWarnings("serial")
-    public void testCopyAllCppStereotypesToModel() throws Exception {
-        profile.copyAllCppStereotypesToModel();
-        Collection stereotypes = getExtensionMechanismsHelper().getStereotypes(
-                getModel());
-        // Initialize a Map with the names of the C++ stereotypes contained in 
-        // the profile with all values false.
-        // NOTE: uses initializer block syntax, described in 
-        // http://java.sun.com/docs/books/tutorial/java/javaOO/initial.html
-        Map<String, Boolean> stereotypesFoundMap = new 
-        HashMap<String, Boolean>() { {
-                Field[] fields = ProfileCpp.class.getDeclaredFields();
-                List<String> stereoNames = new ArrayList<String>();
-                for (Field field : fields) {
-                    if (field.getName().contains("STEREO_NAME_"))
-                        stereoNames.add((String) field.get(null));
-                }
-                for (String stereoName : stereoNames) {
-                    put(stereoName, false);
-                }
-            } 
-        };
-        for (Object stereotype : stereotypes) {
-            String stereoName = getFacade().getName(stereotype);
-            if (stereotypesFoundMap.containsKey(stereoName)) {
-                stereotypesFoundMap.put(stereoName, true);
-            }
-        }
-        Set<String> stereotypeNames = stereotypesFoundMap.keySet();
-        for (String stereotypeName : stereotypeNames) {
-            assertTrue("Stereotype " + stereotypeName + " not found in model!",
-                    stereotypesFoundMap.get(stereotypeName));
-        }
-    }
-    
-    @SuppressWarnings("serial")
-    public void testCopyAllDataTypesToModel() {
-        profile.copyAllDataTypesToModel();
-        Collection dataTypes = getCoreHelper().getAllDataTypes(model);
-        Map<String, Integer> dtNames2Check = new HashMap<String, Integer>() { {
-                put("__int64", 0);
-                put("signed", 0);
-                put("int", 0);
-            } 
-        };
-        for (Object dt : dataTypes) {
-            String dtName = getFacade().getName(dt);
-            if (dtNames2Check.containsKey(dtName))
-                dtNames2Check.put(dtName, dtNames2Check.get(dtName) + 1);
-        }
-        for (String dtName : dtNames2Check.keySet()) {
-            assertEquals("DataType " + dtName 
-                    + " found in model with different number than expected!", 
-                    1, (int) dtNames2Check.get(dtName));
-        }
-    }
     
     public void testGetBuiltIn() {
         String longDouble = "long double";
@@ -339,11 +288,46 @@ public class TestProfileCpp extends TestCase {
      * @throws Exception when a loading error occurs.
      */
     public void testResourceModelLoaderFromModule() throws Exception {
-//        ResourceModelLoader loader = new ResourceModelLoader(ProfileCpp.class);
-//        URL resource = getClass().getClassLoader().getResource(
-//                "org/argouml/language/cpp/profile/CppUmlProfile.xmi");
-//        assertNotNull(resource);
-//        Collection loadedModel = loader.loadModel(resource.getPath());
-//        assertNotNull(loadedModel);
+        ResourceModelLoader loader = new ResourceModelLoader(getClass());
+        String profileFileName = BaseProfile.PROFILE_FILE_NAME;
+        URL resource = getClass().getClassLoader().getResource(
+                profileFileName);
+        assertNotNull(resource);
+        Collection loadedModel = null;
+        InputStream profileInputStream = null;
+        try {
+            profileInputStream = getClass().getClassLoader().
+                getResourceAsStream(profileFileName);
+            loadedModel = loader.loadModel(profileInputStream);
+        } finally {
+            if (profileInputStream != null)
+                profileInputStream.close();
+        }
+        // TODO: The following doesn't work both in Eclipse and in Ant. I will 
+        // leave it here for illustration purposes.
+        //loadedModel = loader.loadModel(profileFileName);
+        assertNotNull(loadedModel);
+    }
+    
+    public void testCtorWithModelCollectionAndProfiles() {
+        Project proj = ProjectManager.getManager().getCurrentProject();
+        NormalProfileCpp normalProfileCpp = new NormalProfileCpp();
+        boolean cppProfileApplied = false;
+        for (Profile p : proj.getProfileConfiguration().getProfiles()) {
+            if (p.getDisplayName().equals(normalProfileCpp.getDisplayName())) {
+                cppProfileApplied = true;
+            }
+        }
+        if (!cppProfileApplied)
+            proj.getProfileConfiguration().addProfile(normalProfileCpp);
+        
+        ProfileCpp profileCpp = new ProfileCpp(proj.getModels());
+        profileCpp.applyCppOperationStereotype(operation);
+        Collection stereotypes = Model.getExtensionMechanismsHelper().
+            getStereotypes(Model.getModelManagementFactory().getRootModel());
+        for (Object stereotype : stereotypes) {
+            assertFalse(ProfileCpp.STEREO_NAME_OPERATION.equals( 
+                    Model.getFacade().getName(stereotype)));
+        }
     }
 }

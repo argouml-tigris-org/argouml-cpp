@@ -33,7 +33,6 @@ import java.awt.Insets;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -138,12 +137,6 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
         panel.add(headerGuardGUID, constraints);
 
         // TODO: add more options
-        JButton copyProfile = new JButton(new CopyCppProfileToModelAction());
-        copyProfile.setText(Translator.localize("cpp.copy.profile.to.model"));
-        JPanel copyProfilePanel =
-            new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 2));
-        copyProfilePanel.add(copyProfile);
-        panel.add(copyProfilePanel, constraints);
 
         top.add(panel, BorderLayout.NORTH);
 
@@ -252,7 +245,5 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
     public boolean disable() {
         return false;
     }
-
-
 
 }
