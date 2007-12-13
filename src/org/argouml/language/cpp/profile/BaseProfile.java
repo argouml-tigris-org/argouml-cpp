@@ -32,7 +32,6 @@ import static org.argouml.model.Model.getFacade;
 import static org.argouml.model.Model.getXmiReader;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
