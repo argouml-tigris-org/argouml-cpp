@@ -36,6 +36,7 @@ import junit.framework.TestSuite;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.argouml.language.cpp.Helper;
 import org.argouml.model.Model;
 import static org.argouml.model.Model.*;
 import org.argouml.model.UUIDManager;
@@ -88,16 +89,6 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
     }
 
     /**
-     * System temporary directory property name.
-     */
-    static final String SYSPROPNAME_TMPDIR = "java.io.tmpdir";
-
-    /**
-     * Path of the temporary directory in the system.
-     */
-    private File tmpDir;
-
-    /**
      * Directory to be deleted on tearDown if not null.
      */
     private File genDir;
@@ -124,8 +115,6 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
         Object aPackage = Model.getModelManagementFactory().buildPackage(
                 packageName, UUIDManager.getInstance().getNewUUID());
         Model.getCoreHelper().setNamespace(getAClass(), aPackage);
-
-        tmpDir = new File(System.getProperty(SYSPROPNAME_TMPDIR));
     }
 
     /**
@@ -133,22 +122,7 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
      * @see junit.framework.TestCase#tearDown()
      */
     protected void tearDown() throws IOException {
-        if (genDir != null && genDir.exists()) {
-            FileUtils.deleteDirectory(genDir);
-        }
-    }
-
-    /**
-     * Setup a directory with the given name for the caller test.
-     * 
-     * @param dirName
-     *            the directory to be created in the system temporary dir
-     * @return the created directory
-     */
-    private File setUpDirectory4Test(String dirName) {
-        File generationDir = new File(tmpDir, dirName);
-        generationDir.mkdirs();
-        return generationDir;
+        Helper.deleteDir(genDir);
     }
 
     /**
@@ -185,7 +159,7 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
      *             some unexpected file access problem occurred
      */
     public void testGenerateAfterModifyAndIssue2828() throws IOException {
-        genDir = setUpDirectory4Test("testIssue2828");
+        genDir = Helper.setUpDir4Test("testIssue2828");
         // enable sections, in case they were disabled
         getGenerator().setUseSect(Section.SECT_NORMAL);
         // generate the classifier for the first time in temp dir
@@ -283,7 +257,7 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
      */
     private String generateAClassFile(String testName, boolean header)
         throws IOException {
-        genDir = setUpDirectory4Test(testName);
+        genDir = Helper.setUpDir4Test(testName);
         File genFile = generateFile(getAClass(), header ? ".h" : ".cpp");
         assertNotNull(genFile);
         assertTrue(genFile.exists());
