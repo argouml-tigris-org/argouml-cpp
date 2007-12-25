@@ -37,6 +37,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.argouml.model.Model;
 import org.argouml.model.UmlException;
 import org.argouml.model.XmiReader;
 import org.xml.sax.InputSource;
@@ -125,7 +126,7 @@ public class BaseProfile {
         }
         if (builtinType == null) {
             builtinType = getCoreFactory().buildDataType(typeName, 
-                models.iterator().next());
+                Model.getModelManagementFactory().getRootModel());
         }
         // copy the documentation from the profile if it exists
         Object profileDT = findDataType(typeName, profile);
