@@ -66,7 +66,10 @@ import org.xml.sax.InputSource;
  */
 public class BaseProfile {
 
-    static final String TV_NAME_DOCUMENTATION = "documentation";
+    /**
+     * The name of the documentation Tagged Value. 
+     */
+    public static final String TV_NAME_DOCUMENTATION = "documentation";
 
     private static final Logger LOG = Logger.getLogger(BaseProfile.class);
 
@@ -133,13 +136,27 @@ public class BaseProfile {
         Object dtDocuTV = getFacade().getTaggedValue(profileDT, 
                 TV_NAME_DOCUMENTATION);
         if (dtDocuTV != null) {
+            Object tdDocumentation = getTagDefinition(TV_NAME_DOCUMENTATION);
             Object modelDTDocuTV = getExtensionMechanismsFactory().
-                buildTaggedValue(TV_NAME_DOCUMENTATION, 
-                    getFacade().getValueOfTag(dtDocuTV));
+                buildTaggedValue(tdDocumentation, 
+                    new String[] {getFacade().getValueOfTag(dtDocuTV)});
             getExtensionMechanismsHelper().addTaggedValue(builtinType, 
                     modelDTDocuTV);
         }
         return builtinType;
+    }
+
+    public static Object getTagDefinition(String tdName) {
+        Collection tagDefinitions = Model.getModelManagementHelper().
+            getAllModelElementsOfKindWithModel(
+                    Model.getModelManagementFactory().getRootModel(), 
+                    Model.getMetaTypes().getTagDefinition());
+        for (Object td : tagDefinitions) {
+            if (tdName.equals(getFacade().getName(td)))
+                return td;
+        }
+        return Model.getExtensionMechanismsFactory().buildTagDefinition(tdName, 
+                null, Model.getModelManagementFactory().getRootModel());
     }
 
     static Object findDataType(String typeName, Object model2) {
@@ -257,7 +274,7 @@ public class BaseProfile {
         Object td = getTagDefinition(stereoName, tdName);
         Object tv = getExtensionMechanismsFactory().createTaggedValue();
         getExtensionMechanismsHelper().setType(tv, td);
-        getExtensionMechanismsHelper().setValueOfTag(tv, tvv);
+        getExtensionMechanismsHelper().setDataValues(tv, new String[] {tvv});
         getExtensionMechanismsHelper().addTaggedValue(me, tv);
     }
 

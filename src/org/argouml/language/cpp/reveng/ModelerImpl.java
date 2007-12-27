@@ -174,7 +174,7 @@ public class ModelerImpl implements Modeler {
      * @return the model
      */
     private static Object getModel() {
-        return ProjectManager.getManager().getCurrentProject().getModel();
+        return Model.getModelManagementFactory().getRootModel();
     }
     
     private static Collection<Object> getModels() {
@@ -665,9 +665,9 @@ public class ModelerImpl implements Modeler {
      */
     public void beginPtrOperator() {
         if (!ignore()) {
-            Object ptrTV =
-		Model.getExtensionMechanismsFactory()
-                    .buildTaggedValue("dummy", "");
+            Object ptrTV = Model.getExtensionMechanismsFactory().
+                buildTaggedValue(ProfileCpp.getTagDefinition("dummy"), 
+                    new String[] {""});
             contextStack.push(ptrTV);
         }
     }

@@ -37,6 +37,7 @@ import junit.framework.TestSuite;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.argouml.language.cpp.Helper;
+import org.argouml.language.cpp.profile.ProfileCpp;
 import org.argouml.model.Model;
 import static org.argouml.model.Model.*;
 import org.argouml.model.UUIDManager;
@@ -416,7 +417,10 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
      */
     public void testSetNullTagDefinition4TVIsDetectedIssue4393() {
         Object documentationTV = Model.getExtensionMechanismsFactory()
-                .buildTaggedValue("documentation", "docs");
+                .buildTaggedValue(
+                    ProfileCpp.getTagDefinition(
+                        ProfileCpp.TV_NAME_DOCUMENTATION), 
+                    new String[] {"docs"});
         Object documentationTD = Model.getFacade().getTagDefinition(
                 documentationTV);
         assertNotNull(documentationTD);
@@ -441,7 +445,10 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
     private void assertGenerateAClassFileWithNullTaggedValueTag(
             final String testName, Object me) throws IOException {
         Object documentationTV = getExtensionMechanismsFactory()
-                .buildTaggedValue("documentation", "docs");
+                .buildTaggedValue(
+                    ProfileCpp.getTagDefinition(
+                        ProfileCpp.TV_NAME_DOCUMENTATION), 
+                    new String[] {"docs"});
         getExtensionMechanismsHelper().addTaggedValue(me, documentationTV);
     	assertEquals(1, 
     			Model.getFacade().getTaggedValuesCollection(me).size());

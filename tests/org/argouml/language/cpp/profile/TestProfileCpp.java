@@ -267,8 +267,9 @@ public class TestProfileCpp extends TestCase {
         Object originalDT = ProfileCpp.findDataType("int", 
                 profile.getProfile());
         Object originalDocuTV = getExtensionMechanismsFactory().
-            buildTaggedValue(ProfileCpp.TV_NAME_DOCUMENTATION, 
-                "the C++ standard integer built-in type");
+            buildTaggedValue(
+                profile.getTagDefinition(ProfileCpp.TV_NAME_DOCUMENTATION), 
+                new String[] {"the C++ standard integer built-in type"});
         getExtensionMechanismsHelper().addTaggedValue(originalDT, 
                 originalDocuTV);
         
