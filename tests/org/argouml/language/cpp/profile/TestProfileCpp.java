@@ -295,15 +295,10 @@ public class TestProfileCpp extends TestCase {
                 profileFileName);
         assertNotNull(resource);
         Collection loadedModel = null;
-        InputStream profileInputStream = null;
-        try {
-            profileInputStream = getClass().getClassLoader().
-                getResourceAsStream(profileFileName);
-            loadedModel = loader.loadModel(profileInputStream);
-        } finally {
-            if (profileInputStream != null)
-                profileInputStream.close();
-        }
+        URL profileResource =
+                getClass().getClassLoader().getResource(profileFileName);
+        loadedModel = loader.loadModel(profileResource);
+
         // TODO: The following doesn't work both in Eclipse and in Ant. I will 
         // leave it here for illustration purposes.
         //loadedModel = loader.loadModel(profileFileName);

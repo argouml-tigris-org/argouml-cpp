@@ -29,14 +29,15 @@ import static org.argouml.model.Model.getCoreHelper;
 import static org.argouml.model.Model.getExtensionMechanismsFactory;
 import static org.argouml.model.Model.getExtensionMechanismsHelper;
 import static org.argouml.model.Model.getFacade;
-import static org.argouml.model.Model.getXmiReader;
 
-import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.argouml.profile.ProfileException;
+import org.argouml.profile.ProfileModelLoader;
+import org.argouml.profile.ResourceModelLoader;
 import org.argouml.model.Model;
 import org.argouml.model.UmlException;
 import org.argouml.model.XmiReader;
@@ -74,7 +75,7 @@ public class BaseProfile {
     private static final Logger LOG = Logger.getLogger(BaseProfile.class);
 
     static final String PROFILE_FILE_NAME = 
-        "org/argouml/language/cpp/profile/CppUmlProfile.xmi";
+        "/org/argouml/language/cpp/profile/CppUmlProfile.xmi";
     
     private Collection<Object> models;
     
@@ -178,28 +179,14 @@ public class BaseProfile {
     }
 
     /**
-     * TODO: replace by the usage of the ModelLoader.load after committing 
-     * changes to StreamModelLoader.
-     * 
      * @return the Collection containing the profile models.
      */
     static Collection loadProfileModels() {
-        InputStream inputStream = BaseProfile.class.getClassLoader().
-            getResourceAsStream(PROFILE_FILE_NAME);
-        assert inputStream != null 
-                : "The resource containing the C++ UML profile can't be null.";
-        Collection elements = null;
+        ProfileModelLoader profileModelLoader = new ResourceModelLoader();
+        Collection elements;
         try {
-            XmiReader xmiReader = getXmiReader();
-            InputSource inputSource = new InputSource(inputStream);
-            LOG.info("Loaded profile '" + PROFILE_FILE_NAME + "'");
-            elements = xmiReader.parse(inputSource, true);
-            if (elements.size() != 1) {
-                LOG.error("Error loading profile '" + PROFILE_FILE_NAME
-                        + "' expected 1 top level element" + " found "
-                        + elements.size());
-            }
-        } catch (UmlException e) {
+            elements = profileModelLoader.loadModel(PROFILE_FILE_NAME);
+        } catch (ProfileException e) {
             throw new RuntimeException(e);
         }
         return elements;
