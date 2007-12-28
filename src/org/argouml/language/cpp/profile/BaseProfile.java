@@ -34,23 +34,16 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
 import org.argouml.profile.ProfileException;
 import org.argouml.profile.ProfileModelLoader;
 import org.argouml.profile.ResourceModelLoader;
 import org.argouml.model.Model;
-import org.argouml.model.UmlException;
-import org.argouml.model.XmiReader;
-import org.xml.sax.InputSource;
 
 /**
  * <p>A class that facilitates access to the UML profile for C++ 
  * (CppUmlProfile.xmi). 
- * It also provides means to overcome the current 
- * limitation of ArgoUML that prevents the existance of two models in one 
- * project.
- * This is done by copying the stereotypes, built-ins and other model elements 
- * of the profile into the model which is being used.
+ * This is done by facilitating the use of the stereotypes, built-ins 
+ * and other model elements of the profile in the model which is being used.
  * </p>
  * <p>Both the generator and the importer must use the same profile, 
  * if not we are going to make future RTE very difficult. 
@@ -71,8 +64,6 @@ public class BaseProfile {
      * The name of the documentation Tagged Value. 
      */
     public static final String TV_NAME_DOCUMENTATION = "documentation";
-
-    private static final Logger LOG = Logger.getLogger(BaseProfile.class);
 
     static final String PROFILE_FILE_NAME = 
         "/org/argouml/language/cpp/profile/CppUmlProfile.xmi";
@@ -182,7 +173,8 @@ public class BaseProfile {
      * @return the Collection containing the profile models.
      */
     static Collection loadProfileModels() {
-        ProfileModelLoader profileModelLoader = new ResourceModelLoader();
+        ProfileModelLoader profileModelLoader = new ResourceModelLoader(
+                BaseProfile.class);
         Collection elements;
         try {
             elements = profileModelLoader.loadModel(PROFILE_FILE_NAME);

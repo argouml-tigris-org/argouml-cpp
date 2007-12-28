@@ -33,8 +33,6 @@ import static org.argouml.model.Model.getExtensionMechanismsFactory;
 import static org.argouml.model.Model.getExtensionMechanismsHelper;
 import static org.argouml.model.Model.getFacade;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -268,7 +266,7 @@ public class TestProfileCpp extends TestCase {
                 profile.getProfile());
         Object originalDocuTV = getExtensionMechanismsFactory().
             buildTaggedValue(
-                profile.getTagDefinition(ProfileCpp.TV_NAME_DOCUMENTATION), 
+                ProfileCpp.getTagDefinition(ProfileCpp.TV_NAME_DOCUMENTATION), 
                 new String[] {"the C++ standard integer built-in type"});
         getExtensionMechanismsHelper().addTaggedValue(originalDT, 
                 originalDocuTV);
@@ -290,19 +288,7 @@ public class TestProfileCpp extends TestCase {
      */
     public void testResourceModelLoaderFromModule() throws Exception {
         ResourceModelLoader loader = new ResourceModelLoader(getClass());
-        String profileFileName = BaseProfile.PROFILE_FILE_NAME;
-        URL resource = getClass().getClassLoader().getResource(
-                profileFileName);
-        assertNotNull(resource);
-        Collection loadedModel = null;
-        URL profileResource =
-                getClass().getClassLoader().getResource(profileFileName);
-        loadedModel = loader.loadModel(profileResource);
-
-        // TODO: The following doesn't work both in Eclipse and in Ant. I will 
-        // leave it here for illustration purposes.
-        //loadedModel = loader.loadModel(profileFileName);
-        assertNotNull(loadedModel);
+        assertNotNull(loader.loadModel(BaseProfile.PROFILE_FILE_NAME));
     }
     
     public void testCtorWithModelCollectionAndProfiles() {
