@@ -32,6 +32,7 @@ import static org.argouml.model.Model.getCoreHelper;
 import static org.argouml.model.Model.getExtensionMechanismsFactory;
 import static org.argouml.model.Model.getExtensionMechanismsHelper;
 import static org.argouml.model.Model.getFacade;
+import static org.argouml.model.Model.getModelManagementFactory;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -64,7 +65,7 @@ public class TestProfileCpp extends TestCase {
 
     protected void setUp() throws Exception {
         newModel();
-        model = Model.getModelManagementFactory().getRootModel();
+        model = getModelManagementFactory().getRootModel();
         profile = new ProfileCpp(getModels());
         aClass = getCoreFactory().buildClass("AClass", getModel());
         attribute = getCoreFactory().buildAttribute2(aClass, aClass);
@@ -76,7 +77,7 @@ public class TestProfileCpp extends TestCase {
 
     public void testCtorHappyPath() throws UmlException {
         assertNotNull(model);
-        assertTrue(Model.getFacade().isAModel(model));
+        assertTrue(getFacade().isAModel(model));
         assertNotNull(profile);
         assertNotNull(profile.getProfile());
     }
@@ -305,8 +306,8 @@ public class TestProfileCpp extends TestCase {
         
         ProfileCpp profileCpp = new ProfileCpp(proj.getModels());
         profileCpp.applyCppOperationStereotype(operation);
-        Collection stereotypes = Model.getExtensionMechanismsHelper().
-            getStereotypes(Model.getModelManagementFactory().getRootModel());
+        Collection stereotypes = getExtensionMechanismsHelper().
+            getStereotypes(getModelManagementFactory().getRootModel());
         for (Object stereotype : stereotypes) {
             assertFalse(ProfileCpp.STEREO_NAME_OPERATION.equals( 
                     Model.getFacade().getName(stereotype)));

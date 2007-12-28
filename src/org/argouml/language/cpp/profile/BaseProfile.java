@@ -29,6 +29,8 @@ import static org.argouml.model.Model.getCoreHelper;
 import static org.argouml.model.Model.getExtensionMechanismsFactory;
 import static org.argouml.model.Model.getExtensionMechanismsHelper;
 import static org.argouml.model.Model.getFacade;
+import static org.argouml.model.Model.getModelManagementFactory;
+import static org.argouml.model.Model.getModelManagementHelper;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -121,7 +123,7 @@ public class BaseProfile {
         }
         if (builtinType == null) {
             builtinType = getCoreFactory().buildDataType(typeName, 
-                Model.getModelManagementFactory().getRootModel());
+                getModelManagementFactory().getRootModel());
         }
         // copy the documentation from the profile if it exists
         Object profileDT = findDataType(typeName, profile);
@@ -139,16 +141,16 @@ public class BaseProfile {
     }
 
     public static Object getTagDefinition(String tdName) {
-        Collection tagDefinitions = Model.getModelManagementHelper().
+        Collection tagDefinitions = getModelManagementHelper().
             getAllModelElementsOfKindWithModel(
-                    Model.getModelManagementFactory().getRootModel(), 
+                    getModelManagementFactory().getRootModel(), 
                     Model.getMetaTypes().getTagDefinition());
         for (Object td : tagDefinitions) {
             if (tdName.equals(getFacade().getName(td)))
                 return td;
         }
-        return Model.getExtensionMechanismsFactory().buildTagDefinition(tdName, 
-                null, Model.getModelManagementFactory().getRootModel());
+        return getExtensionMechanismsFactory().buildTagDefinition(tdName, 
+                null, getModelManagementFactory().getRootModel());
     }
 
     static Object findDataType(String typeName, Object model2) {
