@@ -29,6 +29,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.UUID;
 import java.util.Vector;
 
 import junit.framework.Test;
@@ -336,12 +337,25 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
     public void testMultipleInclusionGuardAndIssue3053() throws IOException {
         final String testName = "testMultipleInclusionGuardAndIssue3053";
         setUpNamespaces(testName);
-
+        
+        /**
+         * Don't test headers with header guard GUID option enabled
+         * because test always will be failing (GUIDs will be different).
+         */
+        getGenerator().setHeaderGuardGUID(false); 
+        
         String genH = generateAClassFile(testName, true).trim();
         String guard = Model.getFacade().getName(getPack()) + "_"
                 + Model.getFacade().getName(getAClass()) + "_h";
+       
+        if (getGenerator().isHeaderGuardUpperCase()) {
+            guard = guard.toUpperCase();
+        }
+        
         String re = "(?m)(?s)\\s*#\\s*ifndef\\s+" + guard
-                + "\\s*^\\s*#\\s*define\\s+" + guard + "\\s.*^\\s*#\\s*endif.*";
+                + "\\s*^\\s*#\\s*define\\s+" + guard + "\\s.*^\\s*#\\s*endif"
+                + "\\s*//\\s+" + guard + ".*";
+        
         if (!genH.matches(re)) {
             LOG.info("generated header was:\n" + genH);
         }
