@@ -22,55 +22,33 @@
 // CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT,
 // UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-package org.argouml.language.cpp.ui;
-
-import java.awt.event.ActionEvent;
-import java.beans.PropertyChangeListener;
-
-import javax.swing.Action;
-
-import org.argouml.kernel.ProjectManager;
-import org.argouml.language.cpp.profile.ProfileCpp;
-import org.argouml.model.Model;
-
-/**
- * Copies the stereotypes from the UML Profile for C++ into the model.
- * 
- * @author Luis Sergio Oliveira (euluis)
- * @since 0.25.3
- * @see issue 3771 (http://argouml.tigris.org/issues/show_bug.cgi?id=3771)
- */
-public class CopyCppProfileToModelAction implements Action {
-
-    public void addPropertyChangeListener(PropertyChangeListener arg0) {
-    }
-
-    public Object getValue(String arg0) {
-        return null;
-    }
-
-    public boolean isEnabled() {
-        return getModel() != null;
-    }
-
-    private Object getModel() {
-        return Model.getModelManagementFactory().getRootModel();
-    }
-
-    public void putValue(String arg0, Object arg1) {
-    }
-
-    public void removePropertyChangeListener(PropertyChangeListener arg0) {
-    }
-
-    public void setEnabled(boolean arg0) {
-    }
-
-    public void actionPerformed(ActionEvent arg0) {
-        ProfileCpp profileCpp = new ProfileCpp(getModel());
-        profileCpp.copyAllCppStereotypesToModel();
-        profileCpp.copyAllDataTypesToModel();
-        ProjectManager.getManager().setSaveEnabled(true);
-    }
-
-}
+// Test for issue #4932 of ArgoUML issue DB. 
+class CBraceNode {
+    public:
+        CBraceNode * pnext;
+        int lineNumber, columnNumber, ch;
+        CBraceNode() {
+            lineNumber=0;
+            columnNumber=0;
+            ch=0;
+            pnext=NULL;
+        }
+        CBraceNode(int ln, int col, int c, CBraceNode * next) {
+            lineNumber=ln;
+            columnNumber=col;
+            ch=c;
+            pnext=next;
+        }
+        int lineNum() {
+            return lineNumber;
+        }
+        int colNum() {
+            return columnNumber;
+        }
+        int c(){
+            return ch;
+        }
+        CBraceNode * next() {
+            return pnext;
+        }
+};

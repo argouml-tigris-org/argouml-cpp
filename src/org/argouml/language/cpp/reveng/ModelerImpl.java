@@ -82,7 +82,7 @@ public class ModelerImpl implements Modeler {
     
     private Collection newElements;
     
-    private ProfileCpp profile = new ProfileCpp(getModel());
+    private ProfileCpp profile = new ProfileCpp(getModels());
 
     /*
      * @see org.argouml.language.cpp.reveng.Modeler#beginTranslationUnit()
@@ -174,7 +174,11 @@ public class ModelerImpl implements Modeler {
      * @return the model
      */
     private static Object getModel() {
-        return ProjectManager.getManager().getCurrentProject().getModel();
+        return Model.getModelManagementFactory().getRootModel();
+    }
+    
+    private static Collection<Object> getModels() {
+        return ProjectManager.getManager().getCurrentProject().getModels();
     }
 
     /*
@@ -661,9 +665,9 @@ public class ModelerImpl implements Modeler {
      */
     public void beginPtrOperator() {
         if (!ignore()) {
-            Object ptrTV =
-		Model.getExtensionMechanismsFactory()
-                    .buildTaggedValue("dummy", "");
+            Object ptrTV = Model.getExtensionMechanismsFactory().
+                buildTaggedValue(ProfileCpp.getTagDefinition("dummy"), 
+                    new String[] {""});
             contextStack.push(ptrTV);
         }
     }

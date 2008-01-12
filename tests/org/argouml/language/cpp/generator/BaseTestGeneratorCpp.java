@@ -94,7 +94,7 @@ class BaseTestGeneratorCpp extends TestCase {
         aClass = factory.buildClass("AClass");
 
         Object me = getAClass();
-        profile = new ProfileCpp(getModel());
+        profile = new ProfileCpp(getModels());
         Object voidType = profile.getBuiltIn("void");
         fooMethod = buildOperation(me, voidType, "foo");
     }
@@ -140,6 +140,13 @@ class BaseTestGeneratorCpp extends TestCase {
      */
     protected Object getModel() {
         return Helper.getModel();
+    }
+
+    /**
+     * @return the model models
+     */
+    protected Collection<Object> getModels() {
+        return Helper.getModels();
     }
 
     /**

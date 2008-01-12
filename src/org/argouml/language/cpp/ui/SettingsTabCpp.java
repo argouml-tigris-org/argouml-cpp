@@ -33,7 +33,6 @@ import java.awt.Insets;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -55,6 +54,9 @@ import org.argouml.ui.GUI;
  */
 public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
 {
+    private static final String REVISION_DATE = 
+        "$Date$"; //$NON-NLS-1$
+
     private static final Logger LOG = Logger.getLogger(SettingsTabCpp.class);
 
     private JPanel topPanel;
@@ -135,12 +137,6 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
         panel.add(headerGuardGUID, constraints);
 
         // TODO: add more options
-        JButton copyProfile = new JButton(new CopyCppProfileToModelAction());
-        copyProfile.setText(Translator.localize("cpp.copy.profile.to.model"));
-        JPanel copyProfilePanel =
-            new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 2));
-        copyProfilePanel.add(copyProfile);
-        panel.add(copyProfilePanel, constraints);
 
         top.add(panel, BorderLayout.NORTH);
 
@@ -218,14 +214,16 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
     public String getInfo(int type) {
         switch (type) {
         case ModuleInterface.AUTHOR:
-            return "Daniele Tamino";
+            return "Daniele Tamino"; //$NON-NLS-1$
         case ModuleInterface.DESCRIPTION:
+            // TODO: i18n
             return "C++ Settings";
         case ModuleInterface.VERSION:
-            return "Revision date: " 
-                + "$Date$";
+            return "Revision date: " // TODO: i18n
+                + REVISION_DATE;
+        // TODO: remove duplication here and in ProfileModule.getInfo.
         case ModuleInterface.DOWNLOADSITE:
-            return "http://argouml-downloads.tigris.org/";
+            return "http://argouml-downloads.tigris.org/"; //$NON-NLS-1$
         default:
             return null;
         }
@@ -247,7 +245,5 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
     public boolean disable() {
         return false;
     }
-
-
 
 }

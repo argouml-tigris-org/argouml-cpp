@@ -24,6 +24,7 @@
 
 package org.argouml.language.cpp.profile;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -220,9 +221,9 @@ public class ProfileCpp extends BaseProfile {
      * <code>GeneratorCpp</code>.
      */
     public static final String TV_NAME_INLINE = "inline";
-    
-    public ProfileCpp(Object projectModel) {
-        super(projectModel);
+
+    public ProfileCpp(Collection<Object> models) {
+        super(models);
     }
 
     public Object getCppClassStereotype() {

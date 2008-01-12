@@ -73,8 +73,12 @@ class AssociationEndHandler {
                     }
                 }
                 if (addPtrTV) {
+                    ProfileCpp.getTagDefinition(ProfileCpp.TV_NAME_POINTER);
                     Object ptrTV = getExtensionMechanismsFactory().
-                        buildTaggedValue(ProfileCpp.TV_NAME_POINTER, "true");
+                        buildTaggedValue(
+                            ProfileCpp.getTagDefinition(
+                                ProfileCpp.TV_NAME_POINTER), 
+                            new String[] {"true"});
                     getExtensionMechanismsHelper().addTaggedValue(
                             otherAE, ptrTV);
                     modifiedObjects.add(new Object[] {otherAE, ptrTV});

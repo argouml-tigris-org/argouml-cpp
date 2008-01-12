@@ -24,12 +24,18 @@
 
 package org.argouml.language.cpp;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Collection;
+
 import junit.framework.TestCase;
 
+import org.apache.commons.io.FileUtils;
 import org.argouml.kernel.Project;
 import org.argouml.kernel.ProjectManager;
 import org.argouml.model.Model;
 import org.argouml.model.ModelImplementation;
+import org.argouml.profile.init.InitProfileSubsystem;
 
 /**
  * An Helper for test classes.
@@ -39,7 +45,12 @@ import org.argouml.model.ModelImplementation;
 public class Helper {
 
     public static Object getModel() {
-        return ProjectManager.getManager().getCurrentProject().getModel();
+        return ProjectManager.getManager().getCurrentProject().
+            getModels().iterator().next();
+    }
+
+    public static Collection<Object> getModels() {
+        return ProjectManager.getManager().getCurrentProject().getModels();
     }
 
     public static void newModel() {
@@ -48,6 +59,7 @@ public class Helper {
 
     public static Project createProject() {
         ensureModelSubsystemInitialized();
+        new InitProfileSubsystem().init();
         return ProjectManager.getManager().makeEmptyProject();
     }
     
@@ -91,4 +103,40 @@ public class Helper {
         return impl;
     }
 
+    public static void assertNotEmpty(String string) {
+        TestCase.assertNotNull(
+            "Ha! The freaking string is null and you're asking about its " 
+            + "emptyness!", string);
+        TestCase.assertTrue("The string size must be bigger than 0.", 
+                string.length() > 0);
+    }
+
+    /**
+     * System temporary directory property name.
+     */
+    public static final String SYSPROPNAME_TMPDIR = "java.io.tmpdir";
+
+
+    public static File getTmpDir() {
+        return new File(System.getProperty(Helper.SYSPROPNAME_TMPDIR));
+    }
+
+    /**
+     * Setup a directory with the given name for the caller test.
+     * 
+     * @param dirName
+     *            the directory to be created in the system temporary dir
+     * @return the created directory
+     */
+    public static File setUpDir4Test(String dirName) {
+        File generationDir = new File(getTmpDir(), dirName);
+        generationDir.mkdirs();
+        return generationDir;
+    }
+    
+    public static void deleteDir(File dir) throws IOException {
+        if (dir != null && dir.exists()) {
+            FileUtils.deleteDirectory(dir);
+        }
+    }
 }

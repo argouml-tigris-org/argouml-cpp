@@ -1,5 +1,5 @@
 // $Id$
-// Copyright (c) 2007 The Regents of the University of California. All
+// Copyright (c) 2008 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -22,23 +22,24 @@
 // CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT,
 // UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-// Issue #0006 example of some really simple example that fails to be 
-// parsed. 
-// The problem was in the implementation of the Ctor and Dtor parsing 
-// which didn't supported definitions outside of the class definition.
+// Issue #0019 example of the usage of inline style for class function 
+// definitions.
 
-class Test {
-
-    public:
-        Test();
-        virtual ~Test();
-
+class in_class_fun_def {
+  char style1_definitionInClass(char c) { return c++; }
+  int notInline(int c);
+  inline long style2_keyword_definitionInClass(long c) { return c++; }
+  inline short style3_keyword_definitionOutsideClass(short c);
+  unsigned style4_definitionOutsideClass(unsigned c);
 };
 
+int in_class_fun_def::notInline(int c) { return c++; }
 
-Test::Test() {
+inline short in_class_fun_def::style3_keyword_definitionOutsideClass(short c) {
+  return c++;
 }
 
-Test::~Test() {
+inline unsigned in_class_fun_def::style4_definitionOutsideClass(unsigned c) {
+  return c++;
 }
 

@@ -181,7 +181,7 @@ public class TestCppImport extends TestCase {
         cppImp.parseFiles(proj, files, settings, new DummyMonitor());
 
         Collection nss =
-            Model.getModelManagementHelper().getAllNamespaces(proj.getModel());
+            Model.getModelManagementHelper().getAllNamespaces(getRootModel());
         Object pack = findModelElementWithName(nss, "pack");
         assertNotNull("The pack namespace wasn't found in the model!", pack);
 
@@ -223,8 +223,8 @@ public class TestCppImport extends TestCase {
         cppImp.parseFiles(proj, files, settings, new DummyMonitor());
 
         // verify the Dummy struct reveng
-        Collection classes =
-            Model.getCoreHelper().getAllClasses(proj.getModel());
+        Collection classes = Model.getCoreHelper().getAllClasses(
+            getRootModel());
         Object dummyStruct = findModelElementWithName(classes, "Dummy");
         assertNotNull("The Dummy structure doesn't exist in the model!",
             dummyStruct);
@@ -359,6 +359,10 @@ public class TestCppImport extends TestCase {
         // TODO: function bodies as UML Methods
     }
 
+    private Object getRootModel() {
+        return Model.getModelManagementFactory().getRootModel();
+    }
+
     /**
      * Assert that a tagged value exists in a model element and that its value
      * is equal to the given value.
@@ -448,7 +452,7 @@ public class TestCppImport extends TestCase {
         cppImp.parseFiles(proj, files, settings, new DummyMonitor());
 
         Collection nss =
-            Model.getModelManagementHelper().getAllNamespaces(proj.getModel());
+            Model.getModelManagementHelper().getAllNamespaces(getRootModel());
         Object pack = getModelElementAndAssertNotDuplicated(nss, "pack");
 
         Collection clss = Model.getCoreHelper().getAllClasses(pack);
@@ -482,7 +486,7 @@ public class TestCppImport extends TestCase {
         files.add(srcFile);
         
         cppImp.parseFiles(proj, files, settings, new DummyMonitor());
-        Collection clss = Model.getCoreHelper().getAllClasses(proj.getModel());
+        Collection clss = Model.getCoreHelper().getAllClasses(getRootModel());
         Object clazzTest = getModelElementAndAssertNotDuplicated(clss, "Test");
         Collection opers =
             Model.getCoreHelper().getBehavioralFeatures(clazzTest);

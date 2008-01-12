@@ -40,3 +40,13 @@ Specification-Vendor: University of California
 Implementation-Vendor: Luis Sergio Oliveira
 Implementation-Version: 0.25.2
 Implementation-Title: ArgoUML C++ notation module
+
+
+Name: org/argouml/language/cpp/profile/ProfileModule.class
+Extension-name: module.language.cpp.profile
+Specification-Title: ArgoUML Dynamic Load Module
+Specification-Version: 0.25.4
+Specification-Vendor: University of California
+Implementation-Vendor: Luis Sergio Oliveira
+Implementation-Version: 0.25.4
+Implementation-Title: ArgoUML C++ profile module
