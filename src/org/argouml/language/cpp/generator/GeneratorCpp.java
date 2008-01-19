@@ -1055,7 +1055,7 @@ public class GeneratorCpp implements CodeGenerator {
            
             if ((generatorPass == SOURCE_PASS
                     && inlineType == Inline.INLINE_DEF_OUTSIDE_CLASS)
-                    || inlineType == Inline.INLINE_KEY_AND_DEF_IN_CLASS 
+                    || inlineType == Inline.INLINE_KEY_AND_DEF_INSIDE_CLASS 
                     || inlineType == Inline.INLINE_KEY_AND_DEF_OUTSIDE_CLASS) {
                 inlineString = TV_NAME_INLINE + " "; 
             }
@@ -1672,8 +1672,8 @@ public class GeneratorCpp implements CodeGenerator {
         // if this operation has Tag "inline" the method shall be
         // generated in header
         int inlineType = Inline.getInlineOperationModifierType(cls);
-        if (inlineType == Inline.INLINE_DEF_IN_CLASS
-                || inlineType == Inline.INLINE_KEY_AND_DEF_IN_CLASS) {
+        if (inlineType == Inline.INLINE_DEF_INSIDE_CLASS
+                || inlineType == Inline.INLINE_KEY_AND_DEF_INSIDE_CLASS) {
             result = (generatorPass == HEADER_PASS);
         }
         
@@ -2697,7 +2697,7 @@ public class GeneratorCpp implements CodeGenerator {
                 KEY_CPP_HEADER_GUARD_GUID, false);
         
         int defaultInline = Configuration.getInteger(KEY_CPP_DEFAULT_INLINE,
-                Inline.INLINE_DEF_IN_CLASS);
+                Inline.INLINE_DEF_INSIDE_CLASS);
         Inline.setDefaultInline(defaultInline);
     }
 

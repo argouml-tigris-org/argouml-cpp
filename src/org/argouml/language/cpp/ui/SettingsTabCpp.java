@@ -140,10 +140,10 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
 
         // adds 'default inline' combobox
         String[] inlineOpts = new String[4];
-        inlineOpts[Inline.INLINE_DEF_IN_CLASS] = Translator
-                .localize("cpp.default-inline.definition-in-class");
-        inlineOpts[Inline.INLINE_KEY_AND_DEF_IN_CLASS] = Translator
-                .localize("cpp.default-inline.keyword-and-definition-in-class");
+        inlineOpts[Inline.INLINE_DEF_INSIDE_CLASS] = Translator
+                .localize("cpp.default-inline.definition-inside-class");
+        inlineOpts[Inline.INLINE_KEY_AND_DEF_INSIDE_CLASS] = Translator
+                .localize("cpp.default-inline.keyword-and-definition-inside-class");
         inlineOpts[Inline.INLINE_KEY_AND_DEF_OUTSIDE_CLASS] = Translator
                 .localize("cpp.default-inline.keyword-and-definition-outside-class"); 
         inlineOpts[Inline.INLINE_DEF_OUTSIDE_CLASS] = Translator

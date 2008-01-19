@@ -44,12 +44,12 @@ public class Inline {
     /**
      * Method definition without 'inline' keyword in class 
      */
-    public static final int INLINE_DEF_IN_CLASS = 0;
+    public static final int INLINE_DEF_INSIDE_CLASS = 0;
 
     /**
      * Method definition with 'inline' keyword in class
      */
-    public static final int INLINE_KEY_AND_DEF_IN_CLASS = 1;
+    public static final int INLINE_KEY_AND_DEF_INSIDE_CLASS = 1;
 
     /**
      * Method definition with 'inline' keyword outside class
@@ -83,7 +83,7 @@ public class Inline {
     /**
      * Default 'inline' value
      */
-    private static int defaultInline = INLINE_DEF_IN_CLASS;
+    private static int defaultInline = INLINE_DEF_INSIDE_CLASS;
 
     
     /**
@@ -118,11 +118,11 @@ public class Inline {
                 }
 
                 if (val.equals(TV_INLINE_STYLE_DEFINITION_INSIDE_CLASS)) {
-                    return INLINE_DEF_IN_CLASS;
+                    return INLINE_DEF_INSIDE_CLASS;
                 }
 
                 if (val.equals(TV_INLINE_STYLE_KEYWORD_DEFINITION_INSIDE_CLASS)) {
-                    return INLINE_KEY_AND_DEF_IN_CLASS;
+                    return INLINE_KEY_AND_DEF_INSIDE_CLASS;
                 }
 
                 if (val.equals(TV_INLINE_STYLE_KEYWORD_DEFINITION_OUTSIDE_CLASS)) {
