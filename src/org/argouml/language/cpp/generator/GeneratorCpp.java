@@ -1,5 +1,5 @@
 // $Id$
-// Copyright (c) 1996-2007 The Regents of the University of California. All
+// Copyright (c) 1996-2008 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -95,8 +95,11 @@ public class GeneratorCpp implements CodeGenerator {
         Configuration.makeKey(LANGUAGE_NAME, "header-guard-case");
     private static final ConfigurationKey KEY_CPP_HEADER_GUARD_GUID =
         Configuration.makeKey(LANGUAGE_NAME, "header-guard-guid");
+    private static final ConfigurationKey KEY_CPP_DEFAULT_INLINE =
+        Configuration.makeKey(LANGUAGE_NAME, "default-inline");
 
     private static Section sect;
+    private static Inline inline;
 
     /**
      * Store actual namespace, to avoid unneeded curly braces.
@@ -202,7 +205,6 @@ public class GeneratorCpp implements CodeGenerator {
     private static final int REFERENCE_MOD = 1;
     private static final int POINTER_MOD = 2;
     private static final int CONST_MOD = 3;
-    private static final int INLINE_MOD = 4;
 
     private static GeneratorCpp singleton;
 
@@ -268,6 +270,12 @@ public class GeneratorCpp implements CodeGenerator {
         String header = generateHeader(o);
         // This can only be a classifier, right? - tfm
         String src = generateClassifier(o);
+        
+        String inlinedMethods = null;
+        if (generatorPass == HEADER_PASS) {
+            inlinedMethods = generateInlinedMethodsOutsideClass(o);
+        }
+        
         String footer = generateFooter();
         // generate #includes and predeclarations
         // this must be *after* generate()
@@ -292,11 +300,11 @@ public class GeneratorCpp implements CodeGenerator {
                 guard = guardPack + "_" + guard;
             }
             if (hdrGuardGUID) {
-            	guard = guard + "_" 
-            	    + UUID.randomUUID().toString().replace("-", "_");
+                guard = guard + "_" 
+                    + UUID.randomUUID().toString().replace("-", "_");
             }
             if (hdrGuardUpperCase) {
-            	guard = guard.toUpperCase();
+                guard = guard.toUpperCase();
             }
             
             result.append("#ifndef " + guard + LINE_SEPARATOR 
@@ -307,6 +315,11 @@ public class GeneratorCpp implements CodeGenerator {
         result.append(incl.toString());
         result.append(header);
         result.append(src);
+        
+        if (generatorPass == HEADER_PASS && inlinedMethods != null) {
+            result.append(inlinedMethods);
+        }
+        
         result.append(footer);
         if (generatorPass == HEADER_PASS) {
             result.append(LINE_SEPARATOR);
@@ -1036,10 +1049,21 @@ public class GeneratorCpp implements CodeGenerator {
                     + " for " + getFacade().getName(op));
         }
         if (!getFacade().isConstructor(op) && !isDestructor(op)) {
-            String inlineModifier = generateInlineOperationModifier(op);
-        	if (inlineModifier != null) {
-        		sb.append(inlineModifier).append(' ');
-        	}
+            String inlineString = null;
+            
+            int inlineType = Inline.getInlineOperationModifierType(op);
+           
+            if ((generatorPass == SOURCE_PASS
+                    && inlineType == Inline.INLINE_DEF_OUTSIDE_CLASS)
+                    || inlineType == Inline.INLINE_KEY_AND_DEF_IN_CLASS 
+                    || inlineType == Inline.INLINE_KEY_AND_DEF_OUTSIDE_CLASS) {
+                inlineString = TV_NAME_INLINE + " "; 
+            }
+            
+            if (inlineString != null) {
+                sb.append(inlineString);
+            }
+            
             if (rp != null) {
                 Object returnType = getFacade().getType(rp);
                 if (returnType == null) {
@@ -1175,8 +1199,7 @@ public class GeneratorCpp implements CodeGenerator {
             String val = getFacade().getValueOfTag(tv);
             if (tag != null) {
                 if (tag.equals(TV_NAME_CONST)) {
-                    return val.equals("false") ? NORMAL_MOD
-                    		: CONST_MOD;
+                    return val.equals("false") ? NORMAL_MOD : CONST_MOD;
                 }
             }
         }    
@@ -1184,39 +1207,12 @@ public class GeneratorCpp implements CodeGenerator {
     }
 
     private String generateConstAttributeParameterModifier(Object attr) {
-    	if (getConstAttributeModifierType(attr) == CONST_MOD) {
-    		return "const";
-    	}
-    	return null;
-    }
-
-    /**
-     * @param elem element to check
-     * @return INLINE_MOD or -1 if no specific tag is found
-     */
-    private int getInlineOperationModifierType(Object elem) {
-        Iterator iter = getFacade().getTaggedValues(elem);
-        while (iter.hasNext()) {
-            Object tv = iter.next();
-            String tag = getFacade().getTagOfTag(tv);
-            String val = getFacade().getValueOfTag(tv);
-            if (tag != null) {
-                if (tag.equals(TV_NAME_INLINE)) {
-                    return val.equals("false") ? NORMAL_MOD
-                    		: INLINE_MOD;
-                }
-            }
+        if (getConstAttributeModifierType(attr) == CONST_MOD) {
+            return "const";
         }
-        return -1; /* no tag found */
+        return null;
     }
 
-    private String generateInlineOperationModifier(Object attr) {
-    	if (getInlineOperationModifierType(attr) == INLINE_MOD) {
-    		return "inline";
-    	}
-    	return null;
-    }
-    
     private String generateAttributeParameterModifier(Object attr) {
         return generateAttributeParameterModifier(attr, "");
     }
@@ -1670,14 +1666,22 @@ public class GeneratorCpp implements CodeGenerator {
      */
     private boolean checkGenerateOperationBody(Object cls) {
         boolean result = !((generatorPass == HEADER_PASS)
-            || (getFacade().isAbstract(cls))
-            || getFacade().isAInterface(getFacade().getOwner(cls)));
+                || (getFacade().isAbstract(cls))
+                || (getFacade().isAInterface(getFacade().getOwner(cls))));
 
         // if this operation has Tag "inline" the method shall be
         // generated in header
-        if (getFacade().getTaggedValue(cls, TV_NAME_INLINE) != null) {
-            result = generatorPass == HEADER_PASS;
+        int inlineType = Inline.getInlineOperationModifierType(cls);
+        if (inlineType == Inline.INLINE_DEF_IN_CLASS
+                || inlineType == Inline.INLINE_KEY_AND_DEF_IN_CLASS) {
+            result = (generatorPass == HEADER_PASS);
         }
+        
+        if (inlineType == Inline.INLINE_DEF_OUTSIDE_CLASS
+                || inlineType == Inline.INLINE_KEY_AND_DEF_OUTSIDE_CLASS) {
+            result = (generatorPass == NONE_PASS);
+        }
+        
         return result;
     }
 
@@ -1839,12 +1843,10 @@ public class GeneratorCpp implements CodeGenerator {
             int p = getVisibilityPart(bf);
             if (p < 0) continue;
             tb = funcs[p];
-            tb.append(LINE_SEPARATOR);
 
             boolean mustGenBody = checkGenerateOperationBody(bf);
-            if (tb != null 
-                && ((generatorPass == HEADER_PASS) || mustGenBody))
-            {
+            if (tb != null && ((generatorPass == HEADER_PASS) || mustGenBody)) {
+                tb.append(LINE_SEPARATOR);
                 tb.append(generateOperation(bf, false));
                 
                 // helper for tagged values
@@ -2693,6 +2695,10 @@ public class GeneratorCpp implements CodeGenerator {
                 KEY_CPP_HEADER_GUARD_UPPERCASE, false);
         hdrGuardGUID = Configuration.getBoolean(
                 KEY_CPP_HEADER_GUARD_GUID, false);
+        
+        int defaultInline = Configuration.getInteger(KEY_CPP_DEFAULT_INLINE,
+                Inline.INLINE_DEF_IN_CLASS);
+        Inline.setDefaultInline(defaultInline);
     }
 
     // Methods used by Settings dialog
@@ -2805,6 +2811,15 @@ public class GeneratorCpp implements CodeGenerator {
         Configuration.setBoolean(KEY_CPP_HEADER_GUARD_GUID, addGUID);
     }
 
+    public int getDefaultInline() {
+        return Inline.getDefaultInline();
+    }
+
+    public void setDefaultInline(int inline) {
+        Inline.setDefaultInline(inline);
+        Configuration.setInteger(KEY_CPP_DEFAULT_INLINE, inline);
+    }
+    
     /*
      * Set of already-generated classifiers.
      */
@@ -2903,6 +2918,7 @@ public class GeneratorCpp implements CodeGenerator {
                 fos = new BufferedWriter (new FileWriter (f));
                 writeTemplate(o, path, fos);
                 fos.write(fileContent);
+                fos.newLine();
             }
             catch (IOException exp) { }
             finally {
@@ -3030,6 +3046,52 @@ public class GeneratorCpp implements CodeGenerator {
             return "";
         return getFacade().getName(cls);
     }
-    
+
+    /**
+     * 
+     * @param cls object
+     * @return String with generated methods
+     */
+    private String generateInlinedMethodsOutsideClass(Object cls) {
+        String s = new String();
+        Collection op = getFacade().getOperations(cls);
+        if (op.isEmpty()) {
+            return null;
+        }
+
+        s = LINE_SEPARATOR;
+        if (verboseDocs) {
+            s += indent + "// Operations" + LINE_SEPARATOR;
+        }
+        
+        int tmpGeneratorPass = generatorPass;
+        generatorPass = SOURCE_PASS;
+        
+        String opString = new String();
+        Iterator opIterator = op.iterator();
+        while (opIterator.hasNext()) {
+            Object bf = opIterator.next();
+        
+            if (!getFacade().isAbstract(bf)) {
+                int inlineType = Inline.getInlineOperationModifierType(bf);
+                
+                if (inlineType == Inline.INLINE_KEY_AND_DEF_OUTSIDE_CLASS
+                        || inlineType == Inline.INLINE_DEF_OUTSIDE_CLASS) {
+                    opString += generateOperation(bf, false);
+                    opString += LINE_SEPARATOR + generateMethodBody(bf)
+                                + LINE_SEPARATOR;
+                }
+            }
+        } // end loop through all operations
+        
+        generatorPass = tmpGeneratorPass;
+        
+        if (!opString.isEmpty()) {
+            s += opString;
+            return s;
+        } else {
+            return null;
+        }
+    }
     
 } /* end class GeneratorCpp */
