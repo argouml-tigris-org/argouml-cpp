@@ -31,7 +31,7 @@ class CBraceNode {
             lineNumber=0;
             columnNumber=0;
             ch=0;
-            pnext=NULL;
+            pnext=0; // euluis - replaced NULL by 0
         }
         CBraceNode(int ln, int col, int c, CBraceNode * next) {
             lineNumber=ln;
@@ -52,3 +52,4 @@ class CBraceNode {
             return pnext;
         }
 };
+

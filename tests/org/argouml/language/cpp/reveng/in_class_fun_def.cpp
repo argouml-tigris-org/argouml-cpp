@@ -26,20 +26,20 @@
 // definitions.
 
 class in_class_fun_def {
-  char style1_definitionInClass(char c) { return c++; }
+  char definitionInClass(char c) { return c++; }
   int notInline(int c);
-  inline long style2_keyword_definitionInClass(long c) { return c++; }
-  inline short style3_keyword_definitionOutsideClass(short c);
-  unsigned style4_definitionOutsideClass(unsigned c);
+  inline long keyword_definitionInClass(long c) { return c++; }
+  inline short keyword_definitionOutsideClass(short c);
+  unsigned definitionOutsideClass(unsigned c);
 };
 
 int in_class_fun_def::notInline(int c) { return c++; }
 
-inline short in_class_fun_def::style3_keyword_definitionOutsideClass(short c) {
+inline short in_class_fun_def::keyword_definitionOutsideClass(short c) {
   return c++;
 }
 
-inline unsigned in_class_fun_def::style4_definitionOutsideClass(unsigned c) {
+inline unsigned in_class_fun_def::definitionOutsideClass(unsigned c) {
   return c++;
 }
 

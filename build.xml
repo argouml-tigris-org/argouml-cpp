@@ -384,6 +384,8 @@ round-trip engineering for C++ projects.
       todir="${tests.reveng.classes}"/>
     <copy file="${tests.reveng.src}/issue0006_test_preprocessed.cpp"
       todir="${tests.reveng.classes}"/>
+    <copy file="${tests.reveng.src}/issue0025.cpp"
+      todir="${tests.reveng.classes}"/>
   </target> 
 
   <!-- =================================================================== -->

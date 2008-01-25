@@ -129,8 +129,10 @@ public interface Modeler {
     /**
      * Reports the declarator, of the entity being declared.
      * @param id The identifier of the construct being declared.
+     * @param typedef It is true if this is a type definition with typedef, 
+     *        false otherwise.
      */
-    void directDeclarator(String id);
+    void directDeclarator(String id, boolean typedef);
 
     /**
      * Reports the storage class specifier.

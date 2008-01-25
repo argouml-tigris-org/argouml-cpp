@@ -35,6 +35,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -496,6 +497,41 @@ public class TestCppImport extends TestCase {
         Object dtor = getModelElementAndAssertNotDuplicated(opers, "~Test");
         Collection dtorStereotypes = Model.getFacade().getStereotypes(dtor);
         assertNotNull(findModelElementWithName(dtorStereotypes, "destroy"));
+    }
+    
+    /**
+     * TODO: test parse twice and check duplicates
+     * 
+     * @throws Exception when things go wrong
+     */
+    public void testIssue0025() throws Exception {
+        genDir = setUpDirectory4Test("testIssue0025");
+        File srcFile = setupSrcFile4Reverse("issue0025.cpp");
+        Collection files = new ArrayList();
+        files.add(srcFile);
+        
+        cppImp.parseFiles(proj, files, settings, new DummyMonitor());
+        
+        // check reveng of myThing typedef
+        // Model in UML a typedef as a Data Type with a tagged value with the 
+        // name of the type.
+        // For this simple case we could simply define it as an alias for the 
+        // type, i.e., int
+        Object myThing = proj.findType("myThing", false);
+        assertNotNull(myThing);
+        assertTrue(Model.getFacade().isADataType(myThing));
+        // TODO: check the stereotype and tagged value
+        Object model = Model.getModelManagementFactory().getRootModel();
+        assertEquals(model, Model.getFacade().getNamespace(myThing));
+        
+        Object blablaClass = proj.findType("blabla", false);
+        assertNotNull(blablaClass);
+        assertEquals(model, Model.getFacade().getNamespace(blablaClass));
+        List operations = Model.getFacade().getOperations(blablaClass);
+        assertEquals(1, operations.size());
+        Object nameOperation = operations.get(0);
+        assertEquals(myThing, Model.getFacade().getType(
+                Model.getFacade().getParameter(nameOperation, 0)));
     }
 
     /**

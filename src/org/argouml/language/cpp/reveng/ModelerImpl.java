@@ -89,6 +89,7 @@ public class ModelerImpl implements Modeler {
      */
     public void beginTranslationUnit() {
         newElements = new HashSet();
+        contextStack.push(getModel());
     }
 
     /*
@@ -376,13 +377,41 @@ public class ModelerImpl implements Modeler {
         return true;
     }
 
+    private TypedefModeler typedefModeler;
+
     /*
      * @see org.argouml.language.cpp.reveng.Modeler#declarationSpecifiers(java.util.List)
      */
     public void declarationSpecifiers(List declSpecs) {
-        // TODO: Auto-generated method stub
-
+        if (declSpecs.contains("typedef")) {
+            assert typedefModeler == null;
+            typedefModeler = new TypedefModeler(contextStack, profile);
+        }
     }
+    
+    static class TypedefModeler {
+        private Object owner;
+        private Object type;
+        private ProfileCpp profile;
+        
+        TypedefModeler(Stack theContextStack, ProfileCpp theProfile) {
+            owner = theContextStack.peek();
+            profile = theProfile;
+        }
+
+        public void typeSpecifier(Object theType) {
+            LOG.debug("Got the type: " + theType);
+            type = theType;
+        }
+
+        public void directDeclarator(String id) {
+            LOG.debug("Got the name: " + id);
+            Object typedef = Model.getCoreFactory().buildDataType(id, owner);
+            // TODO: set the tagged value typedef to the name of type.
+//            profile.applyCppDatatypeStereotype(typedef);
+//            profile.applyTypedefTaggedValue(typedef, getFacade().getName(type));
+        }
+    };
 
     /*
      * @see org.argouml.language.cpp.reveng.Modeler#simpleTypeSpecifier(java.util.List)
@@ -393,29 +422,33 @@ public class ModelerImpl implements Modeler {
             Iterator i = sts.iterator();
             while (i.hasNext()) {
                 stsString.append(i.next().toString()).append(" ");
-	    }
+            }
             Object theType = findOrCreateType(stsString.toString().trim());
             // now, depending on the context, this might be the return type of a
             // function declaration or an attribute of a class or a variable
             // declaration; of course, this is rather incomplete(!)
             if (Model.getFacade().isAOperation(contextStack.peek())) {
                 // set the operation return type
-                Object rv =
-		    Model.getCoreHelper().getReturnParameters(
-			contextStack.peek()).iterator().next();
+                Object rv = Model.getCoreHelper().getReturnParameters(
+                        contextStack.peek()).iterator().next();
                 Model.getCoreHelper().setType(rv, theType);
 
             } else if (Model.getFacade().isAClass(contextStack.peek())) {
-                Object attr =
-		    Model.getCoreFactory().buildAttribute2(
-                            contextStack.peek(), theType);
+                Object attr = Model.getCoreFactory().buildAttribute2(
+                       contextStack.peek(), theType);
                 if (contextAccessSpecifier != null) {
                     Model.getCoreHelper().setVisibility(attr,
                         contextAccessSpecifier);
-		}
+                }
                 contextStack.push(attr);
             } else if (Model.getFacade().isAParameter(contextStack.peek())) {
                 Model.getCoreHelper().setType(contextStack.peek(), theType);
+            } else if (Model.getFacade().isAModel(contextStack.peek()) 
+                    || Model.getFacade().isANamespace(contextStack.peek())) {
+                // we either have a global variable or a typedef
+                if (typedefModeler != null) {
+                    typedefModeler.typeSpecifier(theType);
+                }
             }
         }
     }
@@ -437,9 +470,8 @@ public class ModelerImpl implements Modeler {
         if (profile.isBuiltIn(typeName)) {
             theType = profile.getBuiltIn(typeName);
         } else {
-            theType =
-		ProjectManager.getManager().getCurrentProject().findType(
-			typeName.toString(), true);
+            theType = ProjectManager.getManager().getCurrentProject().findType(
+                    typeName.toString(), true);
         }
         return theType;
     }
@@ -460,14 +492,20 @@ public class ModelerImpl implements Modeler {
     }
 
     /*
-     * @see org.argouml.language.cpp.reveng.Modeler#directDeclarator(java.lang.String)
+     * @see org.argouml.language.cpp.reveng.Modeler#directDeclarator(java.lang.String, boolean)
      */
-    public void directDeclarator(String id) {
+    public void directDeclarator(String id, boolean typedef) {
         if (!ignore()) {
-            Model.getCoreHelper().setName(contextStack.peek(), id);
-            if (Model.getFacade().isAAttribute(contextStack.peek())) {
-                Object attr = contextStack.pop();
-                removeAttributeIfDuplicate(attr);
+            if (typedef) {
+                assert typedefModeler != null;
+                typedefModeler.directDeclarator(id);
+                typedefModeler = null;
+            } else {
+                Model.getCoreHelper().setName(contextStack.peek(), id);
+                if (Model.getFacade().isAAttribute(contextStack.peek())) {
+                    Object attr = contextStack.pop();
+                    removeAttributeIfDuplicate(attr);
+                }
             }
         }
     }
@@ -746,7 +784,7 @@ public class ModelerImpl implements Modeler {
     public void beginBaseSpecifier() {
         if (!ignore()) {
             baseSpecifierModeler = new BaseSpecifierModeler();
-	}
+        }
     }
 
     /*
@@ -945,7 +983,8 @@ public class ModelerImpl implements Modeler {
          * @param stereotypeName "create" for ctors and "destroy" for dtors.
          */
         XtorModeler(String stereotypeName) {
-            if (contextStack.size() == 0) {
+            if (contextStack.size() == 0 || 
+                    Model.getFacade().isAModel(contextStack.peek())) {
                 ignoreXtor = true;
                 return;
             }

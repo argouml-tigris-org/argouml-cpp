@@ -1026,7 +1026,7 @@ direct_declarator
 	{String id="";}
 	:
 		(qualified_id LPAREN (RPAREN|declaration_specifiers) )=>	// Must be function declaration
-		id = qualified_id {declaratorID(id,CPPvariables.QI_FUN); m.directDeclarator(id);}
+		id = qualified_id {declaratorID(id,CPPvariables.QI_FUN); m.directDeclarator(id, _td);}
 		LPAREN (parameter_list)? RPAREN (type_qualifier)* (exception_specification)?
 	|	(qualified_id LPAREN qualified_id)=>	// Must be class instantiation
 		id = qualified_id {declaratorID(id,CPPvariables.QI_VAR);}LPAREN expression_list RPAREN
@@ -1046,10 +1046,9 @@ direct_declarator
 		{
 			if (_td==true)
 				declaratorID(id,CPPvariables.QI_TYPE);
-		 	else {
+		 	else 
 				declaratorID(id,CPPvariables.QI_VAR);
-				m.directDeclarator(id);
-			}
+			m.directDeclarator(id, _td);
 		}
 	|	
 		// DW 24/05/04 This block probably never entered as dtor selected out earlier

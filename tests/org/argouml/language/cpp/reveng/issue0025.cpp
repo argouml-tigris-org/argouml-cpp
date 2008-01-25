@@ -30,4 +30,5 @@ public:
    myThing name() const;
 };
 
-myThing blabla::name() { return 0; }
+myThing blabla::name() const { return 0; }
+
