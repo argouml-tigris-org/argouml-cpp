@@ -1053,9 +1053,7 @@ public class GeneratorCpp implements CodeGenerator {
             
             int inlineType = Inline.getInlineOperationModifierType(op);
            
-            if ((generatorPass == SOURCE_PASS
-                    && inlineType == Inline.INLINE_DEF_OUTSIDE_CLASS)
-                    || inlineType == Inline.INLINE_KEY_AND_DEF_INSIDE_CLASS 
+            if (inlineType == Inline.INLINE_KEY_AND_DEF_INSIDE_CLASS 
                     || inlineType == Inline.INLINE_KEY_AND_DEF_OUTSIDE_CLASS) {
                 inlineString = TV_NAME_INLINE + " "; 
             }
