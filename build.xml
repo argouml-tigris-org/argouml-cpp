@@ -102,7 +102,6 @@ round-trip engineering for C++ projects.
     <property name="i18n.dir" value="org/argouml/i18n/"/>
     <property name="images.dir" value="org/argouml/Images/"/>
     <property name="profile.file" value="org/argouml/language/cpp/profile/CppUmlProfile.xmi"/>
-    <property name="profile.complete.file" value="org/argouml/language/cpp/profile/CppAndArgoUmlProfile.xmi"/>
 
     <property name="argo.jarfile"
               value="${argo.build.dir}/argouml.jar"/>
@@ -255,8 +254,6 @@ round-trip engineering for C++ projects.
     </copy>
     <copy file="${module.src.dir}/${profile.file}" 
     	tofile="${module.build.dest}/${profile.file}"/>
-    <copy file="${module.src.dir}/${profile.complete.file}" 
-    	tofile="${module.build.dest}/${profile.complete.file}"/>
   </target>
 
   <!-- =================================================================== -->

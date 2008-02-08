@@ -74,7 +74,8 @@ public class TestPersistencyWithNormalProfileCpp extends TestCase {
     
     @Override
     protected void tearDown() throws Exception {
-        Helper.deleteDir(dir4Test);
+        // FIXME: fails to delete the directory!
+        //Helper.deleteDir(dir4Test);
         super.tearDown();
     }
     
