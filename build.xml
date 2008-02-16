@@ -98,11 +98,13 @@ round-trip engineering for C++ projects.
     <property name="module.tests.build" value="${module.build.dir}/tests"/>
     <property name="module.tests.classes" value="${module.tests.build}/classes"/>
     <property name="module.tests.reports" value="${module.tests.build}/reports"/>
-    <property name="argo.build.dest" value="${argo.build.dir}/classes"/>
     <property name="i18n.dir" value="org/argouml/i18n/"/>
     <property name="images.dir" value="org/argouml/Images/"/>
     <property name="profile.file" value="org/argouml/language/cpp/profile/CppUmlProfile.xmi"/>
 
+    <property name="argo.root.dir" value="${basedir}/../argouml/src/app"/>
+ 	<property name="argo.build.dir" value="${argo.root.dir}/build"/>
+    <property name="argo.build.dest" value="${argo.build.dir}/classes"/>
     <property name="argo.jarfile"
               value="${argo.build.dir}/argouml.jar"/>
     <property name="module.jarfile.name"
@@ -113,12 +115,12 @@ round-trip engineering for C++ projects.
     <!-- Load ArgoUML properties, including the version -->
     <!-- we really need an absolute path for argo.root.dir -->
     <!-- if it is set in a property file before now, it must be absolute -->
-    <property name="argo.root.dir" value="${basedir}/../argouml"/>
     <property file="${override.build.properties}"/>
 
     <!-- If not set by the override file we still need this one for antlr. -->
-    <property name="argo.src.dir" value="${argo.root.dir}/src_new"/>
-
+    <property name="argo.src.dir" value="${argo.root.dir}/src"/>
+    <property name="argo.tools.dir" value="${basedir}/../argouml/tools"/>
+    <property name="junit.jar.path" value="${argo.tools.dir}/junit-3.8.2/junit.jar"/>
     <property file="${argo.src.dir}/default.properties"/>
    
     <echo message="${argo.root.dir} ${argo.src.dir} ${junit.jar.path} ${ant.home}"/>
@@ -129,6 +131,9 @@ round-trip engineering for C++ projects.
     <property name="deprecation" value="on"/>
 
     <property name="module.version" value="${argo.core.version}-${DSTAMP}-${TSTAMP}"/>
+ 	<echo message="Module version: ${module.version}"/>
+ 	
+ 	<property name="argouml-model.build.dir" value="${basedir}/../argouml/src/model/build"/>
 
     <path id="module.compile.classpath">
         <pathelement location="${argo.build.dir}/argouml.jar"/>
@@ -139,9 +144,11 @@ round-trip engineering for C++ projects.
         <pathelement location="${toolbar.jar.path}"/>
         <pathelement location="${commons-logging.jar.path}"/>
         <pathelement location="${antlrall.jar.path}"/>
-        <pathelement location="${argo.build.dir}/argouml-model.jar"/>
+        <pathelement location="${argouml-model.build.dir}/argouml-model.jar"/>
     </path>
-      
+ 	<echo message="module.compile.classpath value:"/>
+ 	<pathconvert refid="module.compile.classpath"/>
+ 	
     <path id="module.compile-tests.classpath">
       <pathelement location="${module.build.dest}"/>
       <path refid="module.compile.classpath"/>
@@ -149,10 +156,14 @@ round-trip engineering for C++ projects.
       <pathelement location="${commons-io.jar.path}"/>
       <pathelement location="${easymock.jar.path}"/>
     </path>
+ 	<echo message="module.compile-tests.classpath value:"/>
+ 	<pathconvert refid="module.compile-tests.classpath"/>
     
     <path id="module.antlr-genparser.classpath">
       <pathelement location="${antlrall.jar.path}"/>
     </path>
+ 	<echo message="module.antlr-genparser.classpath value:"/>
+ 	<pathconvert refid="module.antlr-genparser.classpath"/>
 
     <path id="ant.optional.classpath">
       <pathelement location="${ant.home}/libopt/ant-junit.jar"/>
@@ -160,6 +171,8 @@ round-trip engineering for C++ projects.
       <pathelement location="${jdepend.jar.path}"/>
       <pathelement location="${javasrc.jar.path}"/>
     </path>
+ 	<echo message="ant.optional.classpath value:"/>
+ 	<pathconvert refid="ant.optional.classpath"/>
 
     <taskdef classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask" name="junit">
       <classpath>
@@ -235,7 +248,7 @@ round-trip engineering for C++ projects.
   	
     <available file="${argo.build.dir}/argouml.jar" property="argo.is.packaged"/>
     <fail unless="argo.is.packaged" 
-      message="You must package ArgoUML first, e.g., argouml/src_new> ant package"/>
+      message="You must package ArgoUML first, e.g., argouml/src/app> ant jar"/>
 
     <javac srcdir="${module.src.dir}"
            destdir="${module.build.dest}"
