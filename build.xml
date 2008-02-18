@@ -103,7 +103,7 @@ round-trip engineering for C++ projects.
     <property name="profile.file" value="org/argouml/language/cpp/profile/CppUmlProfile.xmi"/>
 
     <property name="argo.root.dir" value="${basedir}/../argouml/src/app"/>
- 	<property name="argo.build.dir" value="${argo.root.dir}/build"/>
+    <property name="argo.build.dir" value="${argo.root.dir}/build"/>
     <property name="argo.build.dest" value="${argo.build.dir}/classes"/>
     <property name="argo.jarfile"
               value="${argo.build.dir}/argouml.jar"/>
@@ -131,10 +131,12 @@ round-trip engineering for C++ projects.
     <property name="deprecation" value="on"/>
 
     <property name="module.version" value="${argo.core.version}-${DSTAMP}-${TSTAMP}"/>
- 	<echo message="Module version: ${module.version}"/>
- 	
- 	<property name="argouml-model.build.dir" value="${basedir}/../argouml/src/model/build"/>
-
+    <echo message="Module version: ${module.version}"/>
+    
+    <property name="argouml-model.build.dir" value="${basedir}/../argouml/src/model/build"/>
+    <property name="argouml-mdr.build.dir" value="${basedir}/../argouml/src/model-mdr/build"/>
+    <property name="argouml-euml.build.dir" value="${basedir}/../argouml/src/model-euml/build"/>
+        
     <path id="module.compile.classpath">
         <pathelement location="${argo.build.dir}/argouml.jar"/>
         <pathelement location="${ocl-argo.jar.path}"/>
@@ -145,10 +147,12 @@ round-trip engineering for C++ projects.
         <pathelement location="${commons-logging.jar.path}"/>
         <pathelement location="${antlrall.jar.path}"/>
         <pathelement location="${argouml-model.build.dir}/argouml-model.jar"/>
+        <pathelement location="${argouml-mdr.build.dir}/argouml-mdr.jar"/>
+        <pathelement location="${argouml-euml.build.dir}/argouml-euml.jar"/>
     </path>
- 	<echo message="module.compile.classpath value:"/>
- 	<pathconvert refid="module.compile.classpath"/>
- 	
+    <echo message="module.compile.classpath value:"/>
+    <pathconvert refid="module.compile.classpath"/>
+    
     <path id="module.compile-tests.classpath">
       <pathelement location="${module.build.dest}"/>
       <path refid="module.compile.classpath"/>
@@ -156,14 +160,14 @@ round-trip engineering for C++ projects.
       <pathelement location="${commons-io.jar.path}"/>
       <pathelement location="${easymock.jar.path}"/>
     </path>
- 	<echo message="module.compile-tests.classpath value:"/>
- 	<pathconvert refid="module.compile-tests.classpath"/>
+    <echo message="module.compile-tests.classpath value:"/>
+    <pathconvert refid="module.compile-tests.classpath"/>
     
     <path id="module.antlr-genparser.classpath">
       <pathelement location="${antlrall.jar.path}"/>
     </path>
- 	<echo message="module.antlr-genparser.classpath value:"/>
- 	<pathconvert refid="module.antlr-genparser.classpath"/>
+    <echo message="module.antlr-genparser.classpath value:"/>
+    <pathconvert refid="module.antlr-genparser.classpath"/>
 
     <path id="ant.optional.classpath">
       <pathelement location="${ant.home}/libopt/ant-junit.jar"/>
@@ -171,8 +175,8 @@ round-trip engineering for C++ projects.
       <pathelement location="${jdepend.jar.path}"/>
       <pathelement location="${javasrc.jar.path}"/>
     </path>
- 	<echo message="ant.optional.classpath value:"/>
- 	<pathconvert refid="ant.optional.classpath"/>
+    <echo message="ant.optional.classpath value:"/>
+    <pathconvert refid="ant.optional.classpath"/>
 
     <taskdef classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask" name="junit">
       <classpath>
@@ -219,7 +223,7 @@ round-trip engineering for C++ projects.
    
   <target name="generateparser_internal" unless="parser.is.current" 
           depends="prepare">
-  	<echo message="Running antlr from ${antlrall.jar.path}"/>
+    <echo message="Running antlr from ${antlrall.jar.path}"/>
     <java classname="antlr.Tool" fork="yes" maxmemory="32M"  classpath="${antlrall.jar.path}">
       <!-- For debugging the parser or lexer you may want to use the options 
       -traceParser or / and -traceLexer. -->
@@ -231,7 +235,7 @@ round-trip engineering for C++ projects.
   
   <target name="cleanparser" depends="init">
     <delete>
-    	<fileset dir="${module.src.dir}/org/argouml/language/cpp/reveng">
+        <fileset dir="${module.src.dir}/org/argouml/language/cpp/reveng">
         <include name="STDCTokenTypes.txt"/> 
         <include name="STDCTokenTypes.java"/> 
         <include name="CPPParser.java"/> 
@@ -245,7 +249,7 @@ round-trip engineering for C++ projects.
   <!-- =================================================================== -->
   <target name="compile" depends="generateparser" 
           description="compiles the module source code"> 
-  	
+    
     <available file="${argo.build.dir}/argouml.jar" property="argo.is.packaged"/>
     <fail unless="argo.is.packaged" 
       message="You must package ArgoUML first, e.g., argouml/src/app> ant jar"/>
@@ -266,7 +270,7 @@ round-trip engineering for C++ projects.
       <fileset dir="${module.src.dir}/${images.dir}"/>
     </copy>
     <copy file="${module.src.dir}/${profile.file}" 
-    	tofile="${module.build.dest}/${profile.file}"/>
+        tofile="${module.build.dest}/${profile.file}"/>
   </target>
 
   <!-- =================================================================== -->
