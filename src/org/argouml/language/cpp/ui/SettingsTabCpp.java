@@ -45,6 +45,7 @@ import org.argouml.application.api.GUISettingsTabInterface;
 import org.argouml.i18n.Translator;
 import org.argouml.language.cpp.generator.GeneratorCpp;
 import org.argouml.language.cpp.generator.Section;
+import org.argouml.language.cpp.generator.Inline;
 import org.argouml.moduleloader.ModuleInterface;
 import org.argouml.ui.GUI;
 
@@ -66,6 +67,7 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
     private JComboBox useSect;
     private JCheckBox headerGuardUpperCase;
     private JCheckBox headerGuardGUID;    
+    private JComboBox defaultInline;
     
     /*
      * Build the panel to be used for our settings tab.
@@ -136,6 +138,23 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
                 .localize("cpp.header-guard-guid"));
         panel.add(headerGuardGUID, constraints);
 
+        // adds 'default inline' combobox
+        String[] inlineOpts = new String[4];
+        inlineOpts[Inline.INLINE_DEF_INSIDE_CLASS] = Translator
+                .localize("cpp.default-inline.definition-inside-class");
+        inlineOpts[Inline.INLINE_KEY_AND_DEF_INSIDE_CLASS] = Translator
+                .localize("cpp.default-inline.keyword-and-definition-inside-class");
+        inlineOpts[Inline.INLINE_KEY_AND_DEF_OUTSIDE_CLASS] = Translator
+                .localize("cpp.default-inline.keyword-and-definition-outside-class"); 
+        inlineOpts[Inline.INLINE_DEF_OUTSIDE_CLASS] = Translator
+                .localize("cpp.default-inline.definition-outside-class");
+        defaultInline = new JComboBox(inlineOpts);
+        label = new JLabel(Translator.localize("cpp.default-inline"));
+        label.setLabelFor(defaultInline);
+
+        panel.add(label, constraints);
+        panel.add(defaultInline, constraints);
+
         // TODO: add more options
 
         top.add(panel, BorderLayout.NORTH);
@@ -156,6 +175,7 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
         cpp.setUseSect(useSect.getSelectedIndex());
         cpp.setHeaderGuardUpperCase(headerGuardUpperCase.isSelected());
         cpp.setHeaderGuardGUID(headerGuardGUID.isSelected());
+        cpp.setDefaultInline(defaultInline.getSelectedIndex());
     }
 
     /*
@@ -175,6 +195,7 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
         useSect.setSelectedIndex(cpp.getUseSect());
         headerGuardUpperCase.setSelected(cpp.isHeaderGuardUpperCase());
         headerGuardGUID.setSelected(cpp.isHeaderGuardGUID());
+        defaultInline.setSelectedIndex(cpp.getDefaultInline());
     }
 
     /*

@@ -75,6 +75,10 @@ public class ProfileCpp extends BaseProfile {
      */
     public static final String STEREO_NAME_OPERATION = "cppOperation";
     
+    public static final String TV_TRUE_VALUE = "true";
+    
+    public static final String TV_FALSE_VALUE = "false";
+    
     /**
      * Name of the C++ class specifier tagged value. Possible values are: class,
      * union, and struct. When this is omitted, class is used.
@@ -222,6 +226,18 @@ public class ProfileCpp extends BaseProfile {
      */
     public static final String TV_NAME_INLINE = "inline";
 
+    public static final String TV_INLINE_STYLE_DEFINITION_INSIDE_CLASS =
+        "defInClass"; // Style 1
+    
+    public static final String TV_INLINE_STYLE_KEYWORD_DEFINITION_INSIDE_CLASS =
+        "inlineKeyDefInClass"; // Style 2
+    
+    public static final String TV_INLINE_STYLE_KEYWORD_DEFINITION_OUTSIDE_CLASS =
+        "inlineKeyDefOutClass"; // Style 3
+
+    public static final String TV_INLINE_STYLE_DEFINITION_OUTSIDE_CLASS =
+        "defOutClass"; // Style 4
+    
     public ProfileCpp(Collection<Object> models) {
         super(models);
     }
@@ -353,8 +369,8 @@ public class ProfileCpp extends BaseProfile {
     }
 
     public void applyInlineTaggedValue2Operation(Object operation, 
-            String isInline) {
+            String inlineType) {
         applyTaggedValue(STEREO_NAME_OPERATION, TV_NAME_INLINE, 
-                operation, isInline);
+                operation, inlineType);
     }
 }
