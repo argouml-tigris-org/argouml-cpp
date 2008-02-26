@@ -408,8 +408,9 @@ public class ModelerImpl implements Modeler {
             LOG.debug("Got the name: " + id);
             Object typedef = Model.getCoreFactory().buildDataType(id, owner);
             // TODO: set the tagged value typedef to the name of type.
-//            profile.applyCppDatatypeStereotype(typedef);
-//            profile.applyTypedefTaggedValue(typedef, getFacade().getName(type));
+//          profile.applyCppDatatypeStereotype(typedef);
+//           profile.applyTypedefTaggedValue(typedef, 
+//               getFacade().getName(type));
         }
     };
 
@@ -983,8 +984,8 @@ public class ModelerImpl implements Modeler {
          * @param stereotypeName "create" for ctors and "destroy" for dtors.
          */
         XtorModeler(String stereotypeName) {
-            if (contextStack.size() == 0 || 
-                    Model.getFacade().isAModel(contextStack.peek())) {
+            if (contextStack.size() == 0 
+                    || Model.getFacade().isAModel(contextStack.peek())) {
                 ignoreXtor = true;
                 return;
             }

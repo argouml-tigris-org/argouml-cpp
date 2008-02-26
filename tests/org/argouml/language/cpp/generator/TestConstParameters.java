@@ -24,22 +24,14 @@
 
 package org.argouml.language.cpp.generator;
 
-import static org.argouml.model.Model.getCoreHelper;
-import static org.argouml.model.Model.getMetaTypes;
-import static org.argouml.model.Model.getUmlFactory;
-
-import java.util.Collection;
-
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.apache.log4j.Logger;
 import org.argouml.kernel.ProjectManager;
 import org.argouml.language.cpp.profile.ProfileCpp;
-import org.argouml.model.IllegalModelElementConnectionException;
 import org.argouml.model.Model;
 import static org.argouml.model.Model.*;
-import org.argouml.moduleloader.ModuleInterface;
 
 /**
  * Tests for const parameters generation

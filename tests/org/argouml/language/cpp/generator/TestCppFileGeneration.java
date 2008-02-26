@@ -29,7 +29,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.UUID;
 import java.util.Vector;
 
 import junit.framework.Test;
