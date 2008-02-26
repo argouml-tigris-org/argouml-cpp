@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.ant.AntBuilderLaunchConfigurationType">
 <stringAttribute key="org.eclipse.ant.ui.ATTR_ANT_AFTER_CLEAN_TARGETS" value="generateparser,"/>
 <stringAttribute key="org.eclipse.ant.ui.ATTR_ANT_CLEAN_TARGETS" value="cleanparser,"/>
@@ -21,6 +21,14 @@
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="org.eclipse.ant.ui.AntClasspathProvider"/>
 <booleanAttribute key="org.eclipse.jdt.launching.DEFAULT_CLASSPATH" value="false"/>
+<mapAttribute key="org.eclipse.ui.externaltools.ATTR_ANT_PROPERTIES">
+<mapEntry key="antlrall.jar.path" value="${project_loc:argouml-app}/lib/antlrall-2.7.2.jar"/>
+<mapEntry key="eclipse.running" value="true"/>
+<mapEntry key="eclipse.pdebuild.templates" value="/C:/luis/programas/eclipse-europa/eclipse/plugins/org.eclipse.pde.build_3.3.2.R331_v20071019/templates/"/>
+<mapEntry key="eclipse.home" value="C:\luis\programas\eclipse-europa\eclipse"/>
+<mapEntry key="eclipse.pdebuild.scripts" value="/C:/luis/programas/eclipse-europa/eclipse/plugins/org.eclipse.pde.build_3.3.2.R331_v20071019/scripts/"/>
+<mapEntry key="eclipse.pdebuild.home" value="/C:/luis/programas/eclipse-europa/eclipse/plugins/org.eclipse.pde.build_3.3.2.R331_v20071019/./"/>
+</mapAttribute>
 <stringAttribute key="org.eclipse.ui.externaltools.ATTR_LOCATION" value="${workspace_loc:/argouml-module-cpp/build.xml}"/>
 <stringAttribute key="org.eclipse.ui.externaltools.ATTR_RUN_BUILD_KINDS" value="full,incremental,clean"/>
 <booleanAttribute key="org.eclipse.ui.externaltools.ATTR_TRIGGERS_CONFIGURED" value="true"/>

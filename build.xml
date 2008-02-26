@@ -103,12 +103,11 @@ round-trip engineering for C++ projects.
     <property name="profile.file" value="org/argouml/language/cpp/profile/CppUmlProfile.xmi"/>
 
     <property name="argo.root.dir" value="${basedir}/../argouml/src/app"/>
- 	<property name="argo.build.dir" value="${argo.root.dir}/build"/>
+    <property name="argo.build.dir" value="${argo.root.dir}/build"/>
+    <property name="argo.lib.dir" value="${argo.root.dir}/lib"/>
     <property name="argo.build.dest" value="${argo.build.dir}/classes"/>
-    <property name="argo.jarfile"
-              value="${argo.build.dir}/argouml.jar"/>
-    <property name="module.jarfile.name"
-              value="${argo.module.jarfile}.jar"/>
+    <property name="argo.jarfile" value="${argo.build.dir}/argouml.jar"/>
+    <property name="module.jarfile.name" value="${argo.module.jarfile}.jar"/>
     <property name="module.jarfile"
               value="${module.build.dir}/${module.jarfile.name}"/>
 
@@ -146,9 +145,11 @@ round-trip engineering for C++ projects.
         <pathelement location="${antlrall.jar.path}"/>
         <pathelement location="${argouml-model.build.dir}/argouml-model.jar"/>
     </path>
- 	<echo message="module.compile.classpath value:"/>
- 	<pathconvert refid="module.compile.classpath"/>
- 	
+    <!-- for debugging the build... 
+    <echo message="module.compile.classpath value:"/>
+    <pathconvert refid="module.compile.classpath"/>
+    -->
+
     <path id="module.compile-tests.classpath">
       <pathelement location="${module.build.dest}"/>
       <path refid="module.compile.classpath"/>
@@ -156,14 +157,18 @@ round-trip engineering for C++ projects.
       <pathelement location="${commons-io.jar.path}"/>
       <pathelement location="${easymock.jar.path}"/>
     </path>
- 	<echo message="module.compile-tests.classpath value:"/>
- 	<pathconvert refid="module.compile-tests.classpath"/>
+    <!-- for debugging the build...
+    <echo message="module.compile-tests.classpath value:"/>
+    <pathconvert refid="module.compile-tests.classpath"/>
+    -->
     
     <path id="module.antlr-genparser.classpath">
       <pathelement location="${antlrall.jar.path}"/>
     </path>
+    <!-- for debugging the build...
  	<echo message="module.antlr-genparser.classpath value:"/>
  	<pathconvert refid="module.antlr-genparser.classpath"/>
+ 	-->
 
     <path id="ant.optional.classpath">
       <pathelement location="${ant.home}/libopt/ant-junit.jar"/>
@@ -171,8 +176,10 @@ round-trip engineering for C++ projects.
       <pathelement location="${jdepend.jar.path}"/>
       <pathelement location="${javasrc.jar.path}"/>
     </path>
- 	<echo message="ant.optional.classpath value:"/>
- 	<pathconvert refid="ant.optional.classpath"/>
+    <!-- for debugging the build...
+    <echo message="ant.optional.classpath value:"/>
+    <pathconvert refid="ant.optional.classpath"/>
+    -->
 
     <taskdef classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask" name="junit">
       <classpath>
