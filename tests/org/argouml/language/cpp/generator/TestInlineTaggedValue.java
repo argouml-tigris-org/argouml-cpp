@@ -26,23 +26,10 @@
 
 package org.argouml.language.cpp.generator;
 
-import static org.argouml.model.Model.getCoreHelper;
-import static org.argouml.model.Model.getMetaTypes;
-import static org.argouml.model.Model.getUmlFactory;
-
-import java.util.Collection;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.apache.log4j.Logger;
 import org.argouml.kernel.ProjectManager;
 import org.argouml.language.cpp.profile.ProfileCpp;
-import org.argouml.language.cpp.generator.Section;
-import org.argouml.model.IllegalModelElementConnectionException;
-import org.argouml.model.Model;
 import static org.argouml.model.Model.*;
-import org.argouml.moduleloader.ModuleInterface;
 
 /**
  * Tests for inline TV
@@ -52,17 +39,15 @@ import org.argouml.moduleloader.ModuleInterface;
  * @since 0.25.5
  */
 public class TestInlineTaggedValue extends BaseTestGeneratorCpp {
-    private Object class_A;
-    private Object class_B;
-    private Object class_C;
-    private Object class_D;
-    private Object class_E;
+    private Object classA;
     
     private ProfileCpp profileCpp;
 
     /** The Logger for this class */
     private static final Logger LOG = Logger.getLogger(
             TestInlineTaggedValue.class);
+
+    private Object voidType;
 
     /**
      * The constructor.
@@ -72,178 +57,116 @@ public class TestInlineTaggedValue extends BaseTestGeneratorCpp {
     public TestInlineTaggedValue(java.lang.String testName) {
         super(testName);
     }
-
-    /**
-     * @return the test suite
-     */
-    public static Test suite() {
-        TestSuite suite = new TestSuite(TestInlineTaggedValue.class);
-        return suite;
-    }
-
-    /**
-     * to enable debugging in poor IDEs...
-     * 
-     * @param args the arguments given on the command line
-     */
-    public static void main(java.lang.String[] args) {
-        junit.textui.TestRunner.run(suite());
-    }
     
     protected void setUp() throws Exception {
         super.setUp();
-        class_A = getCoreFactory().buildClass("Class_A", getModel());
-        class_B = getCoreFactory().buildClass("Class_B", getModel());
-        class_C = getCoreFactory().buildClass("Class_C", getModel());
-        class_D = getCoreFactory().buildClass("Class_D", getModel());
-        class_E = getCoreFactory().buildClass("Class_E", getModel());
+        classA = getCoreFactory().buildClass("ClassA", getModel());
         profileCpp = new ProfileCpp(getModels());
+        voidType = ProjectManager.getManager().getCurrentProject().findType(
+                "void");
+        getGenerator().setUseSect(Section.SECT_NONE);
+        getGenerator().setVerboseDocs(false);
     }
     
     /**
      * Test 1 - not inlined method
      */
     public void testNotInlined() {
-        Object voidType = ProjectManager.getManager().getCurrentProject()
-                .findType("void");
-
-        Object fooNotInlined = buildOperation(class_A, voidType,
-                "fooNotInlined");
+        String opName = "fooNotInlined";
+        buildOperation(classA, voidType, opName);
         
-        String re = "(?m)(?s).*class\\s+Class_A\\s+\\{\\s+public\\:"
+        String re = "(?m)(?s).*class\\s+ClassA\\s+\\{\\s+public\\:"
             + "\\s+virtual\\s+void\\s+fooNotInlined\\(\\);\\s+\\};(?s).*";
         
-        getGenerator().setUseSect(Section.SECT_NONE);
-        String code = getGenerator().generateH(class_A);
-        
-        if (!code.matches(re)) {
-            LOG.info("Code for 'fooNotInlined':\n");
-            LOG.info(code);
-        }
-
-        assertTrue(code.matches(re));
+        assertMatches(re, getGenerator().generateH(classA), opName);
     }
 
     /**
-     * Test 2 - inlined method, style 1 - method definition inside class
+     * Test 2 - inlined method, defInClass - method definition inside class
      */
     public void testDefInsideClass() {
-        Object voidType = ProjectManager.getManager().getCurrentProject()
-                .findType("void");
-
-        Object fooInlined_Style_1 = buildOperation(class_B, voidType,
-                "fooInlined_Style1");
+        String opName = "fooInlined_Style1";
+        Object defInClassOp = buildOperation(classA, voidType, opName);
         
-        profileCpp.applyInlineTaggedValue2Operation(fooInlined_Style_1,
+        profileCpp.applyInlineTaggedValue2Operation(defInClassOp,
                 "defInClass");
 
-        String re = "(?m)(?s).*class\\s+Class_B\\s+\\{\\s+public\\:"
+        String re = "(?m)(?s).*class\\s+ClassA\\s+\\{\\s+public\\:"
             + "\\s+virtual\\s+void\\s+fooInlined_Style1\\(\\)"
             + "\\s+\\/\\*\\s+\\{inline=defInClass\\}\\*\\/\\s+\\{\\s*\\}"
             + "\\s+\\};(?s).*";
         
-        getGenerator().setUseSect(Section.SECT_NONE);
-        String code = getGenerator().generateH(class_B);
-        
-        if (!code.matches(re)) {
-            LOG.info("Code for 'fooInlined_Style1':\n");
-            LOG.info(code);
-        }
-
-        assertTrue(code.matches(re));
+        assertMatches(re, getGenerator().generateH(classA), opName);
     }
 
     /**
-     * Test 3 - inlined method, style 2 - method definition inside class
-     * with 'inline' keyword
+     * Test 3 - inlined method, inlineKeyDefInClass - method definition inside 
+     * class with 'inline' keyword
      */
     public void testKeyAndDefInsideClass() {
-        Object voidType = ProjectManager.getManager().getCurrentProject()
-                .findType("void");
-
-        Object fooInlined_Style_2 = buildOperation(class_C, voidType,
-                "fooInlined_Style2");
+        String opName = "fooInlined_Style2";
+        Object inlineKeyDefInClassOp = buildOperation(classA, voidType,
+                opName);
         
-        profileCpp.applyInlineTaggedValue2Operation(fooInlined_Style_2,
+        profileCpp.applyInlineTaggedValue2Operation(inlineKeyDefInClassOp,
                 "inlineKeyDefInClass");
 
-        String re = "(?m)(?s).*class\\s+Class_C\\s+\\{\\s+public\\:"
+        String re = "(?m)(?s).*class\\s+ClassA\\s+\\{\\s+public\\:"
             + "\\s+virtual\\s+inline\\s+void\\s+fooInlined_Style2\\(\\)\\s+"
             + "\\/\\*\\s+\\{inline=inlineKeyDefInClass\\}\\*\\/\\s+\\{\\s+\\}"
             + "\\s+\\};(?s).*";
         
-        getGenerator().setUseSect(Section.SECT_NONE);
-        String code = getGenerator().generateH(class_C);
-
-        if (!code.matches(re)) {
-            LOG.info("Code for 'fooInlined_Style2':\n");
-            LOG.info(code);
-        }
-
-        assertTrue(code.matches(re));
+        assertMatches(re, getGenerator().generateH(classA), opName);
     }
 
     /**
-     * Test 4 - inlined method, style 3 - method definition outside class
-     * with 'inline' keyword
+     * Test 4 - inlined method, inlineKeyDefOutClass - method definition 
+     * outside class with 'inline' keyword.
      */
     public void testKeyAndDefOutsideClass() {
-        Object voidType = ProjectManager.getManager().getCurrentProject()
-                .findType("void");
-
-        Object fooInlined_Style_3 = buildOperation(class_D, voidType,
-                "fooInlined_Style3");
+        String opName = "fooInlined_Style3";
+        Object inlineKeyDefOutClassOp = buildOperation(classA, voidType,
+                opName);
         
-        profileCpp.applyInlineTaggedValue2Operation(fooInlined_Style_3,
+        profileCpp.applyInlineTaggedValue2Operation(inlineKeyDefOutClassOp,
                 "inlineKeyDefOutClass");
 
-        String re = "(?m)(?s).*class\\s+Class_D\\s+\\{\\s+public\\:"
+        String re = "(?m)(?s).*class\\s+ClassA\\s+\\{\\s+public\\:"
             + "\\s+virtual\\s+inline\\s+void\\s+fooInlined_Style3\\(\\);"
             + "\\s+\\/\\*\\s+\\{inline=inlineKeyDefOutClass\\}\\*\\/\\s+\\};"
-            + "\\s+inline\\s+void\\s+Class_D\\:\\:fooInlined_Style3\\(\\)\\s+"
+            + "\\s+inline\\s+void\\s+ClassA\\:\\:fooInlined_Style3\\(\\)\\s+"
             + "\\/\\*\\s+\\{inline=inlineKeyDefOutClass\\}\\*\\/\\s+\\{\\s+\\}"
             + "(?s).*";
         
-        getGenerator().setUseSect(Section.SECT_NONE);
-        String code = getGenerator().generateH(class_D);
-
-        if (!code.matches(re)) {
-            LOG.info("Code for 'fooInlined_Style3':\n");
-            LOG.info(code);
-        }
-
-        assertTrue(code.matches(re));
+        assertMatches(re, getGenerator().generateH(classA), opName);
     }
 
     /**
-     * Test 5 - inlined method, style 4 - method definition outside class
+     * Test 5 - inlined method, defOutClass - method definition outside class
      * without 'inline' keyword
      */
     public void testDefOutsideClass() {
-        Object voidType = ProjectManager.getManager().getCurrentProject()
-                .findType("void");
-
-        Object fooInlined_Style_4 = buildOperation(class_E, voidType,
-                "fooInlined_Style4");
+        String opName = "fooInlined_Style4";
+        Object defOutClassOp = buildOperation(classA, voidType, opName);
         
-        profileCpp.applyInlineTaggedValue2Operation(fooInlined_Style_4,
+        profileCpp.applyInlineTaggedValue2Operation(defOutClassOp,
                 "defOutClass");
 
-        String re = "(?m)(?s).*class\\s+Class_E\\s+\\{\\s+public\\:"
+        String re = "(?m)(?s).*class\\s+ClassA\\s+\\{\\s+public\\:"
             + "\\s+virtual\\s+void\\s+fooInlined_Style4\\(\\);"
             + "\\s+\\/\\*\\s+\\{inline=defOutClass\\}\\*\\/\\s+\\};"
-            + "\\s+void\\s+Class_E\\:\\:fooInlined_Style4\\(\\)"
+            + "\\s+void\\s+ClassA\\:\\:fooInlined_Style4\\(\\)"
             + "\\s+\\/\\*\\s+\\{inline=defOutClass\\}\\*\\/\\s+\\{\\s+\\}"
             + "(?s).*";
         
-        getGenerator().setUseSect(Section.SECT_NONE);
-        String code = getGenerator().generateH(class_E);
+        assertMatches(re, getGenerator().generateH(classA), opName);
+    }
 
+    private void assertMatches(String re, String code, String opName) {
         if (!code.matches(re)) {
-            LOG.info("Code for 'fooInlined_Style4':\n");
+            LOG.info("Code for '" + opName + "':\n");
             LOG.info(code);
         }
-
         assertTrue(code.matches(re));
     }
 

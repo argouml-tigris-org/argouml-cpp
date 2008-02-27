@@ -29,10 +29,6 @@ package org.argouml.language.cpp.generator;
 import static org.argouml.language.cpp.profile.ProfileCpp.*;
 import static org.argouml.model.Model.getFacade;
 
-import java.util.Iterator;
-
-//import org.apache.log4j.Logger;
-
 /**
  * Small class which holds parameters for generating
  * 'inline' tagged value for C++ Generator
@@ -40,101 +36,145 @@ import java.util.Iterator;
  * @since 19 January 2008
  * @author Lukasz Gromanowski
  */
-public class Inline {
+public enum Inline {
+    /**
+     * Not inline method definition.
+     */
+    notInline(-1, null, null, false, MethodDefinitionPlace.inCpp), 
     /**
      * Method definition without 'inline' keyword in class 
      */
-    public static final int INLINE_DEF_INSIDE_CLASS = 0;
-
+    defInsideClass(0, TV_INLINE_STYLE_DEFINITION_INSIDE_CLASS, 
+            "cpp.default-inline.definition-inside-class", 
+            false, MethodDefinitionPlace.inHeaderInsideClass),
     /**
      * Method definition with 'inline' keyword in class
      */
-    public static final int INLINE_KEY_AND_DEF_INSIDE_CLASS = 1;
-
+    keyAndDefInsideClass(1, TV_INLINE_STYLE_KEYWORD_DEFINITION_INSIDE_CLASS, 
+            "cpp.default-inline.keyword-and-definition-inside-class", 
+            true, MethodDefinitionPlace.inHeaderInsideClass),
     /**
      * Method definition with 'inline' keyword outside class
      */
-    public static final int INLINE_KEY_AND_DEF_OUTSIDE_CLASS = 2;
-
+    keyAndDefOutsideClass(2, TV_INLINE_STYLE_KEYWORD_DEFINITION_OUTSIDE_CLASS, 
+            "cpp.default-inline.keyword-and-definition-outside-class", 
+            true, MethodDefinitionPlace.inHeaderOutsideClass),
     /**
      * Method definition without 'inline' keyword outside class
      */
-    public static final int INLINE_DEF_OUTSIDE_CLASS = 3;
+    defOutsideClass(3, TV_INLINE_STYLE_DEFINITION_OUTSIDE_CLASS, 
+            "cpp.default-inline.definition-outside-class", 
+            false, MethodDefinitionPlace.inHeaderOutsideClass);
     
-    /**
-     * Logger 
-     */
-    //private static final Logger LOG = Logger.getLogger(Inline.class);
+    private static enum MethodDefinitionPlace { inHeaderInsideClass, 
+        inHeaderOutsideClass, inCpp; 
+    }
+
+    private Inline(int theId, String theTVName, String theLabel, 
+            boolean isKeyword, MethodDefinitionPlace theDefPlace) {
+        id = theId;
+        tvName = theTVName;
+        label = theLabel;
+        keyword = isKeyword;
+        defPlace = theDefPlace;
+    }
     
     /**
      * @param inline 'inline' value 
      */
-    static void setDefaultInline(int inline) {
-        defaultInline = inline;
+    static void setDefaultStyle(int inline) {
+        for (Inline style : Inline.values()) {
+            if (style.id == inline) {
+                defaultInline = style;
+                return;
+            }
+        };
+        assert false : "Unexpected Inline style ID: " + inline;
     }
 
     /**
      * @return Default 'inline' value
      */
-    static int getDefaultInline() {
-        return defaultInline;
+    static int getDefaultStyle() {
+        return defaultInline.id;
     }
+    
+    private int id;
+
+    private String tvName;
+
+    private String label;
+
+    private boolean keyword;
+
+    private MethodDefinitionPlace defPlace;
 
     /**
      * Default 'inline' value
      */
-    private static int defaultInline = INLINE_DEF_INSIDE_CLASS;
-
+    private static Inline defaultInline = defInsideClass;
     
     /**
-     * @param elem element to check
-     * @return Values from INLINE_DEF_IN_CLASS to INLINE_DEF_OUTSIDE_CLASS range
-     *         or -1 if no specific tag is found (or if it is disabled by
-     *         'false')
+     * Get the inline operation modifier type for op.
+     * 
+     * @param op operation to check
+     * @return One of the Inline enumerators.
      */
-    public static int getInlineOperationModifierType(Object elem) {
-        Iterator iter = getFacade().getTaggedValues(elem);
-        while (iter.hasNext()) {
-            Object tv = iter.next();
-            String tag = getFacade().getTagOfTag(tv);
+    static Inline getInlineOperationModifierType(Object op) {
+        Object tv = getFacade().getTaggedValue(op, TV_NAME_INLINE);
+        if (tv != null) {
             String val = getFacade().getValueOfTag(tv);
+            // Inlining disabled
+            if (val.equals(TV_FALSE_VALUE)) {
+                return notInline;
+            }
 
-            /*
-             * <InlineType> : defInClass|
-             *                inlineKeyDefInClass|
-             *                inlineKeyDefOutClass|
-             *                defOutClass
-             */
-            if (tag != null && tag.equals(TV_NAME_INLINE)) {
-                // Inlining disabled
-                if (val.equals(TV_FALSE_VALUE)) {
-                    return -1;
-                }
+            // Default 'inline' value
+            if (val.equals(TV_TRUE_VALUE) || val.equals("") || val == null) {
+                return defaultInline;
+            }
 
-                // Default 'inline' value
-                if (val.equals(TV_TRUE_VALUE) || val.equals("")
-                        || val == null) {
-                    return defaultInline;
-                }
+            if (val.equals(defInsideClass.tvName)) {
+                return defInsideClass;
+            }
 
-                if (val.equals(TV_INLINE_STYLE_DEFINITION_INSIDE_CLASS)) {
-                    return INLINE_DEF_INSIDE_CLASS;
-                }
+            if (val.equals(keyAndDefInsideClass.tvName)) {
+                return keyAndDefInsideClass;
+            }
 
-                if (val.equals(TV_INLINE_STYLE_KEYWORD_DEFINITION_INSIDE_CLASS)) {
-                    return INLINE_KEY_AND_DEF_INSIDE_CLASS;
-                }
+            if (val.equals(keyAndDefOutsideClass.tvName)) {
+                return keyAndDefOutsideClass;
+            }
 
-                if (val.equals(TV_INLINE_STYLE_KEYWORD_DEFINITION_OUTSIDE_CLASS)) {
-                    return INLINE_KEY_AND_DEF_OUTSIDE_CLASS;
-                }
-
-                if (val.equals(TV_INLINE_STYLE_DEFINITION_OUTSIDE_CLASS)) {
-                    return INLINE_DEF_OUTSIDE_CLASS;
-                }
+            if (val.equals(defOutsideClass.tvName)) {
+                return defOutsideClass;
             }
         }
 
-        return -1; // no tag found
+        return notInline; // no tag found
+    }
+
+    Object getInlineKeyword4Declaration() {
+        return keyword ? TV_NAME_INLINE + " " : "";
+    }
+
+    boolean isMethodBodyInsideClass() {
+        return defPlace == MethodDefinitionPlace.inHeaderInsideClass;
+    }
+
+    boolean isMethodBodyOutsideClass() {
+        return defPlace == MethodDefinitionPlace.inHeaderOutsideClass;
+    }
+
+    static int getDefaultDefaultStyle() {
+        return defInsideClass.id;
+    }
+
+    public static String[] getStyleLabels() {
+        // TODO: ids must match the indexes! This isn't very solid...
+        return new String [] {defInsideClass.label, 
+            keyAndDefInsideClass.label, 
+            keyAndDefOutsideClass.label, 
+            defOutsideClass.label};
     }
 }

@@ -139,15 +139,10 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
         panel.add(headerGuardGUID, constraints);
 
         // adds 'default inline' combobox
-        String[] inlineOpts = new String[4];
-        inlineOpts[Inline.INLINE_DEF_INSIDE_CLASS] = Translator
-                .localize("cpp.default-inline.definition-inside-class");
-        inlineOpts[Inline.INLINE_KEY_AND_DEF_INSIDE_CLASS] = Translator
-                .localize("cpp.default-inline.keyword-and-definition-inside-class");
-        inlineOpts[Inline.INLINE_KEY_AND_DEF_OUTSIDE_CLASS] = Translator
-                .localize("cpp.default-inline.keyword-and-definition-outside-class"); 
-        inlineOpts[Inline.INLINE_DEF_OUTSIDE_CLASS] = Translator
-                .localize("cpp.default-inline.definition-outside-class");
+        String[] inlineOpts = Inline.getStyleLabels();
+        for (int i = 0; i < inlineOpts.length; i++) {
+            inlineOpts[i] = Translator.localize(inlineOpts[i]);
+        }
         defaultInline = new JComboBox(inlineOpts);
         label = new JLabel(Translator.localize("cpp.default-inline"));
         label.setLabelFor(defaultInline);
@@ -175,7 +170,7 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
         cpp.setUseSect(useSect.getSelectedIndex());
         cpp.setHeaderGuardUpperCase(headerGuardUpperCase.isSelected());
         cpp.setHeaderGuardGUID(headerGuardGUID.isSelected());
-        cpp.setDefaultInline(defaultInline.getSelectedIndex());
+        cpp.setDefaultInlineStyle(defaultInline.getSelectedIndex());
     }
 
     /*
@@ -195,7 +190,7 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
         useSect.setSelectedIndex(cpp.getUseSect());
         headerGuardUpperCase.setSelected(cpp.isHeaderGuardUpperCase());
         headerGuardGUID.setSelected(cpp.isHeaderGuardGUID());
-        defaultInline.setSelectedIndex(cpp.getDefaultInline());
+        defaultInline.setSelectedIndex(cpp.getDefaultInlineStyle());
     }
 
     /*

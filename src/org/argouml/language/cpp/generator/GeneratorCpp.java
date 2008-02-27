@@ -99,7 +99,6 @@ public class GeneratorCpp implements CodeGenerator {
         Configuration.makeKey(LANGUAGE_NAME, "default-inline");
 
     private static Section sect;
-    private static Inline inline;
 
     /**
      * Store actual namespace, to avoid unneeded curly braces.
@@ -1049,18 +1048,8 @@ public class GeneratorCpp implements CodeGenerator {
                     + " for " + getFacade().getName(op));
         }
         if (!getFacade().isConstructor(op) && !isDestructor(op)) {
-            String inlineString = null;
-            
-            int inlineType = Inline.getInlineOperationModifierType(op);
-           
-            if (inlineType == Inline.INLINE_KEY_AND_DEF_INSIDE_CLASS 
-                    || inlineType == Inline.INLINE_KEY_AND_DEF_OUTSIDE_CLASS) {
-                inlineString = TV_NAME_INLINE + " "; 
-            }
-            
-            if (inlineString != null) {
-                sb.append(inlineString);
-            }
+            Inline inlineStyle = Inline.getInlineOperationModifierType(op);
+            sb.append(inlineStyle.getInlineKeyword4Declaration());
             
             if (rp != null) {
                 Object returnType = getFacade().getType(rp);
@@ -1662,22 +1651,18 @@ public class GeneratorCpp implements CodeGenerator {
      * as inline in header file
      * @return true -> generate body in actual path
      */
-    private boolean checkGenerateOperationBody(Object cls) {
+    private boolean checkGenerateOperationBody(Object op) {
         boolean result = !((generatorPass == HEADER_PASS)
-            || (getFacade().isAbstract(cls))
-                || (getFacade().isAInterface(getFacade().getOwner(cls))));
+            || (getFacade().isAbstract(op))
+                || (getFacade().isAInterface(getFacade().getOwner(op))));
 
         // if this operation has Tag "inline" the method shall be
         // generated in header
-        int inlineType = Inline.getInlineOperationModifierType(cls);
-        if (inlineType == Inline.INLINE_DEF_INSIDE_CLASS
-                || inlineType == Inline.INLINE_KEY_AND_DEF_INSIDE_CLASS) {
-            result = (generatorPass == HEADER_PASS);
-        }
-        
-        if (inlineType == Inline.INLINE_DEF_OUTSIDE_CLASS
-                || inlineType == Inline.INLINE_KEY_AND_DEF_OUTSIDE_CLASS) {
-            result = (generatorPass == NONE_PASS);
+        Inline inlineStyle = Inline.getInlineOperationModifierType(op);
+        if (generatorPass == HEADER_PASS) {
+            result = inlineStyle.isMethodBodyInsideClass();
+        } else if (generatorPass == NONE_PASS) {
+            result = inlineStyle.isMethodBodyOutsideClass();
         }
         
         return result;
@@ -2694,9 +2679,9 @@ public class GeneratorCpp implements CodeGenerator {
         hdrGuardGUID = Configuration.getBoolean(
                 KEY_CPP_HEADER_GUARD_GUID, false);
         
-        int defaultInline = Configuration.getInteger(KEY_CPP_DEFAULT_INLINE,
-                Inline.INLINE_DEF_INSIDE_CLASS);
-        Inline.setDefaultInline(defaultInline);
+        int defaultInlineStyle = Configuration.getInteger(
+                KEY_CPP_DEFAULT_INLINE, Inline.getDefaultDefaultStyle());
+        Inline.setDefaultStyle(defaultInlineStyle);
     }
 
     // Methods used by Settings dialog
@@ -2809,12 +2794,12 @@ public class GeneratorCpp implements CodeGenerator {
         Configuration.setBoolean(KEY_CPP_HEADER_GUARD_GUID, addGUID);
     }
 
-    public int getDefaultInline() {
-        return Inline.getDefaultInline();
+    public int getDefaultInlineStyle() {
+        return Inline.getDefaultStyle();
     }
 
-    public void setDefaultInline(int inline) {
-        Inline.setDefaultInline(inline);
+    public void setDefaultInlineStyle(int inline) {
+        Inline.setDefaultStyle(inline);
         Configuration.setInteger(KEY_CPP_DEFAULT_INLINE, inline);
     }
     
@@ -3071,10 +3056,8 @@ public class GeneratorCpp implements CodeGenerator {
             Object bf = opIterator.next();
         
             if (!getFacade().isAbstract(bf)) {
-                int inlineType = Inline.getInlineOperationModifierType(bf);
-                
-                if (inlineType == Inline.INLINE_KEY_AND_DEF_OUTSIDE_CLASS
-                        || inlineType == Inline.INLINE_DEF_OUTSIDE_CLASS) {
+                Inline inlineStyle = Inline.getInlineOperationModifierType(bf);
+                if (inlineStyle.isMethodBodyOutsideClass()) {
                     opString += generateOperation(bf, false);
                     opString += LINE_SEPARATOR + generateMethodBody(bf)
                                 + LINE_SEPARATOR;

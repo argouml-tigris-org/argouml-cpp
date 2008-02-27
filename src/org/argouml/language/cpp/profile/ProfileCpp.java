@@ -75,8 +75,14 @@ public class ProfileCpp extends BaseProfile {
      */
     public static final String STEREO_NAME_OPERATION = "cppOperation";
     
+    /**
+     * Value to be used in pseudo boolean TVs that means they are true.
+     */
     public static final String TV_TRUE_VALUE = "true";
     
+    /**
+     * Value to be used in pseudo boolean TVs that means they are false.
+     */
     public static final String TV_FALSE_VALUE = "false";
     
     /**
@@ -226,15 +232,32 @@ public class ProfileCpp extends BaseProfile {
      */
     public static final String TV_NAME_INLINE = "inline";
 
+    /**
+     * Value to be used in TVs TV_NAME_INLINE that signals that the inline 
+     * style is simply definition inside class definition.
+     */
     public static final String TV_INLINE_STYLE_DEFINITION_INSIDE_CLASS =
         "defInClass"; // Style 1
     
+    /**
+     * Value to be used in TVs TV_NAME_INLINE that signals that the inline 
+     * style is definition inside class definition with keyword.
+     */
     public static final String TV_INLINE_STYLE_KEYWORD_DEFINITION_INSIDE_CLASS =
         "inlineKeyDefInClass"; // Style 2
     
+    /**
+     * Value to be used in TVs TV_NAME_INLINE that signals that the inline 
+     * style is definition outside class definition, and with the keyword in 
+     * the member function declaration.
+     */
     public static final String TV_INLINE_STYLE_KEYWORD_DEFINITION_OUTSIDE_CLASS =
         "inlineKeyDefOutClass"; // Style 3
 
+    /**
+     * Value to be used in TVs TV_NAME_INLINE that signals that the inline 
+     * style is definition outside class definition.
+     */
     public static final String TV_INLINE_STYLE_DEFINITION_OUTSIDE_CLASS =
         "defOutClass"; // Style 4
     
