@@ -130,9 +130,10 @@ round-trip engineering for C++ projects.
     <property name="deprecation" value="on"/>
 
     <property name="module.version" value="${argo.core.version}-${DSTAMP}-${TSTAMP}"/>
- 	<echo message="Module version: ${module.version}"/>
- 	
- 	<property name="argouml-model.build.dir" value="${basedir}/../argouml/src/model/build"/>
+    <echo message="Module version: ${module.version}"/>
+
+    <property name="argouml-model.build.dir" value="${basedir}/../argouml/src/model/build"/>
+    <property name="argouml-model-mdr.build.dir" value="${basedir}/../argouml/src/model-mdr/build"/>
 
     <path id="module.compile.classpath">
         <pathelement location="${argo.build.dir}/argouml.jar"/>
@@ -145,10 +146,8 @@ round-trip engineering for C++ projects.
         <pathelement location="${antlrall.jar.path}"/>
         <pathelement location="${argouml-model.build.dir}/argouml-model.jar"/>
     </path>
-    <!-- for debugging the build... 
     <echo message="module.compile.classpath value:"/>
     <pathconvert refid="module.compile.classpath"/>
-    -->
 
     <path id="module.compile-tests.classpath">
       <pathelement location="${module.build.dest}"/>
@@ -157,18 +156,24 @@ round-trip engineering for C++ projects.
       <pathelement location="${commons-io.jar.path}"/>
       <pathelement location="${easymock.jar.path}"/>
     </path>
-    <!-- for debugging the build...
     <echo message="module.compile-tests.classpath value:"/>
     <pathconvert refid="module.compile-tests.classpath"/>
-    -->
+
+    <path id="module.run-tests.classpath">
+      <pathelement location="${module.build.dest}"/>
+      <path refid="module.compile-tests.classpath"/>
+      <fileset dir="${argouml-model-mdr.build.dir}">
+        <include name="*.jar"/>
+      </fileset>
+    </path>
+    <echo message="module.run-tests.classpath value:"/>
+    <pathconvert refid="module.compile-tests.classpath"/>
     
     <path id="module.antlr-genparser.classpath">
       <pathelement location="${antlrall.jar.path}"/>
     </path>
-    <!-- for debugging the build...
- 	<echo message="module.antlr-genparser.classpath value:"/>
- 	<pathconvert refid="module.antlr-genparser.classpath"/>
- 	-->
+    <echo message="module.antlr-genparser.classpath value:"/>
+    <pathconvert refid="module.antlr-genparser.classpath"/>
 
     <path id="ant.optional.classpath">
       <pathelement location="${ant.home}/libopt/ant-junit.jar"/>
@@ -176,10 +181,8 @@ round-trip engineering for C++ projects.
       <pathelement location="${jdepend.jar.path}"/>
       <pathelement location="${javasrc.jar.path}"/>
     </path>
-    <!-- for debugging the build...
     <echo message="ant.optional.classpath value:"/>
     <pathconvert refid="ant.optional.classpath"/>
-    -->
 
     <taskdef classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask" name="junit">
       <classpath>
@@ -255,7 +258,7 @@ round-trip engineering for C++ projects.
   	
     <available file="${argo.build.dir}/argouml.jar" property="argo.is.packaged"/>
     <fail unless="argo.is.packaged" 
-      message="You must package ArgoUML first, e.g., argouml/src/app> ant jar"/>
+      message="You must package ArgoUML first, e.g., argouml/src> build package"/>
 
     <javac srcdir="${module.src.dir}"
            destdir="${module.build.dest}"
@@ -418,7 +421,7 @@ round-trip engineering for C++ projects.
           <!-- use different log4j configuration for testing -->
       <sysproperty key="log4j.configuration" value="org/argouml/resource/full_console.lcf"/>
       <classpath>
-        <path refid="module.compile-tests.classpath"/>
+        <path refid="module.run-tests.classpath"/>
         <pathelement location="${module.tests.classes}"/>
       </classpath>
       <formatter type="xml"/>
