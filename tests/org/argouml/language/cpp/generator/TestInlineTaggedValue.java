@@ -88,6 +88,7 @@ public class TestInlineTaggedValue extends BaseTestGeneratorCpp {
         String opName = "fooInlined_Style1";
         Object defInClassOp = buildOperation(classA, voidType, opName);
         
+        profileCpp.applyCppOperationStereotype(defInClassOp);
         profileCpp.applyInlineTaggedValue2Operation(defInClassOp,
                 "defInClass");
 
@@ -108,6 +109,7 @@ public class TestInlineTaggedValue extends BaseTestGeneratorCpp {
         Object inlineKeyDefInClassOp = buildOperation(classA, voidType,
                 opName);
         
+        profileCpp.applyCppOperationStereotype(inlineKeyDefInClassOp);
         profileCpp.applyInlineTaggedValue2Operation(inlineKeyDefInClassOp,
                 "inlineKeyDefInClass");
 
@@ -128,6 +130,7 @@ public class TestInlineTaggedValue extends BaseTestGeneratorCpp {
         Object inlineKeyDefOutClassOp = buildOperation(classA, voidType,
                 opName);
         
+        profileCpp.applyCppOperationStereotype(inlineKeyDefOutClassOp);
         profileCpp.applyInlineTaggedValue2Operation(inlineKeyDefOutClassOp,
                 "inlineKeyDefOutClass");
 
@@ -149,6 +152,7 @@ public class TestInlineTaggedValue extends BaseTestGeneratorCpp {
         String opName = "fooInlined_Style4";
         Object defOutClassOp = buildOperation(classA, voidType, opName);
         
+        profileCpp.applyCppOperationStereotype(defOutClassOp);
         profileCpp.applyInlineTaggedValue2Operation(defOutClassOp,
                 "defOutClass");
 
