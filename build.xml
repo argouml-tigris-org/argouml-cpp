@@ -119,7 +119,11 @@ round-trip engineering for C++ projects.
     <!-- If not set by the override file we still need this one for antlr. -->
     <property name="argo.src.dir" value="${argo.root.dir}/src"/>
     <property name="argo.tools.dir" value="${basedir}/../argouml/tools"/>
-    <property name="junit.jar.path" value="${argo.tools.dir}/junit-3.8.2/junit.jar"/>
+    <property name="junit.jar.path" value="${argo.tools.dir}/junit-3.8.2/junit.jar"/>    
+    <property name="toolbar.jar.path" 
+	      value="${basedir}/../argouml/src/app/lib/toolbar-1.4.1-20071227.jar"/>
+    <property name="log4j.jar.path" 
+	      value="${basedir}/../argouml/src/infra/lib/log4j-1.2.6.jar"/>
     <property file="${argo.src.dir}/default.properties"/>
    
     <echo message="${argo.root.dir} ${argo.src.dir} ${junit.jar.path} ${ant.home}"/>

@@ -59,6 +59,9 @@ public class TestPersistencyWithNormalProfileCpp extends TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
+        // this must be done so that we don't get trash in the persisted XMI 
+        // file
+        Helper.initializeMDR();
         project = Helper.createProject();
         
         // FIXME: duplicated code from TestProjectWithProfiles.
@@ -84,7 +87,8 @@ public class TestPersistencyWithNormalProfileCpp extends TestCase {
         ProfileFacade.register(profileCpp);
         project.getProfileConfiguration().addProfile(profileCpp);
         Object model = Model.getModelManagementFactory().getRootModel();
-        Object foo = Model.getCoreFactory().buildClass("Foo", model);
+        String fooName = "SaveAndOpenProjectWithUMLProfileForCpp";
+        Object foo = Model.getCoreFactory().buildClass(fooName, model);
         ProfileCpp profileCpp2 = new ProfileCpp(project.getModels());
         profileCpp2.applyCppClassStereotype(foo);
         dir4Test = Helper.setUpDir4Test(getClass().getName());
@@ -96,8 +100,8 @@ public class TestPersistencyWithNormalProfileCpp extends TestCase {
         project.setVersion(ApplicationVersion.getVersion());
         persister.save(project, file);
         // load the project from the saved file
-        // FIXME: known failure here as documented in issue #4946
         project = persister.doLoad(file);
         assertNotNull(project);
+        assertNotNull(project.findType(fooName, false));
     }
 }

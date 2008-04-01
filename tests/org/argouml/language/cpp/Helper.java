@@ -71,7 +71,7 @@ public class Helper {
     /**
      * Initialize the Model subsystem with the MDR ModelImplementation.
      */
-    static void initializeMDR() {
+    public static void initializeMDR() {
         // TODO: Modules shouldn't have a dependency on internal implementation
         // artifacts of ArgoUML (and shouldn't use reflection to hide the fact
         // that they have that dependency).
