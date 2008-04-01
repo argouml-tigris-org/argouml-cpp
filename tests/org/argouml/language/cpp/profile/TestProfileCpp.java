@@ -289,7 +289,7 @@ public class TestProfileCpp extends TestCase {
      */
     public void testResourceModelLoaderFromModule() throws Exception {
         ResourceModelLoader loader = new ResourceModelLoader(getClass());
-        assertNotNull(loader.loadModel(BaseProfile.PROFILE_FILE_NAME));
+        assertNotNull(loader.loadModel(BaseProfile.PROFILE_REFERENCE));
     }
     
     public void testCtorWithModelCollectionAndProfiles() {

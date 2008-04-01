@@ -32,12 +32,16 @@ import static org.argouml.model.Model.getFacade;
 import static org.argouml.model.Model.getModelManagementFactory;
 import static org.argouml.model.Model.getModelManagementHelper;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.argouml.profile.ProfileException;
 import org.argouml.profile.ProfileModelLoader;
+import org.argouml.profile.ProfileReference;
 import org.argouml.profile.ResourceModelLoader;
 import org.argouml.model.Model;
 
@@ -62,6 +66,8 @@ import org.argouml.model.Model;
  */
 public class BaseProfile {
 
+    private static final Logger LOG = Logger.getLogger(BaseProfile.class);
+
     /**
      * The name of the documentation Tagged Value. 
      */
@@ -69,6 +75,20 @@ public class BaseProfile {
 
     static final String PROFILE_FILE_NAME = 
         "/org/argouml/language/cpp/profile/CppUmlProfile.xmi";
+
+    static {
+        URL profileURL = null;
+        try {
+            profileURL = new URL(
+                "http://argouml-cpp.tigris.org/profile/CppUmlProfile.xmi");
+        } catch (MalformedURLException e) {
+            LOG.error("Exception", e);
+        }
+        PROFILE_REFERENCE = new ProfileReference(PROFILE_FILE_NAME, 
+            profileURL);
+    }
+    
+    static final ProfileReference PROFILE_REFERENCE;
     
     private Collection<Object> models;
     
@@ -179,7 +199,7 @@ public class BaseProfile {
                 BaseProfile.class);
         Collection elements;
         try {
-            elements = profileModelLoader.loadModel(PROFILE_FILE_NAME);
+            elements = profileModelLoader.loadModel(PROFILE_REFERENCE);
         } catch (ProfileException e) {
             throw new RuntimeException(e);
         }
