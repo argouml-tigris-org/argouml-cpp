@@ -176,7 +176,7 @@ public class TestCppImport extends TestCase {
     public void testParseFileSimpleClass() throws Exception {
         genDir = setUpDirectory4Test("testParseFileSimpleClass");
         File srcFile = setupSrcFile4Reverse("SimpleClass.cpp");
-        Collection files = new ArrayList();
+        Collection<File> files = new ArrayList<File>();
         files.add(srcFile);
         
         cppImp.parseFiles(proj, files, settings, new DummyMonitor());
@@ -219,7 +219,7 @@ public class TestCppImport extends TestCase {
     public void testParseFileDerivedFromAbstract() throws Exception {
         genDir = setUpDirectory4Test("testParseFileDerivedFromAbstract");
         File srcFile = setupSrcFile4Reverse("DerivedFromAbstract.cxx");
-        Collection files = new ArrayList();
+        Collection<File> files = new ArrayList<File>();
         files.add(srcFile);
         cppImp.parseFiles(proj, files, settings, new DummyMonitor());
 
@@ -445,7 +445,7 @@ public class TestCppImport extends TestCase {
         throws Exception {
         genDir = setUpDirectory4Test("testParseFileSimpleClass");
         File srcFile = setupSrcFile4Reverse("SimpleClass.cpp");
-        Collection files = new ArrayList();
+        Collection<File> files = new ArrayList<File>();
         files.add(srcFile);
         
         cppImp.parseFiles(proj, files, settings, new DummyMonitor());
@@ -483,7 +483,7 @@ public class TestCppImport extends TestCase {
     public void testIssue0006() throws Exception {
         genDir = setUpDirectory4Test("testIssue0006");
         File srcFile = setupSrcFile4Reverse("issue0006_test_preprocessed.cpp");
-        Collection files = new ArrayList();
+        Collection<File> files = new ArrayList<File>();
         files.add(srcFile);
         
         cppImp.parseFiles(proj, files, settings, new DummyMonitor());
@@ -507,7 +507,7 @@ public class TestCppImport extends TestCase {
     public void testIssue0025() throws Exception {
         genDir = setUpDirectory4Test("testIssue0025");
         File srcFile = setupSrcFile4Reverse("issue0025.cpp");
-        Collection files = new ArrayList();
+        Collection<File> files = new ArrayList<File>();
         files.add(srcFile);
         
         cppImp.parseFiles(proj, files, settings, new DummyMonitor());
