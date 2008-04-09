@@ -127,7 +127,7 @@ round-trip engineering for C++ projects.
     <property file="${argo.src.dir}/default.properties"/>
    
     <echo message="${argo.root.dir} ${argo.src.dir} ${junit.jar.path} ${ant.home}"/>
-    <property name="developer.lib.dir" value="${argo.build.dir}"/>
+    <property name="developer.lib.dir" value="${basedir}/../argouml/build"/>
 
     <property name="debug" value="on"/>
     <property name="optimize" value="on"/>
@@ -150,8 +150,10 @@ round-trip engineering for C++ projects.
         <pathelement location="${antlrall.jar.path}"/>
         <pathelement location="${argouml-model.build.dir}/argouml-model.jar"/>
     </path>
+ 	<!--
     <echo message="module.compile.classpath value:"/>
     <pathconvert refid="module.compile.classpath"/>
+    -->
 
     <path id="module.compile-tests.classpath">
       <pathelement location="${module.build.dest}"/>
@@ -160,8 +162,10 @@ round-trip engineering for C++ projects.
       <pathelement location="${commons-io.jar.path}"/>
       <pathelement location="${easymock.jar.path}"/>
     </path>
+    <!--
     <echo message="module.compile-tests.classpath value:"/>
     <pathconvert refid="module.compile-tests.classpath"/>
+    -->
 
     <path id="module.run-tests.classpath">
       <pathelement location="${module.build.dest}"/>
@@ -170,14 +174,18 @@ round-trip engineering for C++ projects.
         <include name="*.jar"/>
       </fileset>
     </path>
+    <!--
     <echo message="module.run-tests.classpath value:"/>
     <pathconvert refid="module.compile-tests.classpath"/>
+    -->
     
     <path id="module.antlr-genparser.classpath">
       <pathelement location="${antlrall.jar.path}"/>
     </path>
+    <!--
     <echo message="module.antlr-genparser.classpath value:"/>
     <pathconvert refid="module.antlr-genparser.classpath"/>
+    -->
 
     <path id="ant.optional.classpath">
       <pathelement location="${ant.home}/libopt/ant-junit.jar"/>
@@ -185,8 +193,10 @@ round-trip engineering for C++ projects.
       <pathelement location="${jdepend.jar.path}"/>
       <pathelement location="${javasrc.jar.path}"/>
     </path>
+    <!--
     <echo message="ant.optional.classpath value:"/>
     <pathconvert refid="ant.optional.classpath"/>
+    -->
 
     <taskdef classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask" name="junit">
       <classpath>
