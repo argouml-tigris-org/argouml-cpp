@@ -103,10 +103,8 @@ round-trip engineering for C++ projects.
     <property name="profile.file" value="org/argouml/language/cpp/profile/CppUmlProfile.xmi"/>
 
     <property name="argo.root.dir" value="${basedir}/../argouml"/>
+    <echo message="value of argo.root.dir=${argo.root.dir}"/>
     <property name="argo.app.dir" value="${argo.root.dir}/src/argouml-app"/>
-    <property name="argo.build.dir" value="${argo.root.dir}/src/build"/>
-    <property name="argo.build.dest" value="${argo.build.dir}/classes"/>
-    <property name="argo.jarfile" value="${argo.build.dir}/argouml.jar"/>
     <property name="module.jarfile.name" value="${argo.module.jarfile}.jar"/>
     <property name="module.jarfile"
               value="${module.build.dir}/${module.jarfile.name}"/>
@@ -121,6 +119,8 @@ round-trip engineering for C++ projects.
     <property name="argo.tools.dir" value="${argo.root.dir}/tools"/>
     <property file="${argo.src.dir}/default.properties"/>
    
+    <property name="argo.jarfile" value="${argo.build.dir}/argouml.jar"/>
+    <property name="argo.build.dest" value="${argo.build.dir}/classes"/>
     <echo message="${argo.app.dir} ${argo.src.dir} ${junit.jar.path} ${ant.home}"/>
     <property name="developer.lib.dir" value="${basedir}/../argouml/src/build"/>
 
