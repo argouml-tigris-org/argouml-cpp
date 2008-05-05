@@ -24,6 +24,9 @@
 
 package org.argouml.language.cpp.generator;
 
+import static org.argouml.model.Model.getExtensionMechanismsFactory;
+import static org.argouml.model.Model.getExtensionMechanismsHelper;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -39,8 +42,6 @@ import org.apache.log4j.Logger;
 import org.argouml.language.cpp.Helper;
 import org.argouml.language.cpp.profile.ProfileCpp;
 import org.argouml.model.Model;
-import static org.argouml.model.Model.*;
-import org.argouml.model.UUIDManager;
 
 /**
  * Tests for GeneratorCpp file generation functionalities, i.e., generateFile2
@@ -114,7 +115,7 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
         super.setUp();
         String packageName = "pack";
         Object aPackage = Model.getModelManagementFactory().buildPackage(
-                packageName, UUIDManager.getInstance().getNewUUID());
+                packageName);
         Model.getCoreHelper().setNamespace(getAClass(), aPackage);
     }
 
@@ -286,8 +287,7 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
      * Create OtherClass class in otherpack package.
      */
     private void setUpOtherClassInOtherPackage() {
-        otherPack = Model.getModelManagementFactory().buildPackage("otherpack",
-                UUIDManager.getInstance().getNewUUID());
+        otherPack = Model.getModelManagementFactory().buildPackage("otherpack");
         Model.getCoreHelper().setNamespace(otherPack, getModel());
         otherClass = getFactory().buildClass("OtherClass", otherPack);
     }
@@ -411,8 +411,7 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
         }
         assertTrue(genH.matches(re));
         // move OtherClass to pack/otherpack/OtherClass
-        otherPack = Model.getModelManagementFactory().buildPackage("otherpack",
-                UUIDManager.getInstance().getNewUUID());
+        otherPack = Model.getModelManagementFactory().buildPackage("otherpack");
         Model.getCoreHelper().setNamespace(otherPack, getPack());
         Model.getCoreHelper().setNamespace(otherClass, otherPack);
         genH = generateAClassFile(testName, true);

@@ -36,7 +36,6 @@ import org.argouml.kernel.ProjectManager;
 import org.argouml.model.IllegalModelElementConnectionException;
 import org.argouml.model.Model;
 import static org.argouml.model.Model.*;
-import org.argouml.model.UUIDManager;
 import org.argouml.uml.StereotypeUtility;
 import org.argouml.language.cpp.profile.ProfileCpp;
 import static org.argouml.language.cpp.profile.ProfileCpp.*;
@@ -114,10 +113,7 @@ public class ModelerImpl implements Modeler {
             Object parentNs = getCurrentNamespace();
             Object ns = findNamespace(nsName, parentNs);
             if (ns == null) {
-                ns =
-		    Model.getModelManagementFactory().buildPackage(
-			    nsName,
-			    UUIDManager.getInstance().getNewUUID());
+                ns = Model.getModelManagementFactory().buildPackage(nsName);
                 newElements.add(ns);
                 Model.getCoreHelper().setNamespace(ns, parentNs);
             }
@@ -126,9 +122,9 @@ public class ModelerImpl implements Modeler {
     }
 
     /**
-     * Get the current namespace from the {@link #contextStack contextStack}or
+     * Get the current namespace from the {@link #contextStack contextStack} or
      * the model.
-     *
+     * 
      * @return the parent namespace
      */
     private Object getCurrentNamespace() {
