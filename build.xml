@@ -102,12 +102,19 @@ round-trip engineering for C++ projects.
     <property name="images.dir" value="org/argouml/Images/"/>
     <property name="profile.file" value="org/argouml/language/cpp/profile/CppUmlProfile.xmi"/>
 
-    <property name="argo.root.dir" value="${basedir}/../argouml"/>
-    <echo message="value of argo.root.dir=${argo.root.dir}"/>
-    <property name="argo.app.dir" value="${argo.root.dir}/src/argouml-app"/>
     <property name="module.jarfile.name" value="${argo.module.jarfile}.jar"/>
     <property name="module.jarfile"
               value="${module.build.dir}/${module.jarfile.name}"/>
+
+    <property name="argo.root.dir" value="${basedir}/../argouml"/>
+    <!-- <echo message="value of argo.root.dir=${argo.root.dir}"/> -->
+    
+    <property name="argo.app.dir" value="${argo.root.dir}/src/argouml-app"/>
+    <!-- <echo message="value of argo.app.dir=${argo.app.dir}"/> -->
+    
+    <property name="argo.tools.dir" value="${argo.root.dir}/tools"/>
+    <!-- <echo message="value of argo.tools.dir=${argo.tools.dir}"/> -->
+    <!-- <echo message="value of argo.tools.dir=${argo.tools.dir}"/> -->
 
     <!-- Load ArgoUML properties, including the version -->
     <!-- we really need an absolute path for argo.app.dir -->
@@ -116,13 +123,10 @@ round-trip engineering for C++ projects.
 
     <!-- If not set by the override file we still need this one for antlr. -->
     <property name="argo.src.dir" value="${argo.app.dir}/src"/>
-    <property name="argo.tools.dir" value="${argo.root.dir}/tools"/>
     <property file="${argo.src.dir}/default.properties"/>
    
     <property name="argo.jarfile" value="${argo.build.dir}/argouml.jar"/>
-    <property name="argo.build.dest" value="${argo.build.dir}/classes"/>
-    <echo message="${argo.app.dir} ${argo.src.dir} ${junit.jar.path} ${ant.home}"/>
-    <property name="developer.lib.dir" value="${basedir}/../argouml/src/build"/>
+    <!-- <echo message="${argo.app.dir} ${argo.src.dir} ${junit.jar.path} ${ant.home}"/> -->
 
     <property name="debug" value="on"/>
     <property name="optimize" value="on"/>
@@ -265,7 +269,7 @@ round-trip engineering for C++ projects.
   <target name="compile" depends="generateparser" 
           description="compiles the module source code"> 
   	
-    <available file="${argo.build.dir}/argouml.jar" property="argo.is.packaged"/>
+    <available file="${argo.jarfile}" property="argo.is.packaged"/>
     <fail unless="argo.is.packaged" 
       message="You must package ArgoUML first, e.g., argouml/src> build package"/>
 
@@ -336,7 +340,6 @@ round-trip engineering for C++ projects.
   <!-- =================================================================== -->
   <target name="clean" depends="init" 
           description="cleanup all files and directories created by this build script">
-    <delete file="${developer.lib.dir}/ext/${module.jarfile.name}"/>
     <delete file="${argo.build.dir}/ext/${module.jarfile.name}"/>
     <delete dir="${module.build.dir}"/>
    
@@ -348,7 +351,7 @@ round-trip engineering for C++ projects.
   <!-- =================================================================== -->
   <target name="install" depends="init, jar" 
           description="install the module in the developer build of ArgoUML">
-    <copy todir="${developer.lib.dir}/ext">
+    <copy todir="${argo.build.dir}/ext">
       <fileset dir="${module.build.dir}" includes="${module.jarfile.name}"/>
     </copy>
   </target>
