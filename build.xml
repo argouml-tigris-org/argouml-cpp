@@ -138,6 +138,8 @@ round-trip engineering for C++ projects.
     <property name="argouml-model.build.dir" value="${argo.model.dir}/build"/>
     <property name="argouml-model-mdr.build.dir" value="${argo.mdr.dir}/build"/>
 
+    <property name="result.dir" value="${argo.root.dir}/build"/>
+
     <path id="module.compile.classpath">
         <pathelement location="${argo.build.dir}/argouml.jar"/>
         <pathelement location="${ocl-argo.jar.path}"/>
@@ -280,7 +282,9 @@ round-trip engineering for C++ projects.
            deprecation="${deprecation}"
            optimize="${optimize}"
            source="1.5"
-           target="1.5">
+           target="1.5"
+           includeAntRuntime="no"
+        >
         <classpath>
             <path refid="module.compile.classpath"/>
         </classpath>
@@ -340,7 +344,7 @@ round-trip engineering for C++ projects.
   <!-- =================================================================== -->
   <target name="clean" depends="init" 
           description="cleanup all files and directories created by this build script">
-    <delete file="${argo.build.dir}/ext/${module.jarfile.name}"/>
+    <delete file="${result.dir}/ext/${module.jarfile.name}"/>
     <delete dir="${module.build.dir}"/>
    
     <antcall target="cleanparser"/>
@@ -351,7 +355,7 @@ round-trip engineering for C++ projects.
   <!-- =================================================================== -->
   <target name="install" depends="init, jar" 
           description="install the module in the developer build of ArgoUML">
-    <copy todir="${argo.build.dir}/ext">
+    <copy todir="${result.dir}/ext">
       <fileset dir="${module.build.dir}" includes="${module.jarfile.name}"/>
     </copy>
   </target>
