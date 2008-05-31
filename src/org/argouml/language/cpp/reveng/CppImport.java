@@ -38,6 +38,7 @@ import org.argouml.configuration.ConfigurationKey;
 import org.argouml.kernel.Project;
 import org.argouml.taskmgmt.ProgressMonitor;
 import org.argouml.uml.reveng.FileImportUtils;
+import org.argouml.uml.reveng.Import;
 import org.argouml.uml.reveng.ImportInterface;
 import org.argouml.uml.reveng.ImportSettings;
 import org.argouml.uml.reveng.ImporterManager;
@@ -46,11 +47,11 @@ import org.argouml.util.SuffixFilter;
 /**
  * Implementation of the reverse engineering interface of ArgoUML,
  * <code>ImportInterface</code>, for the C++ module.
- * 
+ *
  * FIXME i18n support?!
- * 
+ *
  * TODO: when the module is ready for prime time, remove the warning.
- * 
+ *
  * @author Luis Sergio Oliveira (euluis)
  * @since 0.19.2
  */
@@ -79,7 +80,7 @@ public class CppImport implements ImportInterface {
      * session.
      */
     private Collection newElements;
-    
+
     /**
      * Default constructor.
      */
@@ -93,7 +94,7 @@ public class CppImport implements ImportInterface {
     public Collection parseFiles(Project p, Collection files,
             ImportSettings settings, ProgressMonitor monitor)
         throws ImportException {
-        
+
         LOG.warn("Not fully implemented yet!");
         warnUser(monitor);
 
@@ -103,7 +104,7 @@ public class CppImport implements ImportInterface {
         for (Iterator it = files.iterator(); it.hasNext();) {
             Object file = it.next();
             if (!(file instanceof File)) {
-                throw new ImportException("Invalid argument - not a file: " 
+                throw new ImportException("Invalid argument - not a file: "
                         + file);
             }
             parseFile(p, (File) file, settings);
@@ -111,7 +112,7 @@ public class CppImport implements ImportInterface {
         }
         return newElements;
     }
-    
+
     /*
      * Parse a single file
      */
@@ -154,7 +155,7 @@ public class CppImport implements ImportInterface {
      * change often in the future - hopefully removing limitations - so, would
      * the effort of i18n pay off? I don't think so.
      * </p>
-     * @param monitor The ProgressMonitor enables us to show the feedback to 
+     * @param monitor The ProgressMonitor enables us to show the feedback to
      * the user without depending on the GUI.
      */
     private void warnUser(ProgressMonitor monitor) {
@@ -179,8 +180,8 @@ public class CppImport implements ImportInterface {
         // Even if the user didn't turn off the warning, we won't show it to
         // him again in this ArgoUML run.
         userWarning = false;
-        monitor.notifyMessage("C++ Import Limitations", 
-                "The C++ reverse engineering module is pre-alpha stage.", 
+        monitor.notifyMessage("C++ Import Limitations",
+                "The C++ reverse engineering module is pre-alpha stage.",
                 warnMsg);
     }
 
@@ -203,12 +204,19 @@ public class CppImport implements ImportInterface {
     }
 
     /*
+     * @see org.argouml.uml.reveng.ImportInterface#isApprovedImport(Import)
+     */
+    public boolean isApprovedImport(Import importer) {
+        return true;
+    }
+
+    /*
      * @see org.argouml.uml.reveng.ImportInterface#isParseable(java.io.File)
      */
     public boolean isParseable(File file) {
         return FileImportUtils.matchesSuffix(file, getSuffixFilters());
     }
-    
+
     /*
      * @see org.argouml.moduleloader.ModuleInterface#enable()
      */
@@ -240,7 +248,7 @@ public class CppImport implements ImportInterface {
         case AUTHOR:
             return "Luis Sergio Oliveira (euluis)";
         case DESCRIPTION:
-            return "C++ reverse engineering support";            
+            return "C++ reverse engineering support";
         case VERSION:
             return "0.01";
         default:
