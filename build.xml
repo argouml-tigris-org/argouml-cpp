@@ -89,6 +89,8 @@ round-trip engineering for C++ projects.
     
     <property name="commons-io.jar.path" value="${module.lib.dir}/commons-io-1.0.jar"/>
     <property name="easymock.jar.path" value="${module.lib.dir}/easymock-1.1.jar"/>
+    <property name="preprocessor.jar.path" 
+              value="${module.lib.dir}/anarres-cpp-1.2.3.jar"/>
 
     <property name="manifest" value="manifest.mf"/>
     <property name="manifest.src" value="${module.src.dir}/org/${manifest}"/>
@@ -126,7 +128,7 @@ round-trip engineering for C++ projects.
     <property file="${argo.src.dir}/default.properties"/>
    
     <property name="argo.jarfile" value="${argo.build.dir}/argouml.jar"/>
-    <!-- <echo message="${argo.app.dir} ${argo.src.dir} ${junit.jar.path} ${ant.home}"/> -->
+    <echo message="${argo.app.dir} ${argo.src.dir} ${argo.jarfile} ${junit.jar.path} ${ant.home}"/>
 
     <property name="debug" value="on"/>
     <property name="optimize" value="on"/>
@@ -151,6 +153,7 @@ round-trip engineering for C++ projects.
         <pathelement location="${commons-logging.jar.path}"/>
         <pathelement location="${antlrall.jar.path}"/>
         <pathelement location="${argouml-model.build.dir}/argouml-model.jar"/>
+        <pathelement location="${preprocessor.jar.path}"/>
     </path>
     <!--
     <echo message="module.compile.classpath value:"/>
@@ -361,11 +364,13 @@ round-trip engineering for C++ projects.
     <copy todir="${result.dir}/ext">
       <fileset dir="${module.build.dir}" includes="${module.jarfile.name}"/>
     </copy>
+    <copy todir="${result.dir}/ext" file="${preprocessor.jar.path}"/>
     <!-- copy it to the build directory, to enable argouml-core run target 
          to include the C++ module -->
     <copy todir="${argo.build.dir}/ext">
       <fileset dir="${module.build.dir}" includes="${module.jarfile.name}"/>
     </copy>
+    <copy todir="${argo.build.dir}/ext" file="${preprocessor.jar.path}"/>
   </target>
 
   <!-- =================================================================== -->

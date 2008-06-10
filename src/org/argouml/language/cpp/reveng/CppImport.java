@@ -25,20 +25,21 @@
 package org.argouml.language.cpp.reveng;
 
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.Reader;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
+import org.anarres.cpp.CppReader;
+import org.anarres.cpp.Preprocessor;
 import org.apache.log4j.Logger;
 import org.argouml.configuration.Configuration;
 import org.argouml.configuration.ConfigurationKey;
 import org.argouml.kernel.Project;
 import org.argouml.taskmgmt.ProgressMonitor;
 import org.argouml.uml.reveng.FileImportUtils;
-import org.argouml.uml.reveng.Import;
 import org.argouml.uml.reveng.ImportInterface;
 import org.argouml.uml.reveng.ImportSettings;
 import org.argouml.uml.reveng.ImporterManager;
@@ -80,7 +81,7 @@ public class CppImport implements ImportInterface {
      * session.
      */
     private Collection newElements;
-
+    
     /**
      * Default constructor.
      */
@@ -119,15 +120,18 @@ public class CppImport implements ImportInterface {
     private void parseFile(Project p, File f, ImportSettings settings)
         throws ImportException {
 
-        FileInputStream in;
+        Reader fileReader;
+        Preprocessor preprocessor;
         try {
-            in = new FileInputStream(f);
+            preprocessor = new Preprocessor(f); // Create a new preprocessor 
+                                                // for the input file.
+            fileReader = new CppReader(preprocessor);
         } catch (IOException e) {
             throw new ImportException("Error opening file " + f, e);
         }
         try {
             Modeler modeler = new ModelerImpl();
-            CPPLexer lexer = new CPPLexer(in);
+            CPPLexer lexer = new CPPLexer(fileReader);
             CPPParser parser = new CPPParser(lexer);
             try {
                 parser.translation_unit(modeler);
@@ -137,12 +141,11 @@ public class CppImport implements ImportInterface {
             newElements.addAll(modeler.getNewElements());
         } finally {
             try {
-                in.close();
+		fileReader.close();
             } catch (IOException e) {
                 LOG.error("Error on closing file " + f, e);
             }
         }
-
     }
 
     /**
@@ -204,13 +207,6 @@ public class CppImport implements ImportInterface {
     }
 
     /*
-     * @see org.argouml.uml.reveng.ImportInterface#isApprovedImport(Import)
-     */
-    public boolean isApprovedImport(Import importer) {
-        return true;
-    }
-
-    /*
      * @see org.argouml.uml.reveng.ImportInterface#isParseable(java.io.File)
      */
     public boolean isParseable(File file) {
@@ -262,6 +258,4 @@ public class CppImport implements ImportInterface {
     public List getImportSettings() {
         return null;
     }
-
-
 }
