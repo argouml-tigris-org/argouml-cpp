@@ -24,5 +24,5 @@
 <booleanAttribute key="org.eclipse.jdt.launching.DEFAULT_CLASSPATH" value="false"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.argouml.application.Main"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="argouml-module-cpp"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx400M -ea  -Dargouml.modules=org.argouml.language.cpp.profile.Module;org.argouml.language.cpp.generator.ModuleCpp;org.argouml.language.cpp.notation.NotationModuleCpp;org.argouml.language.cpp.reveng.CppImport;org.argouml.language.cpp.ui.SettingsTabCpp;org.argouml.language.cpp.profile.ProfileModule -Dlog4j.configuration=org/argouml/resource/full_console.lcf"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx400M -ea  -Dargouml.modules=org.argouml.language.cpp.generator.ModuleCpp;org.argouml.language.cpp.notation.NotationModuleCpp;org.argouml.language.cpp.reveng.CppImport;org.argouml.language.cpp.ui.SettingsTabCpp;org.argouml.language.cpp.profile.ProfileModule -Dlog4j.configuration=org/argouml/resource/full_console.lcf"/>
 </launchConfiguration>
