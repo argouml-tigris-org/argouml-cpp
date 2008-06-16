@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: org.argouml.module.cpp
 Bundle-Version: 0.25.6
 Bundle-ClassPath: argouml-module-cpp.jar,
- lib/anarres-cpp-1.2.3.jar,
+ lib/anarres-cpp-1.2.3-no-dependencies.jar,
  lib/commons-io-1.0.jar,
  lib/easymock-1.1.jar
 Bundle-Localization: plugin

@@ -90,7 +90,7 @@ round-trip engineering for C++ projects.
     <property name="commons-io.jar.path" value="${module.lib.dir}/commons-io-1.0.jar"/>
     <property name="easymock.jar.path" value="${module.lib.dir}/easymock-1.1.jar"/>
     <property name="preprocessor.jar.path" 
-              value="${module.lib.dir}/anarres-cpp-1.2.3.jar"/>
+              value="${module.lib.dir}/anarres-cpp-1.2.3-no-dependencies.jar"/>
 
     <property name="manifest" value="manifest.mf"/>
     <property name="manifest.src" value="${module.src.dir}/org/${manifest}"/>
