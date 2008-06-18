@@ -7,6 +7,6 @@
 	<classpathentry kind="lib" path="lib/easymock-1.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3.8.1"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry kind="lib" path="lib/anarres-cpp-1.2.3-no-dependencies.jar" sourcepath="lib/anarres-cpp-src-1.2.3.zip"/>
+	<classpathentry kind="lib" path="lib/anarres-cpp-no-dependencies-1.2.3.jar" sourcepath="lib/anarres-cpp-src-1.2.3.zip"/>
 	<classpathentry kind="output" path="build-eclipse"/>
 </classpath>
