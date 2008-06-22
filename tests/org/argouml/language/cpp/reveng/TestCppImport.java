@@ -48,8 +48,6 @@ import org.argouml.language.cpp.profile.ProfileCpp;
 import org.argouml.model.Model;
 import org.argouml.taskmgmt.ProgressEvent;
 import org.argouml.taskmgmt.ProgressMonitor;
-import org.argouml.uml.reveng.DiagramInterface;
-import org.argouml.uml.reveng.ImportCommon;
 import org.argouml.uml.reveng.ImportSettings;
 
 /**
@@ -556,17 +554,7 @@ public class TestCppImport extends TestCase {
      */
     private class DummySettings implements ImportSettings {
 
-        public DiagramInterface getDiagramInterface() {
-            throw new RuntimeException(
-                    "Unexpected call to ImportSettings method");
-        }
-
         public int getImportLevel() {
-            throw new RuntimeException(
-                    "Unexpected call to ImportSettings method");
-        }
-
-        public ImportCommon getImportSession() {
             throw new RuntimeException(
                     "Unexpected call to ImportSettings method");
         }
@@ -581,27 +569,12 @@ public class TestCppImport extends TestCase {
                     "Unexpected call to ImportSettings method");
         }
 
-        public boolean isChangedOnlySelected() {
-            throw new RuntimeException(
-                    "Unexpected call to ImportSettings method");
-        }
-
         public boolean isDatatypeSelected() {
             throw new RuntimeException(
                     "Unexpected call to ImportSettings method");
         }
 
-        public boolean isDescendSelected() {
-            throw new RuntimeException(
-                    "Unexpected call to ImportSettings method");
-        }
-
         public boolean isCreateDiagramsSelected() {
-            throw new RuntimeException(
-                    "Unexpected call to ImportSettings method");
-        }
-
-        public boolean isDiagramLayoutSelected() {
             throw new RuntimeException(
                     "Unexpected call to ImportSettings method");
         }
