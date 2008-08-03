@@ -89,7 +89,8 @@ public class TestPersistencyWithNormalProfileCpp extends TestCase {
         Object model = Model.getModelManagementFactory().getRootModel();
         String fooName = "SaveAndOpenProjectWithUMLProfileForCpp";
         Object foo = Model.getCoreFactory().buildClass(fooName, model);
-        ProfileCpp profileCpp2 = new ProfileCpp(project.getModels());
+        ProfileCpp profileCpp2 = new ProfileCpp(project
+                .getUserDefinedModelList());
         profileCpp2.applyCppClassStereotype(foo);
         dir4Test = Helper.setUpDir4Test(getClass().getName());
         File file = new File(dir4Test, 

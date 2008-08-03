@@ -175,7 +175,8 @@ public class ModelerImpl implements Modeler {
     }
     
     private static Collection<Object> getModels() {
-        return ProjectManager.getManager().getCurrentProject().getModels();
+        return ProjectManager.getManager().getCurrentProject()
+                .getUserDefinedModelList();
     }
 
     /*
