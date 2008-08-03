@@ -25,6 +25,7 @@
 package org.argouml.language.cpp.reveng;
 
 import static org.argouml.language.cpp.Helper.createProject;
+import static org.argouml.language.cpp.Helper.deleteCurrentProject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -150,6 +151,7 @@ public class TestCppImport extends TestCase {
         if (genDir != null && genDir.exists()) {
             FileUtils.deleteDirectory(genDir);
         }
+        deleteCurrentProject();
         super.tearDown();
     }
 

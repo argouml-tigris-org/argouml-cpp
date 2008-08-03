@@ -120,11 +120,12 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
     }
 
     /**
-     * @throws IOException error deleting directory
+     * @throws Exception IOException error deleting directory
      * @see junit.framework.TestCase#tearDown()
      */
-    protected void tearDown() throws IOException {
+    protected void tearDown() throws Exception {
         Helper.deleteDir(genDir);
+        super.tearDown();
     }
 
     /**

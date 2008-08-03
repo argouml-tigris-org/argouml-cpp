@@ -102,6 +102,7 @@ class BaseTestGeneratorCpp extends TestCase {
     
     protected void tearDown() throws Exception {
         deleteCurrentProject();
+        super.tearDown();
     }
 
     /**
