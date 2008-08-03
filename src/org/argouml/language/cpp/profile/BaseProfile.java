@@ -117,8 +117,9 @@ public class BaseProfile {
      * @return true if typeName is a builtin type, false otherwise
      */
     public boolean isBuiltIn(String typeName) {
-        if (builtInTypes == null) 
+        if (builtInTypes == null) {
             initBuiltInTypes();
+        }
         typeName = trimAndEnsureOneSpaceOnlyBetweenTokens(typeName);
         return builtInTypes.contains(typeName);
     }
@@ -139,7 +140,9 @@ public class BaseProfile {
         Object builtinType = null;
         for (Object model : models) {
             builtinType = findDataType(typeName, model);
-            if (builtinType != null) break;
+            if (builtinType != null) {
+                break;
+            }
         }
         if (builtinType == null) {
             builtinType = getCoreFactory().buildDataType(typeName, 
@@ -166,8 +169,9 @@ public class BaseProfile {
                     getModelManagementFactory().getRootModel(), 
                     Model.getMetaTypes().getTagDefinition());
         for (Object td : tagDefinitions) {
-            if (tdName.equals(getFacade().getName(td)))
+            if (tdName.equals(getFacade().getName(td))) {
                 return td;
+            }
         }
         return getExtensionMechanismsFactory().buildTagDefinition(tdName, 
                 null, getModelManagementFactory().getRootModel());
@@ -176,8 +180,9 @@ public class BaseProfile {
     static Object findDataType(String typeName, Object model2) {
         Collection dataTypes = getCoreHelper().getAllDataTypes(model2);
         for (Object dt : dataTypes) {
-            if (getFacade().getName(dt).equals(typeName))
+            if (getFacade().getName(dt).equals(typeName)) {
                 return dt;
+            }
         }
         return null;
     }
@@ -206,11 +211,16 @@ public class BaseProfile {
         return elements;
     }
 
+    // TODO: The assumptions that this method makes about stereotypes needing
+    // to be copied from the profile model to the user model are no longer
+    // valid.  They can be referenced in place.  - tfm
     protected Object getCppStereotypeInModel(String stereotypeName) {
         Object cppStereotype = null;
         for (Object model : models) {
             cppStereotype = getStereotype(model, stereotypeName);
-            if (cppStereotype != null) break;
+            if (cppStereotype != null) {
+                break;
+            }
         }
         if (cppStereotype == null) {
             cppStereotype = getStereotype(profile, stereotypeName);
@@ -233,8 +243,9 @@ public class BaseProfile {
         Collection stereotypes = getExtensionMechanismsHelper().getStereotypes(
                 aModel);
         for (Object stereotype : stereotypes) {
-            if (stereotypeName.equals(getFacade().getName(stereotype)))
+            if (stereotypeName.equals(getFacade().getName(stereotype))) {
                 return stereotype;
+            }
         }
         return null;
     }
@@ -261,7 +272,9 @@ public class BaseProfile {
         boolean contained = false;
         for (Object model : models) {
             contained = model.equals(getFacade().getModel(modelElement));
-            if (contained) break;
+            if (contained) {
+                break;
+            }
         }
         assert contained : "model element (" + modelElement + ") not contained "
         		+ "in models.";
