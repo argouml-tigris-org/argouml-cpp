@@ -85,7 +85,7 @@ public class TestProfileCpp extends TestCase {
     public void testGetVirtualInheritanceTagDefinition() throws Exception {
         Object tagDefinition = profile.getVirtualInheritanceTagDefinition();
         assertNotNull(tagDefinition);
-        assertTrue(getModels().contains(getFacade().getModel(tagDefinition)));
+        assertTrue(getModels().contains(getFacade().getRoot(tagDefinition)));
     }
     
     public void testGetCppClassStereotype() throws Exception {
@@ -108,7 +108,7 @@ public class TestProfileCpp extends TestCase {
     void validateCppStereotypeGetter(Object stereotype, String stereoName) {
         assertNotNull(stereotype);
         assertEquals(stereoName, getFacade().getName(stereotype));
-        assertTrue(getModels().contains(getFacade().getModel(stereotype)));
+        assertTrue(getModels().contains(getFacade().getRoot(stereotype)));
         Collection tagDefinitions = getFacade().getTagDefinitions(stereotype);
         assertNotNull(tagDefinitions);
         assertTrue(tagDefinitions.size() > 0);
@@ -117,7 +117,7 @@ public class TestProfileCpp extends TestCase {
     public void testGetClassSpecifierTagDefinition() throws Exception {
         Object tagDefinition = profile.getClassSpecifierTagDefinition();
         assertNotNull(tagDefinition);
-        assertTrue(getModels().contains(getFacade().getModel(tagDefinition)));
+        assertTrue(getModels().contains(getFacade().getRoot(tagDefinition)));
     }
     
     public void testApplyCppClassStereotype() throws Exception {
@@ -222,8 +222,9 @@ public class TestProfileCpp extends TestCase {
         Collection dataTypes = getCoreHelper().getAllDataTypes(model);
         boolean dtFound = false;
         for (Object dt : dataTypes) {
-            if (getFacade().getName(dt).equals(dtName))
+            if (getFacade().getName(dt).equals(dtName)) {
                 dtFound = true;
+            }
         }
         assertTrue("Data Type " + dtName + " not found in model!", 
                 dtFound);
@@ -252,17 +253,21 @@ public class TestProfileCpp extends TestCase {
         Map<String, Integer> dataTypeCounts = new HashMap<String, Integer>();
         for (Object dt : allDataTypes) {
             String dtName = getFacade().getName(dt);
-            if (dataTypeCounts.containsKey(dtName))
+            if (dataTypeCounts.containsKey(dtName)) {
                 dataTypeCounts.put(dtName, dataTypeCounts.get(dtName) + 1);
-            else
+            } else {
                 dataTypeCounts.put(dtName, 1);
+            }
         }
         for (String dtName : dataTypeCounts.keySet()) {
             assertEquals(1, (int) dataTypeCounts.get(dtName));
         }
     }
-    
-    public void testGetBuiltInCopiesDataTypeDocumentation() {
+
+    // TODO: Profiles are read-only, so we aren't able to add
+    // a TaggedValue to elements they contain.  This test needs
+    // to be reworked.- tfm
+    public void notestGetBuiltInCopiesDataTypeDocumentation() {
         Object originalDT = ProfileCpp.findDataType("int", 
                 profile.getProfile());
         Object originalDocuTV = getExtensionMechanismsFactory().
@@ -301,10 +306,10 @@ public class TestProfileCpp extends TestCase {
                 cppProfileApplied = true;
             }
         }
-        if (!cppProfileApplied)
+        if (!cppProfileApplied) {
             proj.getProfileConfiguration().addProfile(normalProfileCpp);
-        
-        ProfileCpp profileCpp = new ProfileCpp(proj.getModels());
+        }
+        ProfileCpp profileCpp = new ProfileCpp(proj.getUserDefinedModelList());
         profileCpp.applyCppOperationStereotype(operation);
         Collection stereotypes = getExtensionMechanismsHelper().
             getStereotypes(getModelManagementFactory().getRootModel());
