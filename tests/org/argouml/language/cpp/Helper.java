@@ -45,12 +45,13 @@ import org.argouml.profile.init.InitProfileSubsystem;
 public class Helper {
 
     public static Object getModel() {
-        return ProjectManager.getManager().getCurrentProject().
-            getModels().iterator().next();
+        return ProjectManager.getManager().getCurrentProject()
+                .getUserDefinedModelList().get(0);
     }
 
     public static Collection<Object> getModels() {
-        return ProjectManager.getManager().getCurrentProject().getModels();
+        return ProjectManager.getManager().getCurrentProject()
+                .getUserDefinedModelList();
     }
 
     public static void newModel() {
@@ -60,12 +61,23 @@ public class Helper {
     public static Project createProject() {
         ensureModelSubsystemInitialized();
         new InitProfileSubsystem().init();
-        return ProjectManager.getManager().makeEmptyProject();
+        Project p = ProjectManager.getManager().makeEmptyProject();
+        ProjectManager.getManager().setCurrentProject(p);
+        return p;
+    }
+    
+    public static void deleteCurrentProject() {
+        if (!Model.isInitiated()) {
+            return;
+        }
+        Project p = ProjectManager.getManager().getCurrentProject();
+        ProjectManager.getManager().removeProject(p);
     }
     
     static void ensureModelSubsystemInitialized() {
-        if (!Model.isInitiated())
+        if (!Model.isInitiated()) {
             initializeMDR();
+        }
     }
 
     /**

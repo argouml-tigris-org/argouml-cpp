@@ -24,6 +24,7 @@
 
 package org.argouml.language.cpp.generator;
 
+import java.io.IOException;
 import java.util.Collection;
 
 import junit.framework.TestCase;
@@ -97,6 +98,10 @@ class BaseTestGeneratorCpp extends TestCase {
         profile = new ProfileCpp(getModels());
         Object voidType = profile.getBuiltIn("void");
         fooMethod = buildOperation(me, voidType, "foo");
+    }
+    
+    protected void tearDown() throws Exception {
+        deleteCurrentProject();
     }
 
     /**
