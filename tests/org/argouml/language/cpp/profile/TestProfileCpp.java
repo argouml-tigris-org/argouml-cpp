@@ -314,6 +314,8 @@ public class TestProfileCpp extends TestCase {
         Collection stereotypes = getExtensionMechanismsHelper().
             getStereotypes(getModelManagementFactory().getRootModel());
         for (Object stereotype : stereotypes) {
+            // TODO: Since applyStereotype calls getCppStereotypeInModel which
+            // copies stereotypes into the user model, this test will fail - tfm
             assertFalse(ProfileCpp.STEREO_NAME_OPERATION.equals( 
                     Model.getFacade().getName(stereotype)));
         }
