@@ -133,20 +133,28 @@ public class TestCppImport extends TestCase {
     }
 
     /**
-     * IMPORTANT: if you get a failure inline with the following:
-     * java.io.IOException: Unable to delete file: 
-     * D:\tmp\testIssue0006DeleteFileFails\issue0006_test_preprocessed2.cpp
-     *  at org.apache.commons.io.FileUtils.forceDelete(FileUtils.java:659) 
+     * <p>IMPORTANT: if you get a failure inline with the following:
+     * java.io.IOException: Unable to delete file:</p><p> 
+     * D:\tmp\testIssue0006DeleteFileFails\issue0006_test_preprocessed2.cpp<br>
+     *  at org.apache.commons.io.FileUtils.forceDelete(FileUtils.java:659)<br> 
      *  at org.apache.commons.io.FileUtils.cleanDirectory(FileUtils.java:540) 
+     *  <br> 
      *  at org.apache.commons.io.FileUtils.deleteDirectory(FileUtils.java:509) 
+     *  <br> 
      *  at org.argouml.language.cpp.reveng.TestCppImport.tearDown(
-     *  TestCppImport.java:139)
-     * It is because you must add the file copy to the Ant's script 
-     * task copy-tests-resources.
+     *  TestCppImport.java:139)</p>
+     * <p>It is because either: </p>
+     * <ul>
+     * <li>you must add the file copy to the Ant's script 
+     * task copy-tests-resources;</li>
+     * <li>or the file was still open by some of the objects that interacted 
+     * with it during the tests.</li>
+     * </ul>
      * 
      * @throws Exception When there is a problem in deleting the directory.
      * @see junit.framework.TestCase#tearDown()
      */
+    @Override
     protected void tearDown() throws Exception {
         if (genDir != null && genDir.exists()) {
             FileUtils.deleteDirectory(genDir);
