@@ -29,11 +29,11 @@ import static org.argouml.model.Model.getCoreHelper;
 import static org.argouml.model.Model.getExtensionMechanismsFactory;
 import static org.argouml.model.Model.getExtensionMechanismsHelper;
 import static org.argouml.model.Model.getFacade;
-import static org.argouml.model.Model.getModelManagementFactory;
 import static org.argouml.model.Model.getModelManagementHelper;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -146,7 +146,7 @@ public class BaseProfile {
         }
         if (builtinType == null) {
             builtinType = getCoreFactory().buildDataType(typeName, 
-                getModelManagementFactory().getRootModel());
+                getFacade().getRootElements().iterator().next());
         }
         // copy the documentation from the profile if it exists
         Object profileDT = findDataType(typeName, profile);
@@ -166,15 +166,15 @@ public class BaseProfile {
     public static Object getTagDefinition(String tdName) {
         Collection tagDefinitions = getModelManagementHelper().
             getAllModelElementsOfKindWithModel(
-                    getModelManagementFactory().getRootModel(), 
-                    Model.getMetaTypes().getTagDefinition());
+                getFacade().getRootElements().iterator().next(), 
+                Model.getMetaTypes().getTagDefinition());
         for (Object td : tagDefinitions) {
             if (tdName.equals(getFacade().getName(td))) {
                 return td;
             }
         }
         return getExtensionMechanismsFactory().buildTagDefinition(tdName, 
-                null, getModelManagementFactory().getRootModel());
+                null, getFacade().getRootElements().iterator().next());
     }
 
     static Object findDataType(String typeName, Object model2) {
@@ -211,9 +211,6 @@ public class BaseProfile {
         return elements;
     }
 
-    // TODO: The assumptions that this method makes about stereotypes needing
-    // to be copied from the profile model to the user model are no longer
-    // valid.  They can be referenced in place.  - tfm
     protected Object getCppStereotypeInModel(String stereotypeName) {
         Object cppStereotype = null;
         for (Object model : models) {
@@ -224,17 +221,6 @@ public class BaseProfile {
         }
         if (cppStereotype == null) {
             cppStereotype = getStereotype(profile, stereotypeName);
-            assert cppStereotype != null;
-            Object modelStereotype = getExtensionMechanismsFactory().
-                copyStereotype(cppStereotype, models.iterator().next());
-            Collection tagDefinitions = getFacade().getTagDefinitions(
-                    cppStereotype);
-            for (Object td : tagDefinitions) {
-                getExtensionMechanismsFactory().copyTagDefinition(td, 
-                        modelStereotype);
-            }
-            
-            cppStereotype = modelStereotype;
         }
         return cppStereotype;
     }
@@ -268,10 +254,14 @@ public class BaseProfile {
         getCoreHelper().addStereotype(modelElement, stereo);
     }
 
+    @SuppressWarnings("serial")
     private void assertModelElementContainedInModels(Object modelElement) {
         boolean contained = false;
-        for (Object model : models) {
-            contained = model.equals(getFacade().getModel(modelElement));
+        ArrayList<Object> modelsAndProfile = new ArrayList<Object>(models) {
+            { add(profile); }
+        };
+        for (Object model : modelsAndProfile) {
+            contained = model.equals(getFacade().getRoot(modelElement));
             if (contained) {
                 break;
             }

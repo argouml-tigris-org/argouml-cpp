@@ -25,15 +25,14 @@
 package org.argouml.language.cpp.profile;
 
 import static org.argouml.language.cpp.Helper.getModel;
-import static org.argouml.language.cpp.Helper.getModels;
 import static org.argouml.language.cpp.Helper.newModel;
 import static org.argouml.model.Model.getCoreFactory;
 import static org.argouml.model.Model.getCoreHelper;
 import static org.argouml.model.Model.getExtensionMechanismsFactory;
 import static org.argouml.model.Model.getExtensionMechanismsHelper;
 import static org.argouml.model.Model.getFacade;
-import static org.argouml.model.Model.getModelManagementFactory;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -43,6 +42,7 @@ import junit.framework.TestCase;
 
 import org.argouml.kernel.Project;
 import org.argouml.kernel.ProjectManager;
+import org.argouml.language.cpp.Helper;
 import org.argouml.model.Model;
 import org.argouml.model.UmlException;
 import org.argouml.profile.Profile;
@@ -62,11 +62,16 @@ public class TestProfileCpp extends TestCase {
     private Object attribute;
     private Object operation;
     private Object param;
+    private Collection<Object> allModels;
 
+    @SuppressWarnings("serial")
     protected void setUp() throws Exception {
         newModel();
-        model = getModelManagementFactory().getRootModel();
-        profile = new ProfileCpp(getModels());
+        model = getFacade().getRootElements().iterator().next();
+        profile = new ProfileCpp(Helper.getModels());
+        allModels = new ArrayList<Object>(Helper.getModels()) {
+            { add(profile.getProfile()); }
+        };
         aClass = getCoreFactory().buildClass("AClass", getModel());
         attribute = getCoreFactory().buildAttribute2(aClass, aClass);
         operation = getCoreFactory().buildOperation2(aClass, 
@@ -85,7 +90,7 @@ public class TestProfileCpp extends TestCase {
     public void testGetVirtualInheritanceTagDefinition() throws Exception {
         Object tagDefinition = profile.getVirtualInheritanceTagDefinition();
         assertNotNull(tagDefinition);
-        assertTrue(getModels().contains(getFacade().getRoot(tagDefinition)));
+        assertTrue(allModels.contains(getFacade().getRoot(tagDefinition)));
     }
     
     public void testGetCppClassStereotype() throws Exception {
@@ -108,7 +113,7 @@ public class TestProfileCpp extends TestCase {
     void validateCppStereotypeGetter(Object stereotype, String stereoName) {
         assertNotNull(stereotype);
         assertEquals(stereoName, getFacade().getName(stereotype));
-        assertTrue(getModels().contains(getFacade().getRoot(stereotype)));
+        assertTrue(allModels.contains(getFacade().getRoot(stereotype)));
         Collection tagDefinitions = getFacade().getTagDefinitions(stereotype);
         assertNotNull(tagDefinitions);
         assertTrue(tagDefinitions.size() > 0);
@@ -117,7 +122,7 @@ public class TestProfileCpp extends TestCase {
     public void testGetClassSpecifierTagDefinition() throws Exception {
         Object tagDefinition = profile.getClassSpecifierTagDefinition();
         assertNotNull(tagDefinition);
-        assertTrue(getModels().contains(getFacade().getRoot(tagDefinition)));
+        assertTrue(allModels.contains(getFacade().getRoot(tagDefinition)));
     }
     
     public void testApplyCppClassStereotype() throws Exception {
@@ -214,20 +219,6 @@ public class TestProfileCpp extends TestCase {
         Object builtIn = profile.getBuiltIn(longDouble);
         assertNotNull(builtIn);
         assertEquals(longDouble, getFacade().getName(builtIn));
-        assertDataTypeExistsInModel(longDouble, model);
-    }
-
-    private static void assertDataTypeExistsInModel(String dtName, 
-            Object model) {
-        Collection dataTypes = getCoreHelper().getAllDataTypes(model);
-        boolean dtFound = false;
-        for (Object dt : dataTypes) {
-            if (getFacade().getName(dt).equals(dtName)) {
-                dtFound = true;
-            }
-        }
-        assertTrue("Data Type " + dtName + " not found in model!", 
-                dtFound);
     }
     
     public void testIsBuiltInWithInvalidModifiers() {
@@ -312,7 +303,7 @@ public class TestProfileCpp extends TestCase {
         ProfileCpp profileCpp = new ProfileCpp(proj.getUserDefinedModelList());
         profileCpp.applyCppOperationStereotype(operation);
         Collection stereotypes = getExtensionMechanismsHelper().
-            getStereotypes(getModelManagementFactory().getRootModel());
+            getStereotypes(getFacade().getRootElements().iterator().next());
         for (Object stereotype : stereotypes) {
             // TODO: Since applyStereotype calls getCppStereotypeInModel which
             // copies stereotypes into the user model, this test will fail - tfm
