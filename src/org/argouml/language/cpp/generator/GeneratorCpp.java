@@ -2355,10 +2355,9 @@ public class GeneratorCpp implements CodeGenerator {
         }
         StringBuffer sb = new StringBuffer(80);
 
-        // UML2INCOMP: targetScope isn't supported in UML 2.x
-        if (getScopeKind().getClassifier().equals(
-                getFacade().getTargetScope(ae)))
+        if (getFacade().isStatic(ae)) {
             sb.append("static ");
+        }
 
         String n = getFacade().getName(ae);
         Object asc = getFacade().getAssociation(ae);
