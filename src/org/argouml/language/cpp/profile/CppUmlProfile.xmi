@@ -45,6 +45,9 @@
             <UML:TaggedValue xmi.id = '.:0000000000000821' isSpecification = 'false'>
               <UML:TaggedValue.dataValue>Stereotype to apply to C++ classes for code generation.
 Note: use of this stereotype isn&apos;t required, it is more a convenience for having the available tag definitions from the C++ UML Profile.</UML:TaggedValue.dataValue>
+              <UML:TaggedValue.type>
+                <UML:TagDefinition xmi.idref = '.:0000000000000892'/>
+              </UML:TaggedValue.type>
             </UML:TaggedValue>
           </UML:ModelElement.taggedValue>
           <UML:Stereotype.definedTag>
