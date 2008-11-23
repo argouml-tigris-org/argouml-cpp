@@ -519,6 +519,8 @@ public class GeneratorCpp implements CodeGenerator {
             boolean eof = false;
             BufferedReader templateFileReader = null;
             try {
+                // TODO: This is using the default platform character encoding
+                // specifying an encoding will produce more predictable results
                 templateFileReader =
                     new BufferedReader(new FileReader(
                         templateFile.getAbsolutePath()));
@@ -2897,6 +2899,8 @@ public class GeneratorCpp implements CodeGenerator {
             // TODO: package, project basepath, tagged values to configure
             File f = new File(pathname);
             try {
+                // TODO: This is using the default platform character encoding
+                // specifying an encoding will produce more predictable results
                 fos = new BufferedWriter (new FileWriter (f));
                 writeTemplate(o, path, fos);
                 fos.write(fileContent);
