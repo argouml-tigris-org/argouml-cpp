@@ -105,11 +105,11 @@ round-trip engineering for C++ projects.
     <property name="module.jarfile"
               value="${module.build.dir}/${module.jarfile.name}"/>
 
-    <property name="argo.root.dir" value="${basedir}/../argouml"/>
-    <property name="argo.build.dir" value="${argo.root.dir}/build"/>
+    <property name="argo.root.dir" value="${basedir}/.."/>
+    <property name="argo.build.dir" value="${argo.root.dir}/argouml-build/build"/>
     
     <!-- Tools dir used for checkstyle. -->
-    <property name="argo.tools.dir" value="${argo.root.dir}/tools"/>
+    <property name="argo.tools.dir" value="${argo.root.dir}/argouml-core-tools"/>
 
     <property name="argo.jarfile" value="${argo.build.dir}/argouml.jar"/>
 
@@ -230,7 +230,7 @@ round-trip engineering for C++ projects.
   	
     <available file="${argo.jarfile}" property="argo.is.packaged"/>
     <fail unless="argo.is.packaged" 
-      message="You must build ArgoUML first, e.g., ../argouml> build install"/>
+      message="You must build ArgoUML first, e.g., ../argouml-build> build package"/>
 
     <javac srcdir="${module.src.dir}"
            destdir="${module.build.dest}"
