@@ -27,6 +27,7 @@ package org.argouml.language.cpp.notation;
 import java.util.Map;
 
 import org.argouml.language.cpp.generator.GeneratorCpp;
+import org.argouml.notation.NotationSettings;
 import org.argouml.notation.providers.AttributeNotation;
 
 /**
@@ -74,7 +75,21 @@ public class AttributeNotationCpp extends AttributeNotation {
      * @see org.argouml.notation.NotationProvider#toString(java.lang.Object,
      *      java.util.Map)
      */
+    @Deprecated
     public String toString(Object attribute, Map args) {
+        return GeneratorCpp.getInstance().generateAttribute(attribute, false);
+    }
+
+    /**
+     * @param attribute
+     *            The Attribute for which to return the syntax representation in
+     *            C++.
+     * @param settings
+     *            Configuration parameters for the notation.
+     * @return The C++ representation of attribute as a String.
+     * @see org.argouml.notation.NotationProvider#toString(Object, NotationSettings)
+     */    
+    public String toString(Object attribute, NotationSettings settings) {
         return GeneratorCpp.getInstance().generateAttribute(attribute, false);
     }
 

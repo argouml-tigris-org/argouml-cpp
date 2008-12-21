@@ -27,6 +27,7 @@ package org.argouml.language.cpp.notation;
 import java.util.Map;
 
 import org.argouml.language.cpp.generator.GeneratorCpp;
+import org.argouml.notation.NotationSettings;
 import org.argouml.notation.providers.OperationNotation;
 
 /**
@@ -73,6 +74,20 @@ public class OperationNotationCpp extends OperationNotation {
      * @see org.argouml.notation.NotationProvider#toString(java.lang.Object, java.util.Map)
      */
     public String toString(Object operation, Map args) {
+        return GeneratorCpp.getInstance().generateOperation(operation, false);
+    }
+
+    /**
+     * Generate a string representing the C++ syntax for the given operation 
+     * according to the provided settings.
+     * 
+     * @param operation The operation for which to generate the representation. 
+     * @param settings Configuration settings that determine the notation.
+     * @return The string representation of the operation.
+     * @see org.argouml.notation.NotationProvider#toString(Object, NotationSettings)
+     */
+    @Override
+    public String toString(Object operation, NotationSettings settings) {
         return GeneratorCpp.getInstance().generateOperation(operation, false);
     }
 

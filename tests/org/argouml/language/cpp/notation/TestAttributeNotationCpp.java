@@ -28,6 +28,7 @@ import junit.framework.TestCase;
 
 import org.argouml.language.cpp.Helper;
 import org.argouml.model.Model;
+import org.argouml.notation.NotationSettings;
 
 /**
  * Tests for the Attribute class.
@@ -48,7 +49,7 @@ public class TestAttributeNotationCpp extends TestCase {
                 theClass);
         Model.getCoreHelper().setName(attr, "attrName");
         AttributeNotationCpp notation = new AttributeNotationCpp();
-        String attrNotation = notation.toString(attr, null);
+        String attrNotation = notation.toString(attr, (NotationSettings) null);
         assertTrue(attrNotation.matches(Model.getFacade().getName(theClass)
                 + " " + Model.getFacade().getName(attr) + ";"));
     }

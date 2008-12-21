@@ -28,6 +28,7 @@ import java.util.Map;
 
 import org.argouml.language.cpp.generator.GeneratorCpp;
 import org.argouml.model.Model;
+import org.argouml.notation.NotationSettings;
 import org.argouml.notation.providers.ModelElementNameNotation;
 
 /**
@@ -58,6 +59,10 @@ public class ModelElementNameNotationCpp extends ModelElementNameNotation {
      *      java.util.Map)
      */
     public String toString(Object me, Map args) {
+        return toString(me);
+    }
+
+    private String toString(Object me) {
         if (Model.getFacade().isAClass(me)
                 || Model.getFacade().isAInterface(me)) {
             String className = GeneratorCpp.getInstance()
@@ -68,6 +73,11 @@ public class ModelElementNameNotationCpp extends ModelElementNameNotation {
         }
         String meName = Model.getFacade().getName(me);
         return meName != null ? meName : "";
+    }
+
+    @Override
+    public String toString(Object modelElement, NotationSettings settings) {
+        return toString(modelElement);
     }
 
 }

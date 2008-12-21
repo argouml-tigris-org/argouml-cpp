@@ -24,12 +24,12 @@
 
 package org.argouml.language.cpp.notation;
 
-import java.util.HashMap;
-
+import static org.argouml.language.cpp.Helper.getModel;
+import static org.argouml.language.cpp.Helper.newModel;
 import junit.framework.TestCase;
 
 import org.argouml.model.Model;
-import static org.argouml.language.cpp.Helper.*;
+import org.argouml.notation.NotationSettings;
 
 /**
  * Tests for the ModelElementNameNotationCpp class.
@@ -42,8 +42,8 @@ public class TestModelElementNameNotationCpp extends TestCase {
 
     private ModelElementNameNotationCpp meNotation;
 
-    private HashMap args;
-
+    private NotationSettings settings;
+    
     private Object baseClass;
 
     private Object generalization;
@@ -53,11 +53,11 @@ public class TestModelElementNameNotationCpp extends TestCase {
         newModel();
         theClass = Model.getCoreFactory().buildClass("TheClass", getModel());
         meNotation = new ModelElementNameNotationCpp(theClass);
-        args = new HashMap();
+        settings = NotationSettings.getDefaultSettings();
     }
 
     public void testToStringForClassEmptyArgs() {
-        String meNameCpp = meNotation.toString(theClass, args);
+        String meNameCpp = meNotation.toString(theClass, settings);
         assertNotNull(meNameCpp);
         assertEquals("No curly braces in Name", -1, meNameCpp.lastIndexOf('{'));
         assertEquals("class " + Model.getFacade().getName(theClass), meNameCpp);
@@ -69,7 +69,7 @@ public class TestModelElementNameNotationCpp extends TestCase {
      */
     public void testToStringForSpecializedClassEmptyArgs() {
         setUpGeneralizationForTheClass();
-        String meNameCpp = meNotation.toString(theClass, args);
+        String meNameCpp = meNotation.toString(theClass, settings);
         final String ignoredMatcher = "[\\s*\\n*\\r*]*";
         String meNameCppMatcher = "class" + ignoredMatcher
                 + Model.getFacade().getName(theClass) + ignoredMatcher + ":"
@@ -89,7 +89,7 @@ public class TestModelElementNameNotationCpp extends TestCase {
 
     public void testToStringForUnnamedGeneralizationDoesntReturnNull() {
         setUpGeneralizationForTheClass();
-        assertNotNull(meNotation.toString(generalization, args));
+        assertNotNull(meNotation.toString(generalization, settings));
     }
 
 }
