@@ -53,8 +53,10 @@ public class AttributeNotationCpp extends AttributeNotation {
      * @see org.argouml.notation.providers.NotationProvider#getParsingHelp()
      */
     public String getParsingHelp() {
-        // TODO: Auto-generated method stub
-        return null;
+        /* TODO: MVW: This used to return null. However that 
+         * causes issue 5557. Do we need a different string here?
+         */
+        return "Parsing in C++ not yet supported";
     }
 
     /*
