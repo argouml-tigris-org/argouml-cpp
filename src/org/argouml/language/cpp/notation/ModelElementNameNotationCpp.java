@@ -1,5 +1,5 @@
 // $Id$
-// Copyright (c) 2006-2007 The Regents of the University of California. All
+// Copyright (c) 2006-2009 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -66,9 +66,7 @@ public class ModelElementNameNotationCpp extends ModelElementNameNotation {
         if (Model.getFacade().isAClass(me)
                 || Model.getFacade().isAInterface(me)) {
             String className = GeneratorCpp.getInstance()
-                    .generateClassifierStart(me).toString();
-            int leftCurlyIndex = className.indexOf('{');
-            className = className.substring(0, leftCurlyIndex);
+                    .generateClassifierNameAndAncestors(me).toString();
             return className.trim();
         }
         String meName = Model.getFacade().getName(me);

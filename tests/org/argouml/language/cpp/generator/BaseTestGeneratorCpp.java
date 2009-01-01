@@ -1,5 +1,5 @@
 // $Id$
-// Copyright (c) 1996-2007 The Regents of the University of California. All
+// Copyright (c) 1996-2009 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -79,7 +79,11 @@ class BaseTestGeneratorCpp extends TestCase {
      */
     private Object fooMethod;
 
-    private ProfileCpp profile;
+    /**
+     * The C++ profile class, usefull to apply programatically tags and
+     * stereotypes contained in the profile.
+     */
+    protected ProfileCpp profile;
 
     /*
      * @see junit.framework.TestCase#setUp()

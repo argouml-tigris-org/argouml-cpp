@@ -330,6 +330,8 @@ round-trip engineering for C++ projects.
   <!-- =================================================================== -->
   <target name="checkstyle" depends="init, cleanparser"
           description="Run checkstyle on the cpp module.">
+    <property name="checkstyle.jar.path"
+              value="${argo.tools.dir}/checkstyle-4.3/checkstyle-all-4.3.jar"/>
     <java classname="com.puppycrawl.tools.checkstyle.Main" failonerror="false" fork="true" maxmemory="32M">
       <sysproperty key="checkstyle.header.file" value="${argo.tools.dir}/checkstyle/java.header"/>
       <classpath>
@@ -390,10 +392,11 @@ round-trip engineering for C++ projects.
   </target> 
 
   <!-- =================================================================== -->
-  <!-- Run the module unit tests                                           -->
+  <!-- Run a module unit test specified by property -Dtest=                -->
+  <!-- today.java.net/pub/a/today/2003/09/12/individual-test-cases.html    -->
   <!-- =================================================================== -->
-  <target name="tests" depends="init, compile-tests" 
-          description="run the module unit tests"> 
+  <target name="run-test" depends="init, compile-tests" 
+          description="run a module unit test specified by property -Dtest="> 
 
     <echo message="running the unit tests"/>
     
@@ -408,11 +411,20 @@ round-trip engineering for C++ projects.
       <formatter type="xml"/>
       <batchtest todir="${module.tests.reports}">
         <fileset dir="${module.tests.src}">
-          <include name="org/argouml/**/Test*.java"/>
+          <include name="org/argouml/**/${test}.java"/>
         </fileset>
       </batchtest>
     </junit>
     <antcall target="create-tests-report"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Run the module unit tests                                           -->
+  <!-- =================================================================== -->
+  <target name="tests" depends="init, compile-tests" 
+          description="run the module unit tests">
+    <property name="test" value="Test*"/>
+    <antcall target="run-test"/>
   </target>
   
   <target name="create-tests-report">

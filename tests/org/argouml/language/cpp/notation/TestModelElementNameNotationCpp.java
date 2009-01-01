@@ -1,5 +1,5 @@
 // $Id$
-// Copyright (c) 2006-2007 The Regents of the University of California. All
+// Copyright (c) 2006-2009 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -25,11 +25,13 @@
 package org.argouml.language.cpp.notation;
 
 import static org.argouml.language.cpp.Helper.getModel;
+import static org.argouml.language.cpp.Helper.getModels;
 import static org.argouml.language.cpp.Helper.newModel;
 import junit.framework.TestCase;
 
 import org.argouml.model.Model;
 import org.argouml.notation.NotationSettings;
+import org.argouml.language.cpp.profile.ProfileCpp;
 
 /**
  * Tests for the ModelElementNameNotationCpp class.
@@ -47,10 +49,13 @@ public class TestModelElementNameNotationCpp extends TestCase {
     private Object baseClass;
 
     private Object generalization;
+    
+    private ProfileCpp profile;
 
     protected void setUp() throws Exception {
         super.setUp();
         newModel();
+        profile = new ProfileCpp(getModels());
         theClass = Model.getCoreFactory().buildClass("TheClass", getModel());
         meNotation = new ModelElementNameNotationCpp(theClass);
         settings = NotationSettings.getDefaultSettings();
@@ -90,6 +95,19 @@ public class TestModelElementNameNotationCpp extends TestCase {
     public void testToStringForUnnamedGeneralizationDoesntReturnNull() {
         setUpGeneralizationForTheClass();
         assertNotNull(meNotation.toString(generalization, settings));
+    }
+
+    public void testToStringForDocumentedClassDoesntContainDocumentationComments() {
+        profile.applyDocumentationTaggedValue(theClass,
+            "TheClass documentation");
+        String meNameCpp = meNotation.toString(theClass, settings);
+        final String ignoredMatcher = "[\\s*\\n*\\r*]*";
+        String meNameCppMatcher = "^class" + ignoredMatcher
+            + Model.getFacade().getName(theClass) + ignoredMatcher;
+        assertTrue("meNameCpp = \"" + meNameCpp 
+            + "\", doesn't match meNameCppMatcher = \"" + meNameCppMatcher 
+            + "\"", 
+            meNameCpp.matches(meNameCppMatcher));
     }
 
 }

@@ -1,5 +1,5 @@
 // $Id$
-// Copyright (c) 2007 The Regents of the University of California. All
+// Copyright (c) 2007-2009 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -39,6 +39,10 @@ import org.argouml.profile.init.InitProfileSubsystem;
 
 /**
  * An Helper for test classes.
+ * 
+ * TODO: this helper should be split into several classes, each dealing with a
+ * specific functionality - model, project, JUnit addition, directories and
+ * files, etc.
  *
  * @author Luis Sergio Oliveira (euluis)
  */

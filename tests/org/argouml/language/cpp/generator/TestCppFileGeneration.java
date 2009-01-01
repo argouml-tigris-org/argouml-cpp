@@ -1,5 +1,5 @@
 // $Id$
-// Copyright (c) 1996-2007 The Regents of the University of California. All
+// Copyright (c) 1996-2009 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -48,7 +48,7 @@ import org.argouml.model.Model;
  * method.
  * 
  * @see GeneratorCpp
- * @author euluis
+ * @author Luis Sergio Oliveira (euluis)
  * @since 0.17.3
  */
 public class TestCppFileGeneration extends BaseTestGeneratorCpp {
@@ -457,14 +457,10 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
     
     private void assertGenerateAClassFileWithNullTaggedValueTag(
             final String testName, Object me) throws IOException {
-        Object documentationTV = getExtensionMechanismsFactory()
-                .buildTaggedValue(
-                    ProfileCpp.getTagDefinition(
-                        ProfileCpp.TV_NAME_DOCUMENTATION), 
-                    new String[] {"docs"});
-        getExtensionMechanismsHelper().addTaggedValue(me, documentationTV);
-    	assertEquals(1, 
-    			Model.getFacade().getTaggedValuesCollection(me).size());
+	profile.applyDocumentationTaggedValue(me, "docs");
+        Object documentationTV = Model.getFacade().getTaggedValue(me,
+            profile.TV_NAME_DOCUMENTATION);
+    	assertEquals(1, Model.getFacade().getTaggedValuesCollection(me).size());
     	assertEquals("documentation", 
     			Model.getFacade().getTag(documentationTV));
     	Object documentationTD = Model.getFacade().getTagDefinition(

@@ -1,5 +1,5 @@
 // $Id$
-// Copyright (c) 2007 The Regents of the University of California. All
+// Copyright (c) 2007-2009 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -310,5 +310,14 @@ public class TestProfileCpp extends TestCase {
             assertFalse(ProfileCpp.STEREO_NAME_OPERATION.equals( 
                     Model.getFacade().getName(stereotype)));
         }
+    }
+
+    public void testApplyDocumentationTaggedValue() {
+	final String docTVValue = "aClass documentation";
+        profile.applyDocumentationTaggedValue(aClass, docTVValue);
+        Object docTV = getFacade().getTaggedValue(aClass, 
+                ProfileCpp.TV_NAME_DOCUMENTATION);
+        assertNotNull(docTV);
+        assertEquals(docTVValue, getFacade().getValueOfTag(docTV));
     }
 }

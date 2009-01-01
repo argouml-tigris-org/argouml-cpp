@@ -1,5 +1,5 @@
 // $Id$
-// Copyright (c) 1996-2007 The Regents of the University of California. All
+// Copyright (c) 1996-2009 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -1287,7 +1287,45 @@ public class GeneratorCpp implements CodeGenerator {
      *
      * @return the generated start sequence
      */
-    public StringBuffer generateClassifierStart(Object cls) {
+    StringBuffer generateClassifierStart(Object cls) {
+        StringBuffer sb = new StringBuffer (80);
+        // Add the comments for this classifier first.
+        sb.append(LINE_SEPARATOR)
+            .append (DocumentationManager.getComments(cls));
+
+        // list tagged values for documentation
+        String tv = generateTaggedValues (cls, DOC_COMMENT_TAGS);
+        if (tv != null && tv.length() > 0) {
+            sb.append (LINE_SEPARATOR).append (indent).append (tv);
+        }
+        
+        sb.append(generateClassifierNameAndAncestors(cls));
+
+        // add opening brace
+        if (lfBeforeCurly)
+            sb.append(LINE_SEPARATOR).append('{');
+        else
+            sb.append(" {");
+
+        // list tagged values for documentation
+        tv = generateTaggedValues (cls, ALL_BUT_DOC_TAGS);
+        if (tv != null && tv.length() > 0) {
+            sb.append(LINE_SEPARATOR).append (indent).append (tv);
+        }
+
+        return sb;
+    }
+    
+    /**
+     * Generate the classifier name and ancestors, i.e., the keyword defining 
+     * the class, the class name and the name of the classes from which this
+     * one derives.
+     *
+     * @param cls the classifier for which to generate the name and ancestors
+     *
+     * @return the generated name and ancestors
+     */
+    public StringBuffer generateClassifierNameAndAncestors(Object cls) {
         StringBuffer sb = new StringBuffer (80);
 
         // don't create class-Start for implementation in .cpp
@@ -1300,16 +1338,6 @@ public class GeneratorCpp implements CodeGenerator {
             return null; // actors, use cases etc.
         }
         boolean hasBaseClass = false;
-
-        // Add the comments for this classifier first.
-        sb.append(LINE_SEPARATOR)
-            .append (DocumentationManager.getComments(cls));
-
-        // list tagged values for documentation
-        String tv = generateTaggedValues (cls, DOC_COMMENT_TAGS);
-        if (tv != null && tv.length() > 0) {
-            sb.append (LINE_SEPARATOR).append (indent).append (tv);
-        }
 
         // add classifier keyword and classifier name
         sb.append(sClassifierKeyword).append(" ");
@@ -1333,19 +1361,6 @@ public class GeneratorCpp implements CodeGenerator {
                 sb.append (interfaces);
             }
         }
-
-        // add opening brace
-        if (lfBeforeCurly)
-            sb.append(LINE_SEPARATOR).append('{');
-        else
-            sb.append(" {");
-
-        // list tagged values for documentation
-        tv = generateTaggedValues (cls, ALL_BUT_DOC_TAGS);
-        if (tv != null && tv.length() > 0) {
-            sb.append(LINE_SEPARATOR).append (indent).append (tv);
-        }
-
         return sb;
     }
 

@@ -1,5 +1,5 @@
 // $Id$
-// Copyright (c) 2007 The Regents of the University of California. All
+// Copyright (c) 2007-2009 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -276,6 +276,25 @@ public class BaseProfile {
         assert getFacade().getStereotypes(me).contains(
                 getCppStereotypeInModel(stereoName));
         Object td = getTagDefinition(stereoName, tdName);
+        Object tv = getExtensionMechanismsFactory().createTaggedValue();
+        getExtensionMechanismsHelper().setType(tv, td);
+        getExtensionMechanismsHelper().setDataValues(tv, new String[] {tvv});
+        getExtensionMechanismsHelper().addTaggedValue(me, tv);
+    }
+    
+    /**
+     * Applies a newlly created tagged value with value tvv related to the
+     * tag definition with name tdName to the given model element me.
+     *
+     * @param tdName the name of the tag definition for which to create a
+     * tagged value
+     * @param me the model element to which to apply the tagged value that will
+     * be created
+     * @param tvv the value that will be set in the tagged value
+     */
+    public void applyTaggedValue(String tdName, Object me, String tvv) {
+        assertModelElementContainedInModels(me);
+        Object td = getTagDefinition(tdName);
         Object tv = getExtensionMechanismsFactory().createTaggedValue();
         getExtensionMechanismsHelper().setType(tv, td);
         getExtensionMechanismsHelper().setDataValues(tv, new String[] {tvv});
