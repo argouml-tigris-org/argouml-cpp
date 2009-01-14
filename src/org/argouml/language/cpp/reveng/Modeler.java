@@ -289,4 +289,14 @@ public interface Modeler {
      * @return the collection
      */
     Collection getNewElements();
+
+    /**
+     * Signals the begin of a member declarator (see member_declarator rule).
+     */
+    void beginMemberDeclarator();
+
+    /**
+     * Signals the end of a member declarator (see member_declarator rule).
+     */
+    void endMemberDeclarator();
 }

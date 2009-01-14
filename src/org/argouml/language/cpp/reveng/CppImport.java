@@ -1,5 +1,5 @@
 // $Id$
-// Copyright (c) 2005-2008 The Regents of the University of California. All
+// Copyright (c) 2005-2009 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -130,7 +130,7 @@ public class CppImport implements ImportInterface {
             throw new ImportException("Error opening file " + f, e);
         }
         try {
-            Modeler modeler = new ModelerImpl();
+            Modeler modeler = new ModelerImpl(p);
             CPPLexer lexer = new CPPLexer(fileReader);
             CPPParser parser = new CPPParser(lexer);
             try {

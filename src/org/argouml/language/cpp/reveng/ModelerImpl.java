@@ -1,5 +1,5 @@
 // $Id$
-// Copyright (c) 1996-2008 The Regents of the University of California. All
+// Copyright (c) 1996-2009 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Stack;
 
 import org.apache.log4j.Logger;
+import org.argouml.kernel.Project;
 import org.argouml.kernel.ProjectManager;
 import org.argouml.model.IllegalModelElementConnectionException;
 import org.argouml.model.Model;
@@ -81,7 +82,14 @@ public class ModelerImpl implements Modeler {
     
     private Collection newElements;
     
-    private ProfileCpp profile = new ProfileCpp(getModels());
+    private ProfileCpp profile;
+    
+    private Project project;
+    
+    ModelerImpl(Project p) {
+        project = p;
+        profile = new ProfileCpp(project.getUserDefinedModelList());
+    }
 
     /*
      * @see org.argouml.language.cpp.reveng.Modeler#beginTranslationUnit()
@@ -168,15 +176,17 @@ public class ModelerImpl implements Modeler {
     }
 
     /**
-     * @return the model
+     * FIXME: the user model should be received via constructor.
+     * @return the user model
      */
     private static Object getModel() {
-        return Model.getModelManagementFactory().getRootModel();
-    }
-    
-    private static Collection<Object> getModels() {
-        return ProjectManager.getManager().getCurrentProject()
-                .getUserDefinedModelList();
+        for (Object rootElement : getFacade().getRootElements()) {
+            if (getFacade().isAModel(rootElement)) {
+                return rootElement;
+            }
+        }
+        assert false : "A user model wasn't found!";
+        throw new IllegalStateException("A user model wasn't found!");
     }
 
     /*
@@ -306,12 +316,16 @@ public class ModelerImpl implements Modeler {
             contextStack.push(oper);
         }
     }
+    
+    private Project getProject() {
+        return project;
+    }
 
     /**
      * @return the void DataType
      */
-    private static Object getVoid() {
-        return ProjectManager.getManager().getCurrentProject().findType("void");
+    private Object getVoid() {
+        return getProject().findType("void");
     }
 
     /**
@@ -421,6 +435,7 @@ public class ModelerImpl implements Modeler {
             while (i.hasNext()) {
                 stsString.append(i.next().toString()).append(" ");
             }
+            LOG.debug("In simpleTypeSpecifier, stsString = " + stsString);
             Object theType = findOrCreateType(stsString.toString().trim());
             // now, depending on the context, this might be the return type of a
             // function declaration or an attribute of a class or a variable
@@ -468,8 +483,7 @@ public class ModelerImpl implements Modeler {
         if (profile.isBuiltIn(typeName)) {
             theType = profile.getBuiltIn(typeName);
         } else {
-            theType = ProjectManager.getManager().getCurrentProject().findType(
-                    typeName.toString(), true);
+            theType = getProject().findType(typeName.toString(), true);
         }
         return theType;
     }
@@ -494,6 +508,8 @@ public class ModelerImpl implements Modeler {
      */
     public void directDeclarator(String id, boolean typedef) {
         if (!ignore()) {
+            LOG.debug("In directDeclarator: id = \"" + id + "\"; typedef = " 
+                + typedef);
             if (typedef) {
                 assert typedefModeler != null;
                 typedefModeler.directDeclarator(id);
@@ -714,9 +730,17 @@ public class ModelerImpl implements Modeler {
     public void endPtrOperator() {
         if (!ignore()) {
             Object ptrTV = contextStack.pop();
-            assert Model.getFacade().isATaggedValue(ptrTV);
+            assert Model.getFacade().isATaggedValue(ptrTV) : 
+                "A Tagged Value was expected, but, got: \"" + ptrTV + "\".";
+            Object meToBeTagged = contextStack.peek();
+            if (getFacade().isAOperation(meToBeTagged)) {
+                Collection rps = getCoreHelper().getReturnParameters(
+                    meToBeTagged);
+                assert rps.size() == 1;
+                meToBeTagged = rps.iterator().next();
+            }
             Model.getExtensionMechanismsHelper().addTaggedValue(
-                    contextStack.peek(), ptrTV);
+                meToBeTagged, ptrTV);
         }
     }
 
@@ -733,13 +757,21 @@ public class ModelerImpl implements Modeler {
 
                 Object paramOrAttribute = contextStack.peek();
                 assert getFacade().isAParameter(paramOrAttribute) 
-                    || getFacade().isAAttribute(paramOrAttribute);
+                    || getFacade().isAAttribute(paramOrAttribute) 
+                    || getFacade().isAOperation(paramOrAttribute);
                 String stereoName = null;
                 if (getFacade().isAParameter(paramOrAttribute)) {
                     stereoName = STEREO_NAME_PARAMETER;
                 }
                 else if (getFacade().isAAttribute(paramOrAttribute)) {
                     stereoName = STEREO_NAME_ATTRIBUTE;
+                }
+                else if (getFacade().isAOperation(paramOrAttribute)) {
+                    Collection rps = getCoreHelper().getReturnParameters(
+                        paramOrAttribute);
+                    assert rps.size() == 1;
+                    paramOrAttribute = rps.iterator().next();
+                    stereoName = STEREO_NAME_PARAMETER;
                 }
                 else {
                     LOG.warn("Unexpected reveng context: " + paramOrAttribute);
@@ -754,7 +786,7 @@ public class ModelerImpl implements Modeler {
                 }
                 profile.applyTaggedValue(stereoName, tvName, paramOrAttribute, 
                         "true");
-                Object tv = getFacade().getTaggedValue(contextStack.peek(), 
+                Object tv = getFacade().getTaggedValue(paramOrAttribute, 
                         tvName);
                 contextStack.push(tv);
             } else {
@@ -1087,6 +1119,22 @@ public class ModelerImpl implements Modeler {
             if (ignore()) return;
             assert isTheXtor(contextStack.peek());
             Model.getCoreHelper().setName(contextStack.peek(), qualifiedId);
+        }
+    }
+
+    @Override
+    public void beginMemberDeclarator() {
+        // TODO
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Entered beginMemberDeclarator.");
+        }
+    }
+
+    @Override
+    public void endMemberDeclarator() {
+        // TODO
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Entered endMemberDeclarator.");
         }
     }
 

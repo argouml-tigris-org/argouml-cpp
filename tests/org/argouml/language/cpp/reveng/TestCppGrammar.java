@@ -1,5 +1,5 @@
 // $Id$
-// Copyright (c) 1996-2006 The Regents of the University of California. All
+// Copyright (c) 1996-2009 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -96,7 +96,9 @@ public class TestCppGrammar extends TestCase {
         List sts2 = new ArrayList(); sts2.add("double");
         modeler.beginMemberDeclaration();
         modeler.simpleTypeSpecifier(sts2);
+        modeler.beginMemberDeclarator();
         modeler.directDeclarator("newAttr", false);
+        modeler.endMemberDeclarator();
         modeler.endMemberDeclaration();
         modeler.endClassDefinition();
         modeler.exitNamespaceScope();

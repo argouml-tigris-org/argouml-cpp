@@ -988,10 +988,14 @@ member_declarator_list
 	;
 
 member_declarator
+		{m.beginMemberDeclarator();}
 	:	
+		(
 		((ID)? COLON constant_expression)=>(ID)? COLON constant_expression
 	|  
 		declarator
+		)
+		{m.endMemberDeclarator();}
 	;
 
 conversion_function_decl_or_def

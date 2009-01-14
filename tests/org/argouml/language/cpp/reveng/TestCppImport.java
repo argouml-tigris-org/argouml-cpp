@@ -543,17 +543,42 @@ public class TestCppImport extends TestCase {
     }
 
     /**
+     * Test import of issue4932.cpp.
+     * 
+     * @throws Exception when things go wrong
+     */
+    public void testIssue4932() throws Exception {
+        genDir = setUpDirectory4Test("testIssue4932");
+        File srcFile = setupSrcFile4Reverse("issue4932.cpp");
+        Collection<File> files = new ArrayList<File>();
+        files.add(srcFile);
+        
+        cppImp.parseFiles(proj, files, settings, new DummyMonitor());
+        Collection classes = Model.getCoreHelper().getAllClasses(
+            getRootModel());
+        Object cBraceNode = getModelElementAndAssertNotDuplicated(classes, 
+            "CBraceNode");
+        assertTrue(Model.getFacade().isAClass(cBraceNode));
+        Collection opers =
+            Model.getCoreHelper().getBehavioralFeatures(cBraceNode);
+        // TODO: continue from here
+        //Object ctor = getModelElementAndAssertNotDuplicated(opers, "CBraceNode");
+    }
+
+    /**
      * @param modelElements collection of model elements in which to look for
      * @param modelElementName the model element name
      * @return the model element with the given name
      */
     private Object getModelElementAndAssertNotDuplicated(
             Collection modelElements, String modelElementName) {
-        Object pack = findModelElementWithName(modelElements, modelElementName);
+        Object me = findModelElementWithName(modelElements, modelElementName);
+        assertNotNull("Model element with name \"" + modelElementName + 
+            "\" wasn't found.", me);
         Collection mes2 = new ArrayList(modelElements);
-        assertTrue(mes2.remove(pack));
+        assertTrue(mes2.remove(me));
         assertNull(findModelElementWithName(mes2, modelElementName));
-        return pack;
+        return me;
     }
     
     /**
