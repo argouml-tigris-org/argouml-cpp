@@ -92,24 +92,7 @@ public class NormalProfileCpp extends Profile {
     
     @Override
     public DefaultTypeStrategy getDefaultTypeStrategy() {
-        return new DefaultTypeStrategy() {
-
-            public Object getDefaultAttributeType() {
-                // TODO: Auto-generated method stub
-                return null;
-            }
-
-            public Object getDefaultParameterType() {
-                // TODO: Auto-generated method stub
-                return null;
-            }
-
-            public Object getDefaultReturnType() {
-                // TODO: Auto-generated method stub
-                return null;
-            }
-            
-        };
+        return new DefaultTypeStrategyCpp(profileModels);
     }
     
     @Override

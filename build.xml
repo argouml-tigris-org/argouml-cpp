@@ -358,9 +358,9 @@ round-trip engineering for C++ projects.
 
     <javac srcdir="${module.tests.src}"
            destdir="${module.tests.classes}"
-           debug="true"
-           deprecation="false"
-           optimize="false"
+           debug="${debug}"
+           deprecation="${deprecation}"
+           optimize="${optimize}"
            source="1.5"
            target="1.5">
       <classpath>
@@ -389,6 +389,8 @@ round-trip engineering for C++ projects.
       todir="${tests.reveng.classes}"/>
     <copy file="${tests.reveng.src}/issue0025.cpp"
       todir="${tests.reveng.classes}"/>
+    <copy file="${tests.reveng.src}/issue4932.cpp"
+      todir="${tests.reveng.classes}"/>
   </target> 
 
   <!-- =================================================================== -->
@@ -408,6 +410,9 @@ round-trip engineering for C++ projects.
         <path refid="module.run-tests.classpath"/>
         <pathelement location="${module.tests.classes}"/>
       </classpath>
+      <assertions>
+        <enable package="org.argouml"/>
+      </assertions>
       <formatter type="xml"/>
       <batchtest todir="${module.tests.reports}">
         <fileset dir="${module.tests.src}">
