@@ -1122,7 +1122,6 @@ public class ModelerImpl implements Modeler {
         }
     }
 
-    @Override
     public void beginMemberDeclarator() {
         // TODO
         if (LOG.isDebugEnabled()) {
@@ -1130,7 +1129,6 @@ public class ModelerImpl implements Modeler {
         }
     }
 
-    @Override
     public void endMemberDeclarator() {
         // TODO
         if (LOG.isDebugEnabled()) {

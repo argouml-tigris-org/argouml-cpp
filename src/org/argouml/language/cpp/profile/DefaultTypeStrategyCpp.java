@@ -50,17 +50,14 @@ public class DefaultTypeStrategyCpp implements DefaultTypeStrategy {
         this.profileModels = profileModels;
     }
     
-    @Override
     public Object getDefaultAttributeType() {
         return getDefaultType(defaultTypeName);
     }
     
-    @Override
     public Object getDefaultParameterType() {
         return getDefaultType(defaultTypeName);
     }
     
-    @Override
     public Object getDefaultReturnType() {
         return getDefaultType(defaultTypeName);
     }
