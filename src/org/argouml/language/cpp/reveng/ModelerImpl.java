@@ -33,7 +33,6 @@ import java.util.Stack;
 
 import org.apache.log4j.Logger;
 import org.argouml.kernel.Project;
-import org.argouml.kernel.ProjectManager;
 import org.argouml.model.IllegalModelElementConnectionException;
 import org.argouml.model.Model;
 import static org.argouml.model.Model.*;
@@ -1116,13 +1115,14 @@ public class ModelerImpl implements Modeler {
          * @param qualifiedId
          */
         void declarator(String qualifiedId) {
-            if (ignore()) return;
+            if (ignore()) {
+                return;
+            }
             assert isTheXtor(contextStack.peek());
             Model.getCoreHelper().setName(contextStack.peek(), qualifiedId);
         }
     }
 
-    @Override
     public void beginMemberDeclarator() {
         // TODO
         if (LOG.isDebugEnabled()) {
@@ -1130,7 +1130,6 @@ public class ModelerImpl implements Modeler {
         }
     }
 
-    @Override
     public void endMemberDeclarator() {
         // TODO
         if (LOG.isDebugEnabled()) {
