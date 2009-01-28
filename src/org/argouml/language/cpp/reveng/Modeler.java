@@ -291,6 +291,18 @@ public interface Modeler {
     Collection getNewElements();
 
     /**
+     * Signals the begin of a member declarator list (see member_declarator_list
+     * rule).
+     */
+    void beginMemberDeclaratorList();
+
+    /**
+     * Signals the end of a member declarator list (see member_declarator_list 
+     * rule).
+     */
+    void endMemberDeclaratorList();
+
+    /**
      * Signals the begin of a member declarator (see member_declarator rule).
      */
     void beginMemberDeclarator();

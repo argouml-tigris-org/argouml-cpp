@@ -26,6 +26,8 @@ package org.argouml.language.cpp.reveng;
 
 import static org.argouml.language.cpp.Helper.createProject;
 import static org.argouml.language.cpp.Helper.deleteCurrentProject;
+import static org.argouml.model.Model.getFacade;
+import static org.argouml.model.Model.getCoreHelper;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -554,15 +556,47 @@ public class TestCppImport extends TestCase {
         files.add(srcFile);
         
         cppImp.parseFiles(proj, files, settings, new DummyMonitor());
-        Collection classes = Model.getCoreHelper().getAllClasses(
-            getRootModel());
+        Collection classes = getCoreHelper().getAllClasses(getRootModel());
         Object cBraceNode = getModelElementAndAssertNotDuplicated(classes, 
             "CBraceNode");
-        assertTrue(Model.getFacade().isAClass(cBraceNode));
-        Collection opers =
-            Model.getCoreHelper().getBehavioralFeatures(cBraceNode);
-        // TODO: continue from here
-        //Object ctor = getModelElementAndAssertNotDuplicated(opers, "CBraceNode");
+        assertTrue(getFacade().isAClass(cBraceNode));
+        // check attributes
+        Collection attributes = getCoreHelper().getAllAttributes(cBraceNode);
+        assertEquals("Unexpected number of attributes.", 4, attributes.size());
+        Object pnext = getModelElementAndAssertNotDuplicated(attributes, 
+            "pnext");
+        assertEquals("pnext's type must be CBraceNode", cBraceNode, 
+            getFacade().getType(pnext));
+        Collection pnextStereotypes = getFacade().getStereotypes(pnext);
+        assertNotNull(findModelElementWithName(pnextStereotypes, 
+            ProfileCpp.STEREO_NAME_ATTRIBUTE));
+        assertEquals("Only expecting one tagged value.", 1, 
+            getFacade().getTaggedValuesCollection(pnext).size());
+        Object pnextPointerTV = getFacade().getTaggedValue(pnext, 
+            ProfileCpp.TV_NAME_POINTER);
+        assertNotNull("pnext should have a pointer TV.", pnextPointerTV);
+        assertEquals("pnext pointer TV should have the value true.", 
+            ProfileCpp.TV_TRUE_VALUE, 
+            getFacade().getValueOfTag(pnextPointerTV));
+        String[] attributeNames = {"lineNumber", "columnNumber", "ch"};
+        for (String attributeName : attributeNames) {
+            Object attr = getModelElementAndAssertNotDuplicated(attributes, 
+                attributeName);
+            assertEquals("type must be int", "int", 
+                getFacade().getName(getFacade().getType(attr)));
+        }
+        // check constructors
+        Collection opers = getCoreHelper().getBehavioralFeatures(cBraceNode);
+        List ctors = new ArrayList();
+        for (Object operation : opers) {
+            if ("CBraceNode".equals(getFacade().getName(operation)) 
+		&& null != findModelElementWithName(
+                    getFacade().getStereotypes(operation), "create")) {
+                ctors.add(operation);
+            }
+        }
+        assertEquals("Unexpected number of constructors.", 2, ctors.size());
+        // TODO: assert one ctor with no args and the other with four args.
     }
 
     /**

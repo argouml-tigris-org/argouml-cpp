@@ -36,6 +36,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -137,16 +138,10 @@ public class BaseProfile {
      */
     public Object getBuiltIn(String typeName) {
         assert isBuiltIn(typeName) : "Must be a C++ built in!";
-        Object builtinType = null;
-        for (Object model : models) {
-            builtinType = findDataType(typeName, model);
-            if (builtinType != null) {
-                break;
-            }
-        }
+        Object builtinType = findDataType(typeName, profile);
         if (builtinType == null) {
             builtinType = getCoreFactory().buildDataType(typeName, 
-                getFacade().getRootElements().iterator().next());
+                models.iterator().next());
         }
         // copy the documentation from the profile if it exists
         Object profileDT = findDataType(typeName, profile);
@@ -162,19 +157,49 @@ public class BaseProfile {
         }
         return builtinType;
     }
-
-    public static Object getTagDefinition(String tdName) {
-        Collection tagDefinitions = getModelManagementHelper().
-            getAllModelElementsOfKindWithModel(
-                getFacade().getRootElements().iterator().next(), 
-                Model.getMetaTypes().getTagDefinition());
-        for (Object td : tagDefinitions) {
-            if (tdName.equals(getFacade().getName(td))) {
-                return td;
+    
+    public static Collection getModels() {
+        Collection models = new ArrayList();
+        for (Object rootModelElement : getFacade().getRootElements()) {
+            if (getFacade().isAModel(rootModelElement)) {
+                models.add(rootModelElement);
             }
         }
-        return getExtensionMechanismsFactory().buildTagDefinition(tdName, 
-                null, getFacade().getRootElements().iterator().next());
+        return models;
+    }
+    
+    public static Collection getEditableModels() {
+        Collection editableModels = new ArrayList();
+        for (Object rootModelElement : getFacade().getRootElements()) {
+            if (getFacade().isAModel(rootModelElement) && 
+                !getModelManagementHelper().isReadOnly(rootModelElement)) {
+                editableModels.add(rootModelElement);
+            }
+        }
+        return editableModels;
+    }
+
+    public static Object getTagDefinition(String tdName) {
+        // look for it in all the models
+        Collection models = getModels();
+        for (Object model : models) {
+            Collection tagDefinitions = getModelManagementHelper().
+                getAllModelElementsOfKindWithModel(model, 
+                    Model.getMetaTypes().getTagDefinition());
+            for (Object td : tagDefinitions) {
+                if (tdName.equals(getFacade().getName(td))) {
+                    return td;
+                }
+            }
+        }
+        // create it in an editable model if one is found
+        Collection editableModels = getEditableModels();
+        Iterator it = editableModels.iterator();
+        if (it.hasNext()) {
+            return getExtensionMechanismsFactory().buildTagDefinition(tdName, 
+                null, it.next());
+        }
+        throw new IllegalStateException("Unable to find an editable model.");
     }
 
     static Object findDataType(String typeName, Object model2) {
@@ -192,8 +217,19 @@ public class BaseProfile {
     }
 
     protected BaseProfile(Collection<Object> theModels) {
-        this.models = theModels;
+        models = theModels;
+        assert models.size() > 0 : 
+            "There must be at least one user model."; //$NON-NLS-1$
         profile = loadProfileModels().iterator().next();
+    }
+
+    protected BaseProfile(Collection<Object> theModels, Object profileModel) {
+        models = theModels;
+        assert models.size() > 0 : 
+            "There must be at least one user model."; //$NON-NLS-1$
+        assert profileModel != null : 
+            "The profileModel must be non-null."; //$NON-NLS-1$
+        profile = profileModel;
     }
 
     /**

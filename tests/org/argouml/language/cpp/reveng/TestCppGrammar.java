@@ -96,9 +96,11 @@ public class TestCppGrammar extends TestCase {
         List sts2 = new ArrayList(); sts2.add("double");
         modeler.beginMemberDeclaration();
         modeler.simpleTypeSpecifier(sts2);
+        modeler.beginMemberDeclaratorList();
         modeler.beginMemberDeclarator();
         modeler.directDeclarator("newAttr", false);
         modeler.endMemberDeclarator();
+        modeler.endMemberDeclaratorList();
         modeler.endMemberDeclaration();
         modeler.endClassDefinition();
         modeler.exitNamespaceScope();

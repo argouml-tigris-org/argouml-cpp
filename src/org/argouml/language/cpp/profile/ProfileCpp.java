@@ -264,6 +264,10 @@ public class ProfileCpp extends BaseProfile {
     public ProfileCpp(Collection<Object> models) {
         super(models);
     }
+    
+    public ProfileCpp(Collection<Object> models, Object profileModel) {
+        super(models, profileModel);
+    }
 
     public Object getCppClassStereotype() {
         return getCppStereotypeInModel(STEREO_NAME_CLASS);

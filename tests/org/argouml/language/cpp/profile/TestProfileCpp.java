@@ -86,6 +86,17 @@ public class TestProfileCpp extends TestCase {
         assertNotNull(profile);
         assertNotNull(profile.getProfile());
     }
+
+    public void testCtorThatReceivesTheProfileModel() throws Exception {
+        Profile normalProfileCpp = new NormalProfileCpp();
+        Object normalProfileCppModel = 
+            normalProfileCpp.getProfilePackages().iterator().next();
+        profile = new ProfileCpp(Helper.getModels(), normalProfileCppModel);
+        assertNotNull(profile.getProfile());
+        assertEquals("The name of the profile models must be the same.", 
+            getFacade().getName(normalProfileCppModel), 
+            getFacade().getName(profile.getProfile()));
+    }
     
     public void testGetVirtualInheritanceTagDefinition() throws Exception {
         Object tagDefinition = profile.getVirtualInheritanceTagDefinition();

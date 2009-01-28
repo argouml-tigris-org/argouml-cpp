@@ -983,8 +983,13 @@ access_specifier
 	;
 
 member_declarator_list
-	:	member_declarator (ASSIGNEQUAL OCTALINT)? // The value must be 0 (pure virt.)
+		{m.beginMemberDeclaratorList();}
+	:	
+		(
+		member_declarator (ASSIGNEQUAL OCTALINT)? // The value must be 0 (pure virt.)
 		(COMMA member_declarator (ASSIGNEQUAL OCTALINT)? )*
+		)
+		{m.endMemberDeclaratorList();}
 	;
 
 member_declarator

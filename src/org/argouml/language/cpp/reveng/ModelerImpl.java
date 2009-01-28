@@ -36,6 +36,8 @@ import org.argouml.kernel.Project;
 import org.argouml.model.IllegalModelElementConnectionException;
 import org.argouml.model.Model;
 import static org.argouml.model.Model.*;
+import org.argouml.profile.Profile;
+import org.argouml.profile.ProfileException;
 import org.argouml.uml.StereotypeUtility;
 import org.argouml.language.cpp.profile.ProfileCpp;
 import static org.argouml.language.cpp.profile.ProfileCpp.*;
@@ -85,9 +87,27 @@ public class ModelerImpl implements Modeler {
     
     private Project project;
     
-    ModelerImpl(Project p) {
+    private AttributeModeler attributeModeler;
+    
+    ModelerImpl(Project p) throws ProfileException {
         project = p;
-        profile = new ProfileCpp(project.getUserDefinedModelList());
+        List<Profile> projectProfiles = 
+            project.getProfileConfiguration().getProfiles();
+        Profile cppProfile = null;
+        for (Profile projectProfile : projectProfiles) {
+            if (projectProfile.getDisplayName() != null 
+                && projectProfile.getDisplayName().contains("C++")) {
+                cppProfile = projectProfile;
+                break;
+            }
+        }
+        if (cppProfile != null) {
+            profile = new ProfileCpp(project.getUserDefinedModelList(), 
+                cppProfile.getProfilePackages().iterator().next());
+        }
+        else {
+            profile = new ProfileCpp(project.getModels());
+        }
     }
 
     /*
@@ -153,7 +173,7 @@ public class ModelerImpl implements Modeler {
      * @param parentNs the parent namespace of the namespace to get
      * @return the namespace if it exists, <code>null</code> otherwise.
      */
-    private static Object findNamespace(String nsName, Object parentNs) {
+    private Object findNamespace(String nsName, Object parentNs) {
         Collection nss =
 	    Model.getModelManagementHelper().getAllNamespaces(getModel());
         Iterator it = nss.iterator();
@@ -173,19 +193,24 @@ public class ModelerImpl implements Modeler {
         }
         return ns;
     }
+    
+    private Object model;
 
     /**
      * FIXME: the user model should be received via constructor.
      * @return the user model
      */
-    private static Object getModel() {
-        for (Object rootElement : getFacade().getRootElements()) {
-            if (getFacade().isAModel(rootElement)) {
-                return rootElement;
+    private Object getModel() {
+        if (model != null) {
+            return model;
+        }
+        for (Object userModel : getProject().getUserDefinedModelList()) {
+            if (!getModelManagementHelper().isReadOnly(userModel)) {
+                model = userModel;
+                return model;
             }
         }
-        assert false : "A user model wasn't found!";
-        throw new IllegalStateException("A user model wasn't found!");
+        throw new IllegalStateException("An editable user model wasn't found!");
     }
 
     /*
@@ -383,7 +408,45 @@ public class ModelerImpl implements Modeler {
      *         same order
      */
     private boolean equalParameters(Object oper1, Object oper2) {
-        // TODO: implementation.
+        List parameters1 = getFacade().getParametersList(oper1);
+        List parameters2 = getFacade().getParametersList(oper2);
+        if (parameters1.size() == parameters2.size()) {
+            Iterator it1 = parameters1.iterator();
+            Iterator it2 = parameters2.iterator();
+            while (it1.hasNext()) {
+                Object parameter1 = it1.next();
+                Object parameter2 = it2.next();
+                if (!equalParameter(parameter1, parameter2)) {
+                    return false;
+                }
+            }
+        }
+        else {
+            return false;
+        }
+        return true;
+    }
+    
+    private boolean equalParameter(Object parameter1, Object parameter2) {
+        if (getFacade().getName(parameter1) != null 
+            && getFacade().getName(parameter1).equals(
+                getFacade().getName(parameter2))) {
+            return equalTaggedValues(
+                getFacade().getTaggedValuesCollection(parameter1), 
+                getFacade().getTaggedValuesCollection(parameter2));
+        }
+        if (getFacade().getName(parameter1) == null 
+            && getFacade().getName(parameter2) == null) {
+            return equalTaggedValues(
+                getFacade().getTaggedValuesCollection(parameter1), 
+                getFacade().getTaggedValuesCollection(parameter2));
+        }
+        return false;
+    }
+    
+    private boolean equalTaggedValues(Collection taggedValues1, 
+        Collection taggedValues2) {
+        // FIXME: TODO
         return true;
     }
 
@@ -436,6 +499,9 @@ public class ModelerImpl implements Modeler {
             }
             LOG.debug("In simpleTypeSpecifier, stsString = " + stsString);
             Object theType = findOrCreateType(stsString.toString().trim());
+            if (memberModeler != null) {
+                memberModeler.setType(theType);
+            }
             // now, depending on the context, this might be the return type of a
             // function declaration or an attribute of a class or a variable
             // declaration; of course, this is rather incomplete(!)
@@ -446,13 +512,7 @@ public class ModelerImpl implements Modeler {
                 Model.getCoreHelper().setType(rv, theType);
 
             } else if (Model.getFacade().isAClass(contextStack.peek())) {
-                Object attr = Model.getCoreFactory().buildAttribute2(
-                       contextStack.peek(), theType);
-                if (contextAccessSpecifier != null) {
-                    Model.getCoreHelper().setVisibility(attr,
-                        contextAccessSpecifier);
-                }
-                contextStack.push(attr);
+                // an attribute or an enumeration... handled elsewhere
             } else if (Model.getFacade().isAParameter(contextStack.peek())) {
                 Model.getCoreHelper().setType(contextStack.peek(), theType);
             } else if (Model.getFacade().isAModel(contextStack.peek()) 
@@ -515,37 +575,6 @@ public class ModelerImpl implements Modeler {
                 typedefModeler = null;
             } else {
                 Model.getCoreHelper().setName(contextStack.peek(), id);
-                if (Model.getFacade().isAAttribute(contextStack.peek())) {
-                    Object attr = contextStack.pop();
-                    removeAttributeIfDuplicate(attr);
-                }
-            }
-        }
-    }
-
-    /**
-     * Check if the given attribute is a duplicate of other already existing
-     * attribute and if so remove it.
-     *
-     * FIXME: this method is very similar to the {@link
-     * #removeOperationIfDuplicate(Object) removeOperationIfDuplicate}
-     * method. Both are related to the removal of a Feature from a
-     * Classifier if the Feature is duplicated in the Classifier. I
-     * think this may be refactored in the future...
-     *
-     * @param attr the attribute to be checked and possibly removed
-     */
-    private void removeAttributeIfDuplicate(Object attr) {
-        Object parent = contextStack.peek();
-        Collection attrs = Model.getFacade().getAttributes(parent);
-
-        Iterator it = attrs.iterator();
-        while (it.hasNext()) {
-            Object possibleDuplicateAttr = it.next();
-            if (attr != possibleDuplicateAttr
-                && Model.getFacade().getName(attr).equals(
-                    Model.getFacade().getName(possibleDuplicateAttr))) {
-                Model.getCoreHelper().removeFeature(parent, attr);
             }
         }
     }
@@ -682,11 +711,17 @@ public class ModelerImpl implements Modeler {
     public void endInitializer() {
         // do nothing
     }
-
+    
+    MemberModeler memberModeler;
+    
     /*
      * @see org.argouml.language.cpp.reveng.Modeler#beginMemberDeclaration()
      */
     public void beginMemberDeclaration() {
+        Object owner = contextStack.peek();
+        assert getFacade().isAClassifier(owner) : 
+            "owner must be a Classifier.";
+        memberModeler = new MemberModeler(owner, contextAccessSpecifier);
         memberDeclarationCount++;
     }
 
@@ -695,6 +730,8 @@ public class ModelerImpl implements Modeler {
      */
     public void endMemberDeclaration() {
         memberDeclarationCount--;
+        memberModeler.finish();
+        memberModeler = null;
     }
 
     /*
@@ -1124,17 +1161,25 @@ public class ModelerImpl implements Modeler {
     }
 
     public void beginMemberDeclarator() {
-        // TODO
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Entered beginMemberDeclarator.");
-        }
+        Object theType = memberModeler.type;
+        attributeModeler = new AttributeModeler(contextStack.peek(), 
+            theType, contextAccessSpecifier);
+        contextStack.push(attributeModeler.attr);
     }
 
     public void endMemberDeclarator() {
-        // TODO
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Entered endMemberDeclarator.");
+        if (Model.getFacade().isAAttribute(contextStack.peek())) {
+            attributeModeler.removeAttributeIfDuplicate();
+            assert attributeModeler.attr == contextStack.pop();
         }
+    }
+
+    public void beginMemberDeclaratorList() {
+        // TODO
+    }
+
+    public void endMemberDeclaratorList() {
+        // TODO
     }
 
 }

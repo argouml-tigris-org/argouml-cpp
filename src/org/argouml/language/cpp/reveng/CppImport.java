@@ -24,6 +24,9 @@
 
 package org.argouml.language.cpp.reveng;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.io.File;
 import java.io.Reader;
 import java.io.IOException;
@@ -38,6 +41,7 @@ import org.apache.log4j.Logger;
 import org.argouml.configuration.Configuration;
 import org.argouml.configuration.ConfigurationKey;
 import org.argouml.kernel.Project;
+import org.argouml.profile.ProfileException;
 import org.argouml.taskmgmt.ProgressMonitor;
 import org.argouml.uml.reveng.FileImportUtils;
 import org.argouml.uml.reveng.ImportInterface;
@@ -130,7 +134,7 @@ public class CppImport implements ImportInterface {
             throw new ImportException("Error opening file " + f, e);
         }
         try {
-            Modeler modeler = new ModelerImpl(p);
+            Modeler modeler = createModeler(p);
             CPPLexer lexer = new CPPLexer(fileReader);
             CPPParser parser = new CPPParser(lexer);
             try {
@@ -145,6 +149,57 @@ public class CppImport implements ImportInterface {
             } catch (IOException e) {
                 LOG.error("Error on closing file " + f, e);
             }
+        }
+    }
+    
+    private static class ModelerInvocationHandler implements InvocationHandler {
+
+        static final Logger LOG = Logger.getLogger(Modeler.class);
+        
+        Modeler modeler;
+        
+        ModelerInvocationHandler(Modeler modeler) {
+            this.modeler = modeler;
+        }
+        
+        public Object invoke(Object proxy, Method method, 
+            Object[] args) {
+            StringBuilder debugInfo = new StringBuilder();
+            debugInfo.append("Entered ");
+            debugInfo.append(method.getName());
+            if (args != null && args.length > 0) {
+                debugInfo.append(", with args: ");
+                for (int i = 0; i < args.length; i++) {
+                    Object arg = args[i];
+                    debugInfo.append(arg);
+                    if (i < args.length - 1) {
+                        debugInfo.append("; ");
+                    }
+                }
+            }
+            debugInfo.append(".");
+            LOG.debug(debugInfo);
+            try {
+                return method.invoke(modeler, args);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+    
+    private Modeler createModeler(Project p) throws ImportException {
+        try {
+            Modeler modeler = new ModelerImpl(p);
+            if (LOG.isDebugEnabled()) {
+                InvocationHandler handler = new ModelerInvocationHandler(modeler);
+                modeler = (Modeler) Proxy.newProxyInstance(
+                    Modeler.class.getClassLoader(), new Class[] {Modeler.class}, 
+                    handler);
+            }
+            return modeler;
+        } catch (ProfileException e) {
+            throw new ImportException(
+                "Exception thrown while creating the C++ modeler.", e);
         }
     }
 
