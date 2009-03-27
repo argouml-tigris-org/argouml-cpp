@@ -113,7 +113,7 @@ round-trip engineering for C++ projects.
 
     <property name="argo.jarfile" value="${argo.build.dir}/argouml.jar"/>
 
-    <property name="antlrall.jar.path" value="${argo.build.dir}/antlr-2.7.7.jar"/>
+    <property name="antlrall.jar.path" value="${module.lib.dir}/antlr-2.7.7.jar"/>
 
     <property name="junit.jar.path" value="${argo.tools.dir}/junit-3.8.2/junit.jar"/>
 

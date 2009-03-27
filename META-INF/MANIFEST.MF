@@ -6,7 +6,8 @@ Bundle-Version: 0.25.6
 Bundle-ClassPath: argouml-module-cpp.jar,
  lib/anarres-cpp-no-dependencies-1.2.3.jar,
  lib/commons-io-1.0.jar,
- lib/easymock-1.1.jar
+ lib/easymock-1.1.jar,
+ lib/antlr-2.7.7.jar
 Bundle-Localization: plugin
 Export-Package: META-INF,
  org.argouml.i18n,

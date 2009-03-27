@@ -9,4 +9,5 @@
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="lib" path="lib/anarres-cpp-no-dependencies-1.2.3.jar" sourcepath="lib/anarres-cpp-src-1.2.3.zip"/>
 	<classpathentry kind="output" path="build-eclipse"/>
+	<classpathentry kind="lib" path="lib/antlr-2.7.7.jar"/>
 </classpath>
