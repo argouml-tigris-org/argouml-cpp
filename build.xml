@@ -323,6 +323,7 @@ round-trip engineering for C++ projects.
       <fileset dir="${module.build.dir}" includes="${module.jarfile.name}"/>
     </copy>
     <copy todir="${argo.build.dir}/ext" file="${preprocessor.jar.path}"/>
+    <copy todir="${argo.build.dir}/ext" file="${antlrall.jar.path}"/>
   </target>
 
   <!-- =================================================================== -->
