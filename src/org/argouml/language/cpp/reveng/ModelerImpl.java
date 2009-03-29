@@ -1170,7 +1170,8 @@ public class ModelerImpl implements Modeler {
     public void endMemberDeclarator() {
         if (Model.getFacade().isAAttribute(contextStack.peek())) {
             attributeModeler.removeAttributeIfDuplicate();
-            assert attributeModeler.attr == contextStack.pop();
+            assert attributeModeler.attr == contextStack.peek();
+            contextStack.pop();
         }
     }
 
