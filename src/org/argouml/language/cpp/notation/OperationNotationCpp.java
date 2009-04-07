@@ -1,5 +1,5 @@
 // $Id$
-// Copyright (c) 2006-2007 The Regents of the University of California. All
+// Copyright (c) 2006-2009 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -23,8 +23,6 @@
 // UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 package org.argouml.language.cpp.notation;
-
-import java.util.Map;
 
 import org.argouml.language.cpp.generator.GeneratorCpp;
 import org.argouml.notation.NotationSettings;
@@ -62,19 +60,6 @@ public class OperationNotationCpp extends OperationNotation {
      */
     public void parse(Object operation, String text) {
         // TODO: Auto-generated method stub
-    }
-
-    /**
-     * Generates a string representing the C++ syntax for the given operation 
-     * according to the provided args.
-     * 
-     * @param operation The operation for which to generate the representation. 
-     * @param args Configuration arguments that determine the notation.
-     * @return The string representation of the operation.
-     * @see org.argouml.notation.NotationProvider#toString(java.lang.Object, java.util.Map)
-     */
-    public String toString(Object operation, Map args) {
-        return GeneratorCpp.getInstance().generateOperation(operation, false);
     }
 
     /**

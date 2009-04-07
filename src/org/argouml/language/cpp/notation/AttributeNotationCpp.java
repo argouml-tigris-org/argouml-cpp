@@ -1,5 +1,5 @@
 // $Id$
-// Copyright (c) 2006-2007 The Regents of the University of California. All
+// Copyright (c) 2006-2009 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -23,8 +23,6 @@
 // UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 package org.argouml.language.cpp.notation;
-
-import java.util.Map;
 
 import org.argouml.language.cpp.generator.GeneratorCpp;
 import org.argouml.notation.NotationSettings;
@@ -65,21 +63,6 @@ public class AttributeNotationCpp extends AttributeNotation {
      */
     public void parse(Object attribute, String text) {
         // TODO: Auto-generated method stub
-    }
-
-    /**
-     * @param attribute
-     *            The Attribute for which to return the syntax representation in
-     *            C++.
-     * @param args
-     *            Configuration parameters for the notation.
-     * @return The C++ representation of attribute as a String.
-     * @see org.argouml.notation.NotationProvider#toString(java.lang.Object,
-     *      java.util.Map)
-     */
-    @Deprecated
-    public String toString(Object attribute, Map args) {
-        return GeneratorCpp.getInstance().generateAttribute(attribute, false);
     }
 
     /**

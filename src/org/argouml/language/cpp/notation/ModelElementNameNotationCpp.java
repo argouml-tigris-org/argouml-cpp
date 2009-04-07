@@ -24,8 +24,6 @@
 
 package org.argouml.language.cpp.notation;
 
-import java.util.Map;
-
 import org.argouml.language.cpp.generator.GeneratorCpp;
 import org.argouml.model.Model;
 import org.argouml.notation.NotationSettings;
@@ -52,14 +50,6 @@ public class ModelElementNameNotationCpp extends ModelElementNameNotation {
      */
     public void parse(Object modelElement, String text) {
         // TODO: Auto-generated method stub
-    }
-
-    /*
-     * @see org.argouml.notation.providers.NotationProvider#toString(java.lang.Object,
-     *      java.util.Map)
-     */
-    public String toString(Object me, Map args) {
-        return toString(me);
     }
 
     private String toString(Object me) {
