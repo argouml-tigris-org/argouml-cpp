@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.argouml.argoeclipse.core.codeGenerator">
+      <language
+            id="org.argouml.language.cpp"
+            name="C++">
+      </language>
+      <generator
+            class="org.argouml.language.cpp.generator.GeneratorCpp"
+            id="org.argouml.language.cpp.generator"
+            language="org.argouml.language.cpp"
+            name="C++ Generator">
+      </generator>
+   </extension>
+   <extension
+         point="org.argouml.argoeclipse.core.sourceImporter">
+      <language
+            id="org.argouml.language.cpp"
+            name="C++">
+      </language>
+      <importer
+            class="org.argouml.language.cpp.reveng.CppImport"
+            id="org.argouml.language.cpp.reveng"
+            language="org.argouml.language.cpp"
+            name="C++ Source Importer (Reverse Engineering)">
+      </importer>
+   </extension>
+
+</plugin>
