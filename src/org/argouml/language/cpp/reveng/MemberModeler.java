@@ -24,11 +24,6 @@
 
 package org.argouml.language.cpp.reveng;
 
-import java.util.Collection;
-
-import org.apache.log4j.Logger;
-import org.argouml.model.Model;
-import org.argouml.language.cpp.profile.ProfileCpp;
 
 /**
  * Modeler for C++ class members (without a specific kind specified).

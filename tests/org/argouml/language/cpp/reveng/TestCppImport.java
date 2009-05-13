@@ -1,5 +1,5 @@
 // $Id$
-// Copyright (c) 1996-2008 The Regents of the University of California. All
+// Copyright (c) 1996-2009 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -239,7 +239,7 @@ public class TestCppImport extends TestCase {
         Object dummyStruct = findModelElementWithName(classes, "Dummy");
         assertNotNull("The Dummy structure doesn't exist in the model!",
             dummyStruct);
-        assertTaggedValueExistsAndValueIs(dummyStruct,
+        assertHasTaggedValueWithValue(dummyStruct,
             ProfileCpp.TV_NAME_CLASS_SPECIFIER, "struct");
 
         Collection attributes =
@@ -276,7 +276,7 @@ public class TestCppImport extends TestCase {
         Object baseFooOtherParam = findModelElementWithName(params, "other");
         assertNotNull(baseFooOtherParam);
         assertEquals(baseClass, Model.getFacade().getType(baseFooOtherParam));
-        assertTaggedValueExistsAndValueIs(baseFooOtherParam,
+        assertHasTaggedValueWithValue(baseFooOtherParam,
             ProfileCpp.TV_NAME_REFERENCE, "true");
         assertEquals("inout", Model.getFacade().getName(
             Model.getFacade().getKind(baseFooOtherParam)));
@@ -323,7 +323,7 @@ public class TestCppImport extends TestCase {
             baseHelperMethodCstrParam);
         assertEquals("signed char", Model.getFacade().getName(
             Model.getFacade().getType(baseHelperMethodCstrParam)));
-        assertTaggedValueExistsAndValueIs(baseHelperMethodCstrParam,
+        assertHasTaggedValueWithValue(baseHelperMethodCstrParam,
             ProfileCpp.TV_NAME_POINTER, "true");
         assertEquals("inout", Model.getFacade().getName(
             Model.getFacade().getKind(baseHelperMethodCstrParam)));
@@ -334,7 +334,7 @@ public class TestCppImport extends TestCase {
             derivedClass);
         assertNull(Model.getFacade().getTaggedValue(derivedClass,
             ProfileCpp.TV_NAME_CLASS_SPECIFIER));
-        // verify generatization relationship
+        // verify generalization relationship
         Collection derivedGeneralizations =
             Model.getFacade().getGeneralizations(derivedClass);
         assertEquals(1, derivedGeneralizations.size());
@@ -347,7 +347,7 @@ public class TestCppImport extends TestCase {
             Model.getFacade().getGeneral(baseGeneralization)));
         assertEquals("false", Model.getFacade().getTaggedValueValue(
             baseGeneralization, ProfileCpp.TV_NAME_VIRTUAL_INHERITANCE));
-        assertTaggedValueExistsAndValueIs(baseGeneralization, 
+        assertHasTaggedValueWithValue(baseGeneralization, 
             ProfileCpp.TV_NAME_INHERITANCE_VISIBILITY, "public");
         // verify Derived constructor
         Collection derivedOpers =
@@ -366,6 +366,12 @@ public class TestCppImport extends TestCase {
             Model.getFacade().getStereotypes(derivedDtor);
         assertNotNull(findModelElementWithName(derivedDtorStereotypes,
             "destroy"));
+        Object derivedFooOper = findModelElementWithName(derivedOpers, "foo");
+        assertNotNull(
+            "The Derived::foo(xxx) operation doesn't exist in the model!",
+            derivedFooOper);
+        assertFalse("The Derived::foo(xxx) operation shouldn't be leaf.", 
+            Model.getFacade().isLeaf(derivedFooOper));
 
         // TODO: function bodies as UML Methods
     }
@@ -382,12 +388,14 @@ public class TestCppImport extends TestCase {
      * @param tvName name of the tagged value
      * @param tvValue value of the tagged value
      */
-    private void assertTaggedValueExistsAndValueIs(Object me, String tvName,
-            String tvValue) {
+    private void assertHasTaggedValueWithValue(Object me, String tvName,
+            Object tvValue) {
         Object tv = Model.getFacade().getTaggedValue(me, tvName);
         assertNotNull("The tagged value " + tvName
-            + " doesn't exist for the model element " + me, tv);
-        assertEquals("The tagged value value is different from the expected!",
+            + " doesn't exist for the model element \"" 
+            + Model.getFacade().getName(me) + "\".", tv);
+        assertEquals("Unexpected value of the tagged value \"" + tvName 
+            + "\" of model element \"" + Model.getFacade().getName(me) + "\".",
             tvValue, Model.getFacade().getValueOfTag(tv));
     }
 
@@ -531,7 +539,7 @@ public class TestCppImport extends TestCase {
         assertNotNull(myThing);
         assertTrue(Model.getFacade().isADataType(myThing));
         // TODO: check the stereotype and tagged value
-        Object model = Model.getModelManagementFactory().getRootModel();
+        Object model = getRootModel();
         assertEquals(model, Model.getFacade().getNamespace(myThing));
         
         Object blablaClass = proj.findType("blabla", false);
@@ -572,12 +580,8 @@ public class TestCppImport extends TestCase {
             ProfileCpp.STEREO_NAME_ATTRIBUTE));
         assertEquals("Only expecting one tagged value.", 1, 
             getFacade().getTaggedValuesCollection(pnext).size());
-        Object pnextPointerTV = getFacade().getTaggedValue(pnext, 
-            ProfileCpp.TV_NAME_POINTER);
-        assertNotNull("pnext should have a pointer TV.", pnextPointerTV);
-        assertEquals("pnext pointer TV should have the value true.", 
-            ProfileCpp.TV_TRUE_VALUE, 
-            getFacade().getValueOfTag(pnextPointerTV));
+        assertHasTaggedValueWithValue(pnext, ProfileCpp.TV_NAME_POINTER, 
+            ProfileCpp.TV_TRUE_VALUE);
         String[] attributeNames = {"lineNumber", "columnNumber", "ch"};
         for (String attributeName : attributeNames) {
             Object attr = getModelElementAndAssertNotDuplicated(attributes, 
@@ -596,7 +600,56 @@ public class TestCppImport extends TestCase {
             }
         }
         assertEquals("Unexpected number of constructors.", 2, ctors.size());
-        // TODO: assert one ctor with no args and the other with four args.
+        Object noParamsCtor = null;
+        Object fourParamsCtor = null;
+        for (Object ctor : ctors) {
+            int paramsNumber = getFacade().getParameters(ctor).size();
+            if  (paramsNumber == 1) {
+                noParamsCtor = ctor;
+            } else if (paramsNumber == 5) {
+                fourParamsCtor = ctor;
+            } else {
+                fail("Constructor with unexpected number of parameters - " 
+                    + paramsNumber + ".");
+            }
+        }
+        assertNotNull("Constructor without parameters wasn't found.", 
+            noParamsCtor);
+        assertParameters(getFacade().getParameters(fourParamsCtor), 
+            new String[][] {{"ln", "int"}, {"col", "int"}, {"c", "int"}, 
+                            {"next", "CBraceNode"}});
+        // check operations
+        List nonCtorOpers = new ArrayList(opers);
+        assertTrue("Constructors weren't included in the original opers.", 
+            nonCtorOpers.removeAll(ctors));
+        assertEquals("Unexpected number of non-constructor operations.", 
+            4, nonCtorOpers.size());
+        // check that operations are non-leaf
+        for (Object oper : nonCtorOpers) {
+            assertTrue("Operation is expected to be leaf (non-virtual).", 
+                getFacade().isLeaf(oper));
+        }
+        // check that operations are inline definition in class
+        for (Object oper : nonCtorOpers) {
+            // TODO: this causes the test to fail - continue working to make it 
+            //       work correctly.
+//            assertHasTaggedValueWithValue(oper, ProfileCpp.TV_NAME_INLINE,
+//                ProfileCpp.TV_INLINE_STYLE_DEFINITION_INSIDE_CLASS);
+        }
+        // TODO: check details on each operation
+    }
+
+    private void assertParameters(Collection params, 
+        String[][] paramsNameAndTypeName) {
+        for (String[] paramNameAndTypeName : paramsNameAndTypeName) {
+            Object param =
+                findModelElementWithName(params, paramNameAndTypeName[0]);
+            assertNotNull("Parameter \"" + paramNameAndTypeName[0] 
+                + "\" doesn't exist!", param);
+            assertEquals("Unexpected type of parameter.", 
+                paramNameAndTypeName[1], Model.getFacade().getName(
+                Model.getFacade().getType(param)));
+        }
     }
 
     /**

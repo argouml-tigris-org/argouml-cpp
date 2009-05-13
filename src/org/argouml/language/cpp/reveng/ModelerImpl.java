@@ -333,6 +333,7 @@ public class ModelerImpl implements Modeler {
             // here.
             Object returnType = getVoid();
             Object oper = buildOperation(contextStack.peek(), returnType);
+            getCoreHelper().setLeaf(oper, true);
             if (contextAccessSpecifier != null) {
                 Model.getCoreHelper().setVisibility(oper,
                     contextAccessSpecifier);
@@ -371,6 +372,10 @@ public class ModelerImpl implements Modeler {
             Object oper = contextStack.pop();
             assert Model.getFacade().isAOperation(oper) : ""
                 + "The popped context (\"" + oper + "\") isn't an operation!";
+            if (Model.getFacade().isLeaf(oper) 
+                && hasNonLeafBaseOperation(oper, contextStack.peek())) {
+                Model.getCoreHelper().setLeaf(oper, false);
+            }
             removeOperationIfDuplicate(oper);
         }
     }
@@ -397,6 +402,25 @@ public class ModelerImpl implements Modeler {
                 }
             }
         }
+    }
+
+    boolean hasNonLeafBaseOperation(Object operation, Object clazz) {
+        for (Object generalization : getFacade().getGeneralizations(clazz)) {
+            Object base = getFacade().getGeneral(generalization);
+            for (Object baseOper : getFacade().getOperations(base)) {
+                if (getFacade().getName(operation).equals(
+                        getFacade().getName(baseOper))
+                    && equalParameters(operation, baseOper)) {
+                    return !getFacade().isLeaf(baseOper);
+                }
+            }
+            // we need to go higher in the class hierarchy because the  
+            // operation may be declared there
+            if (hasNonLeafBaseOperation(operation, base)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -459,6 +483,10 @@ public class ModelerImpl implements Modeler {
         if (declSpecs.contains("typedef")) {
             assert typedefModeler == null;
             typedefModeler = new TypedefModeler(contextStack, profile);
+        } else if (getFacade().isAOperation(contextStack.peek())) {
+            if (declSpecs.contains("virtual")) {
+                getCoreHelper().setLeaf(contextStack.peek(), false);
+            }
         }
     }
     
@@ -712,15 +740,15 @@ public class ModelerImpl implements Modeler {
         // do nothing
     }
     
-    MemberModeler memberModeler;
+    private MemberModeler memberModeler;
     
     /*
      * @see org.argouml.language.cpp.reveng.Modeler#beginMemberDeclaration()
      */
     public void beginMemberDeclaration() {
         Object owner = contextStack.peek();
-        assert getFacade().isAClassifier(owner) : 
-            "owner must be a Classifier.";
+        assert getFacade().isAClassifier(owner) 
+            : "owner must be a Classifier.";
         memberModeler = new MemberModeler(owner, contextAccessSpecifier);
         memberDeclarationCount++;
     }
@@ -766,8 +794,8 @@ public class ModelerImpl implements Modeler {
     public void endPtrOperator() {
         if (!ignore()) {
             Object ptrTV = contextStack.pop();
-            assert Model.getFacade().isATaggedValue(ptrTV) : 
-                "A Tagged Value was expected, but, got: \"" + ptrTV + "\".";
+            assert Model.getFacade().isATaggedValue(ptrTV) 
+                : "A Tagged Value was expected, but, got: \"" + ptrTV + "\".";
             Object meToBeTagged = contextStack.peek();
             if (getFacade().isAOperation(meToBeTagged)) {
                 Collection rps = getCoreHelper().getReturnParameters(
@@ -1028,8 +1056,9 @@ public class ModelerImpl implements Modeler {
                 onlyDeclaration = true;
             }
             ctorModeler.qualifiedCtorId(identifier);
-            if (onlyDeclaration)
+            if (onlyDeclaration) {
                 endCtorDefinition();
+            }
         }
     }
 
@@ -1076,7 +1105,9 @@ public class ModelerImpl implements Modeler {
          * Pops the xtor from the <code>contextStack</code>.
          */
         void finish() {
-            if (ignoreXtor) return;
+            if (ignoreXtor) {
+                return;
+            }
             Object poppedXtor = contextStack.pop();
             assert isTheXtor(poppedXtor);
             removeOperationIfDuplicate(xtor);
@@ -1104,7 +1135,9 @@ public class ModelerImpl implements Modeler {
          * @param identifier
          */
         void qualifiedCtorId(String identifier) {
-            if (ignore()) return;
+            if (ignore()) {
+                return;
+            }
             assert isTheXtor(contextStack.peek());
             Model.getCoreHelper().setName(contextStack.peek(), identifier);
         }
