@@ -33,17 +33,17 @@ package org.argouml.language.cpp.reveng;
  */
 class MemberModeler {
     
-    Object accessSpecifier;
-    Object type;
-    Object owner;
+    private Object type;
     
-    MemberModeler(Object owner, Object accessSpecifier) {
-        this.owner = owner;
-        this.accessSpecifier = accessSpecifier;
+    Object getType() {
+        return type;
     }
     
-    void setType(Object type) {
-        this.type = type;
+    void setType(Object theType) {
+        type = theType;
+    }
+    
+    MemberModeler(Object owner, Object accessSpecifier) {
     }
     
     /**

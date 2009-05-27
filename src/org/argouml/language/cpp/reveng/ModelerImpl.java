@@ -997,16 +997,16 @@ public class ModelerImpl implements Modeler {
     }
 
     public void beginMemberDeclarator() {
-        Object theType = memberModeler.type;
-        attributeModeler = new AttributeModeler(contextStack.peek(), 
+        Object theType = memberModeler.getType();
+        attributeModeler = new AttributeModeler(contextStack.peek(),
             theType, contextAccessSpecifier);
-        contextStack.push(attributeModeler.attr);
+        contextStack.push(attributeModeler.getAttribute());
     }
 
     public void endMemberDeclarator() {
-        if (Model.getFacade().isAAttribute(contextStack.peek())) {
+        if (getFacade().isAAttribute(contextStack.peek())) {
             attributeModeler.removeAttributeIfDuplicate();
-            assert attributeModeler.attr == contextStack.peek();
+            assert attributeModeler.getAttribute() == contextStack.peek();
             contextStack.pop();
         }
     }

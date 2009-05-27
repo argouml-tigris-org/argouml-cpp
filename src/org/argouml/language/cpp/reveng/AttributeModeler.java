@@ -36,14 +36,20 @@ import org.argouml.model.Model;
  */
 class AttributeModeler {
     
-    Object attr;
-    Object type;
-    Object owner;
+    private Object attr;
+
+    /**
+     * @return Returns the attribute model element.
+     */
+    Object getAttribute() {
+        return attr;
+    }
     
-    AttributeModeler(Object owner, Object type, Object accessSpecifier) {
-        this.owner = owner;
-        this.type = type;
-        attr = Model.getCoreFactory().buildAttribute2(owner, type);
+    private final Object owner;
+    
+    AttributeModeler(Object theOwner, Object theType, Object accessSpecifier) {
+        owner = theOwner;
+        attr = Model.getCoreFactory().buildAttribute2(theOwner, theType);
         if (accessSpecifier != null) {
             Model.getCoreHelper().setVisibility(attr, accessSpecifier);
         }
@@ -65,10 +71,10 @@ class AttributeModeler {
         Collection attrs = Model.getFacade().getAttributes(owner);
 
         for (Object possibleDuplicateAttr : attrs) {
-            if (attr != possibleDuplicateAttr
-                && Model.getFacade().getName(attr).equals(
+            if (getAttribute() != possibleDuplicateAttr
+                && Model.getFacade().getName(getAttribute()).equals(
                     Model.getFacade().getName(possibleDuplicateAttr))) {
-                Model.getCoreHelper().removeFeature(owner, attr);
+                Model.getCoreHelper().removeFeature(owner, getAttribute());
             }
         }
     }

@@ -156,10 +156,10 @@ public class CppImport implements ImportInterface {
 
         static final Logger LOG = Logger.getLogger(Modeler.class);
         
-        Modeler modeler;
+        private Modeler modeler;
         
-        ModelerInvocationHandler(Modeler modeler) {
-            this.modeler = modeler;
+        ModelerInvocationHandler(Modeler theModeler) {
+            this.modeler = theModeler;
         }
         
         public Object invoke(Object proxy, Method method, 
@@ -191,10 +191,11 @@ public class CppImport implements ImportInterface {
         try {
             Modeler modeler = new ModelerImpl(p);
             if (LOG.isDebugEnabled()) {
-                InvocationHandler handler = new ModelerInvocationHandler(modeler);
+                InvocationHandler handler = new ModelerInvocationHandler(
+                    modeler);
                 modeler = (Modeler) Proxy.newProxyInstance(
-                    Modeler.class.getClassLoader(), new Class[] {Modeler.class}, 
-                    handler);
+                    Modeler.class.getClassLoader(),
+                    new Class[] {Modeler.class}, handler);
             }
             return modeler;
         } catch (ProfileException e) {
