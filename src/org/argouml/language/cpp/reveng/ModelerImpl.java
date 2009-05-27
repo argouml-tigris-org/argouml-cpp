@@ -38,7 +38,6 @@ import org.argouml.model.Model;
 import static org.argouml.model.Model.*;
 import org.argouml.profile.Profile;
 import org.argouml.profile.ProfileException;
-import org.argouml.uml.StereotypeUtility;
 import org.argouml.language.cpp.profile.ProfileCpp;
 import static org.argouml.language.cpp.profile.ProfileCpp.*;
 
@@ -88,6 +87,8 @@ public class ModelerImpl implements Modeler {
     private Project project;
     
     private AttributeModeler attributeModeler;
+    
+    private OperationModeler operationModeler;
     
     ModelerImpl(Project p) throws ProfileException {
         project = p;
@@ -328,17 +329,9 @@ public class ModelerImpl implements Modeler {
      */
     public void beginFunctionDeclaration() {
         if (!ignore()) {
-            // The default return type is "void", but, this must be substituted
-            // with the actual parsed value. If possible it wouldn't be set
-            // here.
-            Object returnType = getVoid();
-            Object oper = buildOperation(contextStack.peek(), returnType);
-            getCoreHelper().setLeaf(oper, true);
-            if (contextAccessSpecifier != null) {
-                Model.getCoreHelper().setVisibility(oper,
-                    contextAccessSpecifier);
-	    }
-            contextStack.push(oper);
+            operationModeler = new OperationModeler(contextStack.peek(), 
+                    contextAccessSpecifier, getVoid(), false);
+            contextStack.push(operationModeler.getOperation());
         }
     }
     
@@ -353,125 +346,18 @@ public class ModelerImpl implements Modeler {
         return getProject().findType("void");
     }
 
-    /**
-     * Create a operation in the given model element.
-     *
-     * @param me the model element for which to build the operation
-     * @param returnType the operation return type
-     * @return the operation
-     */
-    private Object buildOperation(Object me, Object returnType) {
-        return Model.getCoreFactory().buildOperation(me, returnType);
-    }
-
     /*
      * @see org.argouml.language.cpp.reveng.Modeler#endFunctionDeclaration()
      */
     public void endFunctionDeclaration() {
         if (!ignore()) {
+            assert operationModeler != null : "operationModeler is null.";
             Object oper = contextStack.pop();
             assert Model.getFacade().isAOperation(oper) : ""
                 + "The popped context (\"" + oper + "\") isn't an operation!";
-            if (Model.getFacade().isLeaf(oper) 
-                && hasNonLeafBaseOperation(oper, contextStack.peek())) {
-                Model.getCoreHelper().setLeaf(oper, false);
-            }
-            removeOperationIfDuplicate(oper);
+            operationModeler.finish();
+            operationModeler = null;
         }
-    }
-
-    /**
-     * Check if the given operation is a duplicate of other already existing
-     * operation and if so remove it.
-     *
-     * @param oper the operation to be checked
-     */
-    private void removeOperationIfDuplicate(Object oper) {
-        // in the current
-        Object parent = contextStack.peek();
-        Collection opers = Model.getFacade().getOperations(parent);
-
-        Iterator it = opers.iterator();
-        while (it.hasNext()) {
-            Object possibleDuplicateOper = it.next();
-            if (oper != possibleDuplicateOper
-                && Model.getFacade().getName(oper).equals(
-                    Model.getFacade().getName(possibleDuplicateOper))) {
-                if (equalParameters(oper, possibleDuplicateOper)) {
-                    Model.getCoreHelper().removeFeature(parent, oper);
-                }
-            }
-        }
-    }
-
-    boolean hasNonLeafBaseOperation(Object operation, Object clazz) {
-        for (Object generalization : getFacade().getGeneralizations(clazz)) {
-            Object base = getFacade().getGeneral(generalization);
-            for (Object baseOper : getFacade().getOperations(base)) {
-                if (getFacade().getName(operation).equals(
-                        getFacade().getName(baseOper))
-                    && equalParameters(operation, baseOper)) {
-                    return !getFacade().isLeaf(baseOper);
-                }
-            }
-            // we need to go higher in the class hierarchy because the  
-            // operation may be declared there
-            if (hasNonLeafBaseOperation(operation, base)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Compare the parameters of two operations.
-     *
-     * @param oper1 left hand side operation
-     * @param oper2 right hand side operation
-     * @return true if the parameters are equal - the same types given in the
-     *         same order
-     */
-    private boolean equalParameters(Object oper1, Object oper2) {
-        List parameters1 = getFacade().getParametersList(oper1);
-        List parameters2 = getFacade().getParametersList(oper2);
-        if (parameters1.size() == parameters2.size()) {
-            Iterator it1 = parameters1.iterator();
-            Iterator it2 = parameters2.iterator();
-            while (it1.hasNext()) {
-                Object parameter1 = it1.next();
-                Object parameter2 = it2.next();
-                if (!equalParameter(parameter1, parameter2)) {
-                    return false;
-                }
-            }
-        }
-        else {
-            return false;
-        }
-        return true;
-    }
-    
-    private boolean equalParameter(Object parameter1, Object parameter2) {
-        if (getFacade().getName(parameter1) != null 
-            && getFacade().getName(parameter1).equals(
-                getFacade().getName(parameter2))) {
-            return equalTaggedValues(
-                getFacade().getTaggedValuesCollection(parameter1), 
-                getFacade().getTaggedValuesCollection(parameter2));
-        }
-        if (getFacade().getName(parameter1) == null 
-            && getFacade().getName(parameter2) == null) {
-            return equalTaggedValues(
-                getFacade().getTaggedValuesCollection(parameter1), 
-                getFacade().getTaggedValuesCollection(parameter2));
-        }
-        return false;
-    }
-    
-    private boolean equalTaggedValues(Collection taggedValues1, 
-        Collection taggedValues2) {
-        // FIXME: TODO
-        return true;
     }
 
     private TypedefModeler typedefModeler;
@@ -602,7 +488,7 @@ public class ModelerImpl implements Modeler {
                 typedefModeler.directDeclarator(id);
                 typedefModeler = null;
             } else {
-                Model.getCoreHelper().setName(contextStack.peek(), id);
+                getCoreHelper().setName(contextStack.peek(), id);
             }
         }
     }
@@ -666,8 +552,8 @@ public class ModelerImpl implements Modeler {
      */
     public void functionDirectDeclarator(String identifier) {
         if (!ignore()) {
-            assert Model.getFacade().isAOperation(contextStack.peek());
-            Model.getCoreHelper().setName(contextStack.peek(), identifier);
+            assert getFacade().isAOperation(contextStack.peek());
+            getCoreHelper().setName(contextStack.peek(), identifier);
         }
     }
 
@@ -747,10 +633,15 @@ public class ModelerImpl implements Modeler {
      */
     public void beginMemberDeclaration() {
         Object owner = contextStack.peek();
-        assert getFacade().isAClassifier(owner) 
-            : "owner must be a Classifier.";
+        assertIsAClassifier(owner);
         memberModeler = new MemberModeler(owner, contextAccessSpecifier);
         memberDeclarationCount++;
+    }
+
+    void assertIsAClassifier(Object modelElement) {
+        assert getFacade().isAClassifier(modelElement) 
+            : "modelElement must be a Classifier; its name is \"" 
+                + getFacade().getName(modelElement) + "\".";
     }
 
     /*
@@ -992,57 +883,80 @@ public class ModelerImpl implements Modeler {
         }
         return generalization;
     }
+    
+    private boolean isXtorIgnorable() {
+        return contextStack.size() == 0 
+            || Model.getFacade().isAModel(contextStack.peek());
+    }
 
     /**
-     * Modeler for constructors.
+     * Modeler for constructors and destructors.
      */
-    private CtorModeler ctorModeler;
+    private XtorModeler xtorModeler;
+    
+    private static interface XtorModelerCreator {
+        XtorModeler create(Object owner, Object visibility, Object returnType, 
+                boolean ignorable);
+    }
+
+    private void beginXtor(final XtorModelerCreator modelerCreator) {
+        if (!ignore()) {
+            assert xtorModeler == null;
+            boolean ignorable = isXtorIgnorable();
+            Object owner = contextStack.peek();
+            xtorModeler = modelerCreator.create(owner, contextAccessSpecifier,
+                getVoid(), ignorable);
+            if (!ignorable) {
+                assertIsAClassifier(owner);
+                contextStack.push(xtorModeler.getOperation());
+            }
+        }
+    }
 
     /*
      * @see org.argouml.language.cpp.reveng.Modeler#beginCtorDefinition()
      */
     public void beginCtorDefinition() {
-        if (!ignore()) {
-            assert ctorModeler == null;
-            ctorModeler = new CtorModeler();
-        }
+        final XtorModelerCreator modelerCreator = new XtorModelerCreator() {
+            public XtorModeler create(Object owner, Object visibility,
+                    Object returnType, boolean ignorable) {
+                return new CtorModeler(owner, visibility, returnType,
+                        ignorable);
+            }
+        };
+        beginXtor(modelerCreator);
     }
 
-    /**
-     * Helper method that gets a stereotype for the given model
-     * element with the given name.
-     *
-     * TODO: this might be a performance bottleneck. If so, caching of
-     * stereotypes for model elements by their stereotypes names could fix it.
-     *
-     * @param modelElement The model element for which to look for the
-     *            stereotype with the given name
-     * @param stereotypeName The name of the stereotype.
-     * @return the stereotype model element or null if not found.
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#beginDtorHead()
      */
-    private Object getStereotype(Object modelElement, String stereotypeName) {
-        Object stereotype = null;
-        Collection stereotypes = StereotypeUtility.getAvailableStereotypes(
-                modelElement);
-        for (Iterator it = stereotypes.iterator(); it.hasNext();) {
-            Object candidateStereotype = it.next();
-            if (Model.getFacade().getName(candidateStereotype).equals(
-                stereotypeName)) {
-                stereotype = candidateStereotype;
-                break;
+    public void beginDtorHead() {
+        final XtorModelerCreator modelerCreator = new XtorModelerCreator() {
+            public XtorModeler create(Object owner, Object visibility,
+                    Object returnType, boolean ignorable) {
+                return new DtorModeler(owner, visibility, returnType,
+                        ignorable);
             }
-        }
-        return stereotype;
+        };
+        beginXtor(modelerCreator);
     }
 
     /*
      * @see org.argouml.language.cpp.reveng.Modeler#endCtorDefinition()
      */
     public void endCtorDefinition() {
+        endXtor();
+    }
+
+    private void endXtor() {
         if (!ignore()) {
-            ctorModeler.finish();
-            ctorModeler = null;
-	}
+            if (!xtorModeler.isIgnorable()) {
+                Object poppedXtor = contextStack.pop();
+                assert xtorModeler.isTheXtor(poppedXtor);
+            }
+            xtorModeler.finish();
+            xtorModeler = null;
+        }
     }
 
     /*
@@ -1051,146 +965,35 @@ public class ModelerImpl implements Modeler {
     public void qualifiedCtorId(String identifier) {
         if (!ignore()) {
             boolean onlyDeclaration = false;
-            if (ctorModeler == null) {
+            if (xtorModeler == null) {
                 beginCtorDefinition();
                 onlyDeclaration = true;
             }
-            ctorModeler.qualifiedCtorId(identifier);
+            xtorModeler.setName(identifier);
+            if (!xtorModeler.isIgnorable()) {
+                assert xtorModeler.isTheXtor(contextStack.peek());
+            }
             if (onlyDeclaration) {
                 endCtorDefinition();
             }
         }
     }
 
-    /**
-     * Base Modeler class for ctor and dtor modelers.
-     */
-    private abstract class XtorModeler {
-        private Object xtor;
-        private boolean ignoreXtor = false;
-
-        /**
-         * Initializes the XtorModeler with the stereotypeName, creates the
-         * operation in the class and sets the stereotype with the given name.
-         * TODO: process definitions made outside of the class definition!
-         * TODO: how will I get the class name?
-         *
-         * @param stereotypeName "create" for ctors and "destroy" for dtors.
-         */
-        XtorModeler(String stereotypeName) {
-            if (contextStack.size() == 0 
-                    || Model.getFacade().isAModel(contextStack.peek())) {
-                ignoreXtor = true;
-                return;
-            }
-            assert Model.getFacade().isAClass(contextStack.peek());
-            xtor = buildOperation(contextStack.peek(), getVoid());
-            Model.getExtensionMechanismsHelper().addCopyStereotype(xtor,
-                getStereotype(xtor, stereotypeName));
-            contextStack.push(xtor);
-        }
-
-        /**
-         * Checks if the given operation is the xtor (e.g. the modeled
-         * constructor or destructor).
-         *
-         * @param oper the operation to check
-         * @return true if the oper is the modeled xtor
-         */
-        boolean isTheXtor(Object oper) {
-            return xtor == oper;
-        }
-
-        /**
-         * Pops the xtor from the <code>contextStack</code>.
-         */
-        void finish() {
-            if (ignoreXtor) {
-                return;
-            }
-            Object poppedXtor = contextStack.pop();
-            assert isTheXtor(poppedXtor);
-            removeOperationIfDuplicate(xtor);
-        }
-        
-        boolean ignore() {
-            return ignoreXtor;
-        }
-    }
-
-    /**
-     * Modeler class for constructors.
-     */
-    private class CtorModeler extends XtorModeler {
-        /**
-         * Creates the ctor and puts it into the stack.
-         */
-        CtorModeler() {
-            super("create");
-        }
-
-        /**
-         * Sets the name of the ctor operation to the identifier.
-         *
-         * @param identifier
-         */
-        void qualifiedCtorId(String identifier) {
-            if (ignore()) {
-                return;
-            }
-            assert isTheXtor(contextStack.peek());
-            Model.getCoreHelper().setName(contextStack.peek(), identifier);
-        }
-    }
-
-    private DtorModeler dtorModeler;
-
-    /*
-     * @see org.argouml.language.cpp.reveng.Modeler#beginDtorHead()
-     */
-    public void beginDtorHead() {
-        dtorModeler = new DtorModeler();
-    }
-
     /*
      * @see org.argouml.language.cpp.reveng.Modeler#endDtorHead()
      */
     public void endDtorHead() {
-        dtorModeler.finish();
-        dtorModeler = null;
+        endXtor();
     }
 
     /*
      * @see org.argouml.language.cpp.reveng.Modeler#dtorDeclarator(java.lang.String)
      */
     public void dtorDeclarator(String qualifiedId) {
-        dtorModeler.declarator(qualifiedId);
-    }
-
-    /**
-     * Modeler for destructor.
-     */
-    private class DtorModeler extends XtorModeler {
-
-        /**
-         * Ctor for the DtorModeler class, responsible for creating the
-         * operation and setting up the <code>contextStack</code>
-         * appropriately.
-         */
-        DtorModeler() {
-            super("destroy");
+        if (!xtorModeler.isIgnorable()) {
+            assert xtorModeler.isTheXtor(contextStack.peek());
         }
-
-        /**
-         * @param qualifiedId
-         */
-        void declarator(String qualifiedId) {
-            if (ignore()) {
-                return;
-            }
-            assert isTheXtor(contextStack.peek());
-            Model.getCoreHelper().setName(contextStack.peek(), qualifiedId);
-        }
+        xtorModeler.setName(qualifiedId);
     }
 
     public void beginMemberDeclarator() {
