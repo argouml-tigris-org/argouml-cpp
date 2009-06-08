@@ -143,7 +143,7 @@ public class ModelerImpl implements Modeler {
             if (ns == null) {
                 ns = Model.getModelManagementFactory().buildPackage(nsName);
                 newElements.add(ns);
-                Model.getCoreHelper().setNamespace(ns, parentNs);
+                getCoreHelper().setNamespace(ns, parentNs);
             }
             contextStack.push(ns);
         }
@@ -181,12 +181,12 @@ public class ModelerImpl implements Modeler {
         Object ns = null;
         while (it.hasNext()) {
             Object tmpNs = it.next();
-            if (nsName.equals(Model.getFacade().getName(tmpNs))) {
+            if (nsName.equals(getFacade().getName(tmpNs))) {
                 // NOTE: equality by reference may be deceiving if the
                 // implementation uses proxies - not likely that different
                 // proxies are used, so at least we should be comparing the
                 // references of the same proxy object!
-                if (Model.getFacade().getNamespace(tmpNs) == parentNs) {
+                if (getFacade().getNamespace(tmpNs) == parentNs) {
                     ns = tmpNs;
                     break;
                 }
@@ -220,7 +220,7 @@ public class ModelerImpl implements Modeler {
     public void exitNamespaceScope() {
         if (!ignore()) {
             Object ns = contextStack.pop();
-            assert Model.getFacade().isANamespace(ns) : "The popped context (\""
+            assert getFacade().isANamespace(ns) : "The popped context (\""
                 + ns + "\") isn't a namespace!";
         }
     }
@@ -278,7 +278,7 @@ public class ModelerImpl implements Modeler {
      * @return the class if found, null otherwise
      */
     private static Object findClass(String identifier, Object ns) {
-        Collection classes = Model.getCoreHelper().getAllClasses(ns);
+        Collection classes = getCoreHelper().getAllClasses(ns);
         Iterator it = classes.iterator();
         while (it.hasNext()) {
             Object candidateClass = it.next();
@@ -295,8 +295,8 @@ public class ModelerImpl implements Modeler {
     public void endClassDefinition() {
         if (!ignore()) {
             Object cls = contextStack.pop();
-            assert Model.getFacade().isAClass(cls) : "The popped context (\""
-                + cls + "\") isn't a class!";
+            assert getFacade().isAClass(cls) : "The popped context (\""
+                + getFacade().getName(cls) + "\") isn't a class!";
             contextAccessSpecifier = null;
         }
     }
@@ -368,39 +368,15 @@ public class ModelerImpl implements Modeler {
     public void declarationSpecifiers(List declSpecs) {
         if (declSpecs.contains("typedef")) {
             assert typedefModeler == null;
-            typedefModeler = new TypedefModeler(contextStack, profile);
+            typedefModeler = new TypedefModeler(contextStack.peek(), 
+                contextAccessSpecifier, profile);
         } else if (getFacade().isAOperation(contextStack.peek())) {
-            if (declSpecs.contains("virtual")) {
-                getCoreHelper().setLeaf(contextStack.peek(), false);
-            }
+            OperationModeler modeler = operationModeler != null
+                ? operationModeler : xtorModeler;
+            modeler.declarationSpecifiers(declSpecs);
         }
     }
     
-    static class TypedefModeler {
-        private Object owner;
-        private Object type;
-        private ProfileCpp profile;
-        
-        TypedefModeler(Stack theContextStack, ProfileCpp theProfile) {
-            owner = theContextStack.peek();
-            profile = theProfile;
-        }
-
-        public void typeSpecifier(Object theType) {
-            LOG.debug("Got the type: " + theType);
-            type = theType;
-        }
-
-        public void directDeclarator(String id) {
-            LOG.debug("Got the name: " + id);
-            Object typedef = Model.getCoreFactory().buildDataType(id, owner);
-            // TODO: set the tagged value typedef to the name of type.
-//          profile.applyCppDatatypeStereotype(typedef);
-//           profile.applyTypedefTaggedValue(typedef, 
-//               getFacade().getName(type));
-        }
-    };
-
     /*
      * @see org.argouml.language.cpp.reveng.Modeler#simpleTypeSpecifier(java.util.List)
      */
@@ -419,21 +395,21 @@ public class ModelerImpl implements Modeler {
             // now, depending on the context, this might be the return type of a
             // function declaration or an attribute of a class or a variable
             // declaration; of course, this is rather incomplete(!)
-            if (Model.getFacade().isAOperation(contextStack.peek())) {
-                // set the operation return type
-                Object rv = Model.getCoreHelper().getReturnParameters(
-                        contextStack.peek()).iterator().next();
-                Model.getCoreHelper().setType(rv, theType);
-
-            } else if (Model.getFacade().isAClass(contextStack.peek())) {
+            Object contextModelElement = contextStack.peek();
+            if (getFacade().isAOperation(contextModelElement)) {
+                assert operationModeler != null
+                    : "operationModeler is null in the context of operation "
+                        + getFacade().getName(contextModelElement) + ".";
+                operationModeler.setType(theType);
+            } else if (getFacade().isAClass(contextModelElement)) {
                 // an attribute or an enumeration... handled elsewhere
-            } else if (Model.getFacade().isAParameter(contextStack.peek())) {
-                Model.getCoreHelper().setType(contextStack.peek(), theType);
-            } else if (Model.getFacade().isAModel(contextStack.peek()) 
-                    || Model.getFacade().isANamespace(contextStack.peek())) {
+            } else if (getFacade().isAParameter(contextModelElement)) {
+                getCoreHelper().setType(contextModelElement, theType);
+            } else if (getFacade().isAModel(contextModelElement) 
+                    || getFacade().isANamespace(contextModelElement)) {
                 // we either have a global variable or a typedef
                 if (typedefModeler != null) {
-                    typedefModeler.typeSpecifier(theType);
+                    typedefModeler.setType(theType);
                 }
             }
         }
@@ -999,13 +975,13 @@ public class ModelerImpl implements Modeler {
     public void beginMemberDeclarator() {
         Object theType = memberModeler.getType();
         attributeModeler = new AttributeModeler(contextStack.peek(),
-            theType, contextAccessSpecifier);
+            contextAccessSpecifier, theType);
         contextStack.push(attributeModeler.getAttribute());
     }
 
     public void endMemberDeclarator() {
         if (getFacade().isAAttribute(contextStack.peek())) {
-            attributeModeler.removeAttributeIfDuplicate();
+            attributeModeler.finish();
             assert attributeModeler.getAttribute() == contextStack.peek();
             contextStack.pop();
         }

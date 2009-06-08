@@ -24,9 +24,11 @@
 
 package org.argouml.language.cpp.reveng;
 
-import java.util.Collection;
+import static org.argouml.model.Model.getCoreHelper;
+import static org.argouml.model.Model.getCoreFactory;
+import static org.argouml.model.Model.getFacade;
 
-import org.argouml.model.Model;
+import java.util.Collection;
 
 /**
  * Modeler for C++ class member variables.
@@ -34,7 +36,7 @@ import org.argouml.model.Model;
  * @author Luis Sergio Oliveira (euluis)
  * @since 0.28.0
  */
-class AttributeModeler {
+class AttributeModeler extends MemberModeler {
     
     private Object attr;
 
@@ -45,14 +47,16 @@ class AttributeModeler {
         return attr;
     }
     
-    private final Object owner;
-    
-    AttributeModeler(Object theOwner, Object theType, Object accessSpecifier) {
-        owner = theOwner;
-        attr = Model.getCoreFactory().buildAttribute2(theOwner, theType);
+    AttributeModeler(Object theOwner, Object accessSpecifier, Object theType) {
+        super(theOwner, accessSpecifier);
+        attr = getCoreFactory().buildAttribute2(getOwner(), theType);
         if (accessSpecifier != null) {
-            Model.getCoreHelper().setVisibility(attr, accessSpecifier);
+            getCoreHelper().setVisibility(attr, accessSpecifier);
         }
+    }
+    
+    void finish() {
+        removeAttributeIfDuplicate();
     }
 
     /**
@@ -67,16 +71,15 @@ class AttributeModeler {
      * think this may be refactored in the future...
      *
      */
-    void removeAttributeIfDuplicate() {
-        Collection attrs = Model.getFacade().getAttributes(owner);
+    private void removeAttributeIfDuplicate() {
+        Collection attrs = getFacade().getAttributes(getOwner());
 
         for (Object possibleDuplicateAttr : attrs) {
             if (getAttribute() != possibleDuplicateAttr
-                && Model.getFacade().getName(getAttribute()).equals(
-                    Model.getFacade().getName(possibleDuplicateAttr))) {
-                Model.getCoreHelper().removeFeature(owner, getAttribute());
+                && getFacade().getName(getAttribute()).equals(
+                    getFacade().getName(possibleDuplicateAttr))) {
+                getCoreHelper().removeFeature(getOwner(), getAttribute());
             }
         }
     }
-    
 }

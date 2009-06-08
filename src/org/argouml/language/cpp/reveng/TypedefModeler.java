@@ -3,14 +3,14 @@
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
-// and this paragraph appear in all copies.  This software program and
+// and this paragraph appear in all copies. This software program and
 // documentation are copyrighted by The Regents of the University of
 // California. The software program and documentation are supplied "AS
 // IS", without any accompanying services from The Regents. The Regents
 // does not warrant that the operation of the program will be
 // uninterrupted or error-free. The end-user understands that the program
 // was developed for research purposes and is advised not to rely
-// exclusively on the program for any reason.  IN NO EVENT SHALL THE
+// exclusively on the program for any reason. IN NO EVENT SHALL THE
 // UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT,
 // SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS,
 // ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
@@ -25,41 +25,25 @@
 package org.argouml.language.cpp.reveng;
 
 import org.apache.log4j.Logger;
+import org.argouml.language.cpp.profile.ProfileCpp;
+import org.argouml.model.Model;
 
-
-/**
- * Modeler for C++ class members (without a specific kind specified).
- *
- * @author Luis Sergio Oliveira (euluis)
- * @since 0.28.0
- */
-class MemberModeler {
-    private static final Logger LOG = Logger.getLogger(MemberModeler.class);
+class TypedefModeler extends MemberModeler {
+    private static final Logger LOG = Logger.getLogger(TypedefModeler.class);
+    private ProfileCpp profile;
     
-    private Object type;
-    
-    Object getType() {
-        return type;
+    TypedefModeler(Object theOwner, Object accessSpecifier, 
+            ProfileCpp theProfile) {
+        super(theOwner, accessSpecifier);
+        profile = theProfile;
     }
     
-    void setType(Object theType) {
-        LOG.debug("Got the type: " + theType);
-        type = theType;
-    }
-    
-    private final Object owner;
-
-    Object getOwner() {
-        return owner;
-    }
-    
-    MemberModeler(Object theOwner, Object accessSpecifier) {
-        owner = theOwner;
-    }
-    
-    /**
-     * Finish the modeling of the member.
-     */
-    void finish() {
+    void directDeclarator(String id) {
+        LOG.debug("Got the name: " + id);
+        Object typedef = Model.getCoreFactory().buildDataType(id, getOwner());
+        // TODO: set the tagged value typedef to the name of type.
+//        profile.applyCppDatatypeStereotype(typedef);
+//        profile.applyTypedefTaggedValue(typedef, 
+//            getFacade().getName(getType()));
     }
 }

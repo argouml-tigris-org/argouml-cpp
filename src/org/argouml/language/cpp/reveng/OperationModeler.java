@@ -38,9 +38,8 @@ import java.util.List;
  * @author Luis Sergio Oliveira (euluis)
  * @since 0.29.1
  */
-class OperationModeler {
+class OperationModeler extends MemberModeler {
     private Object oper;
-    private final Object parent;
     private final boolean ignorable;
     
     boolean isIgnorable() {
@@ -56,10 +55,10 @@ class OperationModeler {
 
     OperationModeler(Object theParent, Object visibility, Object returnType, 
             boolean ignore) {
-        parent = theParent;
+        super(theParent, visibility);
         ignorable = ignore;
         if (!ignorable) { 
-            oper = buildOperation(parent, returnType);
+            oper = buildOperation(getOwner(), returnType);
             getCoreHelper().setLeaf(oper, true);
             if (visibility != null) {
                 getCoreHelper().setVisibility(oper, visibility);
@@ -79,13 +78,13 @@ class OperationModeler {
     }
     
     /**
-     * Check if the given attribute is a duplicate of other already existing
-     * attribute and if so remove it.
+     * Check if the operation is a duplicate of other already existing
+     * operation and if so remove it.
      */
     void finish() {
         if (!isIgnorable()) {
             if (getFacade().isLeaf(oper) 
-                && hasNonLeafBaseOperation(oper, parent)) {
+                && hasNonLeafBaseOperation(oper, getOwner())) {
                 getCoreHelper().setLeaf(oper, false);
             }
             removeOperationIfDuplicate(oper);
@@ -118,12 +117,13 @@ class OperationModeler {
      * @param operation the operation to be checked
      */
     void removeOperationIfDuplicate(Object operation) {
-        for (Object possibleDuplicate : getFacade().getOperations(parent)) {
+        for (Object possibleDuplicate : getFacade().getOperations(getOwner()))
+        {
             if (operation != possibleDuplicate
                 && getFacade().getName(operation).equals(
                     getFacade().getName(possibleDuplicate))) {
                 if (equalParameters(operation, possibleDuplicate)) {
-                    getCoreHelper().removeFeature(parent, operation);
+                    getCoreHelper().removeFeature(getOwner(), operation);
                 }
             }
         }
@@ -178,5 +178,22 @@ class OperationModeler {
         Collection taggedValues2) {
         // FIXME: TODO
         return true;
+    }
+    
+    void declarationSpecifiers(List declSpecs) {
+        if (declSpecs.contains("virtual")) {
+            getCoreHelper().setLeaf(oper, false);
+        }
+    }
+    
+    void setType(Object theType) {
+        super.setType(theType);
+        setReturnType(theType);
+    }
+    
+    private void setReturnType(Object theType) {
+        Object rv = getCoreHelper().getReturnParameters(oper).iterator().
+            next();
+        getCoreHelper().setType(rv, theType);
     }
 }
