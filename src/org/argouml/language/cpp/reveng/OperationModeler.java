@@ -32,6 +32,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import org.argouml.language.cpp.profile.ProfileCpp;
+
 /**
  * Modeler for C++ class member functions.
  *
@@ -54,8 +56,8 @@ class OperationModeler extends MemberModeler {
     }
 
     OperationModeler(Object theParent, Object visibility, Object returnType, 
-            boolean ignore) {
-        super(theParent, visibility);
+            boolean ignore, ProfileCpp theProfile) {
+        super(theParent, visibility, theProfile);
         ignorable = ignore;
         if (!ignorable) { 
             oper = buildOperation(getOwner(), returnType);
@@ -188,12 +190,20 @@ class OperationModeler extends MemberModeler {
     
     void setType(Object theType) {
         super.setType(theType);
-        setReturnType(theType);
+        setReturnType();
     }
     
-    private void setReturnType(Object theType) {
+    private void setReturnType() {
         Object rv = getCoreHelper().getReturnParameters(oper).iterator().
             next();
-        getCoreHelper().setType(rv, theType);
+        getCoreHelper().setType(rv, getType());
+    }
+
+    void setDefinedInClass() {
+        if (!isIgnorable()) {
+            getProfile().applyCppOperationStereotype(getOperation());
+            getProfile().applyInlineTaggedValue2Operation(getOperation(),
+                    ProfileCpp.TV_INLINE_STYLE_DEFINITION_INSIDE_CLASS);
+        }
     }
 }

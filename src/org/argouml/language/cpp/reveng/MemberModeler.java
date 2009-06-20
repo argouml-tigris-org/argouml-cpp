@@ -25,6 +25,7 @@
 package org.argouml.language.cpp.reveng;
 
 import org.apache.log4j.Logger;
+import org.argouml.language.cpp.profile.ProfileCpp;
 
 
 /**
@@ -52,9 +53,17 @@ class MemberModeler {
     Object getOwner() {
         return owner;
     }
+
+    private ProfileCpp profile;
+
+    ProfileCpp getProfile() {
+        return profile;
+    }
     
-    MemberModeler(Object theOwner, Object accessSpecifier) {
+    MemberModeler(Object theOwner, Object accessSpecifier,
+            ProfileCpp theProfile) {
         owner = theOwner;
+        profile = theProfile;
     }
     
     /**

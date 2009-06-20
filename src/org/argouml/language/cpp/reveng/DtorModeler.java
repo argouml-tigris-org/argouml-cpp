@@ -24,6 +24,8 @@
 
 package org.argouml.language.cpp.reveng;
 
+import org.argouml.language.cpp.profile.ProfileCpp;
+
 /**
  * Modeler for destructors.
  *
@@ -36,7 +38,8 @@ class DtorModeler extends XtorModeler {
      * Creates the destructor modeler.
      */
     DtorModeler(Object theParent, Object visibility, Object returnType,
-            boolean ignoreDtor) {
-        super(theParent, visibility, returnType, "destroy", ignoreDtor);
+            boolean ignoreDtor, ProfileCpp profile) {
+        super(theParent, visibility, returnType, "destroy", ignoreDtor,
+                profile);
     }
 }

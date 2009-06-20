@@ -196,24 +196,25 @@ public class TestCppImport extends TestCase {
         Object pack = findModelElementWithName(nss, "pack");
         assertNotNull("The pack namespace wasn't found in the model!", pack);
 
-        Collection clss = Model.getCoreHelper().getAllClasses(pack);
+        Collection clss = getCoreHelper().getAllClasses(pack);
         Object simpleClass = findModelElementWithName(clss, "SimpleClass");
         assertNotNull("The pack::SimpleClass class wasn't found in the model!",
             simpleClass);
-        assertTrue(Model.getFacade().isPublic(simpleClass));
+        assertTrue(getFacade().isPublic(simpleClass));
 
-        Collection opers =
-            Model.getCoreHelper().getBehavioralFeatures(simpleClass);
+        Collection opers = getCoreHelper().getBehavioralFeatures(simpleClass);
         Object newOperation = findModelElementWithName(opers, "newOperation");
         assertNotNull("The pack::SimpleClass::newOperation() model element "
             + "doesn't exist!", newOperation);
-        assertTrue(Model.getFacade().isPublic(newOperation));
+        assertTrue(getFacade().isPublic(newOperation));
+        assertNull(getFacade().getTaggedValue(newOperation,
+            ProfileCpp.TV_NAME_INLINE));
 
-        Collection attrs = Model.getCoreHelper().getAllAttributes(simpleClass);
+        Collection attrs = getCoreHelper().getAllAttributes(simpleClass);
         Object newAttr = findModelElementWithName(attrs, "newAttr");
         assertNotNull(
             "The pack::SimpleClass::newAttr attribute doesn't exist!", newAttr);
-        assertTrue(Model.getFacade().isPublic(newAttr));
+        assertTrue(getFacade().isPublic(newAttr));
         // TODO: verify reveng of SimpleClass.newOperation definition
         // TODO: 1. how to model a namespace alias in UML? A variation of the
         // import or access relationship would be nice, but, I don't know if
@@ -505,16 +506,19 @@ public class TestCppImport extends TestCase {
         files.add(srcFile);
         
         cppImp.parseFiles(proj, files, settings, new DummyMonitor());
-        Collection clss = Model.getCoreHelper().getAllClasses(getRootModel());
+        Collection clss = getCoreHelper().getAllClasses(getRootModel());
         Object clazzTest = getModelElementAndAssertNotDuplicated(clss, "Test");
-        Collection opers =
-            Model.getCoreHelper().getBehavioralFeatures(clazzTest);
+        Collection opers = getCoreHelper().getBehavioralFeatures(clazzTest);
         Object ctor = getModelElementAndAssertNotDuplicated(opers, "Test");
-        Collection ctorStereotypes = Model.getFacade().getStereotypes(ctor);
+        Collection ctorStereotypes = getFacade().getStereotypes(ctor);
         assertNotNull(findModelElementWithName(ctorStereotypes, "create"));
+        assertNull(getFacade().getTaggedValue(ctor,
+                ProfileCpp.TV_NAME_INLINE));
         Object dtor = getModelElementAndAssertNotDuplicated(opers, "~Test");
-        Collection dtorStereotypes = Model.getFacade().getStereotypes(dtor);
+        Collection dtorStereotypes = getFacade().getStereotypes(dtor);
         assertNotNull(findModelElementWithName(dtorStereotypes, "destroy"));
+        assertNull(getFacade().getTaggedValue(dtor,
+                ProfileCpp.TV_NAME_INLINE));
     }
     
     /**
@@ -612,6 +616,8 @@ public class TestCppImport extends TestCase {
                 fail("Constructor with unexpected number of parameters - " 
                     + paramsNumber + ".");
             }
+            assertHasTaggedValueWithValue(ctor, ProfileCpp.TV_NAME_INLINE,
+                    ProfileCpp.TV_INLINE_STYLE_DEFINITION_INSIDE_CLASS);
         }
         assertNotNull("Constructor without parameters wasn't found.", 
             noParamsCtor);
@@ -631,10 +637,8 @@ public class TestCppImport extends TestCase {
         }
         // check that operations are inline definition in class
         for (Object oper : nonCtorOpers) {
-            // TODO: this causes the test to fail - continue working to make it 
-            //       work correctly.
-//            assertHasTaggedValueWithValue(oper, ProfileCpp.TV_NAME_INLINE,
-//                ProfileCpp.TV_INLINE_STYLE_DEFINITION_INSIDE_CLASS);
+            assertHasTaggedValueWithValue(oper, ProfileCpp.TV_NAME_INLINE,
+                ProfileCpp.TV_INLINE_STYLE_DEFINITION_INSIDE_CLASS);
         }
         // TODO: check details on each operation
     }

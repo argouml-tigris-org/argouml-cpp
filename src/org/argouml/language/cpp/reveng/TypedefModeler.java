@@ -30,12 +30,10 @@ import org.argouml.model.Model;
 
 class TypedefModeler extends MemberModeler {
     private static final Logger LOG = Logger.getLogger(TypedefModeler.class);
-    private ProfileCpp profile;
     
     TypedefModeler(Object theOwner, Object accessSpecifier, 
             ProfileCpp theProfile) {
-        super(theOwner, accessSpecifier);
-        profile = theProfile;
+        super(theOwner, accessSpecifier, theProfile);
     }
     
     void directDeclarator(String id) {

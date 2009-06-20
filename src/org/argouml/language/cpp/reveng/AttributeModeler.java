@@ -30,6 +30,8 @@ import static org.argouml.model.Model.getFacade;
 
 import java.util.Collection;
 
+import org.argouml.language.cpp.profile.ProfileCpp;
+
 /**
  * Modeler for C++ class member variables.
  *
@@ -47,8 +49,9 @@ class AttributeModeler extends MemberModeler {
         return attr;
     }
     
-    AttributeModeler(Object theOwner, Object accessSpecifier, Object theType) {
-        super(theOwner, accessSpecifier);
+    AttributeModeler(Object theOwner, Object accessSpecifier, Object theType,
+            ProfileCpp theProfile) {
+        super(theOwner, accessSpecifier, theProfile);
         attr = getCoreFactory().buildAttribute2(getOwner(), theType);
         if (accessSpecifier != null) {
             getCoreHelper().setVisibility(attr, accessSpecifier);

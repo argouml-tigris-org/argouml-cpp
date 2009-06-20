@@ -30,6 +30,7 @@ import static org.argouml.model.Model.getFacade;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.argouml.language.cpp.profile.ProfileCpp;
 import org.argouml.model.Model;
 import org.argouml.uml.StereotypeUtility;
 
@@ -50,8 +51,8 @@ abstract class XtorModeler extends OperationModeler {
      * @param stereotypeName "create" for ctors and "destroy" for dtors.
      */
     XtorModeler(Object theParent, Object visibility, Object returnType, 
-            String stereotypeName, boolean ignorable) {
-        super(theParent, visibility, returnType, ignorable);
+            String stereotypeName, boolean ignorable, ProfileCpp profile) {
+        super(theParent, visibility, returnType, ignorable, profile);
         if (isIgnorable()) {
             return;
         }

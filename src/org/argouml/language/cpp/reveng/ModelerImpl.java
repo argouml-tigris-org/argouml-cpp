@@ -330,7 +330,7 @@ public class ModelerImpl implements Modeler {
     public void beginFunctionDeclaration() {
         if (!ignore()) {
             operationModeler = new OperationModeler(contextStack.peek(), 
-                    contextAccessSpecifier, getVoid(), false);
+                    contextAccessSpecifier, getVoid(), false, profile);
             contextStack.push(operationModeler.getOperation());
         }
     }
@@ -491,6 +491,7 @@ public class ModelerImpl implements Modeler {
         if (!ignore()) {
             if (isMemberDeclaration()) {
                 beginFunctionDeclaration();
+                operationModeler.setDefinedInClass();
             } else {
                 // TODO: here we should set the method of the corresponding
                 // operation, if it exists, or create a global operation and
@@ -610,7 +611,8 @@ public class ModelerImpl implements Modeler {
     public void beginMemberDeclaration() {
         Object owner = contextStack.peek();
         assertIsAClassifier(owner);
-        memberModeler = new MemberModeler(owner, contextAccessSpecifier);
+        memberModeler = new MemberModeler(owner, contextAccessSpecifier,
+                profile);
         memberDeclarationCount++;
     }
 
@@ -862,7 +864,7 @@ public class ModelerImpl implements Modeler {
     
     private boolean isXtorIgnorable() {
         return contextStack.size() == 0 
-            || Model.getFacade().isAModel(contextStack.peek());
+            || getFacade().isAModel(contextStack.peek());
     }
 
     /**
@@ -893,11 +895,18 @@ public class ModelerImpl implements Modeler {
      * @see org.argouml.language.cpp.reveng.Modeler#beginCtorDefinition()
      */
     public void beginCtorDefinition() {
+        beginCtor();
+        if (!ignore()) {
+            xtorModeler.setDefinedInClass();
+        }
+    }
+
+    private void beginCtor() {
         final XtorModelerCreator modelerCreator = new XtorModelerCreator() {
             public XtorModeler create(Object owner, Object visibility,
                     Object returnType, boolean ignorable) {
                 return new CtorModeler(owner, visibility, returnType,
-                        ignorable);
+                        ignorable, profile);
             }
         };
         beginXtor(modelerCreator);
@@ -911,7 +920,7 @@ public class ModelerImpl implements Modeler {
             public XtorModeler create(Object owner, Object visibility,
                     Object returnType, boolean ignorable) {
                 return new DtorModeler(owner, visibility, returnType,
-                        ignorable);
+                        ignorable, profile);
             }
         };
         beginXtor(modelerCreator);
@@ -942,7 +951,7 @@ public class ModelerImpl implements Modeler {
         if (!ignore()) {
             boolean onlyDeclaration = false;
             if (xtorModeler == null) {
-                beginCtorDefinition();
+                beginCtor();
                 onlyDeclaration = true;
             }
             xtorModeler.setName(identifier);
@@ -950,7 +959,7 @@ public class ModelerImpl implements Modeler {
                 assert xtorModeler.isTheXtor(contextStack.peek());
             }
             if (onlyDeclaration) {
-                endCtorDefinition();
+                endXtor();
             }
         }
     }
@@ -975,7 +984,7 @@ public class ModelerImpl implements Modeler {
     public void beginMemberDeclarator() {
         Object theType = memberModeler.getType();
         attributeModeler = new AttributeModeler(contextStack.peek(),
-            contextAccessSpecifier, theType);
+            contextAccessSpecifier, theType, profile);
         contextStack.push(attributeModeler.getAttribute());
     }
 

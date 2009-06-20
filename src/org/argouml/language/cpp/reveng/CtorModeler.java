@@ -24,6 +24,8 @@
 
 package org.argouml.language.cpp.reveng;
 
+import org.argouml.language.cpp.profile.ProfileCpp;
+
 /**
  * Modeler class for constructors.
  *
@@ -35,7 +37,8 @@ class CtorModeler extends XtorModeler {
      * Creates the constructor.
      */
     CtorModeler(Object theParent, Object visibility, Object returnType, 
-            boolean ignoreCtor) {
-        super(theParent, visibility, returnType, "create", ignoreCtor);
+            boolean ignoreCtor, ProfileCpp profile) {
+        super(theParent, visibility, returnType, "create", ignoreCtor,
+                profile);
     }
 }
