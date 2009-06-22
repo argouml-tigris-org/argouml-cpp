@@ -1,5 +1,5 @@
 // $Id$
-// Copyright (c) 1996-2007 The Regents of the University of California. All
+// Copyright (c) 1996-2008 The Regents of the University of California. All
 // Rights Reserved. Permission to use, copy, modify, and distribute this
 // software and its documentation without fee, and without a written
 // agreement is hereby granted, provided that the above copyright notice
@@ -409,6 +409,21 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
             + "\\s*::\\s*foo\\s*\\(\\s*\\).*\\{.*\\}.*";
         if (!code.matches(re)) {
             LOG.debug("Code for inner class (.cpp):");
+            LOG.debug(code);
+        }
+        assertTrue(code.matches(re));
+    }
+
+    /**
+     * Test <a href="TODO">issue 5798</a> in ArgoUML's issue DB. 
+     */
+    public void testGenerateEmptyClassCpp() {
+        Object emptyClass = getFactory().buildClass("EmptyClass",
+                getModel());
+        String code = getGenerator().generateCpp(emptyClass);
+        String re = "(?m)(?s)\\s*#include \"EmptyClass\\.h\"\\s*";
+        if (!code.matches(re)) {
+            LOG.debug("Code for EmptyClass' .cpp file:");
             LOG.debug(code);
         }
         assertTrue(code.matches(re));

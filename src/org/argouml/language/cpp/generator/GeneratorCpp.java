@@ -1302,10 +1302,11 @@ public class GeneratorCpp implements CodeGenerator {
         sb.append(generateClassifierNameAndAncestors(cls));
 
         // add opening brace
-        if (lfBeforeCurly)
+        if (lfBeforeCurly) {
             sb.append(LINE_SEPARATOR).append('{');
-        else
+        } else if (generatorPass != SOURCE_PASS) {
             sb.append(" {");
+        }
 
         // list tagged values for documentation
         tv = generateTaggedValues (cls, ALL_BUT_DOC_TAGS);
