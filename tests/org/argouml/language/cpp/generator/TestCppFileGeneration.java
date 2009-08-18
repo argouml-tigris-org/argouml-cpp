@@ -24,9 +24,6 @@
 
 package org.argouml.language.cpp.generator;
 
-import static org.argouml.model.Model.getExtensionMechanismsFactory;
-import static org.argouml.model.Model.getExtensionMechanismsHelper;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -459,7 +456,7 @@ public class TestCppFileGeneration extends BaseTestGeneratorCpp {
             final String testName, Object me) throws IOException {
 	profile.applyDocumentationTaggedValue(me, "docs");
         Object documentationTV = Model.getFacade().getTaggedValue(me,
-            profile.TV_NAME_DOCUMENTATION);
+            ProfileCpp.TV_NAME_DOCUMENTATION);
     	assertEquals(1, Model.getFacade().getTaggedValuesCollection(me).size());
     	assertEquals("documentation", 
     			Model.getFacade().getTag(documentationTV));
