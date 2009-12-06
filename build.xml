@@ -427,12 +427,14 @@ round-trip engineering for C++ projects.
   <!-- =================================================================== -->
   <!-- Run the module unit tests                                           -->
   <!-- =================================================================== -->
-  <target name="tests" depends="init, compile-tests" 
+  <target name="tests-xml" depends="init, compile-tests" 
           description="run the module unit tests">
     <property name="test" value="Test*"/>
     <antcall target="run-test"/>
   </target>
   
+  <target name="tests" depends="tests-xml"/>
+
   <target name="create-tests-report">
     <echo message="Creating unit tests report to ${module.tests.reports}/html/index.html"/>
     
