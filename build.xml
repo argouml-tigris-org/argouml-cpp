@@ -70,7 +70,7 @@ round-trip engineering for C++ projects.
   <!-- Initialization target                                               -->
   <!-- =================================================================== -->
 
- <target name="init" 
+ <target name="init" depends="pde-init"
          description="initializes the Ant script environment for the other targets">
 
     <tstamp/>
@@ -267,7 +267,7 @@ round-trip engineering for C++ projects.
          basedir="${module.build.dest}"
          includes="org/argouml/**"
          excludes="*.txt,*.bat,*.xml,*.sh,${manifest}"
-         manifest="${module.build.dest}/${manifest}"/>
+         manifest="${module.build.dest}/${manifest}" />
   </target>
 
   <!-- =================================================================== -->
@@ -446,4 +446,112 @@ round-trip engineering for C++ projects.
     </junitreport>
   </target>
 
+
+  <!-- =================================================================== -->
+  <!-- Eclipse PDE targets from here to end of file                        -->
+  <!-- =================================================================== -->
+  <!-- 
+    Required targets (called in this order) are:
+      build.jars
+      gather.bin.parts - must create and populate "${destination.temp.folder}/<Bundle-SymbolicName>_<Bundle-Version>
+      gather.logs
+    If p2.gathering = true in build.properties:
+      publish.bin.parts target replaces gather.bin.parts
+  -->
+  
+    <target name="pde-properties" if="eclipse.running">
+      <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter" />
+    </target>
+  
+    <target name="pde-init" depends="pde-properties">
+
+      <property name="bundleId" value="org.argouml.module.cpp" />
+
+      <!-- This property is magic and will have its value substituted by PDE -->
+      <property name="version.suffix" value="0.28.0.200904210336"/>
+      <property name="bundleVersion" value="${version.suffix}" />
+
+      <!-- Compiler settings. -->
+      <condition property="dir_bootclasspath" value="${java.home}/../Classes">
+        <os family="mac" />
+      </condition>
+      <property name="dir_bootclasspath" value="${java.home}/lib" />
+      <path id="path_bootclasspath">
+        <fileset dir="${dir_bootclasspath}">
+          <include name="*.jar" />
+        </fileset>
+      </path>
+      <property name="bootclasspath" refid="path_bootclasspath" />
+      <property name="bundleBootClasspath" value="${bootclasspath}" />
+
+      <condition property="pluginTemp" value="${buildTempFolder}/plugins">
+        <isset property="buildTempFolder" />
+      </condition>
+      <property name="pluginTemp" value="${basedir}" />
+      <condition property="build.result.folder" value="${pluginTemp}/${bundleId}_${bundleVersion}">
+        <isset property="buildTempFolder" />
+      </condition>
+      <property name="build.result.folder" value="${basedir}" />
+      <property name="plugin.destination" value="${basedir}" />            
+      <condition property="p2.publish.parts" value="true">
+        <istrue value="${p2.gathering}"/>
+      </condition>
+    </target>
+
+  <target name="pde-clean" depends="pde-init">
+    <delete file="${plugin.destination}/${bundleId}_*.jar" />
+    <delete file="${plugin.destination}/${bundleId}_*.zip" />
+  </target>
+
+  <target name="build.jars" depends="jar" description="Compile classes and build nested jars for the plug-in: ${bundleId}.">
+    <mkdir dir="${build.result.folder}/@dot"/>
+    <copy todir="${build.result.folder}/@dot" failonerror="true" overwrite="false">
+      <fileset dir="${build.classes}" includes="org/argouml/**" excludes="*.txt,*.bat,*.xml,*.sh" />
+    </copy>
+  </target>
+
+  <target name="gather.bin.parts" depends="init" if="destination.temp.folder">
+    <mkdir dir="${destination.temp.folder}/${bundleId}_${bundleVersion}" />
+    <copy todir="${destination.temp.folder}/${bundleId}_${bundleVersion}" failonerror="true" overwrite="false">
+      <fileset dir="${build.result.folder}/@dot" includes="**"/>
+    </copy>
+    
+    <copy todir="${destination.temp.folder}/${bundleId}_${bundleVersion}" failonerror="true" overwrite="false">
+      <fileset dir="${basedir}">
+        <include name="META-INF/"/>
+        <include name="plugin.xml"/>
+        <include name="plugin.properties"/>
+      </fileset>
+    </copy>
+
+    <eclipse.versionReplacer path="${destination.temp.folder}/${bundleId}_${bundleVersion}" version="${bundleVersion}" />
+  </target>
+
+  <target name="publish.bin.parts" depends="init" if="p2.publish.parts">
+
+    <!-- First call old target to gather binaries -->
+    <antcall target="gather.bin.parts">
+      <param name="destination.temp.folder" value="${build.result.folder}"/>
+    </antcall>
+
+    <eclipse.versionReplacer path="${build.result.folder}" version="${bundleVersion}" />
+
+    <!-- Now use P2 publishing tools to publish to our build repository -->
+    <eclipse.gatherBundle
+      metadataRepository="${p2.build.repo}"
+      artifactRepository="${p2.build.repo}"
+      buildResultFolder="${build.result.folder}"
+      baseDirectory="${basedir}"
+    />
+  </target>
+
+  <target name="gather.logs" depends="init" if="destination.temp.folder">
+    <mkdir dir="${destination.temp.folder}/${bundleId}_${bundleVersion}"/>
+    <copy todir="${destination.temp.folder}/${bundleId}_${bundleVersion}" failonerror="false" overwrite="false">
+      <fileset dir="${build.dir}">
+        <include name="compile.log"/>  
+      </fileset>
+    </copy>
+  </target>
+  
 </project>
