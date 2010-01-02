@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.argouml.module.cpp;singleton:=true
-Bundle-Version: 0.25.6
+Bundle-Version: 0.29.3.qualifier
 Bundle-ClassPath: argouml-module-cpp.jar,
  lib/anarres-cpp-no-dependencies-1.2.3.jar,
  lib/commons-io-1.0.jar,
@@ -19,3 +19,4 @@ Require-Bundle: org.argouml.app,
  org.argouml.core.model
 Bundle-Vendor: %pluginProvider
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Eclipse-RegisterBuddy: org.argouml.core.infra, org.argouml.app
