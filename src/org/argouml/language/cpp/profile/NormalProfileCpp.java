@@ -65,9 +65,8 @@ public class NormalProfileCpp extends Profile {
         assert umlProfile != null 
             : "I'm dependent of the UML profile!"; //$NON-NLS-1$
         addProfileDependency(umlProfile);
-        profileModels = BaseProfile.loadProfileModels();
     }
-
+    
     /**
      * @return GUI identifier of the profile
      * @see org.argouml.profile.Profile#getDisplayName()
@@ -83,7 +82,21 @@ public class NormalProfileCpp extends Profile {
      */
     @Override
     public Collection getProfilePackages() {
+        return Collections.unmodifiableCollection(getProfileModels());
+    }
+
+
+    @Override
+    public Collection getLoadedPackages() {
         return Collections.unmodifiableCollection(profileModels);
+    }
+
+    
+    private Collection getProfileModels() {
+        if (profileModels == null) {
+            profileModels = BaseProfile.loadProfileModels();            
+        }
+        return profileModels;
     }
     
     @Override
@@ -106,7 +119,7 @@ public class NormalProfileCpp extends Profile {
     
     @Override
     public DefaultTypeStrategy getDefaultTypeStrategy() {
-        return new DefaultTypeStrategyCpp(profileModels);
+        return new DefaultTypeStrategyCpp(getProfileModels());
     }
     
     @Override
