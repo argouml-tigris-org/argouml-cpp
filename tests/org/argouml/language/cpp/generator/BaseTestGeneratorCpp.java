@@ -1,13 +1,13 @@
 /* $Id$
  *****************************************************************************
- * Copyright (c) 2009 Contributors - see below
+ * Copyright (c) 2009-2010 Contributors - see below
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    euluis
+ *    Luis Sergio Oliveira (euluis)
  *****************************************************************************
  *
  * Some portions of this file was previously release using the BSD License:
@@ -50,6 +50,7 @@ import org.argouml.language.cpp.profile.ProfileCpp;
 import org.argouml.model.CoreFactory;
 import static org.argouml.model.Model.*;
 import org.argouml.moduleloader.ModuleInterface;
+import org.argouml.profile.ProfileFacade;
 import org.argouml.uml.generator.GeneratorManager;
 
 /**
@@ -120,6 +121,7 @@ class BaseTestGeneratorCpp extends TestCase {
     
     protected void tearDown() throws Exception {
         deleteCurrentProject();
+        ProfileFacade.reset();
         super.tearDown();
     }
 

@@ -1,13 +1,13 @@
 /* $Id$
  *****************************************************************************
- * Copyright (c) 2009 Contributors - see below
+ * Copyright (c) 2009-2010 Contributors - see below
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    euluis
+ *    Luis Sergio Oliveira (euluis)
  *****************************************************************************
  *
  * Some portions of this file was previously release using the BSD License:
@@ -54,8 +54,6 @@ import static org.argouml.model.Model.*;
  */
 public class TestInlineTaggedValue extends BaseTestGeneratorCpp {
     private Object classA;
-    
-    private ProfileCpp profileCpp;
 
     /** The Logger for this class */
     private static final Logger LOG = Logger.getLogger(
@@ -75,7 +73,6 @@ public class TestInlineTaggedValue extends BaseTestGeneratorCpp {
     protected void setUp() throws Exception {
         super.setUp();
         classA = getCoreFactory().buildClass("ClassA", getModel());
-        profileCpp = new ProfileCpp(getModels());
         voidType = ProjectManager.getManager().getCurrentProject().findType(
                 "void");
         getGenerator().setUseSect(Section.SECT_NONE);
@@ -102,9 +99,8 @@ public class TestInlineTaggedValue extends BaseTestGeneratorCpp {
         String opName = "fooInlined_Style1";
         Object defInClassOp = buildOperation(classA, voidType, opName);
         
-        profileCpp.applyCppOperationStereotype(defInClassOp);
-        profileCpp.applyInlineTaggedValue2Operation(defInClassOp,
-                "defInClass");
+        profile.applyCppOperationStereotype(defInClassOp);
+        profile.applyInlineTaggedValue2Operation(defInClassOp, "defInClass");
 
         String re = "(?m)(?s).*class\\s+ClassA\\s+\\{\\s+public\\:"
             + "\\s+virtual\\s+void\\s+fooInlined_Style1\\(\\)"
@@ -123,8 +119,8 @@ public class TestInlineTaggedValue extends BaseTestGeneratorCpp {
         Object inlineKeyDefInClassOp = buildOperation(classA, voidType,
                 opName);
         
-        profileCpp.applyCppOperationStereotype(inlineKeyDefInClassOp);
-        profileCpp.applyInlineTaggedValue2Operation(inlineKeyDefInClassOp,
+        profile.applyCppOperationStereotype(inlineKeyDefInClassOp);
+        profile.applyInlineTaggedValue2Operation(inlineKeyDefInClassOp,
                 "inlineKeyDefInClass");
 
         String re = "(?m)(?s).*class\\s+ClassA\\s+\\{\\s+public\\:"
@@ -144,8 +140,8 @@ public class TestInlineTaggedValue extends BaseTestGeneratorCpp {
         Object inlineKeyDefOutClassOp = buildOperation(classA, voidType,
                 opName);
         
-        profileCpp.applyCppOperationStereotype(inlineKeyDefOutClassOp);
-        profileCpp.applyInlineTaggedValue2Operation(inlineKeyDefOutClassOp,
+        profile.applyCppOperationStereotype(inlineKeyDefOutClassOp);
+        profile.applyInlineTaggedValue2Operation(inlineKeyDefOutClassOp,
                 "inlineKeyDefOutClass");
 
         String re = "(?m)(?s).*class\\s+ClassA\\s+\\{\\s+public\\:"
@@ -166,8 +162,8 @@ public class TestInlineTaggedValue extends BaseTestGeneratorCpp {
         String opName = "fooInlined_Style4";
         Object defOutClassOp = buildOperation(classA, voidType, opName);
         
-        profileCpp.applyCppOperationStereotype(defOutClassOp);
-        profileCpp.applyInlineTaggedValue2Operation(defOutClassOp,
+        profile.applyCppOperationStereotype(defOutClassOp);
+        profile.applyInlineTaggedValue2Operation(defOutClassOp,
                 "defOutClass");
 
         String re = "(?m)(?s).*class\\s+ClassA\\s+\\{\\s+public\\:"
