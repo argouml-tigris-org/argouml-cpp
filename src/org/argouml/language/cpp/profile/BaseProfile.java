@@ -231,10 +231,7 @@ public class BaseProfile {
     }
 
     protected BaseProfile(Collection<Object> theModels) {
-        models = theModels;
-        assert models.size() > 0 : 
-            "There must be at least one user model."; //$NON-NLS-1$
-        profile = loadProfileModels().iterator().next();
+        this(theModels,loadProfileModels().iterator().next());
     }
 
     protected BaseProfile(Collection<Object> theModels, Object profileModel) {
