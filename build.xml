@@ -105,11 +105,31 @@ round-trip engineering for C++ projects.
     <property name="module.jarfile"
               value="${module.build.dir}/${module.jarfile.name}"/>
 
-    <property name="argo.root.dir" value="${basedir}/../argouml"/>
-    <property name="argo.build.dir" value="${argo.root.dir}/build"/>
-    
-    <!-- Tools dir used for checkstyle. -->
-    <property name="argo.tools.dir" value="${argo.root.dir}/tools"/>
+    <!-- Try to figure out where main ArgoUML tools directory is -->
+    <property name="tool.test.file" value="checkstyle/java.header"/>
+    <available file="../argouml/src/argouml-core-tools/${tool.test.file}" 
+               type="file" property="argo.tools.dir"
+               value="../argouml/src/argouml-core-tools"/>
+    <available file="../argouml/tools/${tool.test.file}" 
+               type="file" property="argo.tools.dir"
+               value="../argouml/tools"/>
+   <!-- Eclipse PDE build configuration -->
+    <available file="../argouml-core-tools/${tool.test.file}" 
+               type="file" property="argo.tools.dir"
+               value="../argouml-core-tools"/>
+
+    <!-- figure out where main ArgoUML build directory is -->
+    <!-- TODO: This probably needs to reference the packaging directory -->
+    <available file="../argouml/src/argouml-build/build" 
+               type="dir" property="argo.build.dir"
+               value="../argouml/src/argouml-build/build"/>
+    <available file="../argouml/build" 
+               type="dir" property="argo.build.dir"
+               value="../argouml/build"/>
+   <!-- Eclipse PDE build configuration -->
+   <available file="../argouml-build/build" 
+              type="dir" property="argo.build.dir"
+              value="../argouml-build/build"/>
 
     <property name="argo.jarfile" value="${argo.build.dir}/argouml.jar"/>
 
@@ -202,7 +222,7 @@ round-trip engineering for C++ projects.
   <target name="generateparser_internal" unless="parser.is.current" 
           depends="prepare">
     <echo message="Running antlr from ${antlrall.jar.path}"/>
-    <java classname="antlr.Tool" fork="yes" maxmemory="32M"  classpath="${antlrall.jar.path}">
+    <java classname="antlr.Tool" fork="yes" classpath="${antlrall.jar.path}">
       <!-- For debugging the parser or lexer you may want to use the options 
       -traceParser or / and -traceLexer. -->
       <arg value="-o"/>
@@ -333,7 +353,7 @@ round-trip engineering for C++ projects.
           description="Run checkstyle on the cpp module.">
     <property name="checkstyle.jar.path"
               value="${argo.tools.dir}/checkstyle-4.3/checkstyle-all-4.3.jar"/>
-    <java classname="com.puppycrawl.tools.checkstyle.Main" failonerror="false" fork="true" maxmemory="32M">
+    <java classname="com.puppycrawl.tools.checkstyle.Main" failonerror="false" fork="true">
       <sysproperty key="checkstyle.header.file" value="${argo.tools.dir}/checkstyle/java.header"/>
       <classpath>
         <pathelement location="${checkstyle.jar.path}"/>
@@ -404,7 +424,7 @@ round-trip engineering for C++ projects.
     <echo message="running the unit tests"/>
     
     <junit errorproperty="junit.failure" fork="yes" haltonfailure="false" 
-           maxmemory="48M" printsummary="true">
+           maxmemory="128M" printsummary="true">
           <!-- use different log4j configuration for testing -->
       <sysproperty key="log4j.configuration" value="org/argouml/resource/full_console.lcf"/>
       <classpath>

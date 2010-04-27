@@ -89,6 +89,11 @@ public class TestDefaultTypeStrategyCpp extends TestCase {
         coreHelperCtrl = MockControl.createNiceControl(CoreHelper.class);
         coreHelper = (CoreHelper) coreHelperCtrl.getMock();
     }
+    
+    protected void tearDown() throws Exception {
+        // Make sure mock doesn't screw up later tests
+        Model.setImplementation(null);
+    }
 
     public void testCtorWithEmptyProfileModelsShallThrow() {
         profileModels = Collections.emptyList();
