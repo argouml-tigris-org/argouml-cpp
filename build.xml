@@ -427,6 +427,7 @@ round-trip engineering for C++ projects.
            maxmemory="128M" printsummary="true">
           <!-- use different log4j configuration for testing -->
       <sysproperty key="log4j.configuration" value="org/argouml/resource/full_console.lcf"/>
+      <sysproperty key="java.awt.headless" value="true"/>
       <classpath>
         <path refid="module.run-tests.classpath"/>
         <pathelement location="${module.tests.classes}"/>
@@ -448,7 +449,7 @@ round-trip engineering for C++ projects.
   <!-- Run the module unit tests                                           -->
   <!-- =================================================================== -->
   <target name="tests-xml" depends="init, compile-tests" 
-          description="run the module unit tests">
+          description="run the module unit tests in headleass mode.">
     <property name="test" value="Test*"/>
     <antcall target="run-test"/>
   </target>
