@@ -1,6 +1,6 @@
 /* $Id$
  *****************************************************************************
- * Copyright (c) 2009 Contributors - see below
+ * Copyright (c) 2009-2010 Contributors - see below
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -49,16 +49,12 @@ import org.argouml.notation.providers.AttributeNotation;
 public class AttributeNotationCpp extends AttributeNotation {
 
     /**
+     * The constructor.
      * 
+     * @param attribute the UML element
      */
-    public AttributeNotationCpp() {
-    }
-
-    private static final AttributeNotationCpp INSTANCE = 
-        new AttributeNotationCpp();
-
-    public static final AttributeNotationCpp getInstance() {
-        return INSTANCE;
+    public AttributeNotationCpp(Object attribute) {
+        super(attribute);
     }
 
     /*
