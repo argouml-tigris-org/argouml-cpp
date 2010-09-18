@@ -286,8 +286,7 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
         Object intType = ProjectManager.getManager().getCurrentProject()
                 .findType("int");
         Object attr = buildAttribute(getAClass(), intType, name);
-        Model.getCoreHelper().setMultiplicity(attr,
-            Model.getDataTypesFactory().createMultiplicity(mult));
+        Model.getCoreHelper().setMultiplicity(attr, mult);
         return attr;
     }
     
