@@ -123,7 +123,7 @@ public class TestGenerateAssociations extends BaseTestGeneratorCpp {
 
     private void setUpAggregation() {
         Object classAAssociationEnd = setUpAssociation();
-        getCoreHelper().setAggregation(classAAssociationEnd,
+        getCoreHelper().setAggregation1(classAAssociationEnd,
                 getAggregationKind().getAggregate());
     }
 
@@ -139,7 +139,7 @@ public class TestGenerateAssociations extends BaseTestGeneratorCpp {
 
     private void setUpComposition() {
         Object classAAssociationEnd = setUpAssociation();
-        getCoreHelper().setAggregation(classAAssociationEnd,
+        getCoreHelper().setAggregation1(classAAssociationEnd,
                 getAggregationKind().getComposite());
     }
 

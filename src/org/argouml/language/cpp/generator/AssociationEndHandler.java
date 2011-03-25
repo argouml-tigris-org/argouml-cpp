@@ -72,7 +72,7 @@ class AssociationEndHandler {
 
     void pre() {
         if (!getAggregationKind().getComposite().equals(
-                getFacade().getAggregation(associationEnd))) {
+                getFacade().getAggregation1(associationEnd))) {
             Collection otherAssociationEnds = 
                 getFacade().getOtherAssociationEnds(associationEnd);
             for (Object otherAE : otherAssociationEnds) {

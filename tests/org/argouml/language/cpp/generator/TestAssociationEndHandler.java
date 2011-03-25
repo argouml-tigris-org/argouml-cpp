@@ -80,7 +80,7 @@ public class TestAssociationEndHandler extends BaseTestGeneratorCpp {
     }
 
     public void testSimpleComposed() {
-        getCoreHelper().setAggregation(classAAssociationEnd,
+        getCoreHelper().setAggregation1(classAAssociationEnd,
                 getAggregationKind().getComposite());
         AssociationEndHandler classAHandler = new AssociationEndHandler(
                 classAAssociationEnd);
@@ -93,7 +93,7 @@ public class TestAssociationEndHandler extends BaseTestGeneratorCpp {
     }
 
     public void testSimpleComposedOtherEnd() {
-        getCoreHelper().setAggregation(classAAssociationEnd,
+        getCoreHelper().setAggregation1(classAAssociationEnd,
                 getAggregationKind().getComposite());
         AssociationEndHandler handler = new AssociationEndHandler(
                 classBAssociationEnd);
