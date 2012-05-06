@@ -10,30 +10,30 @@
 # | Verify and Set Required Environment Variables                           |
 # +-------------------------------------------------------------------------+
 
-# 	+---------------------------------------------------------------------+
-# 	| Check for existence of ANT_HOME environment variable                |
-# 	+---------------------------------------------------------------------+
+#	+-------------------------------------------------------------------+
+#	| Check for existence of ANT_HOME environment variable              |
+#	+-------------------------------------------------------------------+
 
-#	+---------------------------------------------------------------------+
-#	| Check for existence of JAVA_HOME environment variable               |
-#	+---------------------------------------------------------------------+
+#	+-------------------------------------------------------------------+
+#	| Check for existence of JAVA_HOME environment variable             |
+#	+-------------------------------------------------------------------+
 
 if [ "$JAVA_HOME" = "" ] ; then
-	#	+---------------------------------------------------------------+
-	#	| JAVA_HOME environment variable not found                      |
-	#	+---------------------------------------------------------------+
+	#	+-----------------------------------------------------------+
+	#	| JAVA_HOME environment variable not found                  |
+	#	+-----------------------------------------------------------+
 
-	echo "******************************************************************"
+	echo "**************************************************************"
 	echo "  ERROR: JAVA_HOME environment variable not found."
 	echo ""
 	echo "  Please set JAVA_HOME to the Java JDK installation directory."
-	echo "******************************************************************"
+	echo "**************************************************************"
 	exit 1
 fi
 
-#	+--------------------------------------------------------------------+
-# 	| Add Java's tools.jar to the classpath for running Ant              |
-#	+--------------------------------------------------------------------+
+#	+-------------------------------------------------------------------+
+# 	| Add Java's tools.jar to the classpath for running Ant             |
+#	+-------------------------------------------------------------------+
 
 if [ -s $JAVA_HOME/lib/tools.jar ] ; then
 	LOCAL_CLASSPATH=$LOCAL_CLASSPATH:$JAVA_HOME/lib/tools.jar
@@ -49,9 +49,9 @@ fi
 #
 ANT_HOME=../argouml/tools/apache-ant-1.7.0
 
-# 	+--------------------------------------------------------------------+
-# 	| Add required .jar files to local classpath string                  |
-# 	+--------------------------------------------------------------------+
+# 	+-------------------------------------------------------------------+
+# 	| Add required .jar files to local classpath string                 |
+# 	+-------------------------------------------------------------------+
 LOCAL_CLASSPATH=$LOCAL_CLASSPATH:$ANT_HOME/lib/ant.jar
 #LOCAL_CLASSPATH=$LOCAL_CLASSPATH:$ANT_HOME/lib/optional.jar
 # LOCAL_CLASSPATH=$LOCAL_CLASSPATH:$ANT_HOME/lib/NetComponents.jar
