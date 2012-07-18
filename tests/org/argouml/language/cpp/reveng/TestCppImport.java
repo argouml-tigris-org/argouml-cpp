@@ -172,10 +172,10 @@ public class TestCppImport extends TestCase {
      */
     @Override
     protected void tearDown() throws Exception {
+        deleteCurrentProject();
         if (genDir != null && genDir.exists()) {
             FileUtils.deleteDirectory(genDir);
         }
-        deleteCurrentProject();
         super.tearDown();
     }
 
