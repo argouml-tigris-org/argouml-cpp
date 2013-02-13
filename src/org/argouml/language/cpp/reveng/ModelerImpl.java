@@ -1,13 +1,13 @@
 /* $Id$
  *****************************************************************************
- * Copyright (c) 2009 Contributors - see below
+ * Copyright (c) 2009-2013 Contributors - see below
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    euluis
+ *    Luis Sergio Oliveira (euluis)
  *****************************************************************************
  *
  * Some portions of this file was previously release using the BSD License:
@@ -44,8 +44,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
+import java.util.logging.Logger;
 
-import org.apache.log4j.Logger;
 import org.argouml.kernel.Project;
 import org.argouml.model.IllegalModelElementConnectionException;
 import org.argouml.model.Model;
@@ -92,7 +92,8 @@ public class ModelerImpl implements Modeler {
     /**
      * Logger.
      */
-    private static final Logger LOG = Logger.getLogger(ModelerImpl.class);
+    private static final Logger LOG = Logger.getLogger(
+            ModelerImpl.class.getName());
     
     private Collection newElements;
     
@@ -401,7 +402,7 @@ public class ModelerImpl implements Modeler {
             while (i.hasNext()) {
                 stsString.append(i.next().toString()).append(" ");
             }
-            LOG.debug("In simpleTypeSpecifier, stsString = " + stsString);
+            LOG.finer("In simpleTypeSpecifier, stsString = " + stsString);
             Object theType = findOrCreateType(stsString.toString().trim());
             if (memberModeler != null) {
                 memberModeler.setType(theType);
@@ -471,7 +472,7 @@ public class ModelerImpl implements Modeler {
      */
     public void directDeclarator(String id, boolean typedef) {
         if (!ignore()) {
-            LOG.debug("In directDeclarator: id = \"" + id + "\"; typedef = " 
+            LOG.finer("In directDeclarator: id = \"" + id + "\"; typedef = " 
                 + typedef);
             if (typedef) {
                 assert typedefModeler != null;
@@ -721,7 +722,8 @@ public class ModelerImpl implements Modeler {
                     stereoName = STEREO_NAME_PARAMETER;
                 }
                 else {
-                    LOG.warn("Unexpected reveng context: " + paramOrAttribute);
+                    LOG.warning("Unexpected reveng context: " 
+                            + paramOrAttribute);
                     return;
                 }
                 profile.applyStereotype(stereoName, paramOrAttribute);
@@ -737,7 +739,7 @@ public class ModelerImpl implements Modeler {
                         tvName);
                 contextStack.push(tv);
             } else {
-                LOG.warn("unprocessed ptrSymbol: " + ptrSymbol);
+                LOG.warning("unprocessed ptrSymbol: " + ptrSymbol);
             }
         }
     }
@@ -855,7 +857,7 @@ public class ModelerImpl implements Modeler {
                         getMetaTypes().getGeneralization(), child, null, 
                         parent, null, null, null);
             } catch (IllegalModelElementConnectionException e) {
-                LOG.error("Exception while creating generalization.", e);
+                LOG.severe("Exception while creating generalization, " + e);
                 throw new RuntimeException(e);
             }
 	} else {

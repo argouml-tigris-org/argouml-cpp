@@ -1,13 +1,13 @@
 /* $Id$
  *****************************************************************************
- * Copyright (c) 2009 Contributors - see below
+ * Copyright (c) 2009-2013 Contributors - see below
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    euluis
+ *    Luis Sergio Oliveira (euluis)
  *****************************************************************************
  *
  * Some portions of this file was previously release using the BSD License:
@@ -44,6 +44,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.logging.Logger;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -54,7 +55,6 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
-import org.apache.log4j.Logger;
 import org.argouml.application.api.GUISettingsTabInterface;
 import org.argouml.i18n.Translator;
 import org.argouml.language.cpp.generator.GeneratorCpp;
@@ -72,7 +72,8 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
     private static final String REVISION_DATE = 
         "$Date$"; //$NON-NLS-1$
 
-    private static final Logger LOG = Logger.getLogger(SettingsTabCpp.class);
+    private static final Logger LOG = Logger.getLogger(
+            SettingsTabCpp.class.getName());
 
     private JPanel topPanel;
     private JSpinner indent;
@@ -87,7 +88,7 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
      * Build the panel to be used for our settings tab.
      */
     private JPanel buildPanel() {
-        LOG.debug("SettingsTabCpp being created...");
+        LOG.finer("SettingsTabCpp being created...");
         JPanel top = new JPanel();
         top.setLayout(new BorderLayout());
         JPanel panel = new JPanel();
@@ -168,7 +169,7 @@ public class SettingsTabCpp implements ModuleInterface, GUISettingsTabInterface
 
         top.add(panel, BorderLayout.NORTH);
 
-        LOG.debug("SettingsTabCpp created!");
+        LOG.finer("SettingsTabCpp created!");
         return top;
     }
     

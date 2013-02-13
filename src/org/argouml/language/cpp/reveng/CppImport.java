@@ -1,13 +1,13 @@
 /* $Id$
  *****************************************************************************
- * Copyright (c) 2009 Contributors - see below
+ * Copyright (c) 2009-2013 Contributors - see below
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    euluis
+ *    Luis Sergio Oliveira (euluis)
  *****************************************************************************
  *
  * Some portions of this file was previously release using the BSD License:
@@ -48,10 +48,11 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.anarres.cpp.CppReader;
 import org.anarres.cpp.Preprocessor;
-import org.apache.log4j.Logger;
 import org.argouml.configuration.Configuration;
 import org.argouml.configuration.ConfigurationKey;
 import org.argouml.kernel.Project;
@@ -77,7 +78,8 @@ import org.argouml.util.SuffixFilter;
 public class CppImport implements ImportInterface {
 
     /** logger */
-    private static final Logger LOG = Logger.getLogger(CppImport.class);
+    private static final Logger LOG = Logger.getLogger(
+            CppImport.class.getName());
 
     /**
      * Flag for warning the user about the limitations of the C++ module. The
@@ -114,7 +116,7 @@ public class CppImport implements ImportInterface {
             ImportSettings settings, ProgressMonitor monitor)
         throws ImportException {
 
-        LOG.warn("Not fully implemented yet!");
+        LOG.warning("Not fully implemented yet!");
         warnUser(monitor);
 
         newElements = new HashSet();
@@ -161,14 +163,14 @@ public class CppImport implements ImportInterface {
             try {
 		fileReader.close();
             } catch (IOException e) {
-                LOG.error("Error on closing file " + f, e);
+                LOG.severe("Error on closing file " + f + " " + e);
             }
         }
     }
     
     private static class ModelerInvocationHandler implements InvocationHandler {
 
-        static final Logger LOG = Logger.getLogger(Modeler.class);
+        static final Logger LOG = Logger.getLogger(Modeler.class.getName());
         
         private Modeler modeler;
         
@@ -192,7 +194,7 @@ public class CppImport implements ImportInterface {
                 }
             }
             debugInfo.append(".");
-            LOG.debug(debugInfo);
+            LOG.fine(debugInfo.toString());
             try {
                 return method.invoke(modeler, args);
             } catch (Exception e) {
@@ -204,7 +206,7 @@ public class CppImport implements ImportInterface {
     private Modeler createModeler(Project p) throws ImportException {
         try {
             Modeler modeler = new ModelerImpl(p);
-            if (LOG.isDebugEnabled()) {
+            if (LOG.isLoggable(Level.FINE)) {
                 InvocationHandler handler = new ModelerInvocationHandler(
                     modeler);
                 modeler = (Modeler) Proxy.newProxyInstance(
@@ -247,7 +249,7 @@ public class CppImport implements ImportInterface {
             + lineSepAndListIndent
             + "very immature, certainly this list needs to grow!";
         Configuration.setBoolean(KEY_USER_WARNING, userWarning);
-        LOG.debug("userWarning = " + userWarning);
+        LOG.fine("userWarning = " + userWarning);
         // Even if the user didn't turn off the warning, we won't show it to
         // him again in this ArgoUML run.
         userWarning = false;
@@ -293,8 +295,7 @@ public class CppImport implements ImportInterface {
      * @see org.argouml.moduleloader.ModuleInterface#disable()
      */
     public boolean disable() {
-        // Nothing to do here either
-        return true;
+        return ImporterManager.getInstance().removeImporter(this);
     }
 
     /*

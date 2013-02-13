@@ -1,13 +1,13 @@
 /* $Id$
  *****************************************************************************
- * Copyright (c) 2009 Contributors - see below
+ * Copyright (c) 2009-2013 Contributors - see below
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    euluis
+ *    Luis Sergio Oliveira (euluis)
  *****************************************************************************
  *
  * Some portions of this file was previously release using the BSD License:
@@ -43,7 +43,7 @@ import static org.argouml.model.Model.getCoreFactory;
 import static org.argouml.model.Model.getCoreHelper;
 import static org.argouml.model.Model.getFacade;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 /**
  * Tests for the GeneratorCpp class in what regards generation of associations.
@@ -56,7 +56,7 @@ public class TestGenerateAssociations extends BaseTestGeneratorCpp {
 
     /** The Logger for this class */
     private static final Logger LOG = Logger
-            .getLogger(TestGenerateAssociations.class);
+            .getLogger(TestGenerateAssociations.class.getName());
     private Object classA;
     private Object classB;
 
@@ -115,8 +115,8 @@ public class TestGenerateAssociations extends BaseTestGeneratorCpp {
             }
         }
         if (!match) {
-            LOG.warn(logMsg);
-            LOG.warn(code);
+            LOG.warning(logMsg);
+            LOG.warning(code);
         }
         assertTrue(logMsg, match);
     }

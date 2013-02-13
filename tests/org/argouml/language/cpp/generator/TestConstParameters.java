@@ -1,13 +1,13 @@
 /* $Id$
  *****************************************************************************
- * Copyright (c) 2009 Contributors - see below
+ * Copyright (c) 2009-2013 Contributors - see below
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    euluis
+ *    Luis Sergio Oliveira (euluis)
  *****************************************************************************
  *
  * Some portions of this file was previously release using the BSD License:
@@ -38,10 +38,11 @@
 
 package org.argouml.language.cpp.generator;
 
+import java.util.logging.Logger;
+
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.apache.log4j.Logger;
 import org.argouml.kernel.ProjectManager;
 import org.argouml.language.cpp.profile.ProfileCpp;
 import org.argouml.model.Model;
@@ -60,7 +61,7 @@ public class TestConstParameters extends BaseTestGeneratorCpp {
 
     /** The Logger for this class */
     private static final Logger LOG = Logger.getLogger(
-            TestConstParameters.class);
+            TestConstParameters.class.getName());
 
     /**
      * The constructor.

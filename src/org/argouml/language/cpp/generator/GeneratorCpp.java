@@ -1,13 +1,13 @@
 /* $Id$
  *****************************************************************************
- * Copyright (c) 2009 Contributors - see below
+ * Copyright (c) 2009-2013 Contributors - see below
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    euluis
+ *    Luis Sergio Oliveira (euluis)
  *****************************************************************************
  *
  * Some portions of this file was previously release using the BSD License:
@@ -58,8 +58,8 @@ import java.util.StringTokenizer;
 import java.util.TreeSet;
 import java.util.UUID;
 import java.util.Vector;
+import java.util.logging.Logger;
 
-import org.apache.log4j.Logger;
 import org.argouml.configuration.Configuration;
 import org.argouml.configuration.ConfigurationKey;
 import static org.argouml.language.cpp.profile.ProfileCpp.*;
@@ -83,7 +83,8 @@ public class GeneratorCpp implements CodeGenerator {
     /**
      * The logger.
      */
-    private static final Logger LOG = Logger.getLogger(GeneratorCpp.class);
+    private static final Logger LOG = Logger.getLogger(
+            GeneratorCpp.class.getName());
     
     static final String LANGUAGE_NAME = "cpp";
 
@@ -455,7 +456,7 @@ public class GeneratorCpp implements CodeGenerator {
             File f = new File (path);
             if (!f.isDirectory()) {
                 if (!f.mkdir()) {
-                    LOG.error(" could not make directory " + path);
+                    LOG.severe(" could not make directory " + path);
                     return null;
                 }
             }
@@ -561,7 +562,7 @@ public class GeneratorCpp implements CodeGenerator {
                     if (templateFileReader != null) templateFileReader.close();
                 }
                 catch (IOException exp) {
-                    LOG.error("FAILED: " + templateFile.getPath());
+                    LOG.severe("FAILED: " + templateFile.getPath());
                 }
             }
         }
@@ -952,9 +953,9 @@ public class GeneratorCpp implements CodeGenerator {
                 // there's no way to make a leaf method that it's not root in
                 // c++, so warn the user and ignore the 'root' attribute
                 // (or it may be better to ignore the 'leaf' attribute?)
-                LOG.warn(op + " is leaf but not root: "
-                         + "C++ can't handle this properly");
-                LOG.warn("    Ignoring the 'root' attribute");
+                LOG.warning(op + " is leaf but not root: "
+                             + "C++ can't handle this properly");
+                LOG.warning("    Ignoring the 'root' attribute");
             }
             // generate a function as virtual, if it can be overridden
             // or override another function AND if this function is
@@ -1059,9 +1060,9 @@ public class GeneratorCpp implements CodeGenerator {
             rp = returnParams.iterator().next();
         } 
         if (returnParams.size() > 1)  {
-            LOG.warn("C++ generator only handles one return parameter"
-                    + " - Found " + returnParams.size()
-                    + " for " + getFacade().getName(op));
+            LOG.warning("C++ generator only handles one return parameter"
+                        + " - Found " + returnParams.size()
+                        + " for " + getFacade().getName(op));
         }
         if (!getFacade().isConstructor(op) && !isDestructor(op)) {
             Inline inlineStyle = Inline.getInlineOperationModifierType(op);
@@ -1153,17 +1154,17 @@ public class GeneratorCpp implements CodeGenerator {
                 Object type = getFacade().getType(attr);
                 if (type == null) {
                     // model corrupt (this really happened -- aslo)
-                    LOG.error(attr + " has no type!");
+                    LOG.severe(attr + " has no type!");
                     return "";
                 }
                 if (getFacade().isAbstract(type)
                     || getFacade().isAInterface(type)) {
                     if (modType == NORMAL_MOD) {
                         // user explicitly requested no modifier
-                        LOG.warn("Requested no reference or pointer "
-                                + "modifier, but");
-                        LOG.warn("\t" + type + " cannot be instantiated, "
-                                + "using reference");
+                        LOG.warning("Requested no reference or pointer "
+                                    + "modifier, but");
+                        LOG.warning("\t" + type + " cannot be instantiated, "
+                                    + "using reference");
                     }
                     modType = REFERENCE_MOD;
                 }
@@ -1431,9 +1432,9 @@ public class GeneratorCpp implements CodeGenerator {
         } else if (getFacade().isPrivate(o)) {
             return PRIVATE_PART;
         } else {
-            LOG.warn(getFacade().getName(o)
-                    + " is not public, nor protected, "
-                    + "nor private!!! (ignored)");
+            LOG.warning(getFacade().getName(o)
+                        + " is not public, nor protected, "
+                        + "nor private!!! (ignored)");
             return -1;
         }
     }
@@ -2076,9 +2077,9 @@ public class GeneratorCpp implements CodeGenerator {
                     rp = returnParams.iterator().next();
                 } 
                 if (returnParams.size() > 1)  {
-                    LOG.warn("C++ generator only handles one return parameter"
-                            + " - Found " + returnParams.size()
-                            + " for " + getFacade().getName(op));
+                    LOG.warning("C++ generator only handles one return"
+                                + " parameter - Found " + returnParams.size()
+                                + " for " + getFacade().getName(op));
                 }
                 if (rp != null) {
                     Object returnType = getFacade().getType(rp);
@@ -2658,15 +2659,15 @@ public class GeneratorCpp implements CodeGenerator {
                     systemInc.add("map");
                     sb.append(stdPrefix + "map<" + stdPrefix + "string, ");
                     if (modifier.indexOf('&') != -1) {
-                        LOG.warn("cannot generate STL container "
-                                + "with references, using pointers");
+                        LOG.warning("cannot generate STL container "
+                                    + "with references, using pointers");
                         modifier = "*";
                     }
                     sb.append(type).append(modifier);
                     sb.append(" > ").append(name);
                 } else {
-                    LOG.warn("unknown " + TV_NAME_MULTIPLICITY_TYPE + " \"" 
-                            + multType + "\", using default");
+                    LOG.warning("unknown " + TV_NAME_MULTIPLICITY_TYPE + " \"" 
+                                + multType + "\", using default");
                     containerType = "vector";
                 }
             } else {
@@ -2678,8 +2679,8 @@ public class GeneratorCpp implements CodeGenerator {
                 systemInc.add(containerType);
                 sb.append(stdPrefix).append(containerType).append("< ");
                 if (modifier.indexOf('&') != -1) {
-                    LOG.warn("cannot generate STL container "
-                            + "with references, using pointers");
+                    LOG.warning("cannot generate STL container "
+                                + "with references, using pointers");
                     modifier = "*";
                 }
                 sb.append(type).append(modifier);
@@ -2942,7 +2943,7 @@ public class GeneratorCpp implements CodeGenerator {
                     if (fos != null) fos.close();
                 }
                 catch (IOException exp) {
-                    LOG.error("FAILED: " + f.getPath());
+                    LOG.severe("FAILED: " + f.getPath());
                 }
             }
 

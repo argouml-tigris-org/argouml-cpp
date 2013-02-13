@@ -1,13 +1,13 @@
 /* $Id$
  *****************************************************************************
- * Copyright (c) 2009 Contributors - see below
+ * Copyright (c) 2009-2013 Contributors - see below
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    euluis
+ *    Luis Sergio Oliveira (euluis)
  *****************************************************************************
  *
  * Some portions of this file was previously release using the BSD License:
@@ -38,12 +38,14 @@
 
 package org.argouml.language.cpp.reveng;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
+
 import org.argouml.language.cpp.profile.ProfileCpp;
 import org.argouml.model.Model;
 
 class TypedefModeler extends MemberModeler {
-    private static final Logger LOG = Logger.getLogger(TypedefModeler.class);
+    private static final Logger LOG = Logger.getLogger(
+            TypedefModeler.class.getName());
     
     TypedefModeler(Object theOwner, Object accessSpecifier, 
             ProfileCpp theProfile) {
@@ -51,7 +53,7 @@ class TypedefModeler extends MemberModeler {
     }
     
     void directDeclarator(String id) {
-        LOG.debug("Got the name: " + id);
+        LOG.finer("Got the name: " + id);
         Object typedef = Model.getCoreFactory().buildDataType(id, getOwner());
         // TODO: set the tagged value typedef to the name of type.
 //        profile.applyCppDatatypeStereotype(typedef);

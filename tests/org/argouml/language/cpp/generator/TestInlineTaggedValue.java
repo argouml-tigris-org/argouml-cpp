@@ -1,6 +1,6 @@
 /* $Id$
  *****************************************************************************
- * Copyright (c) 2009-2010 Contributors - see below
+ * Copyright (c) 2009-2013 Contributors - see below
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -40,9 +40,9 @@
 
 package org.argouml.language.cpp.generator;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
+
 import org.argouml.kernel.ProjectManager;
-import org.argouml.language.cpp.profile.ProfileCpp;
 import static org.argouml.model.Model.*;
 
 /**
@@ -57,7 +57,7 @@ public class TestInlineTaggedValue extends BaseTestGeneratorCpp {
 
     /** The Logger for this class */
     private static final Logger LOG = Logger.getLogger(
-            TestInlineTaggedValue.class);
+            TestInlineTaggedValue.class.getName());
 
     private Object voidType;
 

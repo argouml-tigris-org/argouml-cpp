@@ -1,13 +1,13 @@
 /* $Id$
  *****************************************************************************
- * Copyright (c) 2009 Contributors - see below
+ * Copyright (c) 2009-2013 Contributors - see below
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    euluis
+ *    Luis Sergio Oliveira (euluis)
  *****************************************************************************
  *
  * Some portions of this file was previously release using the BSD License:
@@ -43,11 +43,11 @@ import static org.argouml.model.Model.getMetaTypes;
 import static org.argouml.model.Model.getUmlFactory;
 
 import java.util.Collection;
+import java.util.logging.Logger;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.apache.log4j.Logger;
 import org.argouml.kernel.ProjectManager;
 import org.argouml.language.cpp.profile.ProfileCpp;
 import org.argouml.model.IllegalModelElementConnectionException;
@@ -65,7 +65,8 @@ import org.argouml.moduleloader.ModuleInterface;
 public class TestGeneratorCpp extends BaseTestGeneratorCpp {
 
     /** The Logger for this class */
-    private static final Logger LOG = Logger.getLogger(TestGeneratorCpp.class);
+    private static final Logger LOG = Logger.getLogger(
+            TestGeneratorCpp.class.getName());
 
     /**
      * The constructor.
@@ -377,7 +378,7 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
         String strConstr = getGenerator().generateOperation(
             buildConstructor(getAClass()), false);
         assertNotNull(strConstr);
-        LOG.debug("generated constructor is '" + strConstr + "'");
+        LOG.finer("generated constructor is '" + strConstr + "'");
         assertEquals("AClass()", strConstr.trim());
     }
 
@@ -389,7 +390,7 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
         String strDestr = getGenerator().generateOperation(
             buildDestructor(getAClass()), false);
         assertNotNull(strDestr);
-        LOG.debug("generated destructor is '" + strDestr + "'");
+        LOG.finer("generated destructor is '" + strDestr + "'");
         assertEquals("virtual ~AClass()", strDestr.trim());
     }
 
@@ -421,14 +422,16 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
         String re = "(?m)(?s).*void\\s+AClass\\s*::\\s*OtherClass"
             + "\\s*::\\s*foo\\s*\\(\\s*\\).*\\{.*\\}.*";
         if (!code.matches(re)) {
-            LOG.debug("Code for inner class (.cpp):");
-            LOG.debug(code);
+            LOG.finer("Code for inner class (.cpp):");
+            LOG.finer(code);
         }
         assertTrue(code.matches(re));
     }
 
     /**
-     * Test <a href="TODO">issue 5798</a> in ArgoUML's issue DB. 
+     * Test
+     * <a href="http://argouml.tigris.org/issues/show_bug.cgi?id=5798">issue 
+     * 5798</a> in ArgoUML's issue DB. 
      */
     public void testGenerateEmptyClassCpp() {
         Object emptyClass = getFactory().buildClass("EmptyClass",
@@ -436,8 +439,8 @@ public class TestGeneratorCpp extends BaseTestGeneratorCpp {
         String code = getGenerator().generateCpp(emptyClass);
         String re = "(?m)(?s)\\s*#include \"EmptyClass\\.h\"\\s*";
         if (!code.matches(re)) {
-            LOG.debug("Code for EmptyClass' .cpp file:");
-            LOG.debug(code);
+            LOG.finer("Code for EmptyClass' .cpp file:");
+            LOG.finer(code);
         }
         assertTrue(code.matches(re));
     }

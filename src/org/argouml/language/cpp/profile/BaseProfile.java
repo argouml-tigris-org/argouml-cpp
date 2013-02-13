@@ -1,13 +1,13 @@
 /* $Id$
  *****************************************************************************
- * Copyright (c) 2009 Contributors - see below
+ * Copyright (c) 2009-2013 Contributors - see below
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    euluis
+ *    Luis Sergio Oliveira (euluis)
  *****************************************************************************
  *
  * Some portions of this file was previously release using the BSD License:
@@ -52,8 +52,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.logging.Logger;
 
-import org.apache.log4j.Logger;
 import org.argouml.profile.ProfileException;
 import org.argouml.profile.ProfileModelLoader;
 import org.argouml.profile.ProfileReference;
@@ -81,7 +81,8 @@ import org.argouml.model.Model;
  */
 public class BaseProfile {
 
-    private static final Logger LOG = Logger.getLogger(BaseProfile.class);
+    private static final Logger LOG = Logger.getLogger(
+            BaseProfile.class.getName());
 
     /**
      * The name of the documentation Tagged Value. 
@@ -97,7 +98,7 @@ public class BaseProfile {
             profileURL = new URL(
                 "http://argouml-cpp.tigris.org/profile/CppUmlProfile.xmi");
         } catch (MalformedURLException e) {
-            LOG.error("Exception", e);
+            LOG.severe("Exception " + e);
         }
         PROFILE_REFERENCE = new ProfileReference(PROFILE_FILE_NAME, 
             profileURL);

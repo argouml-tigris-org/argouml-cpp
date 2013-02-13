@@ -1,13 +1,13 @@
 /* $Id$
  *****************************************************************************
- * Copyright (c) 2009 Contributors - see below
+ * Copyright (c) 2009-2013 Contributors - see below
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    euluis
+ *    Luis Sergio Oliveira (euluis)
  *****************************************************************************
  *
  * Some portions of this file was previously release using the BSD License:
@@ -40,8 +40,8 @@ package org.argouml.language.cpp.profile;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
-import org.apache.log4j.Logger;
 import org.argouml.i18n.Translator;
 import org.argouml.moduleloader.ModuleInterface;
 import org.argouml.profile.Profile;
@@ -59,7 +59,8 @@ public class ProfileModule implements ModuleInterface {
     private static final String REVISION_DATE = 
         "$Date$"; //$NON-NLS-1$
 
-    private static final Logger LOG = Logger.getLogger(ProfileModule.class);
+    private static final Logger LOG = Logger.getLogger(
+            ProfileModule.class.getName());
 
     private Profile profileCpp;
 
@@ -77,7 +78,7 @@ public class ProfileModule implements ModuleInterface {
             profileCpp = new NormalProfileCpp();
             register(profileCpp);
         } catch (Exception e) {
-            LOG.error("Failed to enable myself!", e);
+            LOG.severe("Failed to enable myself! " + e);
             return false;
         }
         return true;
@@ -94,7 +95,7 @@ public class ProfileModule implements ModuleInterface {
                 remove(profileCpp);
                 removed = true;
             } catch (Exception e) {
-                LOG.error("Failed to remove the C++ profile.", e);
+                LOG.severe("Failed to remove the C++ profile. " + e);
             }
             profileCpp = null;
         }
@@ -117,7 +118,7 @@ public class ProfileModule implements ModuleInterface {
             moduleInfo = new HashMap<Integer, String>() {
                 {
                     put(ModuleInterface.AUTHOR, 
-                            "Luís Sérgio Oliveira (euluis)"); //$NON-NLS-1$
+                            "Luï¿½s Sï¿½rgio Oliveira (euluis)"); //$NON-NLS-1$
                     put(ModuleInterface.DESCRIPTION, 
                         Translator.localize(
                             "cpp.profile.module.description")); //$NON-NLS-1$
