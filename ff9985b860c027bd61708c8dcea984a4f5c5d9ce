@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32deda8b_138aed08",
+        "filename": "pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1016795
+      },
+      "writtenOn": "2019-07-18T14:31:34Z",
+      "side": 1,
+      "message": "This is garbage.",
+      "revId": "ff9985b860c027bd61708c8dcea984a4f5c5d9ce",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
