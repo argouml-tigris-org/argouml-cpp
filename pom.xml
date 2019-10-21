@@ -15,7 +15,7 @@
     <relativePath>../argouml/tools/maven/parentpom.xml</relativePath>
   </parent>
 
-  <artifactId>argo_cpp</artifactId>
+  <artifactId>argouml-cpp</artifactId>
   <version>0.35.2-SNAPSHOT</version>
   <packaging>jar</packaging>
 
