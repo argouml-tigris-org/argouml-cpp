@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<rss version="0.91">
+  <channel>
+    <title>argo_cpp - Checkstyle report</title>
+    <link>http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp</link>
+    <description>argo_cpp - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2019</copyright>
+    <item>
+      <title>File: 27,
+             Errors: 0,
+             Warnings: 75,
+             Infos: 0
+      </title>
+            <link>http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html</link>
+      <description>
+        <p>Click <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.profile.DefaultTypeStrategyCpp.java">org/argouml/language/cpp/profile/DefaultTypeStrategyCpp.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.generator.Inline.java">org/argouml/language/cpp/generator/Inline.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.notation.ModelElementNameNotationCpp.java">org/argouml/language/cpp/notation/ModelElementNameNotationCpp.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.reveng.ModelerImpl.java">org/argouml/language/cpp/reveng/ModelerImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.reveng.XtorModeler.java">org/argouml/language/cpp/reveng/XtorModeler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.generator.AssociationEndHandler.java">org/argouml/language/cpp/generator/AssociationEndHandler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.generator.Section.java">org/argouml/language/cpp/generator/Section.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.profile.BaseProfile.java">org/argouml/language/cpp/profile/BaseProfile.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.profile.ProfileCpp.java">org/argouml/language/cpp/profile/ProfileCpp.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.reveng.CppImport.java">org/argouml/language/cpp/reveng/CppImport.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.profile.ProfileModule.java">org/argouml/language/cpp/profile/ProfileModule.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.reveng.Modeler.java">org/argouml/language/cpp/reveng/Modeler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.reveng.CtorModeler.java">org/argouml/language/cpp/reveng/CtorModeler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.reveng.AttributeModeler.java">org/argouml/language/cpp/reveng/AttributeModeler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.notation.OperationNotationCpp.java">org/argouml/language/cpp/notation/OperationNotationCpp.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.reveng.MemberModeler.java">org/argouml/language/cpp/reveng/MemberModeler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.notation.NotationModuleCpp.java">org/argouml/language/cpp/notation/NotationModuleCpp.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.reveng.CPPvariables.java">org/argouml/language/cpp/reveng/CPPvariables.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.profile.FigNodeStrategyCpp.java">org/argouml/language/cpp/profile/FigNodeStrategyCpp.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.ui.SettingsTabCpp.java">org/argouml/language/cpp/ui/SettingsTabCpp.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.reveng.DtorModeler.java">org/argouml/language/cpp/reveng/DtorModeler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.generator.ModuleCpp.java">org/argouml/language/cpp/generator/ModuleCpp.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.profile.NormalProfileCpp.java">org/argouml/language/cpp/profile/NormalProfileCpp.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.generator.GeneratorCpp.java">org/argouml/language/cpp/generator/GeneratorCpp.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  65
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.reveng.OperationModeler.java">org/argouml/language/cpp/reveng/OperationModeler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.reveng.TypedefModeler.java">org/argouml/language/cpp/reveng/TypedefModeler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.notation.AttributeNotationCpp.java">org/argouml/language/cpp/notation/AttributeNotationCpp.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+

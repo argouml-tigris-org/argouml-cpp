@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd version="4.3" timestamp="2019-10-27T13:21:37.902">
+<file name="/home/linus/project/argouml/github-repo/argouml-cpp/src/org/argouml/language/cpp/generator/GeneratorCpp.java">
+<violation beginline="458" endline="461" begincolumn="17" endcolumn="17" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.argouml.language.cpp.generator" class="GeneratorCpp" method="createDirectoriesPathname" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
+These nested if statements could be combined
+</violation>
+<violation beginline="559" endline="559" begincolumn="13" endcolumn="39" rule="EmptyCatchBlock" ruleset="Basic Rules" package="org.argouml.language.cpp.generator" class="GeneratorCpp" method="writeTemplate" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
+Avoid empty catch blocks
+</violation>
+<violation beginline="1153" endline="1171" begincolumn="13" endcolumn="13" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.argouml.language.cpp.generator" class="GeneratorCpp" method="generateAttributeParameterModifier" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
+These nested if statements could be combined
+</violation>
+<violation beginline="1181" endline="1189" begincolumn="13" endcolumn="13" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.argouml.language.cpp.generator" class="GeneratorCpp" method="generateAttributeParameterModifier" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
+These nested if statements could be combined
+</violation>
+<violation beginline="1205" endline="1207" begincolumn="17" endcolumn="17" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.argouml.language.cpp.generator" class="GeneratorCpp" method="getConstAttributeModifierType" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
+These nested if statements could be combined
+</violation>
+<violation beginline="2059" endline="2065" begincolumn="21" endcolumn="21" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.argouml.language.cpp.generator" class="GeneratorCpp" method="generateMethodBody" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
+These nested if statements could be combined
+</violation>
+<violation beginline="2940" endline="2940" begincolumn="13" endcolumn="39" rule="EmptyCatchBlock" ruleset="Basic Rules" package="org.argouml.language.cpp.generator" class="GeneratorCpp" method="generateFilesForElem" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyCatchBlock" priority="3">
+Avoid empty catch blocks
+</violation>
+</file>
+<file name="/home/linus/project/argouml/github-repo/argouml-cpp/src/org/argouml/language/cpp/generator/Inline.java">
+<violation beginline="105" endline="105" begincolumn="10" endcolumn="10" rule="EmptyStatementNotInLoop" ruleset="Basic Rules" package="org.argouml.language.cpp.generator" method="setDefaultStyle" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyStatementNotInLoop" priority="3">
+An empty statement (semicolon) not part of a loop
+</violation>
+<violation beginline="147" endline="147" begincolumn="17" endcolumn="26" rule="MisplacedNullCheck" ruleset="Basic Rules" package="org.argouml.language.cpp.generator" method="getInlineOperationModifierType" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#MisplacedNullCheck" priority="3">
+The null check here is misplaced; if the variable is null therell be a NullPointerException
+</violation>
+<violation beginline="147" endline="147" begincolumn="46" endcolumn="55" rule="MisplacedNullCheck" ruleset="Basic Rules" package="org.argouml.language.cpp.generator" method="getInlineOperationModifierType" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#MisplacedNullCheck" priority="3">
+The null check here is misplaced; if the variable is null therell be a NullPointerException
+</violation>
+</file>
+<file name="/home/linus/project/argouml/github-repo/argouml-cpp/src/org/argouml/language/cpp/profile/BaseProfile.java">
+<violation beginline="39" endline="352" begincolumn="1" endcolumn="2" rule="TooManyStaticImports" ruleset="Import Statement Rules" package="org.argouml.language.cpp.profile" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#TooManyStaticImports" priority="3">
+Too many static imports may lead to messy code
+</violation>
+</file>
+<file name="/home/linus/project/argouml/github-repo/argouml-cpp/src/org/argouml/language/cpp/reveng/CppImport.java">
+<violation beginline="140" endline="169" begincolumn="13" endcolumn="5" rule="UnusedFormalParameter" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CppImport" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedFormalParameter" priority="3">
+Avoid unused method parameters such as 'settings'.
+</violation>
+</file>
+<file name="/home/linus/project/argouml/github-repo/argouml-cpp/src/org/argouml/language/cpp/reveng/MemberModeler.java">
+<violation beginline="79" endline="83" begincolumn="5" endcolumn="5" rule="UnusedFormalParameter" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="MemberModeler" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedFormalParameter" priority="3">
+Avoid unused constructor parameters such as 'accessSpecifier'.
+</violation>
+</file>
+<file name="/home/linus/project/argouml/github-repo/argouml-cpp/src/org/argouml/language/cpp/reveng/ModelerImpl.java">
+<violation beginline="204" endline="207" begincolumn="17" endcolumn="17" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="ModelerImpl" method="findNamespace" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
+These nested if statements could be combined
+</violation>
+<violation beginline="279" endline="279" begincolumn="17" endcolumn="17" rule="EmptyStatementNotInLoop" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="ModelerImpl" method="beginClassDefinition" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyStatementNotInLoop" priority="3">
+An empty statement (semicolon) not part of a loop
+</violation>
+<violation beginline="419" endline="421" begincolumn="67" endcolumn="13" rule="EmptyIfStmt" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="ModelerImpl" method="simpleTypeSpecifier" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyIfStmt" priority="3">
+Avoid empty if statements
+</violation>
+<violation beginline="426" endline="428" begincolumn="17" endcolumn="17" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="ModelerImpl" method="simpleTypeSpecifier" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
+These nested if statements could be combined
+</violation>
+<violation beginline="465" endline="468" begincolumn="13" endcolumn="5" rule="UnusedFormalParameter" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="ModelerImpl" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedFormalParameter" priority="3">
+Avoid unused method parameters such as 'taggedValues'.
+</violation>
+</file>
+<file name="/home/linus/project/argouml/github-repo/argouml-cpp/src/org/argouml/language/cpp/reveng/OperationModeler.java">
+<violation beginline="141" endline="143" begincolumn="17" endcolumn="17" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="OperationModeler" method="removeOperationIfDuplicate" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
+These nested if statements could be combined
+</violation>
+<violation beginline="193" endline="197" begincolumn="13" endcolumn="5" rule="UnusedFormalParameter" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="OperationModeler" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedFormalParameter" priority="3">
+Avoid unused method parameters such as 'taggedValues1'.
+</violation>
+<violation beginline="193" endline="197" begincolumn="13" endcolumn="5" rule="UnusedFormalParameter" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="OperationModeler" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedFormalParameter" priority="3">
+Avoid unused method parameters such as 'taggedValues2'.
+</violation>
+</file>
+<file name="/home/linus/project/argouml/github-repo/argouml-cpp/src/org/argouml/language/cpp/reveng/TypedefModeler.java">
+<violation beginline="57" endline="57" begincolumn="16" endcolumn="22" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="TypedefModeler" method="directDeclarator" variable="typedef" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as 'typedef'.
+</violation>
+</file>
+</pmd>
