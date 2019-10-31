@@ -295,20 +295,6 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.ui.SettingsTabCpp.java">org/argouml/language/cpp/ui/SettingsTabCpp.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.reveng.DtorModeler.java">org/argouml/language/cpp/reveng/DtorModeler.java</a>
                 </td>
                 <td>
@@ -324,6 +310,20 @@
                           <tr>
                 <td>
                   <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.generator.ModuleCpp.java">org/argouml/language/cpp/generator/ModuleCpp.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.ui.SettingsTabCpp.java">org/argouml/language/cpp/ui/SettingsTabCpp.java</a>
                 </td>
                 <td>
                   0
@@ -365,7 +365,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.reveng.OperationModeler.java">org/argouml/language/cpp/reveng/OperationModeler.java</a>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.reveng.TypedefModeler.java">org/argouml/language/cpp/reveng/TypedefModeler.java</a>
                 </td>
                 <td>
                   0
@@ -379,7 +379,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.reveng.TypedefModeler.java">org/argouml/language/cpp/reveng/TypedefModeler.java</a>
+                  <a href="http://nexus.sonatype.org/oss-repository-hosting.html/parentpom/argouml-cpp/checkstyle.html#org.argouml.language.cpp.reveng.OperationModeler.java">org/argouml/language/cpp/reveng/OperationModeler.java</a>
                 </td>
                 <td>
                   0
