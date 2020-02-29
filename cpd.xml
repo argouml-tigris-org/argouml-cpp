@@ -1,3 +1,3100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pmd-cpd>
+<duplication lines="81" tokens="236">
+<file line="1575" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2927" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+		}
+		match(LPAREN);
+		{
+		switch ( LA(1)) {
+		case LITERAL_typedef:
+		case LITERAL_enum:
+		case ID:
+		case LITERAL_inline:
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case STAR:
+		case AMPERSAND:
+		case TILDE:
+		case ELLIPSIS:
+		case SCOPE:
+		case LITERAL__cdecl:
+		case LITERAL___cdecl:
+		case LITERAL__near:
+		case LITERAL___near:
+		case LITERAL__far:
+		case LITERAL___far:
+		case LITERAL___interrupt:
+		case LITERAL_pascal:
+		case LITERAL__pascal:
+		case LITERAL___pascal:
+		{
+			parameter_list();
+			break;
+		}
+		case RPAREN:
+		{
+			break;
+		}
+		default:
+		{
+			throw new NoViableAltException(LT(1), getFilename());
+		}
+		}
+		}
+		match(RPAREN);
+		{
+		switch ( LA(1)) {
+		case LITERAL_const:
+]]>
+</codefragment>
+</duplication>
+<duplication lines="82" tokens="230">
+<file line="3691" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5319" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+					}
+					
+				} while (true);
+				}
+				{
+				switch ( LA(1)) {
+				case LITERAL_throw:
+				{
+					exception_specification();
+					break;
+				}
+				case LESSTHAN:
+				case GREATERTHAN:
+				case ID:
+				case SEMICOLON:
+				case RCURLY:
+				case ASSIGNEQUAL:
+				case COLON:
+				case COMMA:
+				case LITERAL__stdcall:
+				case LITERAL___stdcall:
+				case LPAREN:
+				case RPAREN:
+				case OPERATOR:
+				case LITERAL_this:
+				case LITERAL_true:
+				case LITERAL_false:
+				case STAR:
+				case AMPERSAND:
+				case LSQUARE:
+				case RSQUARE:
+				case TILDE:
+				case ELLIPSIS:
+				case TIMESEQUAL:
+				case DIVIDEEQUAL:
+				case MINUSEQUAL:
+				case PLUSEQUAL:
+				case MODEQUAL:
+				case SHIFTLEFTEQUAL:
+				case SHIFTRIGHTEQUAL:
+				case BITWISEANDEQUAL:
+				case BITWISEXOREQUAL:
+				case BITWISEOREQUAL:
+				case QUESTIONMARK:
+				case OR:
+				case AND:
+				case BITWISEOR:
+				case BITWISEXOR:
+				case NOTEQUAL:
+				case EQUAL:
+				case LESSTHANOREQUALTO:
+				case GREATERTHANOREQUALTO:
+				case SHIFTLEFT:
+				case SHIFTRIGHT:
+				case PLUS:
+				case MINUS:
+				case DIVIDE:
+				case MOD:
+				case DOTMBR:
+				case POINTERTOMBR:
+				case SCOPE:
+				case LITERAL__cdecl:
+				case LITERAL___cdecl:
+				case LITERAL__near:
+				case LITERAL___near:
+				case LITERAL__far:
+				case LITERAL___far:
+				case LITERAL___interrupt:
+				case LITERAL_pascal:
+				case LITERAL__pascal:
+				case LITERAL___pascal:
+				{
+					break;
+				}
+				default:
+				{
+					throw new NoViableAltException(LT(1), getFilename());
+				}
+				}
+				}
+			}
+			else {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="80" tokens="230">
+<file line="2926" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5447" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+			m.qualifiedCtorId(q);
+		}
+		match(LPAREN);
+		{
+		switch ( LA(1)) {
+		case LITERAL_typedef:
+		case LITERAL_enum:
+		case ID:
+		case LITERAL_inline:
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case STAR:
+		case AMPERSAND:
+		case TILDE:
+		case ELLIPSIS:
+		case SCOPE:
+		case LITERAL__cdecl:
+		case LITERAL___cdecl:
+		case LITERAL__near:
+		case LITERAL___near:
+		case LITERAL__far:
+		case LITERAL___far:
+		case LITERAL___interrupt:
+		case LITERAL_pascal:
+		case LITERAL__pascal:
+		case LITERAL___pascal:
+		{
+			parameter_list();
+			break;
+		}
+		case RPAREN:
+		{
+			break;
+		}
+		default:
+		{
+			throw new NoViableAltException(LT(1), getFilename());
+		}
+		}
+		}
+		match(RPAREN);
+		{
+]]>
+</codefragment>
+</duplication>
+<duplication lines="80" tokens="228">
+<file line="2926" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3604" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5447" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+			m.qualifiedCtorId(q);
+		}
+		match(LPAREN);
+		{
+		switch ( LA(1)) {
+		case LITERAL_typedef:
+		case LITERAL_enum:
+		case ID:
+		case LITERAL_inline:
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case STAR:
+		case AMPERSAND:
+		case TILDE:
+		case ELLIPSIS:
+		case SCOPE:
+		case LITERAL__cdecl:
+		case LITERAL___cdecl:
+		case LITERAL__near:
+		case LITERAL___near:
+		case LITERAL__far:
+		case LITERAL___far:
+		case LITERAL___interrupt:
+		case LITERAL_pascal:
+		case LITERAL__pascal:
+		case LITERAL___pascal:
+		{
+			parameter_list();
+			break;
+		}
+		case RPAREN:
+		{
+			break;
+		}
+		default:
+		{
+			throw new NoViableAltException(LT(1), getFilename());
+		}
+		}
+		}
+		match(RPAREN);
+		{
+]]>
+</codefragment>
+</duplication>
+<duplication lines="79" tokens="227">
+<file line="2926" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3437" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3604" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5447" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+			m.qualifiedCtorId(q);
+		}
+		match(LPAREN);
+		{
+		switch ( LA(1)) {
+		case LITERAL_typedef:
+		case LITERAL_enum:
+		case ID:
+		case LITERAL_inline:
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case STAR:
+		case AMPERSAND:
+		case TILDE:
+		case ELLIPSIS:
+		case SCOPE:
+		case LITERAL__cdecl:
+		case LITERAL___cdecl:
+		case LITERAL__near:
+		case LITERAL___near:
+		case LITERAL__far:
+		case LITERAL___far:
+		case LITERAL___interrupt:
+		case LITERAL_pascal:
+		case LITERAL__pascal:
+		case LITERAL___pascal:
+		{
+			parameter_list();
+			break;
+		}
+		case RPAREN:
+		{
+			break;
+		}
+		default:
+		{
+			throw new NoViableAltException(LT(1), getFilename());
+		}
+		}
+		}
+		match(RPAREN);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="79" tokens="227">
+<file line="1575" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3605" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5448" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+		}
+		match(LPAREN);
+		{
+		switch ( LA(1)) {
+		case LITERAL_typedef:
+		case LITERAL_enum:
+		case ID:
+		case LITERAL_inline:
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case STAR:
+		case AMPERSAND:
+		case TILDE:
+		case ELLIPSIS:
+		case SCOPE:
+		case LITERAL__cdecl:
+		case LITERAL___cdecl:
+		case LITERAL__near:
+		case LITERAL___near:
+		case LITERAL__far:
+		case LITERAL___far:
+		case LITERAL___interrupt:
+		case LITERAL_pascal:
+		case LITERAL__pascal:
+		case LITERAL___pascal:
+		{
+			parameter_list();
+			break;
+		}
+		case RPAREN:
+		{
+			break;
+		}
+		default:
+		{
+			throw new NoViableAltException(LT(1), getFilename());
+		}
+		}
+		}
+		match(RPAREN);
+		{
+]]>
+</codefragment>
+</duplication>
+<duplication lines="78" tokens="226">
+<file line="1575" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3438" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+		}
+		match(LPAREN);
+		{
+		switch ( LA(1)) {
+		case LITERAL_typedef:
+		case LITERAL_enum:
+		case ID:
+		case LITERAL_inline:
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case STAR:
+		case AMPERSAND:
+		case TILDE:
+		case ELLIPSIS:
+		case SCOPE:
+		case LITERAL__cdecl:
+		case LITERAL___cdecl:
+		case LITERAL__near:
+		case LITERAL___near:
+		case LITERAL__far:
+		case LITERAL___far:
+		case LITERAL___interrupt:
+		case LITERAL_pascal:
+		case LITERAL__pascal:
+		case LITERAL___pascal:
+		{
+			parameter_list();
+			break;
+		}
+		case RPAREN:
+		{
+			break;
+		}
+		default:
+		{
+			throw new NoViableAltException(LT(1), getFilename());
+		}
+		}
+		}
+		match(RPAREN);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="78" tokens="226">
+<file line="1576" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2928" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3606" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5234" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5449" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+		match(LPAREN);
+		{
+		switch ( LA(1)) {
+		case LITERAL_typedef:
+		case LITERAL_enum:
+		case ID:
+		case LITERAL_inline:
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case STAR:
+		case AMPERSAND:
+		case TILDE:
+		case ELLIPSIS:
+		case SCOPE:
+		case LITERAL__cdecl:
+		case LITERAL___cdecl:
+		case LITERAL__near:
+		case LITERAL___near:
+		case LITERAL__far:
+		case LITERAL___far:
+		case LITERAL___interrupt:
+		case LITERAL_pascal:
+		case LITERAL__pascal:
+		case LITERAL___pascal:
+		{
+			parameter_list();
+			break;
+		}
+		case RPAREN:
+		{
+			break;
+		}
+		default:
+		{
+			throw new NoViableAltException(LT(1), getFilename());
+		}
+		}
+		}
+		match(RPAREN);
+		{
+]]>
+</codefragment>
+</duplication>
+<duplication lines="78" tokens="226">
+<file line="5233" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6230" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+		else if (((LA(1)==LPAREN))&&((!((LA(1)==LPAREN)&&(LA(2)==ID))||(qualifiedItemIsOneOf(auxBitSet,1))))) {
+			match(LPAREN);
+			{
+			switch ( LA(1)) {
+			case LITERAL_typedef:
+			case LITERAL_enum:
+			case ID:
+			case LITERAL_inline:
+			case LITERAL_extern:
+			case LITERAL__inline:
+			case LITERAL___inline:
+			case LITERAL_virtual:
+			case LITERAL_explicit:
+			case LITERAL_friend:
+			case LITERAL__stdcall:
+			case LITERAL___stdcall:
+			case LITERAL__declspec:
+			case LITERAL___declspec:
+			case LPAREN:
+			case LITERAL_typename:
+			case LITERAL_auto:
+			case LITERAL_register:
+			case LITERAL_static:
+			case LITERAL_mutable:
+			case LITERAL_const:
+			case LITERAL_const_cast:
+			case LITERAL_volatile:
+			case LITERAL_char:
+			case LITERAL_wchar_t:
+			case LITERAL_bool:
+			case LITERAL_short:
+			case LITERAL_int:
+			case 44:
+			case 45:
+			case 46:
+			case LITERAL_long:
+			case LITERAL_signed:
+			case LITERAL_unsigned:
+			case LITERAL_float:
+			case LITERAL_double:
+			case LITERAL_void:
+			case LITERAL_class:
+			case LITERAL_struct:
+			case LITERAL_union:
+			case OPERATOR:
+			case LITERAL_this:
+			case LITERAL_true:
+			case LITERAL_false:
+			case STAR:
+			case AMPERSAND:
+			case TILDE:
+			case ELLIPSIS:
+			case SCOPE:
+			case LITERAL__cdecl:
+			case LITERAL___cdecl:
+			case LITERAL__near:
+			case LITERAL___near:
+			case LITERAL__far:
+			case LITERAL___far:
+			case LITERAL___interrupt:
+			case LITERAL_pascal:
+			case LITERAL__pascal:
+			case LITERAL___pascal:
+			{
+				parameter_list();
+				break;
+			}
+			case RPAREN:
+			{
+				break;
+			}
+			default:
+			{
+				throw new NoViableAltException(LT(1), getFilename());
+			}
+			}
+			}
+			match(RPAREN);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="77" tokens="225">
+<file line="3439" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5234" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+			match(LPAREN);
+			{
+			switch ( LA(1)) {
+			case LITERAL_typedef:
+			case LITERAL_enum:
+			case ID:
+			case LITERAL_inline:
+			case LITERAL_extern:
+			case LITERAL__inline:
+			case LITERAL___inline:
+			case LITERAL_virtual:
+			case LITERAL_explicit:
+			case LITERAL_friend:
+			case LITERAL__stdcall:
+			case LITERAL___stdcall:
+			case LITERAL__declspec:
+			case LITERAL___declspec:
+			case LPAREN:
+			case LITERAL_typename:
+			case LITERAL_auto:
+			case LITERAL_register:
+			case LITERAL_static:
+			case LITERAL_mutable:
+			case LITERAL_const:
+			case LITERAL_const_cast:
+			case LITERAL_volatile:
+			case LITERAL_char:
+			case LITERAL_wchar_t:
+			case LITERAL_bool:
+			case LITERAL_short:
+			case LITERAL_int:
+			case 44:
+			case 45:
+			case 46:
+			case LITERAL_long:
+			case LITERAL_signed:
+			case LITERAL_unsigned:
+			case LITERAL_float:
+			case LITERAL_double:
+			case LITERAL_void:
+			case LITERAL_class:
+			case LITERAL_struct:
+			case LITERAL_union:
+			case OPERATOR:
+			case LITERAL_this:
+			case LITERAL_true:
+			case LITERAL_false:
+			case STAR:
+			case AMPERSAND:
+			case TILDE:
+			case ELLIPSIS:
+			case SCOPE:
+			case LITERAL__cdecl:
+			case LITERAL___cdecl:
+			case LITERAL__near:
+			case LITERAL___near:
+			case LITERAL__far:
+			case LITERAL___far:
+			case LITERAL___interrupt:
+			case LITERAL_pascal:
+			case LITERAL__pascal:
+			case LITERAL___pascal:
+			{
+				parameter_list();
+				break;
+			}
+			case RPAREN:
+			{
+				break;
+			}
+			default:
+			{
+				throw new NoViableAltException(LT(1), getFilename());
+			}
+			}
+			}
+			match(RPAREN);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="77" tokens="225">
+<file line="1576" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2928" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3606" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5449" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6231" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+		match(LPAREN);
+		{
+		switch ( LA(1)) {
+		case LITERAL_typedef:
+		case LITERAL_enum:
+		case ID:
+		case LITERAL_inline:
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case STAR:
+		case AMPERSAND:
+		case TILDE:
+		case ELLIPSIS:
+		case SCOPE:
+		case LITERAL__cdecl:
+		case LITERAL___cdecl:
+		case LITERAL__near:
+		case LITERAL___near:
+		case LITERAL__far:
+		case LITERAL___far:
+		case LITERAL___interrupt:
+		case LITERAL_pascal:
+		case LITERAL__pascal:
+		case LITERAL___pascal:
+		{
+			parameter_list();
+			break;
+		}
+		case RPAREN:
+		{
+			break;
+		}
+		default:
+		{
+			throw new NoViableAltException(LT(1), getFilename());
+		}
+		}
+		}
+		match(RPAREN);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="69" tokens="215">
+<file line="3830" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5158" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+						_loop214:
+						do {
+							if ((LA(1)==LSQUARE) && (_tokenSet_32.member(LA(2)))) {
+								match(LSQUARE);
+								{
+								switch ( LA(1)) {
+								case ID:
+								case StringLiteral:
+								case LITERAL__declspec:
+								case LITERAL___declspec:
+								case LPAREN:
+								case LITERAL_const_cast:
+								case LITERAL_char:
+								case LITERAL_wchar_t:
+								case LITERAL_bool:
+								case LITERAL_short:
+								case LITERAL_int:
+								case 44:
+								case 45:
+								case 46:
+								case LITERAL_long:
+								case LITERAL_signed:
+								case LITERAL_unsigned:
+								case LITERAL_float:
+								case LITERAL_double:
+								case LITERAL_void:
+								case OPERATOR:
+								case LITERAL_this:
+								case LITERAL_true:
+								case LITERAL_false:
+								case OCTALINT:
+								case STAR:
+								case AMPERSAND:
+								case TILDE:
+								case PLUS:
+								case MINUS:
+								case PLUSPLUS:
+								case MINUSMINUS:
+								case LITERAL_sizeof:
+								case SCOPE:
+								case LITERAL_dynamic_cast:
+								case LITERAL_static_cast:
+								case LITERAL_reinterpret_cast:
+								case NOT:
+								case LITERAL_new:
+								case LITERAL_delete:
+								case DECIMALINT:
+								case HEXADECIMALINT:
+								case CharLiteral:
+								case FLOATONE:
+								case FLOATTWO:
+								{
+									constant_expression();
+									break;
+								}
+								case RSQUARE:
+								{
+									break;
+								}
+								default:
+								{
+									throw new NoViableAltException(LT(1), getFilename());
+								}
+								}
+								}
+								match(RSQUARE);
+							}
+							else {
+								if ( _cnt214>=1 ) { break _loop214; } else {throw new NoViableAltException(LT(1), getFilename());}
+]]>
+</codefragment>
+</duplication>
+<duplication lines="72" tokens="205">
+<file line="1257" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3699" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5327" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+				match(RCURLY);
+				break;
+			}
+			case LESSTHAN:
+			case GREATERTHAN:
+			case ID:
+			case SEMICOLON:
+			case RCURLY:
+			case ASSIGNEQUAL:
+			case COLON:
+			case COMMA:
+			case LITERAL__stdcall:
+			case LITERAL___stdcall:
+			case LPAREN:
+			case RPAREN:
+			case OPERATOR:
+			case LITERAL_this:
+			case LITERAL_true:
+			case LITERAL_false:
+			case STAR:
+			case AMPERSAND:
+			case LSQUARE:
+			case RSQUARE:
+			case TILDE:
+			case ELLIPSIS:
+			case TIMESEQUAL:
+			case DIVIDEEQUAL:
+			case MINUSEQUAL:
+			case PLUSEQUAL:
+			case MODEQUAL:
+			case SHIFTLEFTEQUAL:
+			case SHIFTRIGHTEQUAL:
+			case BITWISEANDEQUAL:
+			case BITWISEXOREQUAL:
+			case BITWISEOREQUAL:
+			case QUESTIONMARK:
+			case OR:
+			case AND:
+			case BITWISEOR:
+			case BITWISEXOR:
+			case NOTEQUAL:
+			case EQUAL:
+			case LESSTHANOREQUALTO:
+			case GREATERTHANOREQUALTO:
+			case SHIFTLEFT:
+			case SHIFTRIGHT:
+			case PLUS:
+			case MINUS:
+			case DIVIDE:
+			case MOD:
+			case DOTMBR:
+			case POINTERTOMBR:
+			case SCOPE:
+			case LITERAL__cdecl:
+			case LITERAL___cdecl:
+			case LITERAL__near:
+			case LITERAL___near:
+			case LITERAL__far:
+			case LITERAL___far:
+			case LITERAL___interrupt:
+			case LITERAL_pascal:
+			case LITERAL__pascal:
+			case LITERAL___pascal:
+			{
+				break;
+			}
+			default:
+			{
+				throw new NoViableAltException(LT(1), getFilename());
+			}
+			}
+			}
+]]>
+</codefragment>
+</duplication>
+<duplication lines="72" tokens="200">
+<file line="7615" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7695" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+				{
+				match(LPAREN);
+				{
+				switch ( LA(1)) {
+				case LITERAL_const:
+				case LITERAL_const_cast:
+				case LITERAL_volatile:
+				{
+					type_qualifier();
+					break;
+				}
+				case ID:
+				case LITERAL__declspec:
+				case LITERAL___declspec:
+				case LITERAL_char:
+				case LITERAL_wchar_t:
+				case LITERAL_bool:
+				case LITERAL_short:
+				case LITERAL_int:
+				case 44:
+				case 45:
+				case 46:
+				case LITERAL_long:
+				case LITERAL_signed:
+				case LITERAL_unsigned:
+				case LITERAL_float:
+				case LITERAL_double:
+				case LITERAL_void:
+				case SCOPE:
+				{
+					break;
+				}
+				default:
+				{
+					throw new NoViableAltException(LT(1), getFilename());
+				}
+				}
+				}
+				simple_type_specifier();
+				{
+				switch ( LA(1)) {
+				case ID:
+				case LITERAL__stdcall:
+				case LITERAL___stdcall:
+				case STAR:
+				case AMPERSAND:
+				case SCOPE:
+				case LITERAL__cdecl:
+				case LITERAL___cdecl:
+				case LITERAL__near:
+				case LITERAL___near:
+				case LITERAL__far:
+				case LITERAL___far:
+				case LITERAL___interrupt:
+				case LITERAL_pascal:
+				case LITERAL__pascal:
+				case LITERAL___pascal:
+				{
+					ptr_operator();
+					break;
+				}
+				case RPAREN:
+				{
+					break;
+				}
+				default:
+				{
+					throw new NoViableAltException(LT(1), getFilename());
+				}
+				}
+				}
+				match(RPAREN);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="29" tokens="193">
+<file line="2095" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPLexer.java"/>
+<file line="2132" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPLexer.java"/>
+<codefragment>
+<![CDATA[
+		{
+		switch ( LA(1)) {
+		case 'a':  case 'b':  case 'c':  case 'd':
+		case 'e':  case 'f':  case 'g':  case 'h':
+		case 'i':  case 'j':  case 'k':  case 'l':
+		case 'm':  case 'n':  case 'o':  case 'p':
+		case 'q':  case 'r':  case 's':  case 't':
+		case 'u':  case 'v':  case 'w':  case 'x':
+		case 'y':  case 'z':
+		{
+			matchRange('a','z');
+			break;
+		}
+		case 'A':  case 'B':  case 'C':  case 'D':
+		case 'E':  case 'F':  case 'G':  case 'H':
+		case 'I':  case 'J':  case 'K':  case 'L':
+		case 'M':  case 'N':  case 'O':  case 'P':
+		case 'Q':  case 'R':  case 'S':  case 'T':
+		case 'U':  case 'V':  case 'W':  case 'X':
+		case 'Y':  case 'Z':
+		{
+			matchRange('A','Z');
+			break;
+		}
+		case '_':
+		{
+			match('_');
+			break;
+		}
+]]>
+</codefragment>
+</duplication>
+<duplication lines="67" tokens="191">
+<file line="3832" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5160" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6062" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+							if ((LA(1)==LSQUARE) && (_tokenSet_32.member(LA(2)))) {
+								match(LSQUARE);
+								{
+								switch ( LA(1)) {
+								case ID:
+								case StringLiteral:
+								case LITERAL__declspec:
+								case LITERAL___declspec:
+								case LPAREN:
+								case LITERAL_const_cast:
+								case LITERAL_char:
+								case LITERAL_wchar_t:
+								case LITERAL_bool:
+								case LITERAL_short:
+								case LITERAL_int:
+								case 44:
+								case 45:
+								case 46:
+								case LITERAL_long:
+								case LITERAL_signed:
+								case LITERAL_unsigned:
+								case LITERAL_float:
+								case LITERAL_double:
+								case LITERAL_void:
+								case OPERATOR:
+								case LITERAL_this:
+								case LITERAL_true:
+								case LITERAL_false:
+								case OCTALINT:
+								case STAR:
+								case AMPERSAND:
+								case TILDE:
+								case PLUS:
+								case MINUS:
+								case PLUSPLUS:
+								case MINUSMINUS:
+								case LITERAL_sizeof:
+								case SCOPE:
+								case LITERAL_dynamic_cast:
+								case LITERAL_static_cast:
+								case LITERAL_reinterpret_cast:
+								case NOT:
+								case LITERAL_new:
+								case LITERAL_delete:
+								case DECIMALINT:
+								case HEXADECIMALINT:
+								case CharLiteral:
+								case FLOATONE:
+								case FLOATTWO:
+								{
+									constant_expression();
+									break;
+								}
+								case RSQUARE:
+								{
+									break;
+								}
+								default:
+								{
+									throw new NoViableAltException(LT(1), getFilename());
+								}
+								}
+								}
+								match(RSQUARE);
+							}
+							else {
+								if ( _cnt214>=1 ) { break _loop214; } else {throw new NoViableAltException(LT(1), getFilename());}
+]]>
+</codefragment>
+</duplication>
+<duplication lines="66" tokens="187">
+<file line="5737" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8688" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+		match(LPAREN);
+		{
+		switch ( LA(1)) {
+		case ID:
+		case StringLiteral:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_const_cast:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case OCTALINT:
+		case STAR:
+		case AMPERSAND:
+		case TILDE:
+		case PLUS:
+		case MINUS:
+		case PLUSPLUS:
+		case MINUSMINUS:
+		case LITERAL_sizeof:
+		case SCOPE:
+		case LITERAL_dynamic_cast:
+		case LITERAL_static_cast:
+		case LITERAL_reinterpret_cast:
+		case NOT:
+		case LITERAL_new:
+		case LITERAL_delete:
+		case DECIMALINT:
+		case HEXADECIMALINT:
+		case CharLiteral:
+		case FLOATONE:
+		case FLOATTWO:
+		{
+			expression_list();
+			break;
+		}
+		case RPAREN:
+		{
+			break;
+		}
+		default:
+		{
+			throw new NoViableAltException(LT(1), getFilename());
+		}
+		}
+		}
+		match(RPAREN);
+	}
+	
+	public final void dtor_decl_spec() throws RecognitionException, TokenStreamException {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="65" tokens="186">
+<file line="5736" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7993" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+		q=qualified_id();
+		match(LPAREN);
+		{
+		switch ( LA(1)) {
+		case ID:
+		case StringLiteral:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_const_cast:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case OCTALINT:
+		case STAR:
+		case AMPERSAND:
+		case TILDE:
+		case PLUS:
+		case MINUS:
+		case PLUSPLUS:
+		case MINUSMINUS:
+		case LITERAL_sizeof:
+		case SCOPE:
+		case LITERAL_dynamic_cast:
+		case LITERAL_static_cast:
+		case LITERAL_reinterpret_cast:
+		case NOT:
+		case LITERAL_new:
+		case LITERAL_delete:
+		case DECIMALINT:
+		case HEXADECIMALINT:
+		case CharLiteral:
+		case FLOATONE:
+		case FLOATTWO:
+		{
+			expression_list();
+			break;
+		}
+		case RPAREN:
+		{
+			break;
+		}
+		default:
+		{
+			throw new NoViableAltException(LT(1), getFilename());
+		}
+		}
+		}
+		match(RPAREN);
+	}
+]]>
+</codefragment>
+</duplication>
+<duplication lines="66" tokens="186">
+<file line="7909" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7993" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+			match(RPAREN);
+			match(LPAREN);
+			{
+			switch ( LA(1)) {
+			case ID:
+			case StringLiteral:
+			case LITERAL__declspec:
+			case LITERAL___declspec:
+			case LPAREN:
+			case LITERAL_const_cast:
+			case LITERAL_char:
+			case LITERAL_wchar_t:
+			case LITERAL_bool:
+			case LITERAL_short:
+			case LITERAL_int:
+			case 44:
+			case 45:
+			case 46:
+			case LITERAL_long:
+			case LITERAL_signed:
+			case LITERAL_unsigned:
+			case LITERAL_float:
+			case LITERAL_double:
+			case LITERAL_void:
+			case OPERATOR:
+			case LITERAL_this:
+			case LITERAL_true:
+			case LITERAL_false:
+			case OCTALINT:
+			case STAR:
+			case AMPERSAND:
+			case TILDE:
+			case PLUS:
+			case MINUS:
+			case PLUSPLUS:
+			case MINUSMINUS:
+			case LITERAL_sizeof:
+			case SCOPE:
+			case LITERAL_dynamic_cast:
+			case LITERAL_static_cast:
+			case LITERAL_reinterpret_cast:
+			case NOT:
+			case LITERAL_new:
+			case LITERAL_delete:
+			case DECIMALINT:
+			case HEXADECIMALINT:
+			case CharLiteral:
+			case FLOATONE:
+			case FLOATTWO:
+			{
+				expression_list();
+				break;
+			}
+			case RPAREN:
+			{
+				break;
+			}
+			default:
+			{
+				throw new NoViableAltException(LT(1), getFilename());
+			}
+			}
+			}
+			match(RPAREN);
+		}
+		else {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="65" tokens="185">
+<file line="5736" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7909" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+		q=qualified_id();
+		match(LPAREN);
+		{
+		switch ( LA(1)) {
+		case ID:
+		case StringLiteral:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_const_cast:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case OCTALINT:
+		case STAR:
+		case AMPERSAND:
+		case TILDE:
+		case PLUS:
+		case MINUS:
+		case PLUSPLUS:
+		case MINUSMINUS:
+		case LITERAL_sizeof:
+		case SCOPE:
+		case LITERAL_dynamic_cast:
+		case LITERAL_static_cast:
+		case LITERAL_reinterpret_cast:
+		case NOT:
+		case LITERAL_new:
+		case LITERAL_delete:
+		case DECIMALINT:
+		case HEXADECIMALINT:
+		case CharLiteral:
+		case FLOATONE:
+		case FLOATTWO:
+		{
+			expression_list();
+			break;
+		}
+		case RPAREN:
+		{
+			break;
+		}
+		default:
+		{
+			throw new NoViableAltException(LT(1), getFilename());
+		}
+		}
+		}
+		match(RPAREN);
+	}
+]]>
+</codefragment>
+</duplication>
+<duplication lines="64" tokens="184">
+<file line="3832" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5160" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6062" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6163" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+							if ((LA(1)==LSQUARE) && (_tokenSet_32.member(LA(2)))) {
+								match(LSQUARE);
+								{
+								switch ( LA(1)) {
+								case ID:
+								case StringLiteral:
+								case LITERAL__declspec:
+								case LITERAL___declspec:
+								case LPAREN:
+								case LITERAL_const_cast:
+								case LITERAL_char:
+								case LITERAL_wchar_t:
+								case LITERAL_bool:
+								case LITERAL_short:
+								case LITERAL_int:
+								case 44:
+								case 45:
+								case 46:
+								case LITERAL_long:
+								case LITERAL_signed:
+								case LITERAL_unsigned:
+								case LITERAL_float:
+								case LITERAL_double:
+								case LITERAL_void:
+								case OPERATOR:
+								case LITERAL_this:
+								case LITERAL_true:
+								case LITERAL_false:
+								case OCTALINT:
+								case STAR:
+								case AMPERSAND:
+								case TILDE:
+								case PLUS:
+								case MINUS:
+								case PLUSPLUS:
+								case MINUSMINUS:
+								case LITERAL_sizeof:
+								case SCOPE:
+								case LITERAL_dynamic_cast:
+								case LITERAL_static_cast:
+								case LITERAL_reinterpret_cast:
+								case NOT:
+								case LITERAL_new:
+								case LITERAL_delete:
+								case DECIMALINT:
+								case HEXADECIMALINT:
+								case CharLiteral:
+								case FLOATONE:
+								case FLOATTWO:
+								{
+									constant_expression();
+									break;
+								}
+								case RSQUARE:
+								{
+									break;
+								}
+								default:
+								{
+									throw new NoViableAltException(LT(1), getFilename());
+								}
+								}
+								}
+								match(RSQUARE);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="64" tokens="184">
+<file line="8072" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8685" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+					{
+						match(LPAREN);
+						{
+						switch ( LA(1)) {
+						case ID:
+						case StringLiteral:
+						case LITERAL__declspec:
+						case LITERAL___declspec:
+						case LPAREN:
+						case LITERAL_const_cast:
+						case LITERAL_char:
+						case LITERAL_wchar_t:
+						case LITERAL_bool:
+						case LITERAL_short:
+						case LITERAL_int:
+						case 44:
+						case 45:
+						case 46:
+						case LITERAL_long:
+						case LITERAL_signed:
+						case LITERAL_unsigned:
+						case LITERAL_float:
+						case LITERAL_double:
+						case LITERAL_void:
+						case OPERATOR:
+						case LITERAL_this:
+						case LITERAL_true:
+						case LITERAL_false:
+						case OCTALINT:
+						case STAR:
+						case AMPERSAND:
+						case TILDE:
+						case PLUS:
+						case MINUS:
+						case PLUSPLUS:
+						case MINUSMINUS:
+						case LITERAL_sizeof:
+						case SCOPE:
+						case LITERAL_dynamic_cast:
+						case LITERAL_static_cast:
+						case LITERAL_reinterpret_cast:
+						case NOT:
+						case LITERAL_new:
+						case LITERAL_delete:
+						case DECIMALINT:
+						case HEXADECIMALINT:
+						case CharLiteral:
+						case FLOATONE:
+						case FLOATTWO:
+						{
+							expression_list();
+							break;
+						}
+						case RPAREN:
+						{
+							break;
+						}
+						default:
+						{
+							throw new NoViableAltException(LT(1), getFilename());
+						}
+						}
+						}
+						match(RPAREN);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="64" tokens="184">
+<file line="7910" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7994" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8688" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+			match(LPAREN);
+			{
+			switch ( LA(1)) {
+			case ID:
+			case StringLiteral:
+			case LITERAL__declspec:
+			case LITERAL___declspec:
+			case LPAREN:
+			case LITERAL_const_cast:
+			case LITERAL_char:
+			case LITERAL_wchar_t:
+			case LITERAL_bool:
+			case LITERAL_short:
+			case LITERAL_int:
+			case 44:
+			case 45:
+			case 46:
+			case LITERAL_long:
+			case LITERAL_signed:
+			case LITERAL_unsigned:
+			case LITERAL_float:
+			case LITERAL_double:
+			case LITERAL_void:
+			case OPERATOR:
+			case LITERAL_this:
+			case LITERAL_true:
+			case LITERAL_false:
+			case OCTALINT:
+			case STAR:
+			case AMPERSAND:
+			case TILDE:
+			case PLUS:
+			case MINUS:
+			case PLUSPLUS:
+			case MINUSMINUS:
+			case LITERAL_sizeof:
+			case SCOPE:
+			case LITERAL_dynamic_cast:
+			case LITERAL_static_cast:
+			case LITERAL_reinterpret_cast:
+			case NOT:
+			case LITERAL_new:
+			case LITERAL_delete:
+			case DECIMALINT:
+			case HEXADECIMALINT:
+			case CharLiteral:
+			case FLOATONE:
+			case FLOATTWO:
+			{
+				expression_list();
+				break;
+			}
+			case RPAREN:
+			{
+				break;
+			}
+			default:
+			{
+				throw new NoViableAltException(LT(1), getFilename());
+			}
+			}
+			}
+			match(RPAREN);
+		}
+]]>
+</codefragment>
+</duplication>
+<duplication lines="63" tokens="183">
+<file line="5737" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7910" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7994" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8073" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+		match(LPAREN);
+		{
+		switch ( LA(1)) {
+		case ID:
+		case StringLiteral:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_const_cast:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case OCTALINT:
+		case STAR:
+		case AMPERSAND:
+		case TILDE:
+		case PLUS:
+		case MINUS:
+		case PLUSPLUS:
+		case MINUSMINUS:
+		case LITERAL_sizeof:
+		case SCOPE:
+		case LITERAL_dynamic_cast:
+		case LITERAL_static_cast:
+		case LITERAL_reinterpret_cast:
+		case NOT:
+		case LITERAL_new:
+		case LITERAL_delete:
+		case DECIMALINT:
+		case HEXADECIMALINT:
+		case CharLiteral:
+		case FLOATONE:
+		case FLOATTWO:
+		{
+			expression_list();
+			break;
+		}
+		case RPAREN:
+		{
+			break;
+		}
+		default:
+		{
+			throw new NoViableAltException(LT(1), getFilename());
+		}
+		}
+		}
+		match(RPAREN);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="61" tokens="175">
+<file line="6760" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6946" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+			{
+			switch ( LA(1)) {
+			case ID:
+			case StringLiteral:
+			case LITERAL__declspec:
+			case LITERAL___declspec:
+			case LPAREN:
+			case LITERAL_const_cast:
+			case LITERAL_char:
+			case LITERAL_wchar_t:
+			case LITERAL_bool:
+			case LITERAL_short:
+			case LITERAL_int:
+			case 44:
+			case 45:
+			case 46:
+			case LITERAL_long:
+			case LITERAL_signed:
+			case LITERAL_unsigned:
+			case LITERAL_float:
+			case LITERAL_double:
+			case LITERAL_void:
+			case OPERATOR:
+			case LITERAL_this:
+			case LITERAL_true:
+			case LITERAL_false:
+			case OCTALINT:
+			case STAR:
+			case AMPERSAND:
+			case TILDE:
+			case PLUS:
+			case MINUS:
+			case PLUSPLUS:
+			case MINUSMINUS:
+			case LITERAL_sizeof:
+			case SCOPE:
+			case LITERAL_dynamic_cast:
+			case LITERAL_static_cast:
+			case LITERAL_reinterpret_cast:
+			case NOT:
+			case LITERAL_new:
+			case LITERAL_delete:
+			case DECIMALINT:
+			case HEXADECIMALINT:
+			case CharLiteral:
+			case FLOATONE:
+			case FLOATTWO:
+			{
+				expression();
+				break;
+			}
+			case SEMICOLON:
+			{
+				break;
+			}
+			default:
+			{
+				throw new NoViableAltException(LT(1), getFilename());
+			}
+			}
+			}
+]]>
+</codefragment>
+</duplication>
+<duplication lines="53" tokens="152">
+<file line="6821" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6945" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+			match(SEMICOLON);
+			{
+			switch ( LA(1)) {
+			case ID:
+			case StringLiteral:
+			case LITERAL__declspec:
+			case LITERAL___declspec:
+			case LPAREN:
+			case LITERAL_const_cast:
+			case LITERAL_char:
+			case LITERAL_wchar_t:
+			case LITERAL_bool:
+			case LITERAL_short:
+			case LITERAL_int:
+			case 44:
+			case 45:
+			case 46:
+			case LITERAL_long:
+			case LITERAL_signed:
+			case LITERAL_unsigned:
+			case LITERAL_float:
+			case LITERAL_double:
+			case LITERAL_void:
+			case OPERATOR:
+			case LITERAL_this:
+			case LITERAL_true:
+			case LITERAL_false:
+			case OCTALINT:
+			case STAR:
+			case AMPERSAND:
+			case TILDE:
+			case PLUS:
+			case MINUS:
+			case PLUSPLUS:
+			case MINUSMINUS:
+			case LITERAL_sizeof:
+			case SCOPE:
+			case LITERAL_dynamic_cast:
+			case LITERAL_static_cast:
+			case LITERAL_reinterpret_cast:
+			case NOT:
+			case LITERAL_new:
+			case LITERAL_delete:
+			case DECIMALINT:
+			case HEXADECIMALINT:
+			case CharLiteral:
+			case FLOATONE:
+			case FLOATTWO:
+			{
+				expression();
+				break;
+			}
+			case RPAREN:
+]]>
+</codefragment>
+</duplication>
+<duplication lines="52" tokens="151">
+<file line="6760" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6822" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+			{
+			switch ( LA(1)) {
+			case ID:
+			case StringLiteral:
+			case LITERAL__declspec:
+			case LITERAL___declspec:
+			case LPAREN:
+			case LITERAL_const_cast:
+			case LITERAL_char:
+			case LITERAL_wchar_t:
+			case LITERAL_bool:
+			case LITERAL_short:
+			case LITERAL_int:
+			case 44:
+			case 45:
+			case 46:
+			case LITERAL_long:
+			case LITERAL_signed:
+			case LITERAL_unsigned:
+			case LITERAL_float:
+			case LITERAL_double:
+			case LITERAL_void:
+			case OPERATOR:
+			case LITERAL_this:
+			case LITERAL_true:
+			case LITERAL_false:
+			case OCTALINT:
+			case STAR:
+			case AMPERSAND:
+			case TILDE:
+			case PLUS:
+			case MINUS:
+			case PLUSPLUS:
+			case MINUSMINUS:
+			case LITERAL_sizeof:
+			case SCOPE:
+			case LITERAL_dynamic_cast:
+			case LITERAL_static_cast:
+			case LITERAL_reinterpret_cast:
+			case NOT:
+			case LITERAL_new:
+			case LITERAL_delete:
+			case DECIMALINT:
+			case HEXADECIMALINT:
+			case CharLiteral:
+			case FLOATONE:
+			case FLOATTWO:
+			{
+				expression();
+				break;
+			}
+			case SEMICOLON:
+]]>
+</codefragment>
+</duplication>
+<duplication lines="47" tokens="146">
+<file line="896" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2727" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+													if ( synPredMatched36 ) {
+														template_head();
+														declaration_specifiers();
+														{
+														switch ( LA(1)) {
+														case ID:
+														case LITERAL__stdcall:
+														case LITERAL___stdcall:
+														case LPAREN:
+														case OPERATOR:
+														case LITERAL_this:
+														case LITERAL_true:
+														case LITERAL_false:
+														case STAR:
+														case AMPERSAND:
+														case TILDE:
+														case SCOPE:
+														case LITERAL__cdecl:
+														case LITERAL___cdecl:
+														case LITERAL__near:
+														case LITERAL___near:
+														case LITERAL__far:
+														case LITERAL___far:
+														case LITERAL___interrupt:
+														case LITERAL_pascal:
+														case LITERAL__pascal:
+														case LITERAL___pascal:
+														{
+															init_declarator_list();
+															break;
+														}
+														case SEMICOLON:
+														{
+															break;
+														}
+														default:
+														{
+															throw new NoViableAltException(LT(1), getFilename());
+														}
+														}
+														}
+														match(SEMICOLON);
+													}
+													else if ((LA(1)==LITERAL_template) && (LA(2)==LESSTHAN)) {
+														template_head();
+														{
+														boolean synPredMatched40 = false;
+]]>
+</codefragment>
+</duplication>
+<duplication lines="49" tokens="146">
+<file line="4569" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6759" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+		}
+		{
+		switch ( LA(1)) {
+		case ID:
+		case StringLiteral:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_const_cast:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case OCTALINT:
+		case STAR:
+		case AMPERSAND:
+		case TILDE:
+		case PLUS:
+		case MINUS:
+		case PLUSPLUS:
+		case MINUSMINUS:
+		case LITERAL_sizeof:
+		case SCOPE:
+		case LITERAL_dynamic_cast:
+		case LITERAL_static_cast:
+		case LITERAL_reinterpret_cast:
+		case NOT:
+		case LITERAL_new:
+		case LITERAL_delete:
+		case DECIMALINT:
+		case HEXADECIMALINT:
+		case CharLiteral:
+		case FLOATONE:
+		case FLOATTWO:
+		{
+]]>
+</codefragment>
+</duplication>
+<duplication lines="49" tokens="146">
+<file line="3833" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5161" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5737" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6063" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6164" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6821" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6945" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7051" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7910" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7994" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8073" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8688" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+								match(LSQUARE);
+								{
+								switch ( LA(1)) {
+								case ID:
+								case StringLiteral:
+								case LITERAL__declspec:
+								case LITERAL___declspec:
+								case LPAREN:
+								case LITERAL_const_cast:
+								case LITERAL_char:
+								case LITERAL_wchar_t:
+								case LITERAL_bool:
+								case LITERAL_short:
+								case LITERAL_int:
+								case 44:
+								case 45:
+								case 46:
+								case LITERAL_long:
+								case LITERAL_signed:
+								case LITERAL_unsigned:
+								case LITERAL_float:
+								case LITERAL_double:
+								case LITERAL_void:
+								case OPERATOR:
+								case LITERAL_this:
+								case LITERAL_true:
+								case LITERAL_false:
+								case OCTALINT:
+								case STAR:
+								case AMPERSAND:
+								case TILDE:
+								case PLUS:
+								case MINUS:
+								case PLUSPLUS:
+								case MINUSMINUS:
+								case LITERAL_sizeof:
+								case SCOPE:
+								case LITERAL_dynamic_cast:
+								case LITERAL_static_cast:
+								case LITERAL_reinterpret_cast:
+								case NOT:
+								case LITERAL_new:
+								case LITERAL_delete:
+								case DECIMALINT:
+								case HEXADECIMALINT:
+								case CharLiteral:
+								case FLOATONE:
+								case FLOATTWO:
+								{
+]]>
+</codefragment>
+</duplication>
+<duplication lines="48" tokens="145">
+<file line="3834" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="4570" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5162" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5738" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6064" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6165" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6760" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6822" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6946" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7052" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7911" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7995" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8074" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8689" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+								{
+								switch ( LA(1)) {
+								case ID:
+								case StringLiteral:
+								case LITERAL__declspec:
+								case LITERAL___declspec:
+								case LPAREN:
+								case LITERAL_const_cast:
+								case LITERAL_char:
+								case LITERAL_wchar_t:
+								case LITERAL_bool:
+								case LITERAL_short:
+								case LITERAL_int:
+								case 44:
+								case 45:
+								case 46:
+								case LITERAL_long:
+								case LITERAL_signed:
+								case LITERAL_unsigned:
+								case LITERAL_float:
+								case LITERAL_double:
+								case LITERAL_void:
+								case OPERATOR:
+								case LITERAL_this:
+								case LITERAL_true:
+								case LITERAL_false:
+								case OCTALINT:
+								case STAR:
+								case AMPERSAND:
+								case TILDE:
+								case PLUS:
+								case MINUS:
+								case PLUSPLUS:
+								case MINUSMINUS:
+								case LITERAL_sizeof:
+								case SCOPE:
+								case LITERAL_dynamic_cast:
+								case LITERAL_static_cast:
+								case LITERAL_reinterpret_cast:
+								case NOT:
+								case LITERAL_new:
+								case LITERAL_delete:
+								case DECIMALINT:
+								case HEXADECIMALINT:
+								case CharLiteral:
+								case FLOATONE:
+								case FLOATTWO:
+								{
+]]>
+</codefragment>
+</duplication>
+<duplication lines="46" tokens="136">
+<file line="3836" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="4572" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5164" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5740" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6066" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6167" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6762" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6824" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6948" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7054" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7913" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7997" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8076" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8449" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8691" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+								case ID:
+								case StringLiteral:
+								case LITERAL__declspec:
+								case LITERAL___declspec:
+								case LPAREN:
+								case LITERAL_const_cast:
+								case LITERAL_char:
+								case LITERAL_wchar_t:
+								case LITERAL_bool:
+								case LITERAL_short:
+								case LITERAL_int:
+								case 44:
+								case 45:
+								case 46:
+								case LITERAL_long:
+								case LITERAL_signed:
+								case LITERAL_unsigned:
+								case LITERAL_float:
+								case LITERAL_double:
+								case LITERAL_void:
+								case OPERATOR:
+								case LITERAL_this:
+								case LITERAL_true:
+								case LITERAL_false:
+								case OCTALINT:
+								case STAR:
+								case AMPERSAND:
+								case TILDE:
+								case PLUS:
+								case MINUS:
+								case PLUSPLUS:
+								case MINUSMINUS:
+								case LITERAL_sizeof:
+								case SCOPE:
+								case LITERAL_dynamic_cast:
+								case LITERAL_static_cast:
+								case LITERAL_reinterpret_cast:
+								case NOT:
+								case LITERAL_new:
+								case LITERAL_delete:
+								case DECIMALINT:
+								case HEXADECIMALINT:
+								case CharLiteral:
+								case FLOATONE:
+								case FLOATTWO:
+								{
+]]>
+</codefragment>
+</duplication>
+<duplication lines="48" tokens="133">
+<file line="843" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2674" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+														synPredMatched36 = true;
+														inputState.guessing++;
+														try {
+															{
+															template_head();
+															declaration_specifiers();
+															{
+															switch ( LA(1)) {
+															case ID:
+															case LITERAL__stdcall:
+															case LITERAL___stdcall:
+															case LPAREN:
+															case OPERATOR:
+															case LITERAL_this:
+															case LITERAL_true:
+															case LITERAL_false:
+															case STAR:
+															case AMPERSAND:
+															case TILDE:
+															case SCOPE:
+															case LITERAL__cdecl:
+															case LITERAL___cdecl:
+															case LITERAL__near:
+															case LITERAL___near:
+															case LITERAL__far:
+															case LITERAL___far:
+															case LITERAL___interrupt:
+															case LITERAL_pascal:
+															case LITERAL__pascal:
+															case LITERAL___pascal:
+															{
+																init_declarator_list();
+																break;
+															}
+															case SEMICOLON:
+															{
+																break;
+															}
+															default:
+															{
+																throw new NoViableAltException(LT(1), getFilename());
+															}
+															}
+															}
+															match(SEMICOLON);
+															}
+														}
+														catch (RecognitionException pe) {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="45" tokens="127">
+<file line="5543" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5603" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+			match(OCTALINT);
+			break;
+		}
+		case LITERAL_typedef:
+		case LITERAL_enum:
+		case ID:
+		case LCURLY:
+		case SEMICOLON:
+		case LITERAL_inline:
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case LITERAL_throw:
+]]>
+</codefragment>
+</duplication>
+<duplication lines="43" tokens="121">
+<file line="3196" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3540" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+			match(RCURLY);
+			break;
+		}
+		case LITERAL_typedef:
+		case LITERAL_enum:
+		case ID:
+		case LITERAL_inline:
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case LITERAL_using:
+]]>
+</codefragment>
+</duplication>
+<duplication lines="41" tokens="121">
+<file line="3543" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8322" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+					case LITERAL_typedef:
+					case LITERAL_enum:
+					case ID:
+					case LITERAL_inline:
+					case LITERAL_extern:
+					case LITERAL__inline:
+					case LITERAL___inline:
+					case LITERAL_virtual:
+					case LITERAL_explicit:
+					case LITERAL_friend:
+					case LITERAL__stdcall:
+					case LITERAL___stdcall:
+					case LITERAL__declspec:
+					case LITERAL___declspec:
+					case LITERAL_typename:
+					case LITERAL_auto:
+					case LITERAL_register:
+					case LITERAL_static:
+					case LITERAL_mutable:
+					case LITERAL_const:
+					case LITERAL_const_cast:
+					case LITERAL_volatile:
+					case LITERAL_char:
+					case LITERAL_wchar_t:
+					case LITERAL_bool:
+					case LITERAL_short:
+					case LITERAL_int:
+					case 44:
+					case 45:
+					case 46:
+					case LITERAL_long:
+					case LITERAL_signed:
+					case LITERAL_unsigned:
+					case LITERAL_float:
+					case LITERAL_double:
+					case LITERAL_void:
+					case LITERAL_class:
+					case LITERAL_struct:
+					case LITERAL_union:
+					case SCOPE:
+					{
+]]>
+</codefragment>
+</duplication>
+<duplication lines="44" tokens="119">
+<file line="2277" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2602" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+					enum_specifier();
+					{
+					switch ( LA(1)) {
+					case ID:
+					case COLON:
+					case LITERAL__stdcall:
+					case LITERAL___stdcall:
+					case LPAREN:
+					case OPERATOR:
+					case LITERAL_this:
+					case LITERAL_true:
+					case LITERAL_false:
+					case STAR:
+					case AMPERSAND:
+					case TILDE:
+					case SCOPE:
+					case LITERAL__cdecl:
+					case LITERAL___cdecl:
+					case LITERAL__near:
+					case LITERAL___near:
+					case LITERAL__far:
+					case LITERAL___far:
+					case LITERAL___interrupt:
+					case LITERAL_pascal:
+					case LITERAL__pascal:
+					case LITERAL___pascal:
+					{
+						member_declarator_list();
+						break;
+					}
+					case SEMICOLON:
+					{
+						break;
+					}
+					default:
+					{
+						throw new NoViableAltException(LT(1), getFilename());
+					}
+					}
+					}
+					match(SEMICOLON);
+				}
+				else {
+					boolean synPredMatched60 = false;
+]]>
+</codefragment>
+</duplication>
+<duplication lines="41" tokens="119">
+<file line="1583" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2935" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3042" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3446" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3613" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5241" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5456" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6238" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case STAR:
+]]>
+</codefragment>
+</duplication>
+<duplication lines="43" tokens="118">
+<file line="846" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="896" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2677" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2727" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+															{
+															template_head();
+															declaration_specifiers();
+															{
+															switch ( LA(1)) {
+															case ID:
+															case LITERAL__stdcall:
+															case LITERAL___stdcall:
+															case LPAREN:
+															case OPERATOR:
+															case LITERAL_this:
+															case LITERAL_true:
+															case LITERAL_false:
+															case STAR:
+															case AMPERSAND:
+															case TILDE:
+															case SCOPE:
+															case LITERAL__cdecl:
+															case LITERAL___cdecl:
+															case LITERAL__near:
+															case LITERAL___near:
+															case LITERAL__far:
+															case LITERAL___far:
+															case LITERAL___interrupt:
+															case LITERAL_pascal:
+															case LITERAL__pascal:
+															case LITERAL___pascal:
+															{
+																init_declarator_list();
+																break;
+															}
+															case SEMICOLON:
+															{
+																break;
+															}
+															default:
+															{
+																throw new NoViableAltException(LT(1), getFilename());
+															}
+															}
+															}
+															match(SEMICOLON);
+															}
+]]>
+</codefragment>
+</duplication>
+<duplication lines="40" tokens="118">
+<file line="3199" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8322" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+		case LITERAL_typedef:
+		case LITERAL_enum:
+		case ID:
+		case LITERAL_inline:
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case LITERAL_using:
+]]>
+</codefragment>
+</duplication>
+<duplication lines="40" tokens="116">
+<file line="3201" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5610" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+		case ID:
+		case LITERAL_inline:
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case LITERAL_using:
+		case SCOPE:
+		{
+]]>
+</codefragment>
+</duplication>
+<duplication lines="42" tokens="114">
+<file line="569" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="898" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2729" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+							enum_specifier();
+							{
+							switch ( LA(1)) {
+							case ID:
+							case LITERAL__stdcall:
+							case LITERAL___stdcall:
+							case LPAREN:
+							case OPERATOR:
+							case LITERAL_this:
+							case LITERAL_true:
+							case LITERAL_false:
+							case STAR:
+							case AMPERSAND:
+							case TILDE:
+							case SCOPE:
+							case LITERAL__cdecl:
+							case LITERAL___cdecl:
+							case LITERAL__near:
+							case LITERAL___near:
+							case LITERAL__far:
+							case LITERAL___far:
+							case LITERAL___interrupt:
+							case LITERAL_pascal:
+							case LITERAL__pascal:
+							case LITERAL___pascal:
+							{
+								init_declarator_list();
+								break;
+							}
+							case SEMICOLON:
+							{
+								break;
+							}
+							default:
+							{
+								throw new NoViableAltException(LT(1), getFilename());
+							}
+							}
+							}
+							match(SEMICOLON);
+						}
+						else {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="41" tokens="113">
+<file line="569" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="848" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2679" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+							enum_specifier();
+							{
+							switch ( LA(1)) {
+							case ID:
+							case LITERAL__stdcall:
+							case LITERAL___stdcall:
+							case LPAREN:
+							case OPERATOR:
+							case LITERAL_this:
+							case LITERAL_true:
+							case LITERAL_false:
+							case STAR:
+							case AMPERSAND:
+							case TILDE:
+							case SCOPE:
+							case LITERAL__cdecl:
+							case LITERAL___cdecl:
+							case LITERAL__near:
+							case LITERAL___near:
+							case LITERAL__far:
+							case LITERAL___far:
+							case LITERAL___interrupt:
+							case LITERAL_pascal:
+							case LITERAL__pascal:
+							case LITERAL___pascal:
+							{
+								init_declarator_list();
+								break;
+							}
+							case SEMICOLON:
+							{
+								break;
+							}
+							default:
+							{
+								throw new NoViableAltException(LT(1), getFilename());
+							}
+							}
+							}
+							match(SEMICOLON);
+						}
+]]>
+</codefragment>
+</duplication>
+<duplication lines="40" tokens="112">
+<file line="1778" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5810" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+				case LITERAL_inline:
+				case LITERAL__inline:
+				case LITERAL___inline:
+				{
+					{
+					switch ( LA(1)) {
+					case LITERAL_inline:
+					{
+						match(LITERAL_inline);
+						break;
+					}
+					case LITERAL__inline:
+					{
+						match(LITERAL__inline);
+						break;
+					}
+					case LITERAL___inline:
+					{
+						match(LITERAL___inline);
+						break;
+					}
+					default:
+					{
+						throw new NoViableAltException(LT(1), getFilename());
+					}
+					}
+					}
+					if ( inputState.guessing==0 ) {
+						declSpecs.add("inline");
+					}
+					break;
+				}
+				case LITERAL_virtual:
+				{
+					match(LITERAL_virtual);
+					if ( inputState.guessing==0 ) {
+						declSpecs.add("virtual");
+					}
+					break;
+				}
+]]>
+</codefragment>
+</duplication>
+<duplication lines="38" tokens="110">
+<file line="3201" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3545" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5550" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5610" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8324" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+		case ID:
+		case LITERAL_inline:
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case LITERAL_using:
+]]>
+</codefragment>
+</duplication>
+<duplication lines="18" tokens="104">
+<file line="2109" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="4279" path="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<codefragment>
+<![CDATA[
+			id = LT(1);
+			match(ID);
+			{
+			if ((LA(1)==LESSTHAN) && (_tokenSet_24.member(LA(2)))) {
+				match(LESSTHAN);
+				template_argument_list();
+				match(GREATERTHAN);
+			}
+			else if ((_tokenSet_25.member(LA(1))) && (_tokenSet_26.member(LA(2)))) {
+			}
+			else {
+				throw new NoViableAltException(LT(1), getFilename());
+			}
+			
+			}
+			if ( inputState.guessing==0 ) {
+				
+						qitem=qitem+id.getText();
+]]>
+</codefragment>
+</duplication>
 </pmd-cpd>

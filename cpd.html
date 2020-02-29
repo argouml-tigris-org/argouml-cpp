@@ -47,9 +47,12 @@
                                                                                                                                                                                                                                                         <li class="collapsed">
                           <a href="project-info.html" title="Project Information">Project Information</a>
                   </li>
-                                                                                                                                                      <li class="expanded">
+                                                                                                                                                                        <li class="expanded">
                           <a href="project-reports.html" title="Project Reports">Project Reports</a>
                     <ul>
+                      <li class="none">
+                          <a href="jacoco/index.html" title="JaCoCo">JaCoCo</a>
+            </li>
                       <li class="none">
                           <a href="checkstyle-aggregate.html" title="Checkstyle">Checkstyle</a>
             </li>
@@ -82,7 +85,3417 @@
 <p>The following document contains the results of PMD's  <a class="externalLink" href="http://pmd.sourceforge.net/cpd.html">CPD</a> 4.3.</p></div>
 <div class="section">
 <h2>Duplications<a name="Duplications"></a></h2>
-<p>CPD found no problems in your source code.</p></div>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>1575</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>2927</td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>		}
+		match(LPAREN);
+		{
+		switch ( LA(1)) {
+		case LITERAL_typedef:
+		case LITERAL_enum:
+		case ID:
+		case LITERAL_inline:
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case STAR:
+		case AMPERSAND:
+		case TILDE:
+		case ELLIPSIS:
+		case SCOPE:
+		case LITERAL__cdecl:
+		case LITERAL___cdecl:
+		case LITERAL__near:
+		case LITERAL___near:
+		case LITERAL__far:
+		case LITERAL___far:
+		case LITERAL___interrupt:
+		case LITERAL_pascal:
+		case LITERAL__pascal:
+		case LITERAL___pascal:
+		{
+			parameter_list();
+			break;
+		}
+		case RPAREN:
+		{
+			break;
+		}
+		default:
+		{
+			throw new NoViableAltException(LT(1), getFilename());
+		}
+		}
+		}
+		match(RPAREN);
+		{
+		switch ( LA(1)) {
+		case LITERAL_const:</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>3691</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5319</td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>					}
+					
+				} while (true);
+				}
+				{
+				switch ( LA(1)) {
+				case LITERAL_throw:
+				{
+					exception_specification();
+					break;
+				}
+				case LESSTHAN:
+				case GREATERTHAN:
+				case ID:
+				case SEMICOLON:
+				case RCURLY:
+				case ASSIGNEQUAL:
+				case COLON:
+				case COMMA:
+				case LITERAL__stdcall:
+				case LITERAL___stdcall:
+				case LPAREN:
+				case RPAREN:
+				case OPERATOR:
+				case LITERAL_this:
+				case LITERAL_true:
+				case LITERAL_false:
+				case STAR:
+				case AMPERSAND:
+				case LSQUARE:
+				case RSQUARE:
+				case TILDE:
+				case ELLIPSIS:
+				case TIMESEQUAL:
+				case DIVIDEEQUAL:
+				case MINUSEQUAL:
+				case PLUSEQUAL:
+				case MODEQUAL:
+				case SHIFTLEFTEQUAL:
+				case SHIFTRIGHTEQUAL:
+				case BITWISEANDEQUAL:
+				case BITWISEXOREQUAL:
+				case BITWISEOREQUAL:
+				case QUESTIONMARK:
+				case OR:
+				case AND:
+				case BITWISEOR:
+				case BITWISEXOR:
+				case NOTEQUAL:
+				case EQUAL:
+				case LESSTHANOREQUALTO:
+				case GREATERTHANOREQUALTO:
+				case SHIFTLEFT:
+				case SHIFTRIGHT:
+				case PLUS:
+				case MINUS:
+				case DIVIDE:
+				case MOD:
+				case DOTMBR:
+				case POINTERTOMBR:
+				case SCOPE:
+				case LITERAL__cdecl:
+				case LITERAL___cdecl:
+				case LITERAL__near:
+				case LITERAL___near:
+				case LITERAL__far:
+				case LITERAL___far:
+				case LITERAL___interrupt:
+				case LITERAL_pascal:
+				case LITERAL__pascal:
+				case LITERAL___pascal:
+				{
+					break;
+				}
+				default:
+				{
+					throw new NoViableAltException(LT(1), getFilename());
+				}
+				}
+				}
+			}
+			else {</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>2926</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5447</td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>			m.qualifiedCtorId(q);
+		}
+		match(LPAREN);
+		{
+		switch ( LA(1)) {
+		case LITERAL_typedef:
+		case LITERAL_enum:
+		case ID:
+		case LITERAL_inline:
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case STAR:
+		case AMPERSAND:
+		case TILDE:
+		case ELLIPSIS:
+		case SCOPE:
+		case LITERAL__cdecl:
+		case LITERAL___cdecl:
+		case LITERAL__near:
+		case LITERAL___near:
+		case LITERAL__far:
+		case LITERAL___far:
+		case LITERAL___interrupt:
+		case LITERAL_pascal:
+		case LITERAL__pascal:
+		case LITERAL___pascal:
+		{
+			parameter_list();
+			break;
+		}
+		case RPAREN:
+		{
+			break;
+		}
+		default:
+		{
+			throw new NoViableAltException(LT(1), getFilename());
+		}
+		}
+		}
+		match(RPAREN);
+		{</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>2926</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>3604</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5447</td></tr>
+<tr class="a"><td colspan='2'>
+<div>
+<pre>			m.qualifiedCtorId(q);
+		}
+		match(LPAREN);
+		{
+		switch ( LA(1)) {
+		case LITERAL_typedef:
+		case LITERAL_enum:
+		case ID:
+		case LITERAL_inline:
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case STAR:
+		case AMPERSAND:
+		case TILDE:
+		case ELLIPSIS:
+		case SCOPE:
+		case LITERAL__cdecl:
+		case LITERAL___cdecl:
+		case LITERAL__near:
+		case LITERAL___near:
+		case LITERAL__far:
+		case LITERAL___far:
+		case LITERAL___interrupt:
+		case LITERAL_pascal:
+		case LITERAL__pascal:
+		case LITERAL___pascal:
+		{
+			parameter_list();
+			break;
+		}
+		case RPAREN:
+		{
+			break;
+		}
+		default:
+		{
+			throw new NoViableAltException(LT(1), getFilename());
+		}
+		}
+		}
+		match(RPAREN);
+		{</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>2926</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>3437</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>3604</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5447</td></tr>
+<tr class="a"><td colspan='2'>
+<div>
+<pre>			m.qualifiedCtorId(q);
+		}
+		match(LPAREN);
+		{
+		switch ( LA(1)) {
+		case LITERAL_typedef:
+		case LITERAL_enum:
+		case ID:
+		case LITERAL_inline:
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case STAR:
+		case AMPERSAND:
+		case TILDE:
+		case ELLIPSIS:
+		case SCOPE:
+		case LITERAL__cdecl:
+		case LITERAL___cdecl:
+		case LITERAL__near:
+		case LITERAL___near:
+		case LITERAL__far:
+		case LITERAL___far:
+		case LITERAL___interrupt:
+		case LITERAL_pascal:
+		case LITERAL__pascal:
+		case LITERAL___pascal:
+		{
+			parameter_list();
+			break;
+		}
+		case RPAREN:
+		{
+			break;
+		}
+		default:
+		{
+			throw new NoViableAltException(LT(1), getFilename());
+		}
+		}
+		}
+		match(RPAREN);</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>1575</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>3605</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5448</td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>		}
+		match(LPAREN);
+		{
+		switch ( LA(1)) {
+		case LITERAL_typedef:
+		case LITERAL_enum:
+		case ID:
+		case LITERAL_inline:
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case STAR:
+		case AMPERSAND:
+		case TILDE:
+		case ELLIPSIS:
+		case SCOPE:
+		case LITERAL__cdecl:
+		case LITERAL___cdecl:
+		case LITERAL__near:
+		case LITERAL___near:
+		case LITERAL__far:
+		case LITERAL___far:
+		case LITERAL___interrupt:
+		case LITERAL_pascal:
+		case LITERAL__pascal:
+		case LITERAL___pascal:
+		{
+			parameter_list();
+			break;
+		}
+		case RPAREN:
+		{
+			break;
+		}
+		default:
+		{
+			throw new NoViableAltException(LT(1), getFilename());
+		}
+		}
+		}
+		match(RPAREN);
+		{</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>1575</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>3438</td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>		}
+		match(LPAREN);
+		{
+		switch ( LA(1)) {
+		case LITERAL_typedef:
+		case LITERAL_enum:
+		case ID:
+		case LITERAL_inline:
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case STAR:
+		case AMPERSAND:
+		case TILDE:
+		case ELLIPSIS:
+		case SCOPE:
+		case LITERAL__cdecl:
+		case LITERAL___cdecl:
+		case LITERAL__near:
+		case LITERAL___near:
+		case LITERAL__far:
+		case LITERAL___far:
+		case LITERAL___interrupt:
+		case LITERAL_pascal:
+		case LITERAL__pascal:
+		case LITERAL___pascal:
+		{
+			parameter_list();
+			break;
+		}
+		case RPAREN:
+		{
+			break;
+		}
+		default:
+		{
+			throw new NoViableAltException(LT(1), getFilename());
+		}
+		}
+		}
+		match(RPAREN);</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>1576</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>2928</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>3606</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5234</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5449</td></tr>
+<tr class="a"><td colspan='2'>
+<div>
+<pre>		match(LPAREN);
+		{
+		switch ( LA(1)) {
+		case LITERAL_typedef:
+		case LITERAL_enum:
+		case ID:
+		case LITERAL_inline:
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case STAR:
+		case AMPERSAND:
+		case TILDE:
+		case ELLIPSIS:
+		case SCOPE:
+		case LITERAL__cdecl:
+		case LITERAL___cdecl:
+		case LITERAL__near:
+		case LITERAL___near:
+		case LITERAL__far:
+		case LITERAL___far:
+		case LITERAL___interrupt:
+		case LITERAL_pascal:
+		case LITERAL__pascal:
+		case LITERAL___pascal:
+		{
+			parameter_list();
+			break;
+		}
+		case RPAREN:
+		{
+			break;
+		}
+		default:
+		{
+			throw new NoViableAltException(LT(1), getFilename());
+		}
+		}
+		}
+		match(RPAREN);
+		{</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5233</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6230</td></tr>
+<tr class="a"><td colspan='2'>
+<div>
+<pre>		else if (((LA(1)==LPAREN))&amp;&amp;((!((LA(1)==LPAREN)&amp;&amp;(LA(2)==ID))||(qualifiedItemIsOneOf(auxBitSet,1))))) {
+			match(LPAREN);
+			{
+			switch ( LA(1)) {
+			case LITERAL_typedef:
+			case LITERAL_enum:
+			case ID:
+			case LITERAL_inline:
+			case LITERAL_extern:
+			case LITERAL__inline:
+			case LITERAL___inline:
+			case LITERAL_virtual:
+			case LITERAL_explicit:
+			case LITERAL_friend:
+			case LITERAL__stdcall:
+			case LITERAL___stdcall:
+			case LITERAL__declspec:
+			case LITERAL___declspec:
+			case LPAREN:
+			case LITERAL_typename:
+			case LITERAL_auto:
+			case LITERAL_register:
+			case LITERAL_static:
+			case LITERAL_mutable:
+			case LITERAL_const:
+			case LITERAL_const_cast:
+			case LITERAL_volatile:
+			case LITERAL_char:
+			case LITERAL_wchar_t:
+			case LITERAL_bool:
+			case LITERAL_short:
+			case LITERAL_int:
+			case 44:
+			case 45:
+			case 46:
+			case LITERAL_long:
+			case LITERAL_signed:
+			case LITERAL_unsigned:
+			case LITERAL_float:
+			case LITERAL_double:
+			case LITERAL_void:
+			case LITERAL_class:
+			case LITERAL_struct:
+			case LITERAL_union:
+			case OPERATOR:
+			case LITERAL_this:
+			case LITERAL_true:
+			case LITERAL_false:
+			case STAR:
+			case AMPERSAND:
+			case TILDE:
+			case ELLIPSIS:
+			case SCOPE:
+			case LITERAL__cdecl:
+			case LITERAL___cdecl:
+			case LITERAL__near:
+			case LITERAL___near:
+			case LITERAL__far:
+			case LITERAL___far:
+			case LITERAL___interrupt:
+			case LITERAL_pascal:
+			case LITERAL__pascal:
+			case LITERAL___pascal:
+			{
+				parameter_list();
+				break;
+			}
+			case RPAREN:
+			{
+				break;
+			}
+			default:
+			{
+				throw new NoViableAltException(LT(1), getFilename());
+			}
+			}
+			}
+			match(RPAREN);</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>3439</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5234</td></tr>
+<tr class="a"><td colspan='2'>
+<div>
+<pre>			match(LPAREN);
+			{
+			switch ( LA(1)) {
+			case LITERAL_typedef:
+			case LITERAL_enum:
+			case ID:
+			case LITERAL_inline:
+			case LITERAL_extern:
+			case LITERAL__inline:
+			case LITERAL___inline:
+			case LITERAL_virtual:
+			case LITERAL_explicit:
+			case LITERAL_friend:
+			case LITERAL__stdcall:
+			case LITERAL___stdcall:
+			case LITERAL__declspec:
+			case LITERAL___declspec:
+			case LPAREN:
+			case LITERAL_typename:
+			case LITERAL_auto:
+			case LITERAL_register:
+			case LITERAL_static:
+			case LITERAL_mutable:
+			case LITERAL_const:
+			case LITERAL_const_cast:
+			case LITERAL_volatile:
+			case LITERAL_char:
+			case LITERAL_wchar_t:
+			case LITERAL_bool:
+			case LITERAL_short:
+			case LITERAL_int:
+			case 44:
+			case 45:
+			case 46:
+			case LITERAL_long:
+			case LITERAL_signed:
+			case LITERAL_unsigned:
+			case LITERAL_float:
+			case LITERAL_double:
+			case LITERAL_void:
+			case LITERAL_class:
+			case LITERAL_struct:
+			case LITERAL_union:
+			case OPERATOR:
+			case LITERAL_this:
+			case LITERAL_true:
+			case LITERAL_false:
+			case STAR:
+			case AMPERSAND:
+			case TILDE:
+			case ELLIPSIS:
+			case SCOPE:
+			case LITERAL__cdecl:
+			case LITERAL___cdecl:
+			case LITERAL__near:
+			case LITERAL___near:
+			case LITERAL__far:
+			case LITERAL___far:
+			case LITERAL___interrupt:
+			case LITERAL_pascal:
+			case LITERAL__pascal:
+			case LITERAL___pascal:
+			{
+				parameter_list();
+				break;
+			}
+			case RPAREN:
+			{
+				break;
+			}
+			default:
+			{
+				throw new NoViableAltException(LT(1), getFilename());
+			}
+			}
+			}
+			match(RPAREN);</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>1576</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>2928</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>3606</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5449</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6231</td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>		match(LPAREN);
+		{
+		switch ( LA(1)) {
+		case LITERAL_typedef:
+		case LITERAL_enum:
+		case ID:
+		case LITERAL_inline:
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case STAR:
+		case AMPERSAND:
+		case TILDE:
+		case ELLIPSIS:
+		case SCOPE:
+		case LITERAL__cdecl:
+		case LITERAL___cdecl:
+		case LITERAL__near:
+		case LITERAL___near:
+		case LITERAL__far:
+		case LITERAL___far:
+		case LITERAL___interrupt:
+		case LITERAL_pascal:
+		case LITERAL__pascal:
+		case LITERAL___pascal:
+		{
+			parameter_list();
+			break;
+		}
+		case RPAREN:
+		{
+			break;
+		}
+		default:
+		{
+			throw new NoViableAltException(LT(1), getFilename());
+		}
+		}
+		}
+		match(RPAREN);</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>3830</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5158</td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>						_loop214:
+						do {
+							if ((LA(1)==LSQUARE) &amp;&amp; (_tokenSet_32.member(LA(2)))) {
+								match(LSQUARE);
+								{
+								switch ( LA(1)) {
+								case ID:
+								case StringLiteral:
+								case LITERAL__declspec:
+								case LITERAL___declspec:
+								case LPAREN:
+								case LITERAL_const_cast:
+								case LITERAL_char:
+								case LITERAL_wchar_t:
+								case LITERAL_bool:
+								case LITERAL_short:
+								case LITERAL_int:
+								case 44:
+								case 45:
+								case 46:
+								case LITERAL_long:
+								case LITERAL_signed:
+								case LITERAL_unsigned:
+								case LITERAL_float:
+								case LITERAL_double:
+								case LITERAL_void:
+								case OPERATOR:
+								case LITERAL_this:
+								case LITERAL_true:
+								case LITERAL_false:
+								case OCTALINT:
+								case STAR:
+								case AMPERSAND:
+								case TILDE:
+								case PLUS:
+								case MINUS:
+								case PLUSPLUS:
+								case MINUSMINUS:
+								case LITERAL_sizeof:
+								case SCOPE:
+								case LITERAL_dynamic_cast:
+								case LITERAL_static_cast:
+								case LITERAL_reinterpret_cast:
+								case NOT:
+								case LITERAL_new:
+								case LITERAL_delete:
+								case DECIMALINT:
+								case HEXADECIMALINT:
+								case CharLiteral:
+								case FLOATONE:
+								case FLOATTWO:
+								{
+									constant_expression();
+									break;
+								}
+								case RSQUARE:
+								{
+									break;
+								}
+								default:
+								{
+									throw new NoViableAltException(LT(1), getFilename());
+								}
+								}
+								}
+								match(RSQUARE);
+							}
+							else {
+								if ( _cnt214&gt;=1 ) { break _loop214; } else {throw new NoViableAltException(LT(1), getFilename());}</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>1257</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>3699</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5327</td></tr>
+<tr class="a"><td colspan='2'>
+<div>
+<pre>				match(RCURLY);
+				break;
+			}
+			case LESSTHAN:
+			case GREATERTHAN:
+			case ID:
+			case SEMICOLON:
+			case RCURLY:
+			case ASSIGNEQUAL:
+			case COLON:
+			case COMMA:
+			case LITERAL__stdcall:
+			case LITERAL___stdcall:
+			case LPAREN:
+			case RPAREN:
+			case OPERATOR:
+			case LITERAL_this:
+			case LITERAL_true:
+			case LITERAL_false:
+			case STAR:
+			case AMPERSAND:
+			case LSQUARE:
+			case RSQUARE:
+			case TILDE:
+			case ELLIPSIS:
+			case TIMESEQUAL:
+			case DIVIDEEQUAL:
+			case MINUSEQUAL:
+			case PLUSEQUAL:
+			case MODEQUAL:
+			case SHIFTLEFTEQUAL:
+			case SHIFTRIGHTEQUAL:
+			case BITWISEANDEQUAL:
+			case BITWISEXOREQUAL:
+			case BITWISEOREQUAL:
+			case QUESTIONMARK:
+			case OR:
+			case AND:
+			case BITWISEOR:
+			case BITWISEXOR:
+			case NOTEQUAL:
+			case EQUAL:
+			case LESSTHANOREQUALTO:
+			case GREATERTHANOREQUALTO:
+			case SHIFTLEFT:
+			case SHIFTRIGHT:
+			case PLUS:
+			case MINUS:
+			case DIVIDE:
+			case MOD:
+			case DOTMBR:
+			case POINTERTOMBR:
+			case SCOPE:
+			case LITERAL__cdecl:
+			case LITERAL___cdecl:
+			case LITERAL__near:
+			case LITERAL___near:
+			case LITERAL__far:
+			case LITERAL___far:
+			case LITERAL___interrupt:
+			case LITERAL_pascal:
+			case LITERAL__pascal:
+			case LITERAL___pascal:
+			{
+				break;
+			}
+			default:
+			{
+				throw new NoViableAltException(LT(1), getFilename());
+			}
+			}
+			}</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>7615</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>7695</td></tr>
+<tr class="a"><td colspan='2'>
+<div>
+<pre>				{
+				match(LPAREN);
+				{
+				switch ( LA(1)) {
+				case LITERAL_const:
+				case LITERAL_const_cast:
+				case LITERAL_volatile:
+				{
+					type_qualifier();
+					break;
+				}
+				case ID:
+				case LITERAL__declspec:
+				case LITERAL___declspec:
+				case LITERAL_char:
+				case LITERAL_wchar_t:
+				case LITERAL_bool:
+				case LITERAL_short:
+				case LITERAL_int:
+				case 44:
+				case 45:
+				case 46:
+				case LITERAL_long:
+				case LITERAL_signed:
+				case LITERAL_unsigned:
+				case LITERAL_float:
+				case LITERAL_double:
+				case LITERAL_void:
+				case SCOPE:
+				{
+					break;
+				}
+				default:
+				{
+					throw new NoViableAltException(LT(1), getFilename());
+				}
+				}
+				}
+				simple_type_specifier();
+				{
+				switch ( LA(1)) {
+				case ID:
+				case LITERAL__stdcall:
+				case LITERAL___stdcall:
+				case STAR:
+				case AMPERSAND:
+				case SCOPE:
+				case LITERAL__cdecl:
+				case LITERAL___cdecl:
+				case LITERAL__near:
+				case LITERAL___near:
+				case LITERAL__far:
+				case LITERAL___far:
+				case LITERAL___interrupt:
+				case LITERAL_pascal:
+				case LITERAL__pascal:
+				case LITERAL___pascal:
+				{
+					ptr_operator();
+					break;
+				}
+				case RPAREN:
+				{
+					break;
+				}
+				default:
+				{
+					throw new NoViableAltException(LT(1), getFilename());
+				}
+				}
+				}
+				match(RPAREN);</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPLexer.java</td>
+<td>2095</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPLexer.java</td>
+<td>2132</td></tr>
+<tr class="a"><td colspan='2'>
+<div>
+<pre>		{
+		switch ( LA(1)) {
+		case 'a':  case 'b':  case 'c':  case 'd':
+		case 'e':  case 'f':  case 'g':  case 'h':
+		case 'i':  case 'j':  case 'k':  case 'l':
+		case 'm':  case 'n':  case 'o':  case 'p':
+		case 'q':  case 'r':  case 's':  case 't':
+		case 'u':  case 'v':  case 'w':  case 'x':
+		case 'y':  case 'z':
+		{
+			matchRange('a','z');
+			break;
+		}
+		case 'A':  case 'B':  case 'C':  case 'D':
+		case 'E':  case 'F':  case 'G':  case 'H':
+		case 'I':  case 'J':  case 'K':  case 'L':
+		case 'M':  case 'N':  case 'O':  case 'P':
+		case 'Q':  case 'R':  case 'S':  case 'T':
+		case 'U':  case 'V':  case 'W':  case 'X':
+		case 'Y':  case 'Z':
+		{
+			matchRange('A','Z');
+			break;
+		}
+		case '_':
+		{
+			match('_');
+			break;
+		}</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>3832</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5160</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6062</td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>							if ((LA(1)==LSQUARE) &amp;&amp; (_tokenSet_32.member(LA(2)))) {
+								match(LSQUARE);
+								{
+								switch ( LA(1)) {
+								case ID:
+								case StringLiteral:
+								case LITERAL__declspec:
+								case LITERAL___declspec:
+								case LPAREN:
+								case LITERAL_const_cast:
+								case LITERAL_char:
+								case LITERAL_wchar_t:
+								case LITERAL_bool:
+								case LITERAL_short:
+								case LITERAL_int:
+								case 44:
+								case 45:
+								case 46:
+								case LITERAL_long:
+								case LITERAL_signed:
+								case LITERAL_unsigned:
+								case LITERAL_float:
+								case LITERAL_double:
+								case LITERAL_void:
+								case OPERATOR:
+								case LITERAL_this:
+								case LITERAL_true:
+								case LITERAL_false:
+								case OCTALINT:
+								case STAR:
+								case AMPERSAND:
+								case TILDE:
+								case PLUS:
+								case MINUS:
+								case PLUSPLUS:
+								case MINUSMINUS:
+								case LITERAL_sizeof:
+								case SCOPE:
+								case LITERAL_dynamic_cast:
+								case LITERAL_static_cast:
+								case LITERAL_reinterpret_cast:
+								case NOT:
+								case LITERAL_new:
+								case LITERAL_delete:
+								case DECIMALINT:
+								case HEXADECIMALINT:
+								case CharLiteral:
+								case FLOATONE:
+								case FLOATTWO:
+								{
+									constant_expression();
+									break;
+								}
+								case RSQUARE:
+								{
+									break;
+								}
+								default:
+								{
+									throw new NoViableAltException(LT(1), getFilename());
+								}
+								}
+								}
+								match(RSQUARE);
+							}
+							else {
+								if ( _cnt214&gt;=1 ) { break _loop214; } else {throw new NoViableAltException(LT(1), getFilename());}</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5737</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>8688</td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>		match(LPAREN);
+		{
+		switch ( LA(1)) {
+		case ID:
+		case StringLiteral:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_const_cast:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case OCTALINT:
+		case STAR:
+		case AMPERSAND:
+		case TILDE:
+		case PLUS:
+		case MINUS:
+		case PLUSPLUS:
+		case MINUSMINUS:
+		case LITERAL_sizeof:
+		case SCOPE:
+		case LITERAL_dynamic_cast:
+		case LITERAL_static_cast:
+		case LITERAL_reinterpret_cast:
+		case NOT:
+		case LITERAL_new:
+		case LITERAL_delete:
+		case DECIMALINT:
+		case HEXADECIMALINT:
+		case CharLiteral:
+		case FLOATONE:
+		case FLOATTWO:
+		{
+			expression_list();
+			break;
+		}
+		case RPAREN:
+		{
+			break;
+		}
+		default:
+		{
+			throw new NoViableAltException(LT(1), getFilename());
+		}
+		}
+		}
+		match(RPAREN);
+	}
+	
+	public final void dtor_decl_spec() throws RecognitionException, TokenStreamException {</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5736</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>7993</td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>		q=qualified_id();
+		match(LPAREN);
+		{
+		switch ( LA(1)) {
+		case ID:
+		case StringLiteral:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_const_cast:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case OCTALINT:
+		case STAR:
+		case AMPERSAND:
+		case TILDE:
+		case PLUS:
+		case MINUS:
+		case PLUSPLUS:
+		case MINUSMINUS:
+		case LITERAL_sizeof:
+		case SCOPE:
+		case LITERAL_dynamic_cast:
+		case LITERAL_static_cast:
+		case LITERAL_reinterpret_cast:
+		case NOT:
+		case LITERAL_new:
+		case LITERAL_delete:
+		case DECIMALINT:
+		case HEXADECIMALINT:
+		case CharLiteral:
+		case FLOATONE:
+		case FLOATTWO:
+		{
+			expression_list();
+			break;
+		}
+		case RPAREN:
+		{
+			break;
+		}
+		default:
+		{
+			throw new NoViableAltException(LT(1), getFilename());
+		}
+		}
+		}
+		match(RPAREN);
+	}</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>7909</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>7993</td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>			match(RPAREN);
+			match(LPAREN);
+			{
+			switch ( LA(1)) {
+			case ID:
+			case StringLiteral:
+			case LITERAL__declspec:
+			case LITERAL___declspec:
+			case LPAREN:
+			case LITERAL_const_cast:
+			case LITERAL_char:
+			case LITERAL_wchar_t:
+			case LITERAL_bool:
+			case LITERAL_short:
+			case LITERAL_int:
+			case 44:
+			case 45:
+			case 46:
+			case LITERAL_long:
+			case LITERAL_signed:
+			case LITERAL_unsigned:
+			case LITERAL_float:
+			case LITERAL_double:
+			case LITERAL_void:
+			case OPERATOR:
+			case LITERAL_this:
+			case LITERAL_true:
+			case LITERAL_false:
+			case OCTALINT:
+			case STAR:
+			case AMPERSAND:
+			case TILDE:
+			case PLUS:
+			case MINUS:
+			case PLUSPLUS:
+			case MINUSMINUS:
+			case LITERAL_sizeof:
+			case SCOPE:
+			case LITERAL_dynamic_cast:
+			case LITERAL_static_cast:
+			case LITERAL_reinterpret_cast:
+			case NOT:
+			case LITERAL_new:
+			case LITERAL_delete:
+			case DECIMALINT:
+			case HEXADECIMALINT:
+			case CharLiteral:
+			case FLOATONE:
+			case FLOATTWO:
+			{
+				expression_list();
+				break;
+			}
+			case RPAREN:
+			{
+				break;
+			}
+			default:
+			{
+				throw new NoViableAltException(LT(1), getFilename());
+			}
+			}
+			}
+			match(RPAREN);
+		}
+		else {</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5736</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>7909</td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>		q=qualified_id();
+		match(LPAREN);
+		{
+		switch ( LA(1)) {
+		case ID:
+		case StringLiteral:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_const_cast:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case OCTALINT:
+		case STAR:
+		case AMPERSAND:
+		case TILDE:
+		case PLUS:
+		case MINUS:
+		case PLUSPLUS:
+		case MINUSMINUS:
+		case LITERAL_sizeof:
+		case SCOPE:
+		case LITERAL_dynamic_cast:
+		case LITERAL_static_cast:
+		case LITERAL_reinterpret_cast:
+		case NOT:
+		case LITERAL_new:
+		case LITERAL_delete:
+		case DECIMALINT:
+		case HEXADECIMALINT:
+		case CharLiteral:
+		case FLOATONE:
+		case FLOATTWO:
+		{
+			expression_list();
+			break;
+		}
+		case RPAREN:
+		{
+			break;
+		}
+		default:
+		{
+			throw new NoViableAltException(LT(1), getFilename());
+		}
+		}
+		}
+		match(RPAREN);
+	}</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>3832</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5160</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6062</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6163</td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>							if ((LA(1)==LSQUARE) &amp;&amp; (_tokenSet_32.member(LA(2)))) {
+								match(LSQUARE);
+								{
+								switch ( LA(1)) {
+								case ID:
+								case StringLiteral:
+								case LITERAL__declspec:
+								case LITERAL___declspec:
+								case LPAREN:
+								case LITERAL_const_cast:
+								case LITERAL_char:
+								case LITERAL_wchar_t:
+								case LITERAL_bool:
+								case LITERAL_short:
+								case LITERAL_int:
+								case 44:
+								case 45:
+								case 46:
+								case LITERAL_long:
+								case LITERAL_signed:
+								case LITERAL_unsigned:
+								case LITERAL_float:
+								case LITERAL_double:
+								case LITERAL_void:
+								case OPERATOR:
+								case LITERAL_this:
+								case LITERAL_true:
+								case LITERAL_false:
+								case OCTALINT:
+								case STAR:
+								case AMPERSAND:
+								case TILDE:
+								case PLUS:
+								case MINUS:
+								case PLUSPLUS:
+								case MINUSMINUS:
+								case LITERAL_sizeof:
+								case SCOPE:
+								case LITERAL_dynamic_cast:
+								case LITERAL_static_cast:
+								case LITERAL_reinterpret_cast:
+								case NOT:
+								case LITERAL_new:
+								case LITERAL_delete:
+								case DECIMALINT:
+								case HEXADECIMALINT:
+								case CharLiteral:
+								case FLOATONE:
+								case FLOATTWO:
+								{
+									constant_expression();
+									break;
+								}
+								case RSQUARE:
+								{
+									break;
+								}
+								default:
+								{
+									throw new NoViableAltException(LT(1), getFilename());
+								}
+								}
+								}
+								match(RSQUARE);</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>8072</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>8685</td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>					{
+						match(LPAREN);
+						{
+						switch ( LA(1)) {
+						case ID:
+						case StringLiteral:
+						case LITERAL__declspec:
+						case LITERAL___declspec:
+						case LPAREN:
+						case LITERAL_const_cast:
+						case LITERAL_char:
+						case LITERAL_wchar_t:
+						case LITERAL_bool:
+						case LITERAL_short:
+						case LITERAL_int:
+						case 44:
+						case 45:
+						case 46:
+						case LITERAL_long:
+						case LITERAL_signed:
+						case LITERAL_unsigned:
+						case LITERAL_float:
+						case LITERAL_double:
+						case LITERAL_void:
+						case OPERATOR:
+						case LITERAL_this:
+						case LITERAL_true:
+						case LITERAL_false:
+						case OCTALINT:
+						case STAR:
+						case AMPERSAND:
+						case TILDE:
+						case PLUS:
+						case MINUS:
+						case PLUSPLUS:
+						case MINUSMINUS:
+						case LITERAL_sizeof:
+						case SCOPE:
+						case LITERAL_dynamic_cast:
+						case LITERAL_static_cast:
+						case LITERAL_reinterpret_cast:
+						case NOT:
+						case LITERAL_new:
+						case LITERAL_delete:
+						case DECIMALINT:
+						case HEXADECIMALINT:
+						case CharLiteral:
+						case FLOATONE:
+						case FLOATTWO:
+						{
+							expression_list();
+							break;
+						}
+						case RPAREN:
+						{
+							break;
+						}
+						default:
+						{
+							throw new NoViableAltException(LT(1), getFilename());
+						}
+						}
+						}
+						match(RPAREN);</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>7910</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>7994</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>8688</td></tr>
+<tr class="a"><td colspan='2'>
+<div>
+<pre>			match(LPAREN);
+			{
+			switch ( LA(1)) {
+			case ID:
+			case StringLiteral:
+			case LITERAL__declspec:
+			case LITERAL___declspec:
+			case LPAREN:
+			case LITERAL_const_cast:
+			case LITERAL_char:
+			case LITERAL_wchar_t:
+			case LITERAL_bool:
+			case LITERAL_short:
+			case LITERAL_int:
+			case 44:
+			case 45:
+			case 46:
+			case LITERAL_long:
+			case LITERAL_signed:
+			case LITERAL_unsigned:
+			case LITERAL_float:
+			case LITERAL_double:
+			case LITERAL_void:
+			case OPERATOR:
+			case LITERAL_this:
+			case LITERAL_true:
+			case LITERAL_false:
+			case OCTALINT:
+			case STAR:
+			case AMPERSAND:
+			case TILDE:
+			case PLUS:
+			case MINUS:
+			case PLUSPLUS:
+			case MINUSMINUS:
+			case LITERAL_sizeof:
+			case SCOPE:
+			case LITERAL_dynamic_cast:
+			case LITERAL_static_cast:
+			case LITERAL_reinterpret_cast:
+			case NOT:
+			case LITERAL_new:
+			case LITERAL_delete:
+			case DECIMALINT:
+			case HEXADECIMALINT:
+			case CharLiteral:
+			case FLOATONE:
+			case FLOATTWO:
+			{
+				expression_list();
+				break;
+			}
+			case RPAREN:
+			{
+				break;
+			}
+			default:
+			{
+				throw new NoViableAltException(LT(1), getFilename());
+			}
+			}
+			}
+			match(RPAREN);
+		}</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5737</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>7910</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>7994</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>8073</td></tr>
+<tr class="a"><td colspan='2'>
+<div>
+<pre>		match(LPAREN);
+		{
+		switch ( LA(1)) {
+		case ID:
+		case StringLiteral:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_const_cast:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case OCTALINT:
+		case STAR:
+		case AMPERSAND:
+		case TILDE:
+		case PLUS:
+		case MINUS:
+		case PLUSPLUS:
+		case MINUSMINUS:
+		case LITERAL_sizeof:
+		case SCOPE:
+		case LITERAL_dynamic_cast:
+		case LITERAL_static_cast:
+		case LITERAL_reinterpret_cast:
+		case NOT:
+		case LITERAL_new:
+		case LITERAL_delete:
+		case DECIMALINT:
+		case HEXADECIMALINT:
+		case CharLiteral:
+		case FLOATONE:
+		case FLOATTWO:
+		{
+			expression_list();
+			break;
+		}
+		case RPAREN:
+		{
+			break;
+		}
+		default:
+		{
+			throw new NoViableAltException(LT(1), getFilename());
+		}
+		}
+		}
+		match(RPAREN);</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6760</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6946</td></tr>
+<tr class="a"><td colspan='2'>
+<div>
+<pre>			{
+			switch ( LA(1)) {
+			case ID:
+			case StringLiteral:
+			case LITERAL__declspec:
+			case LITERAL___declspec:
+			case LPAREN:
+			case LITERAL_const_cast:
+			case LITERAL_char:
+			case LITERAL_wchar_t:
+			case LITERAL_bool:
+			case LITERAL_short:
+			case LITERAL_int:
+			case 44:
+			case 45:
+			case 46:
+			case LITERAL_long:
+			case LITERAL_signed:
+			case LITERAL_unsigned:
+			case LITERAL_float:
+			case LITERAL_double:
+			case LITERAL_void:
+			case OPERATOR:
+			case LITERAL_this:
+			case LITERAL_true:
+			case LITERAL_false:
+			case OCTALINT:
+			case STAR:
+			case AMPERSAND:
+			case TILDE:
+			case PLUS:
+			case MINUS:
+			case PLUSPLUS:
+			case MINUSMINUS:
+			case LITERAL_sizeof:
+			case SCOPE:
+			case LITERAL_dynamic_cast:
+			case LITERAL_static_cast:
+			case LITERAL_reinterpret_cast:
+			case NOT:
+			case LITERAL_new:
+			case LITERAL_delete:
+			case DECIMALINT:
+			case HEXADECIMALINT:
+			case CharLiteral:
+			case FLOATONE:
+			case FLOATTWO:
+			{
+				expression();
+				break;
+			}
+			case SEMICOLON:
+			{
+				break;
+			}
+			default:
+			{
+				throw new NoViableAltException(LT(1), getFilename());
+			}
+			}
+			}</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6821</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6945</td></tr>
+<tr class="a"><td colspan='2'>
+<div>
+<pre>			match(SEMICOLON);
+			{
+			switch ( LA(1)) {
+			case ID:
+			case StringLiteral:
+			case LITERAL__declspec:
+			case LITERAL___declspec:
+			case LPAREN:
+			case LITERAL_const_cast:
+			case LITERAL_char:
+			case LITERAL_wchar_t:
+			case LITERAL_bool:
+			case LITERAL_short:
+			case LITERAL_int:
+			case 44:
+			case 45:
+			case 46:
+			case LITERAL_long:
+			case LITERAL_signed:
+			case LITERAL_unsigned:
+			case LITERAL_float:
+			case LITERAL_double:
+			case LITERAL_void:
+			case OPERATOR:
+			case LITERAL_this:
+			case LITERAL_true:
+			case LITERAL_false:
+			case OCTALINT:
+			case STAR:
+			case AMPERSAND:
+			case TILDE:
+			case PLUS:
+			case MINUS:
+			case PLUSPLUS:
+			case MINUSMINUS:
+			case LITERAL_sizeof:
+			case SCOPE:
+			case LITERAL_dynamic_cast:
+			case LITERAL_static_cast:
+			case LITERAL_reinterpret_cast:
+			case NOT:
+			case LITERAL_new:
+			case LITERAL_delete:
+			case DECIMALINT:
+			case HEXADECIMALINT:
+			case CharLiteral:
+			case FLOATONE:
+			case FLOATTWO:
+			{
+				expression();
+				break;
+			}
+			case RPAREN:</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6760</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6822</td></tr>
+<tr class="a"><td colspan='2'>
+<div>
+<pre>			{
+			switch ( LA(1)) {
+			case ID:
+			case StringLiteral:
+			case LITERAL__declspec:
+			case LITERAL___declspec:
+			case LPAREN:
+			case LITERAL_const_cast:
+			case LITERAL_char:
+			case LITERAL_wchar_t:
+			case LITERAL_bool:
+			case LITERAL_short:
+			case LITERAL_int:
+			case 44:
+			case 45:
+			case 46:
+			case LITERAL_long:
+			case LITERAL_signed:
+			case LITERAL_unsigned:
+			case LITERAL_float:
+			case LITERAL_double:
+			case LITERAL_void:
+			case OPERATOR:
+			case LITERAL_this:
+			case LITERAL_true:
+			case LITERAL_false:
+			case OCTALINT:
+			case STAR:
+			case AMPERSAND:
+			case TILDE:
+			case PLUS:
+			case MINUS:
+			case PLUSPLUS:
+			case MINUSMINUS:
+			case LITERAL_sizeof:
+			case SCOPE:
+			case LITERAL_dynamic_cast:
+			case LITERAL_static_cast:
+			case LITERAL_reinterpret_cast:
+			case NOT:
+			case LITERAL_new:
+			case LITERAL_delete:
+			case DECIMALINT:
+			case HEXADECIMALINT:
+			case CharLiteral:
+			case FLOATONE:
+			case FLOATTWO:
+			{
+				expression();
+				break;
+			}
+			case SEMICOLON:</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>896</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>2727</td></tr>
+<tr class="a"><td colspan='2'>
+<div>
+<pre>													if ( synPredMatched36 ) {
+														template_head();
+														declaration_specifiers();
+														{
+														switch ( LA(1)) {
+														case ID:
+														case LITERAL__stdcall:
+														case LITERAL___stdcall:
+														case LPAREN:
+														case OPERATOR:
+														case LITERAL_this:
+														case LITERAL_true:
+														case LITERAL_false:
+														case STAR:
+														case AMPERSAND:
+														case TILDE:
+														case SCOPE:
+														case LITERAL__cdecl:
+														case LITERAL___cdecl:
+														case LITERAL__near:
+														case LITERAL___near:
+														case LITERAL__far:
+														case LITERAL___far:
+														case LITERAL___interrupt:
+														case LITERAL_pascal:
+														case LITERAL__pascal:
+														case LITERAL___pascal:
+														{
+															init_declarator_list();
+															break;
+														}
+														case SEMICOLON:
+														{
+															break;
+														}
+														default:
+														{
+															throw new NoViableAltException(LT(1), getFilename());
+														}
+														}
+														}
+														match(SEMICOLON);
+													}
+													else if ((LA(1)==LITERAL_template) &amp;&amp; (LA(2)==LESSTHAN)) {
+														template_head();
+														{
+														boolean synPredMatched40 = false;</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>4569</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6759</td></tr>
+<tr class="a"><td colspan='2'>
+<div>
+<pre>		}
+		{
+		switch ( LA(1)) {
+		case ID:
+		case StringLiteral:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_const_cast:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case OCTALINT:
+		case STAR:
+		case AMPERSAND:
+		case TILDE:
+		case PLUS:
+		case MINUS:
+		case PLUSPLUS:
+		case MINUSMINUS:
+		case LITERAL_sizeof:
+		case SCOPE:
+		case LITERAL_dynamic_cast:
+		case LITERAL_static_cast:
+		case LITERAL_reinterpret_cast:
+		case NOT:
+		case LITERAL_new:
+		case LITERAL_delete:
+		case DECIMALINT:
+		case HEXADECIMALINT:
+		case CharLiteral:
+		case FLOATONE:
+		case FLOATTWO:
+		{</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>3833</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5161</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5737</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6063</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6164</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6821</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6945</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>7051</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>7910</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>7994</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>8073</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>8688</td></tr>
+<tr class="a"><td colspan='2'>
+<div>
+<pre>								match(LSQUARE);
+								{
+								switch ( LA(1)) {
+								case ID:
+								case StringLiteral:
+								case LITERAL__declspec:
+								case LITERAL___declspec:
+								case LPAREN:
+								case LITERAL_const_cast:
+								case LITERAL_char:
+								case LITERAL_wchar_t:
+								case LITERAL_bool:
+								case LITERAL_short:
+								case LITERAL_int:
+								case 44:
+								case 45:
+								case 46:
+								case LITERAL_long:
+								case LITERAL_signed:
+								case LITERAL_unsigned:
+								case LITERAL_float:
+								case LITERAL_double:
+								case LITERAL_void:
+								case OPERATOR:
+								case LITERAL_this:
+								case LITERAL_true:
+								case LITERAL_false:
+								case OCTALINT:
+								case STAR:
+								case AMPERSAND:
+								case TILDE:
+								case PLUS:
+								case MINUS:
+								case PLUSPLUS:
+								case MINUSMINUS:
+								case LITERAL_sizeof:
+								case SCOPE:
+								case LITERAL_dynamic_cast:
+								case LITERAL_static_cast:
+								case LITERAL_reinterpret_cast:
+								case NOT:
+								case LITERAL_new:
+								case LITERAL_delete:
+								case DECIMALINT:
+								case HEXADECIMALINT:
+								case CharLiteral:
+								case FLOATONE:
+								case FLOATTWO:
+								{</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>3834</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>4570</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5162</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5738</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6064</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6165</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6760</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6822</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6946</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>7052</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>7911</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>7995</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>8074</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>8689</td></tr>
+<tr class="a"><td colspan='2'>
+<div>
+<pre>								{
+								switch ( LA(1)) {
+								case ID:
+								case StringLiteral:
+								case LITERAL__declspec:
+								case LITERAL___declspec:
+								case LPAREN:
+								case LITERAL_const_cast:
+								case LITERAL_char:
+								case LITERAL_wchar_t:
+								case LITERAL_bool:
+								case LITERAL_short:
+								case LITERAL_int:
+								case 44:
+								case 45:
+								case 46:
+								case LITERAL_long:
+								case LITERAL_signed:
+								case LITERAL_unsigned:
+								case LITERAL_float:
+								case LITERAL_double:
+								case LITERAL_void:
+								case OPERATOR:
+								case LITERAL_this:
+								case LITERAL_true:
+								case LITERAL_false:
+								case OCTALINT:
+								case STAR:
+								case AMPERSAND:
+								case TILDE:
+								case PLUS:
+								case MINUS:
+								case PLUSPLUS:
+								case MINUSMINUS:
+								case LITERAL_sizeof:
+								case SCOPE:
+								case LITERAL_dynamic_cast:
+								case LITERAL_static_cast:
+								case LITERAL_reinterpret_cast:
+								case NOT:
+								case LITERAL_new:
+								case LITERAL_delete:
+								case DECIMALINT:
+								case HEXADECIMALINT:
+								case CharLiteral:
+								case FLOATONE:
+								case FLOATTWO:
+								{</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>3836</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>4572</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5164</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5740</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6066</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6167</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6762</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6824</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6948</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>7054</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>7913</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>7997</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>8076</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>8449</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>8691</td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>								case ID:
+								case StringLiteral:
+								case LITERAL__declspec:
+								case LITERAL___declspec:
+								case LPAREN:
+								case LITERAL_const_cast:
+								case LITERAL_char:
+								case LITERAL_wchar_t:
+								case LITERAL_bool:
+								case LITERAL_short:
+								case LITERAL_int:
+								case 44:
+								case 45:
+								case 46:
+								case LITERAL_long:
+								case LITERAL_signed:
+								case LITERAL_unsigned:
+								case LITERAL_float:
+								case LITERAL_double:
+								case LITERAL_void:
+								case OPERATOR:
+								case LITERAL_this:
+								case LITERAL_true:
+								case LITERAL_false:
+								case OCTALINT:
+								case STAR:
+								case AMPERSAND:
+								case TILDE:
+								case PLUS:
+								case MINUS:
+								case PLUSPLUS:
+								case MINUSMINUS:
+								case LITERAL_sizeof:
+								case SCOPE:
+								case LITERAL_dynamic_cast:
+								case LITERAL_static_cast:
+								case LITERAL_reinterpret_cast:
+								case NOT:
+								case LITERAL_new:
+								case LITERAL_delete:
+								case DECIMALINT:
+								case HEXADECIMALINT:
+								case CharLiteral:
+								case FLOATONE:
+								case FLOATTWO:
+								{</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>843</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>2674</td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>														synPredMatched36 = true;
+														inputState.guessing++;
+														try {
+															{
+															template_head();
+															declaration_specifiers();
+															{
+															switch ( LA(1)) {
+															case ID:
+															case LITERAL__stdcall:
+															case LITERAL___stdcall:
+															case LPAREN:
+															case OPERATOR:
+															case LITERAL_this:
+															case LITERAL_true:
+															case LITERAL_false:
+															case STAR:
+															case AMPERSAND:
+															case TILDE:
+															case SCOPE:
+															case LITERAL__cdecl:
+															case LITERAL___cdecl:
+															case LITERAL__near:
+															case LITERAL___near:
+															case LITERAL__far:
+															case LITERAL___far:
+															case LITERAL___interrupt:
+															case LITERAL_pascal:
+															case LITERAL__pascal:
+															case LITERAL___pascal:
+															{
+																init_declarator_list();
+																break;
+															}
+															case SEMICOLON:
+															{
+																break;
+															}
+															default:
+															{
+																throw new NoViableAltException(LT(1), getFilename());
+															}
+															}
+															}
+															match(SEMICOLON);
+															}
+														}
+														catch (RecognitionException pe) {</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5543</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5603</td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>			match(OCTALINT);
+			break;
+		}
+		case LITERAL_typedef:
+		case LITERAL_enum:
+		case ID:
+		case LCURLY:
+		case SEMICOLON:
+		case LITERAL_inline:
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case LITERAL_throw:</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>3196</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>3540</td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>			match(RCURLY);
+			break;
+		}
+		case LITERAL_typedef:
+		case LITERAL_enum:
+		case ID:
+		case LITERAL_inline:
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case LITERAL_using:</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>3543</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>8322</td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>					case LITERAL_typedef:
+					case LITERAL_enum:
+					case ID:
+					case LITERAL_inline:
+					case LITERAL_extern:
+					case LITERAL__inline:
+					case LITERAL___inline:
+					case LITERAL_virtual:
+					case LITERAL_explicit:
+					case LITERAL_friend:
+					case LITERAL__stdcall:
+					case LITERAL___stdcall:
+					case LITERAL__declspec:
+					case LITERAL___declspec:
+					case LITERAL_typename:
+					case LITERAL_auto:
+					case LITERAL_register:
+					case LITERAL_static:
+					case LITERAL_mutable:
+					case LITERAL_const:
+					case LITERAL_const_cast:
+					case LITERAL_volatile:
+					case LITERAL_char:
+					case LITERAL_wchar_t:
+					case LITERAL_bool:
+					case LITERAL_short:
+					case LITERAL_int:
+					case 44:
+					case 45:
+					case 46:
+					case LITERAL_long:
+					case LITERAL_signed:
+					case LITERAL_unsigned:
+					case LITERAL_float:
+					case LITERAL_double:
+					case LITERAL_void:
+					case LITERAL_class:
+					case LITERAL_struct:
+					case LITERAL_union:
+					case SCOPE:
+					{</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>2277</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>2602</td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>					enum_specifier();
+					{
+					switch ( LA(1)) {
+					case ID:
+					case COLON:
+					case LITERAL__stdcall:
+					case LITERAL___stdcall:
+					case LPAREN:
+					case OPERATOR:
+					case LITERAL_this:
+					case LITERAL_true:
+					case LITERAL_false:
+					case STAR:
+					case AMPERSAND:
+					case TILDE:
+					case SCOPE:
+					case LITERAL__cdecl:
+					case LITERAL___cdecl:
+					case LITERAL__near:
+					case LITERAL___near:
+					case LITERAL__far:
+					case LITERAL___far:
+					case LITERAL___interrupt:
+					case LITERAL_pascal:
+					case LITERAL__pascal:
+					case LITERAL___pascal:
+					{
+						member_declarator_list();
+						break;
+					}
+					case SEMICOLON:
+					{
+						break;
+					}
+					default:
+					{
+						throw new NoViableAltException(LT(1), getFilename());
+					}
+					}
+					}
+					match(SEMICOLON);
+				}
+				else {
+					boolean synPredMatched60 = false;</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>1583</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>2935</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>3042</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>3446</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>3613</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5241</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5456</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>6238</td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LPAREN:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case OPERATOR:
+		case LITERAL_this:
+		case LITERAL_true:
+		case LITERAL_false:
+		case STAR:</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>846</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>896</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>2677</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>2727</td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>															{
+															template_head();
+															declaration_specifiers();
+															{
+															switch ( LA(1)) {
+															case ID:
+															case LITERAL__stdcall:
+															case LITERAL___stdcall:
+															case LPAREN:
+															case OPERATOR:
+															case LITERAL_this:
+															case LITERAL_true:
+															case LITERAL_false:
+															case STAR:
+															case AMPERSAND:
+															case TILDE:
+															case SCOPE:
+															case LITERAL__cdecl:
+															case LITERAL___cdecl:
+															case LITERAL__near:
+															case LITERAL___near:
+															case LITERAL__far:
+															case LITERAL___far:
+															case LITERAL___interrupt:
+															case LITERAL_pascal:
+															case LITERAL__pascal:
+															case LITERAL___pascal:
+															{
+																init_declarator_list();
+																break;
+															}
+															case SEMICOLON:
+															{
+																break;
+															}
+															default:
+															{
+																throw new NoViableAltException(LT(1), getFilename());
+															}
+															}
+															}
+															match(SEMICOLON);
+															}</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>3199</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>8322</td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>		case LITERAL_typedef:
+		case LITERAL_enum:
+		case ID:
+		case LITERAL_inline:
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case LITERAL_using:</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>3201</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5610</td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>		case ID:
+		case LITERAL_inline:
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case LITERAL_using:
+		case SCOPE:
+		{</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>569</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>898</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>2729</td></tr>
+<tr class="a"><td colspan='2'>
+<div>
+<pre>							enum_specifier();
+							{
+							switch ( LA(1)) {
+							case ID:
+							case LITERAL__stdcall:
+							case LITERAL___stdcall:
+							case LPAREN:
+							case OPERATOR:
+							case LITERAL_this:
+							case LITERAL_true:
+							case LITERAL_false:
+							case STAR:
+							case AMPERSAND:
+							case TILDE:
+							case SCOPE:
+							case LITERAL__cdecl:
+							case LITERAL___cdecl:
+							case LITERAL__near:
+							case LITERAL___near:
+							case LITERAL__far:
+							case LITERAL___far:
+							case LITERAL___interrupt:
+							case LITERAL_pascal:
+							case LITERAL__pascal:
+							case LITERAL___pascal:
+							{
+								init_declarator_list();
+								break;
+							}
+							case SEMICOLON:
+							{
+								break;
+							}
+							default:
+							{
+								throw new NoViableAltException(LT(1), getFilename());
+							}
+							}
+							}
+							match(SEMICOLON);
+						}
+						else {</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>569</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>848</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>2679</td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>							enum_specifier();
+							{
+							switch ( LA(1)) {
+							case ID:
+							case LITERAL__stdcall:
+							case LITERAL___stdcall:
+							case LPAREN:
+							case OPERATOR:
+							case LITERAL_this:
+							case LITERAL_true:
+							case LITERAL_false:
+							case STAR:
+							case AMPERSAND:
+							case TILDE:
+							case SCOPE:
+							case LITERAL__cdecl:
+							case LITERAL___cdecl:
+							case LITERAL__near:
+							case LITERAL___near:
+							case LITERAL__far:
+							case LITERAL___far:
+							case LITERAL___interrupt:
+							case LITERAL_pascal:
+							case LITERAL__pascal:
+							case LITERAL___pascal:
+							{
+								init_declarator_list();
+								break;
+							}
+							case SEMICOLON:
+							{
+								break;
+							}
+							default:
+							{
+								throw new NoViableAltException(LT(1), getFilename());
+							}
+							}
+							}
+							match(SEMICOLON);
+						}</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>1778</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5810</td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>				case LITERAL_inline:
+				case LITERAL__inline:
+				case LITERAL___inline:
+				{
+					{
+					switch ( LA(1)) {
+					case LITERAL_inline:
+					{
+						match(LITERAL_inline);
+						break;
+					}
+					case LITERAL__inline:
+					{
+						match(LITERAL__inline);
+						break;
+					}
+					case LITERAL___inline:
+					{
+						match(LITERAL___inline);
+						break;
+					}
+					default:
+					{
+						throw new NoViableAltException(LT(1), getFilename());
+					}
+					}
+					}
+					if ( inputState.guessing==0 ) {
+						declSpecs.add(&quot;inline&quot;);
+					}
+					break;
+				}
+				case LITERAL_virtual:
+				{
+					match(LITERAL_virtual);
+					if ( inputState.guessing==0 ) {
+						declSpecs.add(&quot;virtual&quot;);
+					}
+					break;
+				}</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>3201</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>3545</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5550</td></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>5610</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>8324</td></tr>
+<tr class="a"><td colspan='2'>
+<div>
+<pre>		case ID:
+		case LITERAL_inline:
+		case LITERAL_extern:
+		case LITERAL__inline:
+		case LITERAL___inline:
+		case LITERAL_virtual:
+		case LITERAL_explicit:
+		case LITERAL_friend:
+		case LITERAL__stdcall:
+		case LITERAL___stdcall:
+		case LITERAL__declspec:
+		case LITERAL___declspec:
+		case LITERAL_typename:
+		case LITERAL_auto:
+		case LITERAL_register:
+		case LITERAL_static:
+		case LITERAL_mutable:
+		case LITERAL_const:
+		case LITERAL_const_cast:
+		case LITERAL_volatile:
+		case LITERAL_char:
+		case LITERAL_wchar_t:
+		case LITERAL_bool:
+		case LITERAL_short:
+		case LITERAL_int:
+		case 44:
+		case 45:
+		case 46:
+		case LITERAL_long:
+		case LITERAL_signed:
+		case LITERAL_unsigned:
+		case LITERAL_float:
+		case LITERAL_double:
+		case LITERAL_void:
+		case LITERAL_class:
+		case LITERAL_struct:
+		case LITERAL_union:
+		case LITERAL_using:</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="a">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>2109</td></tr>
+<tr class="b">
+<td>org/argouml/language/cpp/reveng/CPPParser.java</td>
+<td>4279</td></tr>
+<tr class="a"><td colspan='2'>
+<div>
+<pre>			id = LT(1);
+			match(ID);
+			{
+			if ((LA(1)==LESSTHAN) &amp;&amp; (_tokenSet_24.member(LA(2)))) {
+				match(LESSTHAN);
+				template_argument_list();
+				match(GREATERTHAN);
+			}
+			else if ((_tokenSet_25.member(LA(1))) &amp;&amp; (_tokenSet_26.member(LA(2)))) {
+			}
+			else {
+				throw new NoViableAltException(LT(1), getFilename());
+			}
+			
+			}
+			if ( inputState.guessing==0 ) {
+				
+						qitem=qitem+id.getText();</pre></div></td></tr></table></div>
       </div>
     </div>
     <div class="clear">

@@ -1,0 +1,2235 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CPPLexer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">argo_cpp</a> &gt; <a href="index.source.html" class="el_package">org.argouml.language.cpp.reveng</a> &gt; <span class="el_source">CPPLexer.java</span></div><h1>CPPLexer.java</h1><pre class="source lang-java linenums">// $ANTLR 2.7.7 (20060930): &quot;CppParser4Java.g&quot; -&gt; &quot;CPPLexer.java&quot;$
+
+/*REMOVE_BEGIN*/
+package org.argouml.language.cpp.reveng;
+/*REMOVE_END*/
+
+import java.util.Hashtable;
+import java.util.List;
+import java.util.ArrayList;
+
+import java.io.InputStream;
+import antlr.TokenStreamException;
+import antlr.TokenStreamIOException;
+import antlr.TokenStreamRecognitionException;
+import antlr.CharStreamException;
+import antlr.CharStreamIOException;
+import antlr.ANTLRException;
+import java.io.Reader;
+import java.util.Hashtable;
+import antlr.CharScanner;
+import antlr.InputBuffer;
+import antlr.ByteBuffer;
+import antlr.CharBuffer;
+import antlr.Token;
+import antlr.CommonToken;
+import antlr.RecognitionException;
+import antlr.NoViableAltForCharException;
+import antlr.MismatchedCharException;
+import antlr.TokenStream;
+import antlr.ANTLRHashString;
+import antlr.LexerSharedInputState;
+import antlr.collections.impl.BitSet;
+import antlr.SemanticException;
+
+public class CPPLexer extends antlr.CharScanner implements STDCTokenTypes, TokenStream
+ {
+public CPPLexer(InputStream in) {
+<span class="fc" id="L38">	this(new ByteBuffer(in));</span>
+<span class="fc" id="L39">}</span>
+public CPPLexer(Reader in) {
+<span class="fc" id="L41">	this(new CharBuffer(in));</span>
+<span class="fc" id="L42">}</span>
+public CPPLexer(InputBuffer ib) {
+<span class="fc" id="L44">	this(new LexerSharedInputState(ib));</span>
+<span class="fc" id="L45">}</span>
+public CPPLexer(LexerSharedInputState state) {
+<span class="fc" id="L47">	super(state);</span>
+<span class="fc" id="L48">	caseSensitiveLiterals = true;</span>
+<span class="fc" id="L49">	setCaseSensitive(true);</span>
+<span class="fc" id="L50">	literals = new Hashtable();</span>
+<span class="fc" id="L51">	literals.put(new ANTLRHashString(&quot;_cdecl&quot;, this), new Integer(126));</span>
+<span class="fc" id="L52">	literals.put(new ANTLRHashString(&quot;__stdcall&quot;, this), new Integer(26));</span>
+<span class="fc" id="L53">	literals.put(new ANTLRHashString(&quot;extern&quot;, this), new Integer(17));</span>
+<span class="fc" id="L54">	literals.put(new ANTLRHashString(&quot;public&quot;, this), new Integer(60));</span>
+<span class="fc" id="L55">	literals.put(new ANTLRHashString(&quot;namespace&quot;, this), new Integer(13));</span>
+<span class="fc" id="L56">	literals.put(new ANTLRHashString(&quot;case&quot;, this), new Integer(71));</span>
+<span class="fc" id="L57">	literals.put(new ANTLRHashString(&quot;short&quot;, this), new Integer(42));</span>
+<span class="fc" id="L58">	literals.put(new ANTLRHashString(&quot;break&quot;, this), new Integer(81));</span>
+<span class="fc" id="L59">	literals.put(new ANTLRHashString(&quot;while&quot;, this), new Integer(76));</span>
+<span class="fc" id="L60">	literals.put(new ANTLRHashString(&quot;delete&quot;, this), new Integer(136));</span>
+<span class="fc" id="L61">	literals.put(new ANTLRHashString(&quot;new&quot;, this), new Integer(125));</span>
+<span class="fc" id="L62">	literals.put(new ANTLRHashString(&quot;__declspec&quot;, this), new Integer(28));</span>
+<span class="fc" id="L63">	literals.put(new ANTLRHashString(&quot;__pascal&quot;, this), new Integer(135));</span>
+<span class="fc" id="L64">	literals.put(new ANTLRHashString(&quot;template&quot;, this), new Integer(4));</span>
+<span class="fc" id="L65">	literals.put(new ANTLRHashString(&quot;reinterpret_cast&quot;, this), new Integer(123));</span>
+<span class="fc" id="L66">	literals.put(new ANTLRHashString(&quot;inline&quot;, this), new Integer(12));</span>
+<span class="fc" id="L67">	literals.put(new ANTLRHashString(&quot;unsigned&quot;, this), new Integer(49));</span>
+<span class="fc" id="L68">	literals.put(new ANTLRHashString(&quot;const&quot;, this), new Integer(36));</span>
+<span class="fc" id="L69">	literals.put(new ANTLRHashString(&quot;float&quot;, this), new Integer(50));</span>
+<span class="fc" id="L70">	literals.put(new ANTLRHashString(&quot;static_cast&quot;, this), new Integer(122));</span>
+<span class="fc" id="L71">	literals.put(new ANTLRHashString(&quot;return&quot;, this), new Integer(82));</span>
+<span class="fc" id="L72">	literals.put(new ANTLRHashString(&quot;throw&quot;, this), new Integer(70));</span>
+<span class="fc" id="L73">	literals.put(new ANTLRHashString(&quot;typename&quot;, this), new Integer(31));</span>
+<span class="fc" id="L74">	literals.put(new ANTLRHashString(&quot;using&quot;, this), new Integer(85));</span>
+<span class="fc" id="L75">	literals.put(new ANTLRHashString(&quot;operator&quot;, this), new Integer(56));</span>
+<span class="fc" id="L76">	literals.put(new ANTLRHashString(&quot;__far&quot;, this), new Integer(131));</span>
+<span class="fc" id="L77">	literals.put(new ANTLRHashString(&quot;sizeof&quot;, this), new Integer(117));</span>
+<span class="fc" id="L78">	literals.put(new ANTLRHashString(&quot;protected&quot;, this), new Integer(61));</span>
+<span class="fc" id="L79">	literals.put(new ANTLRHashString(&quot;class&quot;, this), new Integer(53));</span>
+<span class="fc" id="L80">	literals.put(new ANTLRHashString(&quot;_stdcall&quot;, this), new Integer(25));</span>
+<span class="fc" id="L81">	literals.put(new ANTLRHashString(&quot;friend&quot;, this), new Integer(24));</span>
+<span class="fc" id="L82">	literals.put(new ANTLRHashString(&quot;do&quot;, this), new Integer(77));</span>
+<span class="fc" id="L83">	literals.put(new ANTLRHashString(&quot;__interrupt&quot;, this), new Integer(132));</span>
+<span class="fc" id="L84">	literals.put(new ANTLRHashString(&quot;_far&quot;, this), new Integer(130));</span>
+<span class="fc" id="L85">	literals.put(new ANTLRHashString(&quot;__cdecl&quot;, this), new Integer(127));</span>
+<span class="fc" id="L86">	literals.put(new ANTLRHashString(&quot;_int64&quot;, this), new Integer(44));</span>
+<span class="fc" id="L87">	literals.put(new ANTLRHashString(&quot;__asm&quot;, this), new Integer(87));</span>
+<span class="fc" id="L88">	literals.put(new ANTLRHashString(&quot;pascal&quot;, this), new Integer(133));</span>
+<span class="fc" id="L89">	literals.put(new ANTLRHashString(&quot;typedef&quot;, this), new Integer(7));</span>
+<span class="fc" id="L90">	literals.put(new ANTLRHashString(&quot;const_cast&quot;, this), new Integer(37));</span>
+<span class="fc" id="L91">	literals.put(new ANTLRHashString(&quot;explicit&quot;, this), new Integer(23));</span>
+<span class="fc" id="L92">	literals.put(new ANTLRHashString(&quot;_asm&quot;, this), new Integer(86));</span>
+<span class="fc" id="L93">	literals.put(new ANTLRHashString(&quot;if&quot;, this), new Integer(73));</span>
+<span class="fc" id="L94">	literals.put(new ANTLRHashString(&quot;double&quot;, this), new Integer(51));</span>
+<span class="fc" id="L95">	literals.put(new ANTLRHashString(&quot;volatile&quot;, this), new Integer(38));</span>
+<span class="fc" id="L96">	literals.put(new ANTLRHashString(&quot;catch&quot;, this), new Integer(84));</span>
+<span class="fc" id="L97">	literals.put(new ANTLRHashString(&quot;union&quot;, this), new Integer(55));</span>
+<span class="fc" id="L98">	literals.put(new ANTLRHashString(&quot;dynamic_cast&quot;, this), new Integer(121));</span>
+<span class="fc" id="L99">	literals.put(new ANTLRHashString(&quot;try&quot;, this), new Integer(83));</span>
+<span class="fc" id="L100">	literals.put(new ANTLRHashString(&quot;register&quot;, this), new Integer(33));</span>
+<span class="fc" id="L101">	literals.put(new ANTLRHashString(&quot;_inline&quot;, this), new Integer(20));</span>
+<span class="fc" id="L102">	literals.put(new ANTLRHashString(&quot;auto&quot;, this), new Integer(32));</span>
+<span class="fc" id="L103">	literals.put(new ANTLRHashString(&quot;goto&quot;, this), new Integer(79));</span>
+<span class="fc" id="L104">	literals.put(new ANTLRHashString(&quot;enum&quot;, this), new Integer(8));</span>
+<span class="fc" id="L105">	literals.put(new ANTLRHashString(&quot;int&quot;, this), new Integer(43));</span>
+<span class="fc" id="L106">	literals.put(new ANTLRHashString(&quot;for&quot;, this), new Integer(78));</span>
+<span class="fc" id="L107">	literals.put(new ANTLRHashString(&quot;char&quot;, this), new Integer(39));</span>
+<span class="fc" id="L108">	literals.put(new ANTLRHashString(&quot;__near&quot;, this), new Integer(129));</span>
+<span class="fc" id="L109">	literals.put(new ANTLRHashString(&quot;private&quot;, this), new Integer(62));</span>
+<span class="fc" id="L110">	literals.put(new ANTLRHashString(&quot;default&quot;, this), new Integer(72));</span>
+<span class="fc" id="L111">	literals.put(new ANTLRHashString(&quot;false&quot;, this), new Integer(59));</span>
+<span class="fc" id="L112">	literals.put(new ANTLRHashString(&quot;this&quot;, this), new Integer(57));</span>
+<span class="fc" id="L113">	literals.put(new ANTLRHashString(&quot;static&quot;, this), new Integer(34));</span>
+<span class="fc" id="L114">	literals.put(new ANTLRHashString(&quot;mutable&quot;, this), new Integer(35));</span>
+<span class="fc" id="L115">	literals.put(new ANTLRHashString(&quot;continue&quot;, this), new Integer(80));</span>
+<span class="fc" id="L116">	literals.put(new ANTLRHashString(&quot;bool&quot;, this), new Integer(41));</span>
+<span class="fc" id="L117">	literals.put(new ANTLRHashString(&quot;struct&quot;, this), new Integer(54));</span>
+<span class="fc" id="L118">	literals.put(new ANTLRHashString(&quot;_near&quot;, this), new Integer(128));</span>
+<span class="fc" id="L119">	literals.put(new ANTLRHashString(&quot;__int64&quot;, this), new Integer(45));</span>
+<span class="fc" id="L120">	literals.put(new ANTLRHashString(&quot;signed&quot;, this), new Integer(48));</span>
+<span class="fc" id="L121">	literals.put(new ANTLRHashString(&quot;else&quot;, this), new Integer(74));</span>
+<span class="fc" id="L122">	literals.put(new ANTLRHashString(&quot;_declspec&quot;, this), new Integer(27));</span>
+<span class="fc" id="L123">	literals.put(new ANTLRHashString(&quot;_pascal&quot;, this), new Integer(134));</span>
+<span class="fc" id="L124">	literals.put(new ANTLRHashString(&quot;__w64&quot;, this), new Integer(46));</span>
+<span class="fc" id="L125">	literals.put(new ANTLRHashString(&quot;void&quot;, this), new Integer(52));</span>
+<span class="fc" id="L126">	literals.put(new ANTLRHashString(&quot;wchar_t&quot;, this), new Integer(40));</span>
+<span class="fc" id="L127">	literals.put(new ANTLRHashString(&quot;switch&quot;, this), new Integer(75));</span>
+<span class="fc" id="L128">	literals.put(new ANTLRHashString(&quot;__inline&quot;, this), new Integer(21));</span>
+<span class="fc" id="L129">	literals.put(new ANTLRHashString(&quot;true&quot;, this), new Integer(58));</span>
+<span class="fc" id="L130">	literals.put(new ANTLRHashString(&quot;long&quot;, this), new Integer(47));</span>
+<span class="fc" id="L131">	literals.put(new ANTLRHashString(&quot;virtual&quot;, this), new Integer(22));</span>
+<span class="fc" id="L132">}</span>
+
+public Token nextToken() throws TokenStreamException {
+<span class="fc" id="L135">	Token theRetToken=null;</span>
+tryAgain:
+	for (;;) {
+<span class="fc" id="L138">		Token _token = null;</span>
+<span class="fc" id="L139">		int _ttype = Token.INVALID_TYPE;</span>
+<span class="fc" id="L140">		resetText();</span>
+		try {   // for char stream error handling
+			try {   // for lexical error handling
+<span class="pc bpc" id="L143" title="3 of 16 branches missed.">				switch ( LA(1)) {</span>
+				case ',':
+				{
+<span class="fc" id="L146">					mCOMMA(true);</span>
+<span class="fc" id="L147">					theRetToken=_returnToken;</span>
+<span class="fc" id="L148">					break;</span>
+				}
+				case '?':
+				{
+<span class="nc" id="L152">					mQUESTIONMARK(true);</span>
+<span class="nc" id="L153">					theRetToken=_returnToken;</span>
+<span class="nc" id="L154">					break;</span>
+				}
+				case ';':
+				{
+<span class="fc" id="L158">					mSEMICOLON(true);</span>
+<span class="fc" id="L159">					theRetToken=_returnToken;</span>
+<span class="fc" id="L160">					break;</span>
+				}
+				case '(':
+				{
+<span class="fc" id="L164">					mLPAREN(true);</span>
+<span class="fc" id="L165">					theRetToken=_returnToken;</span>
+<span class="fc" id="L166">					break;</span>
+				}
+				case ')':
+				{
+<span class="fc" id="L170">					mRPAREN(true);</span>
+<span class="fc" id="L171">					theRetToken=_returnToken;</span>
+<span class="fc" id="L172">					break;</span>
+				}
+				case '[':
+				{
+<span class="fc" id="L176">					mLSQUARE(true);</span>
+<span class="fc" id="L177">					theRetToken=_returnToken;</span>
+<span class="fc" id="L178">					break;</span>
+				}
+				case ']':
+				{
+<span class="fc" id="L182">					mRSQUARE(true);</span>
+<span class="fc" id="L183">					theRetToken=_returnToken;</span>
+<span class="fc" id="L184">					break;</span>
+				}
+				case '{':
+				{
+<span class="fc" id="L188">					mLCURLY(true);</span>
+<span class="fc" id="L189">					theRetToken=_returnToken;</span>
+<span class="fc" id="L190">					break;</span>
+				}
+				case '}':
+				{
+<span class="fc" id="L194">					mRCURLY(true);</span>
+<span class="fc" id="L195">					theRetToken=_returnToken;</span>
+<span class="fc" id="L196">					break;</span>
+				}
+				case '~':
+				{
+<span class="fc" id="L200">					mTILDE(true);</span>
+<span class="fc" id="L201">					theRetToken=_returnToken;</span>
+<span class="fc" id="L202">					break;</span>
+				}
+				case '\t':  case '\n':  case '\u000c':  case '\r':
+				case ' ':  case '\\':
+				{
+<span class="fc" id="L207">					mWhitespace(true);</span>
+<span class="fc" id="L208">					theRetToken=_returnToken;</span>
+<span class="fc" id="L209">					break;</span>
+				}
+				case '#':
+				{
+<span class="nc" id="L213">					mDIRECTIVE(true);</span>
+<span class="nc" id="L214">					theRetToken=_returnToken;</span>
+<span class="nc" id="L215">					break;</span>
+				}
+				case '\'':
+				{
+<span class="fc" id="L219">					mCharLiteral(true);</span>
+<span class="fc" id="L220">					theRetToken=_returnToken;</span>
+<span class="fc" id="L221">					break;</span>
+				}
+				case '&quot;':
+				{
+<span class="nc" id="L225">					mStringLiteral(true);</span>
+<span class="nc" id="L226">					theRetToken=_returnToken;</span>
+<span class="nc" id="L227">					break;</span>
+				}
+				case 'A':  case 'B':  case 'C':  case 'D':
+				case 'E':  case 'F':  case 'G':  case 'H':
+				case 'I':  case 'J':  case 'K':  case 'L':
+				case 'M':  case 'N':  case 'O':  case 'P':
+				case 'Q':  case 'R':  case 'S':  case 'T':
+				case 'U':  case 'V':  case 'W':  case 'X':
+				case 'Y':  case 'Z':  case '_':  case 'a':
+				case 'b':  case 'c':  case 'd':  case 'e':
+				case 'f':  case 'g':  case 'h':  case 'i':
+				case 'j':  case 'k':  case 'l':  case 'm':
+				case 'n':  case 'o':  case 'p':  case 'q':
+				case 'r':  case 's':  case 't':  case 'u':
+				case 'v':  case 'w':  case 'x':  case 'y':
+				case 'z':
+				{
+<span class="fc" id="L244">					mID(true);</span>
+<span class="fc" id="L245">					theRetToken=_returnToken;</span>
+<span class="fc" id="L246">					break;</span>
+				}
+				default:
+<span class="pc bpc" id="L249" title="3 of 6 branches missed.">					if ((LA(1)=='&gt;') &amp;&amp; (LA(2)=='&gt;') &amp;&amp; (LA(3)=='=')) {</span>
+<span class="nc" id="L250">						mSHIFTRIGHTEQUAL(true);</span>
+<span class="nc" id="L251">						theRetToken=_returnToken;</span>
+					}
+<span class="pc bpc" id="L253" title="3 of 6 branches missed.">					else if ((LA(1)=='&lt;') &amp;&amp; (LA(2)=='&lt;') &amp;&amp; (LA(3)=='=')) {</span>
+<span class="nc" id="L254">						mSHIFTLEFTEQUAL(true);</span>
+<span class="nc" id="L255">						theRetToken=_returnToken;</span>
+					}
+<span class="pc bpc" id="L257" title="1 of 6 branches missed.">					else if ((LA(1)=='-') &amp;&amp; (LA(2)=='&gt;') &amp;&amp; (LA(3)=='*')) {</span>
+<span class="nc" id="L258">						mPOINTERTOMBR(true);</span>
+<span class="nc" id="L259">						theRetToken=_returnToken;</span>
+					}
+<span class="fc bfc" id="L261" title="All 4 branches covered.">					else if ((LA(1)=='-') &amp;&amp; (LA(2)=='&gt;') &amp;&amp; (true)) {</span>
+<span class="fc" id="L262">						mPOINTERTO(true);</span>
+<span class="fc" id="L263">						theRetToken=_returnToken;</span>
+					}
+<span class="pc bpc" id="L265" title="1 of 4 branches missed.">					else if ((LA(1)=='=') &amp;&amp; (LA(2)=='=')) {</span>
+<span class="nc" id="L266">						mEQUAL(true);</span>
+<span class="nc" id="L267">						theRetToken=_returnToken;</span>
+					}
+<span class="pc bpc" id="L269" title="1 of 4 branches missed.">					else if ((LA(1)=='!') &amp;&amp; (LA(2)=='=')) {</span>
+<span class="nc" id="L270">						mNOTEQUAL(true);</span>
+<span class="nc" id="L271">						theRetToken=_returnToken;</span>
+					}
+<span class="pc bpc" id="L273" title="1 of 4 branches missed.">					else if ((LA(1)=='&lt;') &amp;&amp; (LA(2)=='=')) {</span>
+<span class="nc" id="L274">						mLESSTHANOREQUALTO(true);</span>
+<span class="nc" id="L275">						theRetToken=_returnToken;</span>
+					}
+<span class="pc bpc" id="L277" title="1 of 4 branches missed.">					else if ((LA(1)=='&gt;') &amp;&amp; (LA(2)=='=')) {</span>
+<span class="nc" id="L278">						mGREATERTHANOREQUALTO(true);</span>
+<span class="nc" id="L279">						theRetToken=_returnToken;</span>
+					}
+<span class="pc bpc" id="L281" title="1 of 4 branches missed.">					else if ((LA(1)=='/') &amp;&amp; (LA(2)=='=')) {</span>
+<span class="nc" id="L282">						mDIVIDEEQUAL(true);</span>
+<span class="nc" id="L283">						theRetToken=_returnToken;</span>
+					}
+<span class="pc bpc" id="L285" title="1 of 4 branches missed.">					else if ((LA(1)=='+') &amp;&amp; (LA(2)=='=')) {</span>
+<span class="nc" id="L286">						mPLUSEQUAL(true);</span>
+<span class="nc" id="L287">						theRetToken=_returnToken;</span>
+					}
+<span class="pc bpc" id="L289" title="1 of 4 branches missed.">					else if ((LA(1)=='+') &amp;&amp; (LA(2)=='+')) {</span>
+<span class="nc" id="L290">						mPLUSPLUS(true);</span>
+<span class="nc" id="L291">						theRetToken=_returnToken;</span>
+					}
+<span class="pc bpc" id="L293" title="1 of 4 branches missed.">					else if ((LA(1)=='-') &amp;&amp; (LA(2)=='=')) {</span>
+<span class="nc" id="L294">						mMINUSEQUAL(true);</span>
+<span class="nc" id="L295">						theRetToken=_returnToken;</span>
+					}
+<span class="pc bpc" id="L297" title="1 of 4 branches missed.">					else if ((LA(1)=='-') &amp;&amp; (LA(2)=='-')) {</span>
+<span class="nc" id="L298">						mMINUSMINUS(true);</span>
+<span class="nc" id="L299">						theRetToken=_returnToken;</span>
+					}
+<span class="pc bpc" id="L301" title="1 of 4 branches missed.">					else if ((LA(1)=='*') &amp;&amp; (LA(2)=='=')) {</span>
+<span class="nc" id="L302">						mTIMESEQUAL(true);</span>
+<span class="nc" id="L303">						theRetToken=_returnToken;</span>
+					}
+<span class="pc bpc" id="L305" title="3 of 4 branches missed.">					else if ((LA(1)=='%') &amp;&amp; (LA(2)=='=')) {</span>
+<span class="nc" id="L306">						mMODEQUAL(true);</span>
+<span class="nc" id="L307">						theRetToken=_returnToken;</span>
+					}
+<span class="pc bpc" id="L309" title="1 of 4 branches missed.">					else if ((LA(1)=='&gt;') &amp;&amp; (LA(2)=='&gt;') &amp;&amp; (true)) {</span>
+<span class="nc" id="L310">						mSHIFTRIGHT(true);</span>
+<span class="nc" id="L311">						theRetToken=_returnToken;</span>
+					}
+<span class="pc bpc" id="L313" title="1 of 4 branches missed.">					else if ((LA(1)=='&lt;') &amp;&amp; (LA(2)=='&lt;') &amp;&amp; (true)) {</span>
+<span class="nc" id="L314">						mSHIFTLEFT(true);</span>
+<span class="nc" id="L315">						theRetToken=_returnToken;</span>
+					}
+<span class="pc bpc" id="L317" title="1 of 4 branches missed.">					else if ((LA(1)=='&amp;') &amp;&amp; (LA(2)=='&amp;')) {</span>
+<span class="nc" id="L318">						mAND(true);</span>
+<span class="nc" id="L319">						theRetToken=_returnToken;</span>
+					}
+<span class="pc bpc" id="L321" title="3 of 4 branches missed.">					else if ((LA(1)=='|') &amp;&amp; (LA(2)=='|')) {</span>
+<span class="nc" id="L322">						mOR(true);</span>
+<span class="nc" id="L323">						theRetToken=_returnToken;</span>
+					}
+<span class="pc bpc" id="L325" title="1 of 4 branches missed.">					else if ((LA(1)=='&amp;') &amp;&amp; (LA(2)=='=')) {</span>
+<span class="nc" id="L326">						mBITWISEANDEQUAL(true);</span>
+<span class="nc" id="L327">						theRetToken=_returnToken;</span>
+					}
+<span class="pc bpc" id="L329" title="3 of 4 branches missed.">					else if ((LA(1)=='|') &amp;&amp; (LA(2)=='=')) {</span>
+<span class="nc" id="L330">						mBITWISEOREQUAL(true);</span>
+<span class="nc" id="L331">						theRetToken=_returnToken;</span>
+					}
+<span class="pc bpc" id="L333" title="3 of 4 branches missed.">					else if ((LA(1)=='^') &amp;&amp; (LA(2)=='=')) {</span>
+<span class="nc" id="L334">						mBITWISEXOREQUAL(true);</span>
+<span class="nc" id="L335">						theRetToken=_returnToken;</span>
+					}
+<span class="pc bpc" id="L337" title="1 of 4 branches missed.">					else if ((LA(1)=='.') &amp;&amp; (LA(2)=='*')) {</span>
+<span class="nc" id="L338">						mDOTMBR(true);</span>
+<span class="nc" id="L339">						theRetToken=_returnToken;</span>
+					}
+<span class="fc bfc" id="L341" title="All 4 branches covered.">					else if ((LA(1)==':') &amp;&amp; (LA(2)==':')) {</span>
+<span class="fc" id="L342">						mSCOPE(true);</span>
+<span class="fc" id="L343">						theRetToken=_returnToken;</span>
+					}
+<span class="pc bpc" id="L345" title="1 of 4 branches missed.">					else if ((LA(1)=='/') &amp;&amp; (LA(2)=='*')) {</span>
+<span class="nc" id="L346">						mComment(true);</span>
+<span class="nc" id="L347">						theRetToken=_returnToken;</span>
+					}
+<span class="fc bfc" id="L349" title="All 4 branches covered.">					else if ((LA(1)=='/') &amp;&amp; (LA(2)=='/')) {</span>
+<span class="fc" id="L350">						mCPPComment(true);</span>
+<span class="fc" id="L351">						theRetToken=_returnToken;</span>
+					}
+<span class="fc bfc" id="L353" title="All 2 branches covered.">					else if ((LA(1)=='=') &amp;&amp; (true)) {</span>
+<span class="fc" id="L354">						mASSIGNEQUAL(true);</span>
+<span class="fc" id="L355">						theRetToken=_returnToken;</span>
+					}
+<span class="fc bfc" id="L357" title="All 2 branches covered.">					else if ((LA(1)==':') &amp;&amp; (true)) {</span>
+<span class="fc" id="L358">						mCOLON(true);</span>
+<span class="fc" id="L359">						theRetToken=_returnToken;</span>
+					}
+<span class="fc bfc" id="L361" title="All 2 branches covered.">					else if ((LA(1)=='&lt;') &amp;&amp; (true)) {</span>
+<span class="fc" id="L362">						mLESSTHAN(true);</span>
+<span class="fc" id="L363">						theRetToken=_returnToken;</span>
+					}
+<span class="fc bfc" id="L365" title="All 2 branches covered.">					else if ((LA(1)=='&gt;') &amp;&amp; (true)) {</span>
+<span class="fc" id="L366">						mGREATERTHAN(true);</span>
+<span class="fc" id="L367">						theRetToken=_returnToken;</span>
+					}
+<span class="fc bfc" id="L369" title="All 2 branches covered.">					else if ((LA(1)=='/') &amp;&amp; (true)) {</span>
+<span class="fc" id="L370">						mDIVIDE(true);</span>
+<span class="fc" id="L371">						theRetToken=_returnToken;</span>
+					}
+<span class="fc bfc" id="L373" title="All 2 branches covered.">					else if ((LA(1)=='+') &amp;&amp; (true)) {</span>
+<span class="fc" id="L374">						mPLUS(true);</span>
+<span class="fc" id="L375">						theRetToken=_returnToken;</span>
+					}
+<span class="fc bfc" id="L377" title="All 2 branches covered.">					else if ((LA(1)=='-') &amp;&amp; (true)) {</span>
+<span class="fc" id="L378">						mMINUS(true);</span>
+<span class="fc" id="L379">						theRetToken=_returnToken;</span>
+					}
+<span class="fc bfc" id="L381" title="All 2 branches covered.">					else if ((LA(1)=='*') &amp;&amp; (true)) {</span>
+<span class="fc" id="L382">						mSTAR(true);</span>
+<span class="fc" id="L383">						theRetToken=_returnToken;</span>
+					}
+<span class="pc bpc" id="L385" title="1 of 2 branches missed.">					else if ((LA(1)=='%') &amp;&amp; (true)) {</span>
+<span class="nc" id="L386">						mMOD(true);</span>
+<span class="nc" id="L387">						theRetToken=_returnToken;</span>
+					}
+<span class="fc bfc" id="L389" title="All 2 branches covered.">					else if ((LA(1)=='!') &amp;&amp; (true)) {</span>
+<span class="fc" id="L390">						mNOT(true);</span>
+<span class="fc" id="L391">						theRetToken=_returnToken;</span>
+					}
+<span class="fc bfc" id="L393" title="All 2 branches covered.">					else if ((LA(1)=='&amp;') &amp;&amp; (true)) {</span>
+<span class="fc" id="L394">						mAMPERSAND(true);</span>
+<span class="fc" id="L395">						theRetToken=_returnToken;</span>
+					}
+<span class="pc bpc" id="L397" title="1 of 2 branches missed.">					else if ((LA(1)=='|') &amp;&amp; (true)) {</span>
+<span class="nc" id="L398">						mBITWISEOR(true);</span>
+<span class="nc" id="L399">						theRetToken=_returnToken;</span>
+					}
+<span class="pc bpc" id="L401" title="1 of 2 branches missed.">					else if ((LA(1)=='^') &amp;&amp; (true)) {</span>
+<span class="nc" id="L402">						mBITWISEXOR(true);</span>
+<span class="nc" id="L403">						theRetToken=_returnToken;</span>
+					}
+<span class="fc bfc" id="L405" title="All 2 branches covered.">					else if ((_tokenSet_0.member(LA(1))) &amp;&amp; (true)) {</span>
+<span class="fc" id="L406">						mNumber(true);</span>
+<span class="fc" id="L407">						theRetToken=_returnToken;</span>
+					}
+				else {
+<span class="pc bpc" id="L410" title="1 of 2 branches missed.">					if (LA(1)==EOF_CHAR) {uponEOF(); _returnToken = makeToken(Token.EOF_TYPE);}</span>
+<span class="nc" id="L411">				else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}</span>
+				}
+				}
+<span class="fc bfc" id="L414" title="All 2 branches covered.">				if ( _returnToken==null ) continue tryAgain; // found SKIP token</span>
+<span class="fc" id="L415">				_ttype = _returnToken.getType();</span>
+<span class="fc" id="L416">				_ttype = testLiteralsTable(_ttype);</span>
+<span class="fc" id="L417">				_returnToken.setType(_ttype);</span>
+<span class="fc" id="L418">				return _returnToken;</span>
+			}
+<span class="nc" id="L420">			catch (RecognitionException e) {</span>
+<span class="nc" id="L421">				throw new TokenStreamRecognitionException(e);</span>
+			}
+		}
+<span class="nc" id="L424">		catch (CharStreamException cse) {</span>
+<span class="nc bnc" id="L425" title="All 2 branches missed.">			if ( cse instanceof CharStreamIOException ) {</span>
+<span class="nc" id="L426">				throw new TokenStreamIOException(((CharStreamIOException)cse).io);</span>
+			}
+			else {
+<span class="nc" id="L429">				throw new TokenStreamException(cse.getMessage());</span>
+			}
+		}
+	}
+}
+
+	public final void mASSIGNEQUAL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L436">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L437">		_ttype = ASSIGNEQUAL;</span>
+		int _saveIndex;
+		
+<span class="fc" id="L440">		match('=');</span>
+<span class="pc bpc" id="L441" title="3 of 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="fc" id="L442">			_token = makeToken(_ttype);</span>
+<span class="fc" id="L443">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="fc" id="L445">		_returnToken = _token;</span>
+<span class="fc" id="L446">	}</span>
+	
+	public final void mCOLON(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L449">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L450">		_ttype = COLON;</span>
+		int _saveIndex;
+		
+<span class="fc" id="L453">		match(':');</span>
+<span class="pc bpc" id="L454" title="3 of 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="fc" id="L455">			_token = makeToken(_ttype);</span>
+<span class="fc" id="L456">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="fc" id="L458">		_returnToken = _token;</span>
+<span class="fc" id="L459">	}</span>
+	
+	public final void mCOMMA(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L462">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L463">		_ttype = COMMA;</span>
+		int _saveIndex;
+		
+<span class="fc" id="L466">		match(',');</span>
+<span class="pc bpc" id="L467" title="3 of 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="fc" id="L468">			_token = makeToken(_ttype);</span>
+<span class="fc" id="L469">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="fc" id="L471">		_returnToken = _token;</span>
+<span class="fc" id="L472">	}</span>
+	
+	public final void mQUESTIONMARK(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L475">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L476">		_ttype = QUESTIONMARK;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L479">		match('?');</span>
+<span class="nc bnc" id="L480" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L481">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L482">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L484">		_returnToken = _token;</span>
+<span class="nc" id="L485">	}</span>
+	
+	public final void mSEMICOLON(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L488">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L489">		_ttype = SEMICOLON;</span>
+		int _saveIndex;
+		
+<span class="fc" id="L492">		match(';');</span>
+<span class="pc bpc" id="L493" title="3 of 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="fc" id="L494">			_token = makeToken(_ttype);</span>
+<span class="fc" id="L495">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="fc" id="L497">		_returnToken = _token;</span>
+<span class="fc" id="L498">	}</span>
+	
+	public final void mPOINTERTO(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L501">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L502">		_ttype = POINTERTO;</span>
+		int _saveIndex;
+		
+<span class="fc" id="L505">		match(&quot;-&gt;&quot;);</span>
+<span class="pc bpc" id="L506" title="3 of 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="fc" id="L507">			_token = makeToken(_ttype);</span>
+<span class="fc" id="L508">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="fc" id="L510">		_returnToken = _token;</span>
+<span class="fc" id="L511">	}</span>
+	
+	public final void mLPAREN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L514">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L515">		_ttype = LPAREN;</span>
+		int _saveIndex;
+		
+<span class="fc" id="L518">		match('(');</span>
+<span class="pc bpc" id="L519" title="3 of 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="fc" id="L520">			_token = makeToken(_ttype);</span>
+<span class="fc" id="L521">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="fc" id="L523">		_returnToken = _token;</span>
+<span class="fc" id="L524">	}</span>
+	
+	public final void mRPAREN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L527">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L528">		_ttype = RPAREN;</span>
+		int _saveIndex;
+		
+<span class="fc" id="L531">		match(')');</span>
+<span class="pc bpc" id="L532" title="3 of 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="fc" id="L533">			_token = makeToken(_ttype);</span>
+<span class="fc" id="L534">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="fc" id="L536">		_returnToken = _token;</span>
+<span class="fc" id="L537">	}</span>
+	
+	public final void mLSQUARE(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L540">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L541">		_ttype = LSQUARE;</span>
+		int _saveIndex;
+		
+<span class="fc" id="L544">		match('[');</span>
+<span class="pc bpc" id="L545" title="3 of 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="fc" id="L546">			_token = makeToken(_ttype);</span>
+<span class="fc" id="L547">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="fc" id="L549">		_returnToken = _token;</span>
+<span class="fc" id="L550">	}</span>
+	
+	public final void mRSQUARE(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L553">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L554">		_ttype = RSQUARE;</span>
+		int _saveIndex;
+		
+<span class="fc" id="L557">		match(']');</span>
+<span class="pc bpc" id="L558" title="3 of 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="fc" id="L559">			_token = makeToken(_ttype);</span>
+<span class="fc" id="L560">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="fc" id="L562">		_returnToken = _token;</span>
+<span class="fc" id="L563">	}</span>
+	
+	public final void mLCURLY(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L566">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L567">		_ttype = LCURLY;</span>
+		int _saveIndex;
+		
+<span class="fc" id="L570">		match('{');</span>
+<span class="pc bpc" id="L571" title="3 of 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="fc" id="L572">			_token = makeToken(_ttype);</span>
+<span class="fc" id="L573">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="fc" id="L575">		_returnToken = _token;</span>
+<span class="fc" id="L576">	}</span>
+	
+	public final void mRCURLY(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L579">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L580">		_ttype = RCURLY;</span>
+		int _saveIndex;
+		
+<span class="fc" id="L583">		match('}');</span>
+<span class="pc bpc" id="L584" title="3 of 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="fc" id="L585">			_token = makeToken(_ttype);</span>
+<span class="fc" id="L586">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="fc" id="L588">		_returnToken = _token;</span>
+<span class="fc" id="L589">	}</span>
+	
+	public final void mEQUAL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L592">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L593">		_ttype = EQUAL;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L596">		match(&quot;==&quot;);</span>
+<span class="nc bnc" id="L597" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L598">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L599">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L601">		_returnToken = _token;</span>
+<span class="nc" id="L602">	}</span>
+	
+	public final void mNOTEQUAL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L605">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L606">		_ttype = NOTEQUAL;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L609">		match(&quot;!=&quot;);</span>
+<span class="nc bnc" id="L610" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L611">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L612">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L614">		_returnToken = _token;</span>
+<span class="nc" id="L615">	}</span>
+	
+	public final void mLESSTHANOREQUALTO(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L618">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L619">		_ttype = LESSTHANOREQUALTO;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L622">		match(&quot;&lt;=&quot;);</span>
+<span class="nc bnc" id="L623" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L624">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L625">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L627">		_returnToken = _token;</span>
+<span class="nc" id="L628">	}</span>
+	
+	public final void mLESSTHAN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L631">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L632">		_ttype = LESSTHAN;</span>
+		int _saveIndex;
+		
+<span class="fc" id="L635">		match(&quot;&lt;&quot;);</span>
+<span class="pc bpc" id="L636" title="3 of 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="fc" id="L637">			_token = makeToken(_ttype);</span>
+<span class="fc" id="L638">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="fc" id="L640">		_returnToken = _token;</span>
+<span class="fc" id="L641">	}</span>
+	
+	public final void mGREATERTHANOREQUALTO(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L644">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L645">		_ttype = GREATERTHANOREQUALTO;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L648">		match(&quot;&gt;=&quot;);</span>
+<span class="nc bnc" id="L649" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L650">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L651">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L653">		_returnToken = _token;</span>
+<span class="nc" id="L654">	}</span>
+	
+	public final void mGREATERTHAN(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L657">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L658">		_ttype = GREATERTHAN;</span>
+		int _saveIndex;
+		
+<span class="fc" id="L661">		match(&quot;&gt;&quot;);</span>
+<span class="pc bpc" id="L662" title="3 of 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="fc" id="L663">			_token = makeToken(_ttype);</span>
+<span class="fc" id="L664">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="fc" id="L666">		_returnToken = _token;</span>
+<span class="fc" id="L667">	}</span>
+	
+	public final void mDIVIDE(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L670">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L671">		_ttype = DIVIDE;</span>
+		int _saveIndex;
+		
+<span class="fc" id="L674">		match('/');</span>
+<span class="pc bpc" id="L675" title="3 of 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="fc" id="L676">			_token = makeToken(_ttype);</span>
+<span class="fc" id="L677">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="fc" id="L679">		_returnToken = _token;</span>
+<span class="fc" id="L680">	}</span>
+	
+	public final void mDIVIDEEQUAL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L683">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L684">		_ttype = DIVIDEEQUAL;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L687">		match(&quot;/=&quot;);</span>
+<span class="nc bnc" id="L688" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L689">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L690">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L692">		_returnToken = _token;</span>
+<span class="nc" id="L693">	}</span>
+	
+	public final void mPLUS(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L696">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L697">		_ttype = PLUS;</span>
+		int _saveIndex;
+		
+<span class="fc" id="L700">		match('+');</span>
+<span class="pc bpc" id="L701" title="3 of 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="fc" id="L702">			_token = makeToken(_ttype);</span>
+<span class="fc" id="L703">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="fc" id="L705">		_returnToken = _token;</span>
+<span class="fc" id="L706">	}</span>
+	
+	public final void mPLUSEQUAL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L709">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L710">		_ttype = PLUSEQUAL;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L713">		match(&quot;+=&quot;);</span>
+<span class="nc bnc" id="L714" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L715">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L716">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L718">		_returnToken = _token;</span>
+<span class="nc" id="L719">	}</span>
+	
+	public final void mPLUSPLUS(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L722">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L723">		_ttype = PLUSPLUS;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L726">		match(&quot;++&quot;);</span>
+<span class="nc bnc" id="L727" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L728">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L729">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L731">		_returnToken = _token;</span>
+<span class="nc" id="L732">	}</span>
+	
+	public final void mMINUS(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L735">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L736">		_ttype = MINUS;</span>
+		int _saveIndex;
+		
+<span class="fc" id="L739">		match('-');</span>
+<span class="pc bpc" id="L740" title="3 of 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="fc" id="L741">			_token = makeToken(_ttype);</span>
+<span class="fc" id="L742">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="fc" id="L744">		_returnToken = _token;</span>
+<span class="fc" id="L745">	}</span>
+	
+	public final void mMINUSEQUAL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L748">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L749">		_ttype = MINUSEQUAL;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L752">		match(&quot;-=&quot;);</span>
+<span class="nc bnc" id="L753" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L754">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L755">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L757">		_returnToken = _token;</span>
+<span class="nc" id="L758">	}</span>
+	
+	public final void mMINUSMINUS(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L761">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L762">		_ttype = MINUSMINUS;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L765">		match(&quot;--&quot;);</span>
+<span class="nc bnc" id="L766" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L767">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L768">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L770">		_returnToken = _token;</span>
+<span class="nc" id="L771">	}</span>
+	
+	public final void mSTAR(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L774">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L775">		_ttype = STAR;</span>
+		int _saveIndex;
+		
+<span class="fc" id="L778">		match('*');</span>
+<span class="pc bpc" id="L779" title="3 of 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="fc" id="L780">			_token = makeToken(_ttype);</span>
+<span class="fc" id="L781">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="fc" id="L783">		_returnToken = _token;</span>
+<span class="fc" id="L784">	}</span>
+	
+	public final void mTIMESEQUAL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L787">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L788">		_ttype = TIMESEQUAL;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L791">		match(&quot;*=&quot;);</span>
+<span class="nc bnc" id="L792" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L793">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L794">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L796">		_returnToken = _token;</span>
+<span class="nc" id="L797">	}</span>
+	
+	public final void mMOD(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L800">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L801">		_ttype = MOD;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L804">		match('%');</span>
+<span class="nc bnc" id="L805" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L806">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L807">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L809">		_returnToken = _token;</span>
+<span class="nc" id="L810">	}</span>
+	
+	public final void mMODEQUAL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L813">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L814">		_ttype = MODEQUAL;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L817">		match(&quot;%=&quot;);</span>
+<span class="nc bnc" id="L818" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L819">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L820">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L822">		_returnToken = _token;</span>
+<span class="nc" id="L823">	}</span>
+	
+	public final void mSHIFTRIGHT(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L826">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L827">		_ttype = SHIFTRIGHT;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L830">		match(&quot;&gt;&gt;&quot;);</span>
+<span class="nc bnc" id="L831" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L832">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L833">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L835">		_returnToken = _token;</span>
+<span class="nc" id="L836">	}</span>
+	
+	public final void mSHIFTRIGHTEQUAL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L839">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L840">		_ttype = SHIFTRIGHTEQUAL;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L843">		match(&quot;&gt;&gt;=&quot;);</span>
+<span class="nc bnc" id="L844" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L845">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L846">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L848">		_returnToken = _token;</span>
+<span class="nc" id="L849">	}</span>
+	
+	public final void mSHIFTLEFT(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L852">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L853">		_ttype = SHIFTLEFT;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L856">		match(&quot;&lt;&lt;&quot;);</span>
+<span class="nc bnc" id="L857" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L858">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L859">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L861">		_returnToken = _token;</span>
+<span class="nc" id="L862">	}</span>
+	
+	public final void mSHIFTLEFTEQUAL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L865">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L866">		_ttype = SHIFTLEFTEQUAL;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L869">		match(&quot;&lt;&lt;=&quot;);</span>
+<span class="nc bnc" id="L870" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L871">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L872">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L874">		_returnToken = _token;</span>
+<span class="nc" id="L875">	}</span>
+	
+	public final void mAND(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L878">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L879">		_ttype = AND;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L882">		match(&quot;&amp;&amp;&quot;);</span>
+<span class="nc bnc" id="L883" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L884">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L885">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L887">		_returnToken = _token;</span>
+<span class="nc" id="L888">	}</span>
+	
+	public final void mNOT(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L891">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L892">		_ttype = NOT;</span>
+		int _saveIndex;
+		
+<span class="fc" id="L895">		match('!');</span>
+<span class="pc bpc" id="L896" title="3 of 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="fc" id="L897">			_token = makeToken(_ttype);</span>
+<span class="fc" id="L898">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="fc" id="L900">		_returnToken = _token;</span>
+<span class="fc" id="L901">	}</span>
+	
+	public final void mOR(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L904">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L905">		_ttype = OR;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L908">		match(&quot;||&quot;);</span>
+<span class="nc bnc" id="L909" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L910">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L911">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L913">		_returnToken = _token;</span>
+<span class="nc" id="L914">	}</span>
+	
+	public final void mAMPERSAND(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L917">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L918">		_ttype = AMPERSAND;</span>
+		int _saveIndex;
+		
+<span class="fc" id="L921">		match('&amp;');</span>
+<span class="pc bpc" id="L922" title="3 of 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="fc" id="L923">			_token = makeToken(_ttype);</span>
+<span class="fc" id="L924">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="fc" id="L926">		_returnToken = _token;</span>
+<span class="fc" id="L927">	}</span>
+	
+	public final void mBITWISEANDEQUAL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L930">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L931">		_ttype = BITWISEANDEQUAL;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L934">		match(&quot;&amp;=&quot;);</span>
+<span class="nc bnc" id="L935" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L936">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L937">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L939">		_returnToken = _token;</span>
+<span class="nc" id="L940">	}</span>
+	
+	public final void mTILDE(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L943">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L944">		_ttype = TILDE;</span>
+		int _saveIndex;
+		
+<span class="fc" id="L947">		match('~');</span>
+<span class="pc bpc" id="L948" title="3 of 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="fc" id="L949">			_token = makeToken(_ttype);</span>
+<span class="fc" id="L950">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="fc" id="L952">		_returnToken = _token;</span>
+<span class="fc" id="L953">	}</span>
+	
+	public final void mBITWISEOR(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L956">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L957">		_ttype = BITWISEOR;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L960">		match('|');</span>
+<span class="nc bnc" id="L961" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L962">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L963">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L965">		_returnToken = _token;</span>
+<span class="nc" id="L966">	}</span>
+	
+	public final void mBITWISEOREQUAL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L969">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L970">		_ttype = BITWISEOREQUAL;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L973">		match(&quot;|=&quot;);</span>
+<span class="nc bnc" id="L974" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L975">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L976">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L978">		_returnToken = _token;</span>
+<span class="nc" id="L979">	}</span>
+	
+	public final void mBITWISEXOR(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L982">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L983">		_ttype = BITWISEXOR;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L986">		match('^');</span>
+<span class="nc bnc" id="L987" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L988">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L989">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L991">		_returnToken = _token;</span>
+<span class="nc" id="L992">	}</span>
+	
+	public final void mBITWISEXOREQUAL(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L995">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L996">		_ttype = BITWISEXOREQUAL;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L999">		match(&quot;^=&quot;);</span>
+<span class="nc bnc" id="L1000" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L1001">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L1002">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L1004">		_returnToken = _token;</span>
+<span class="nc" id="L1005">	}</span>
+	
+	public final void mPOINTERTOMBR(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L1008">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L1009">		_ttype = POINTERTOMBR;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L1012">		match(&quot;-&gt;*&quot;);</span>
+<span class="nc bnc" id="L1013" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L1014">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L1015">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L1017">		_returnToken = _token;</span>
+<span class="nc" id="L1018">	}</span>
+	
+	public final void mDOTMBR(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L1021">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L1022">		_ttype = DOTMBR;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L1025">		match(&quot;.*&quot;);</span>
+<span class="nc bnc" id="L1026" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L1027">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L1028">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L1030">		_returnToken = _token;</span>
+<span class="nc" id="L1031">	}</span>
+	
+	public final void mSCOPE(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L1034">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L1035">		_ttype = SCOPE;</span>
+		int _saveIndex;
+		
+<span class="fc" id="L1038">		match(&quot;::&quot;);</span>
+<span class="pc bpc" id="L1039" title="3 of 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="fc" id="L1040">			_token = makeToken(_ttype);</span>
+<span class="fc" id="L1041">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="fc" id="L1043">		_returnToken = _token;</span>
+<span class="fc" id="L1044">	}</span>
+	
+	public final void mWhitespace(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L1047">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L1048">		_ttype = Whitespace;</span>
+		int _saveIndex;
+		
+		{
+<span class="pc bpc" id="L1052" title="2 of 4 branches missed.">		switch ( LA(1)) {</span>
+		case '\t':  case '\u000c':  case ' ':
+		{
+			{
+<span class="pc bpc" id="L1056" title="3 of 4 branches missed.">			switch ( LA(1)) {</span>
+			case ' ':
+			{
+<span class="fc" id="L1059">				match(' ');</span>
+<span class="fc" id="L1060">				break;</span>
+			}
+			case '\t':
+			{
+<span class="nc" id="L1064">				match('\t');</span>
+<span class="nc" id="L1065">				break;</span>
+			}
+			case '\u000c':
+			{
+<span class="nc" id="L1069">				match('\f');</span>
+<span class="nc" id="L1070">				break;</span>
+			}
+			default:
+			{
+<span class="nc" id="L1074">				throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());</span>
+			}
+			}
+			}
+			break;
+		}
+		case '\n':  case '\r':
+		{
+			{
+<span class="pc bpc" id="L1083" title="3 of 4 branches missed.">			if ((LA(1)=='\r') &amp;&amp; (LA(2)=='\n')) {</span>
+<span class="nc" id="L1084">				match(&quot;\r\n&quot;);</span>
+			}
+<span class="pc bpc" id="L1086" title="1 of 2 branches missed.">			else if ((LA(1)=='\r') &amp;&amp; (true)) {</span>
+<span class="nc" id="L1087">				match('\r');</span>
+			}
+<span class="pc bpc" id="L1089" title="1 of 2 branches missed.">			else if ((LA(1)=='\n')) {</span>
+<span class="fc" id="L1090">				match('\n');</span>
+			}
+			else {
+<span class="nc" id="L1093">				throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());</span>
+			}
+			
+			}
+<span class="pc bpc" id="L1097" title="1 of 2 branches missed.">			if ( inputState.guessing==0 ) {</span>
+<span class="fc" id="L1098">				newline();</span>
+			}
+			break;
+		}
+		case '\\':
+		{
+			{
+<span class="nc bnc" id="L1105" title="All 6 branches missed.">			if ((LA(1)=='\\') &amp;&amp; (LA(2)=='\r') &amp;&amp; (LA(3)=='\n')) {</span>
+<span class="nc" id="L1106">				match(&quot;\\\r\n&quot;);</span>
+			}
+<span class="nc bnc" id="L1108" title="All 4 branches missed.">			else if ((LA(1)=='\\') &amp;&amp; (LA(2)=='\r') &amp;&amp; (true)) {</span>
+<span class="nc" id="L1109">				match(&quot;\\\r&quot;);</span>
+			}
+<span class="nc bnc" id="L1111" title="All 4 branches missed.">			else if ((LA(1)=='\\') &amp;&amp; (LA(2)=='\n')) {</span>
+<span class="nc" id="L1112">				match(&quot;\\\n&quot;);</span>
+			}
+			else {
+<span class="nc" id="L1115">				throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());</span>
+			}
+			
+			}
+			break;
+		}
+		default:
+		{
+<span class="nc" id="L1123">			throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());</span>
+		}
+		}
+		}
+<span class="pc bpc" id="L1127" title="1 of 2 branches missed.">		if ( inputState.guessing==0 ) {</span>
+<span class="fc" id="L1128">			_ttype = Token.SKIP;</span>
+		}
+<span class="pc bpc" id="L1130" title="3 of 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L1131">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L1132">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="fc" id="L1134">		_returnToken = _token;</span>
+<span class="fc" id="L1135">	}</span>
+	
+	public final void mComment(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L1138">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L1139">		_ttype = Comment;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L1142">		match(&quot;/*&quot;);</span>
+		{
+		_loop529:
+		do {
+<span class="nc bnc" id="L1146" title="All 12 branches missed.">			if (((LA(1)=='*') &amp;&amp; ((LA(2) &gt;= '\u0000' &amp;&amp; LA(2) &lt;= '\u00ff')) &amp;&amp; ((LA(3) &gt;= '\u0000' &amp;&amp; LA(3) &lt;= '\u00ff')))&amp;&amp;(LA(2) != '/')) {</span>
+<span class="nc" id="L1147">				match('*');</span>
+			}
+<span class="nc bnc" id="L1149" title="All 4 branches missed.">			else if ((LA(1)=='\n'||LA(1)=='\r')) {</span>
+<span class="nc" id="L1150">				mEndOfLine(false);</span>
+<span class="nc bnc" id="L1151" title="All 2 branches missed.">				if ( inputState.guessing==0 ) {</span>
+<span class="nc" id="L1152">					newline();</span>
+				}
+			}
+<span class="nc bnc" id="L1155" title="All 2 branches missed.">			else if ((_tokenSet_1.member(LA(1)))) {</span>
+				{
+<span class="nc" id="L1157">				match(_tokenSet_1);</span>
+				}
+			}
+			else {
+				break _loop529;
+			}
+			
+		} while (true);
+		}
+<span class="nc" id="L1166">		match(&quot;*/&quot;);</span>
+<span class="nc bnc" id="L1167" title="All 2 branches missed.">		if ( inputState.guessing==0 ) {</span>
+<span class="nc" id="L1168">			_ttype = Token.SKIP;</span>
+		}
+<span class="nc bnc" id="L1170" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L1171">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L1172">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L1174">		_returnToken = _token;</span>
+<span class="nc" id="L1175">	}</span>
+	
+	protected final void mEndOfLine(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L1178">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L1179">		_ttype = EndOfLine;</span>
+		int _saveIndex;
+		
+		{
+<span class="pc bpc" id="L1183" title="3 of 4 branches missed.">		if ((LA(1)=='\r') &amp;&amp; (LA(2)=='\n') &amp;&amp; (true)) {</span>
+<span class="nc" id="L1184">			match(&quot;\r\n&quot;);</span>
+		}
+<span class="pc bpc" id="L1186" title="1 of 2 branches missed.">		else if ((LA(1)=='\r') &amp;&amp; (true) &amp;&amp; (true)) {</span>
+<span class="nc" id="L1187">			match('\r');</span>
+		}
+<span class="pc bpc" id="L1189" title="1 of 2 branches missed.">		else if ((LA(1)=='\n')) {</span>
+<span class="fc" id="L1190">			match('\n');</span>
+		}
+		else {
+<span class="nc" id="L1193">			throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());</span>
+		}
+		
+		}
+<span class="pc bpc" id="L1197" title="5 of 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L1198">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L1199">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="fc" id="L1201">		_returnToken = _token;</span>
+<span class="fc" id="L1202">	}</span>
+	
+	public final void mCPPComment(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L1205">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L1206">		_ttype = CPPComment;</span>
+		int _saveIndex;
+		
+<span class="fc" id="L1209">		match(&quot;//&quot;);</span>
+		{
+		_loop533:
+		do {
+<span class="fc bfc" id="L1213" title="All 2 branches covered.">			if ((_tokenSet_2.member(LA(1)))) {</span>
+				{
+<span class="fc" id="L1215">				match(_tokenSet_2);</span>
+				}
+			}
+			else {
+				break _loop533;
+			}
+			
+		} while (true);
+		}
+<span class="fc" id="L1224">		mEndOfLine(false);</span>
+<span class="pc bpc" id="L1225" title="1 of 2 branches missed.">		if ( inputState.guessing==0 ) {</span>
+<span class="fc" id="L1226">			_ttype = Token.SKIP;newline();</span>
+		}
+<span class="pc bpc" id="L1228" title="3 of 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L1229">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L1230">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="fc" id="L1232">		_returnToken = _token;</span>
+<span class="fc" id="L1233">	}</span>
+	
+	public final void mDIRECTIVE(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L1236">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L1237">		_ttype = DIRECTIVE;</span>
+		int _saveIndex;
+<span class="nc" id="L1239">		Token ld=null;</span>
+		
+<span class="nc" id="L1241">		match('#');</span>
+<span class="nc" id="L1242">		mLineDirective(true);</span>
+<span class="nc" id="L1243">		ld=_returnToken;</span>
+<span class="nc bnc" id="L1244" title="All 2 branches missed.">		if ( inputState.guessing==0 ) {</span>
+<span class="nc" id="L1245">			_ttype = Token.SKIP;  newline();</span>
+		}
+<span class="nc bnc" id="L1247" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L1248">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L1249">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L1251">		_returnToken = _token;</span>
+<span class="nc" id="L1252">	}</span>
+	
+	protected final void mLineDirective(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L1255">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L1256">		_ttype = LineDirective;</span>
+		int _saveIndex;
+		
+		{
+		_loop538:
+		do {
+<span class="nc bnc" id="L1262" title="All 2 branches missed.">			if ((_tokenSet_2.member(LA(1)))) {</span>
+				{
+<span class="nc" id="L1264">				match(_tokenSet_2);</span>
+				}
+			}
+			else {
+				break _loop538;
+			}
+			
+		} while (true);
+		}
+<span class="nc" id="L1273">		mEndOfLine(false);</span>
+<span class="nc bnc" id="L1274" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L1275">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L1276">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L1278">		_returnToken = _token;</span>
+<span class="nc" id="L1279">	}</span>
+	
+	public final void mCharLiteral(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L1282">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L1283">		_ttype = CharLiteral;</span>
+		int _saveIndex;
+		
+<span class="fc" id="L1286">		match('\'');</span>
+		{
+<span class="pc bpc" id="L1288" title="5 of 6 branches missed.">		if ((LA(1)=='\\') &amp;&amp; (_tokenSet_3.member(LA(2))) &amp;&amp; (_tokenSet_4.member(LA(3)))) {</span>
+<span class="nc" id="L1289">			mEscape(false);</span>
+		}
+<span class="pc bpc" id="L1291" title="2 of 4 branches missed.">		else if ((_tokenSet_5.member(LA(1))) &amp;&amp; (LA(2)=='\'') &amp;&amp; (true)) {</span>
+			{
+<span class="fc" id="L1293">			match(_tokenSet_5);</span>
+			}
+		}
+		else {
+<span class="nc" id="L1297">			throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());</span>
+		}
+		
+		}
+<span class="fc" id="L1301">		match('\'');</span>
+<span class="pc bpc" id="L1302" title="3 of 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="fc" id="L1303">			_token = makeToken(_ttype);</span>
+<span class="fc" id="L1304">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="fc" id="L1306">		_returnToken = _token;</span>
+<span class="fc" id="L1307">	}</span>
+	
+	protected final void mEscape(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L1310">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L1311">		_ttype = Escape;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L1314">		match('\\');</span>
+		{
+<span class="nc bnc" id="L1316" title="All 15 branches missed.">		switch ( LA(1)) {</span>
+		case 'a':
+		{
+<span class="nc" id="L1319">			match('a');</span>
+<span class="nc" id="L1320">			break;</span>
+		}
+		case 'b':
+		{
+<span class="nc" id="L1324">			match('b');</span>
+<span class="nc" id="L1325">			break;</span>
+		}
+		case 'f':
+		{
+<span class="nc" id="L1329">			match('f');</span>
+<span class="nc" id="L1330">			break;</span>
+		}
+		case 'n':
+		{
+<span class="nc" id="L1334">			match('n');</span>
+<span class="nc" id="L1335">			break;</span>
+		}
+		case 'r':
+		{
+<span class="nc" id="L1339">			match('r');</span>
+<span class="nc" id="L1340">			break;</span>
+		}
+		case 't':
+		{
+<span class="nc" id="L1344">			match('t');</span>
+<span class="nc" id="L1345">			break;</span>
+		}
+		case 'v':
+		{
+<span class="nc" id="L1349">			match('v');</span>
+<span class="nc" id="L1350">			break;</span>
+		}
+		case '&quot;':
+		{
+<span class="nc" id="L1354">			match('&quot;');</span>
+<span class="nc" id="L1355">			break;</span>
+		}
+		case '\'':
+		{
+<span class="nc" id="L1359">			match('\'');</span>
+<span class="nc" id="L1360">			break;</span>
+		}
+		case '\\':
+		{
+<span class="nc" id="L1364">			match('\\');</span>
+<span class="nc" id="L1365">			break;</span>
+		}
+		case '?':
+		{
+<span class="nc" id="L1369">			match('?');</span>
+<span class="nc" id="L1370">			break;</span>
+		}
+		case '0':  case '1':  case '2':  case '3':
+		{
+			{
+<span class="nc" id="L1375">			matchRange('0','3');</span>
+			}
+			{
+<span class="nc bnc" id="L1378" title="All 6 branches missed.">			if (((LA(1) &gt;= '0' &amp;&amp; LA(1) &lt;= '9')) &amp;&amp; (_tokenSet_2.member(LA(2))) &amp;&amp; (true)) {</span>
+<span class="nc" id="L1379">				mDigit(false);</span>
+				{
+<span class="nc bnc" id="L1381" title="All 6 branches missed.">				if (((LA(1) &gt;= '0' &amp;&amp; LA(1) &lt;= '9')) &amp;&amp; (_tokenSet_2.member(LA(2))) &amp;&amp; (true)) {</span>
+<span class="nc" id="L1382">					mDigit(false);</span>
+				}
+<span class="nc bnc" id="L1384" title="All 2 branches missed.">				else if ((_tokenSet_2.member(LA(1))) &amp;&amp; (true) &amp;&amp; (true)) {</span>
+				}
+				else {
+<span class="nc" id="L1387">					throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());</span>
+				}
+				
+				}
+			}
+<span class="nc bnc" id="L1392" title="All 2 branches missed.">			else if ((_tokenSet_2.member(LA(1))) &amp;&amp; (true) &amp;&amp; (true)) {</span>
+			}
+			else {
+<span class="nc" id="L1395">				throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());</span>
+			}
+			
+			}
+			break;
+		}
+		case '4':  case '5':  case '6':  case '7':
+		{
+			{
+<span class="nc" id="L1404">			matchRange('4','7');</span>
+			}
+			{
+<span class="nc bnc" id="L1407" title="All 6 branches missed.">			if (((LA(1) &gt;= '0' &amp;&amp; LA(1) &lt;= '9')) &amp;&amp; (_tokenSet_2.member(LA(2))) &amp;&amp; (true)) {</span>
+<span class="nc" id="L1408">				mDigit(false);</span>
+			}
+<span class="nc bnc" id="L1410" title="All 2 branches missed.">			else if ((_tokenSet_2.member(LA(1))) &amp;&amp; (true) &amp;&amp; (true)) {</span>
+			}
+			else {
+<span class="nc" id="L1413">				throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());</span>
+			}
+			
+			}
+			break;
+		}
+		case 'x':
+		{
+<span class="nc" id="L1421">			match('x');</span>
+			{
+<span class="nc" id="L1423">			int _cnt557=0;</span>
+			_loop557:
+			do {
+<span class="nc bnc" id="L1426" title="All 6 branches missed.">				if (((LA(1) &gt;= '0' &amp;&amp; LA(1) &lt;= '9')) &amp;&amp; (_tokenSet_2.member(LA(2))) &amp;&amp; (true)) {</span>
+<span class="nc" id="L1427">					mDigit(false);</span>
+				}
+<span class="nc bnc" id="L1429" title="All 6 branches missed.">				else if (((LA(1) &gt;= 'a' &amp;&amp; LA(1) &lt;= 'f')) &amp;&amp; (_tokenSet_2.member(LA(2))) &amp;&amp; (true)) {</span>
+<span class="nc" id="L1430">					matchRange('a','f');</span>
+				}
+<span class="nc bnc" id="L1432" title="All 6 branches missed.">				else if (((LA(1) &gt;= 'A' &amp;&amp; LA(1) &lt;= 'F')) &amp;&amp; (_tokenSet_2.member(LA(2))) &amp;&amp; (true)) {</span>
+<span class="nc" id="L1433">					matchRange('A','F');</span>
+				}
+				else {
+<span class="nc bnc" id="L1436" title="All 2 branches missed.">					if ( _cnt557&gt;=1 ) { break _loop557; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}</span>
+				}
+				
+<span class="nc" id="L1439">				_cnt557++;</span>
+<span class="nc" id="L1440">			} while (true);</span>
+			}
+<span class="nc" id="L1442">			break;</span>
+		}
+		default:
+		{
+<span class="nc" id="L1446">			throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());</span>
+		}
+		}
+		}
+<span class="nc bnc" id="L1450" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L1451">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L1452">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L1454">		_returnToken = _token;</span>
+<span class="nc" id="L1455">	}</span>
+	
+	public final void mStringLiteral(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L1458">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L1459">		_ttype = StringLiteral;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L1462">		match('&quot;');</span>
+		{
+		_loop546:
+		do {
+<span class="nc bnc" id="L1466" title="All 4 branches missed.">			if ((LA(1)=='\\') &amp;&amp; (_tokenSet_3.member(LA(2)))) {</span>
+<span class="nc" id="L1467">				mEscape(false);</span>
+			}
+<span class="nc bnc" id="L1469" title="All 6 branches missed.">			else if ((LA(1)=='\\') &amp;&amp; (LA(2)=='\n'||LA(2)=='\r')) {</span>
+				{
+<span class="nc bnc" id="L1471" title="All 6 branches missed.">				if ((LA(1)=='\\') &amp;&amp; (LA(2)=='\r') &amp;&amp; (LA(3)=='\n')) {</span>
+<span class="nc" id="L1472">					match(&quot;\\\r\n&quot;);</span>
+				}
+<span class="nc bnc" id="L1474" title="All 6 branches missed.">				else if ((LA(1)=='\\') &amp;&amp; (LA(2)=='\r') &amp;&amp; (_tokenSet_2.member(LA(3)))) {</span>
+<span class="nc" id="L1475">					match(&quot;\\\r&quot;);</span>
+				}
+<span class="nc bnc" id="L1477" title="All 4 branches missed.">				else if ((LA(1)=='\\') &amp;&amp; (LA(2)=='\n')) {</span>
+<span class="nc" id="L1478">					match(&quot;\\\n&quot;);</span>
+				}
+				else {
+<span class="nc" id="L1481">					throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());</span>
+				}
+				
+				}
+<span class="nc bnc" id="L1485" title="All 2 branches missed.">				if ( inputState.guessing==0 ) {</span>
+<span class="nc" id="L1486">					newline();</span>
+				}
+			}
+<span class="nc bnc" id="L1489" title="All 2 branches missed.">			else if ((_tokenSet_6.member(LA(1)))) {</span>
+				{
+<span class="nc" id="L1491">				match(_tokenSet_6);</span>
+				}
+			}
+			else {
+				break _loop546;
+			}
+			
+		} while (true);
+		}
+<span class="nc" id="L1500">		match('&quot;');</span>
+<span class="nc bnc" id="L1501" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L1502">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L1503">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L1505">		_returnToken = _token;</span>
+<span class="nc" id="L1506">	}</span>
+	
+	protected final void mDigit(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L1509">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L1510">		_ttype = Digit;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L1513">		matchRange('0','9');</span>
+<span class="nc bnc" id="L1514" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L1515">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L1516">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L1518">		_returnToken = _token;</span>
+<span class="nc" id="L1519">	}</span>
+	
+	protected final void mDecimal(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L1522">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L1523">		_ttype = Decimal;</span>
+		int _saveIndex;
+		
+		{
+<span class="nc" id="L1527">		int _cnt561=0;</span>
+		_loop561:
+		do {
+<span class="nc bnc" id="L1530" title="All 4 branches missed.">			if (((LA(1) &gt;= '0' &amp;&amp; LA(1) &lt;= '9'))) {</span>
+<span class="nc" id="L1531">				matchRange('0','9');</span>
+			}
+			else {
+<span class="nc bnc" id="L1534" title="All 2 branches missed.">				if ( _cnt561&gt;=1 ) { break _loop561; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}</span>
+			}
+			
+<span class="nc" id="L1537">			_cnt561++;</span>
+<span class="nc" id="L1538">		} while (true);</span>
+		}
+<span class="nc bnc" id="L1540" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L1541">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L1542">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L1544">		_returnToken = _token;</span>
+<span class="nc" id="L1545">	}</span>
+	
+	protected final void mLongSuffix(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L1548">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L1549">		_ttype = LongSuffix;</span>
+		int _saveIndex;
+		
+<span class="nc bnc" id="L1552" title="All 3 branches missed.">		switch ( LA(1)) {</span>
+		case 'l':
+		{
+<span class="nc" id="L1555">			match('l');</span>
+<span class="nc" id="L1556">			break;</span>
+		}
+		case 'L':
+		{
+<span class="nc" id="L1560">			match('L');</span>
+<span class="nc" id="L1561">			break;</span>
+		}
+		default:
+		{
+<span class="nc" id="L1565">			throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());</span>
+		}
+		}
+<span class="nc bnc" id="L1568" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L1569">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L1570">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L1572">		_returnToken = _token;</span>
+<span class="nc" id="L1573">	}</span>
+	
+	protected final void mUnsignedSuffix(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L1576">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L1577">		_ttype = UnsignedSuffix;</span>
+		int _saveIndex;
+		
+<span class="nc bnc" id="L1580" title="All 3 branches missed.">		switch ( LA(1)) {</span>
+		case 'u':
+		{
+<span class="nc" id="L1583">			match('u');</span>
+<span class="nc" id="L1584">			break;</span>
+		}
+		case 'U':
+		{
+<span class="nc" id="L1588">			match('U');</span>
+<span class="nc" id="L1589">			break;</span>
+		}
+		default:
+		{
+<span class="nc" id="L1593">			throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());</span>
+		}
+		}
+<span class="nc bnc" id="L1596" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L1597">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L1598">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L1600">		_returnToken = _token;</span>
+<span class="nc" id="L1601">	}</span>
+	
+	protected final void mFloatSuffix(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L1604">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L1605">		_ttype = FloatSuffix;</span>
+		int _saveIndex;
+		
+<span class="nc bnc" id="L1608" title="All 3 branches missed.">		switch ( LA(1)) {</span>
+		case 'f':
+		{
+<span class="nc" id="L1611">			match('f');</span>
+<span class="nc" id="L1612">			break;</span>
+		}
+		case 'F':
+		{
+<span class="nc" id="L1616">			match('F');</span>
+<span class="nc" id="L1617">			break;</span>
+		}
+		default:
+		{
+<span class="nc" id="L1621">			throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());</span>
+		}
+		}
+<span class="nc bnc" id="L1624" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L1625">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L1626">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L1628">		_returnToken = _token;</span>
+<span class="nc" id="L1629">	}</span>
+	
+	protected final void mExponent(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L1632">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L1633">		_ttype = Exponent;</span>
+		int _saveIndex;
+		
+		{
+<span class="nc bnc" id="L1637" title="All 3 branches missed.">		switch ( LA(1)) {</span>
+		case 'e':
+		{
+<span class="nc" id="L1640">			match('e');</span>
+<span class="nc" id="L1641">			break;</span>
+		}
+		case 'E':
+		{
+<span class="nc" id="L1645">			match('E');</span>
+<span class="nc" id="L1646">			break;</span>
+		}
+		default:
+		{
+<span class="nc" id="L1650">			throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());</span>
+		}
+		}
+		}
+		{
+<span class="nc bnc" id="L1655" title="All 4 branches missed.">		switch ( LA(1)) {</span>
+		case '+':
+		{
+<span class="nc" id="L1658">			match('+');</span>
+<span class="nc" id="L1659">			break;</span>
+		}
+		case '-':
+		{
+<span class="nc" id="L1663">			match('-');</span>
+<span class="nc" id="L1664">			break;</span>
+		}
+		case '0':  case '1':  case '2':  case '3':
+		case '4':  case '5':  case '6':  case '7':
+		case '8':  case '9':
+		{
+<span class="nc" id="L1670">			break;</span>
+		}
+		default:
+		{
+<span class="nc" id="L1674">			throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());</span>
+		}
+		}
+		}
+		{
+<span class="nc" id="L1679">		int _cnt569=0;</span>
+		_loop569:
+		do {
+<span class="nc bnc" id="L1682" title="All 4 branches missed.">			if (((LA(1) &gt;= '0' &amp;&amp; LA(1) &lt;= '9'))) {</span>
+<span class="nc" id="L1683">				mDigit(false);</span>
+			}
+			else {
+<span class="nc bnc" id="L1686" title="All 2 branches missed.">				if ( _cnt569&gt;=1 ) { break _loop569; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}</span>
+			}
+			
+<span class="nc" id="L1689">			_cnt569++;</span>
+<span class="nc" id="L1690">		} while (true);</span>
+		}
+<span class="nc bnc" id="L1692" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L1693">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L1694">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L1696">		_returnToken = _token;</span>
+<span class="nc" id="L1697">	}</span>
+	
+	protected final void mVocabulary(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="nc" id="L1700">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="nc" id="L1701">		_ttype = Vocabulary;</span>
+		int _saveIndex;
+		
+<span class="nc" id="L1704">		matchRange('\3','\377');</span>
+<span class="nc bnc" id="L1705" title="All 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="nc" id="L1706">			_token = makeToken(_ttype);</span>
+<span class="nc" id="L1707">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="nc" id="L1709">		_returnToken = _token;</span>
+<span class="nc" id="L1710">	}</span>
+	
+	public final void mNumber(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L1713">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L1714">		_ttype = Number;</span>
+		int _saveIndex;
+		
+<span class="fc" id="L1717">		boolean synPredMatched576 = false;</span>
+<span class="pc bpc" id="L1718" title="2 of 6 branches missed.">		if ((((LA(1) &gt;= '0' &amp;&amp; LA(1) &lt;= '9')) &amp;&amp; (_tokenSet_7.member(LA(2))) &amp;&amp; (true))) {</span>
+<span class="nc" id="L1719">			int _m576 = mark();</span>
+<span class="nc" id="L1720">			synPredMatched576 = true;</span>
+<span class="nc" id="L1721">			inputState.guessing++;</span>
+			try {
+				{
+				{
+<span class="nc" id="L1725">				int _cnt574=0;</span>
+				_loop574:
+				do {
+<span class="nc bnc" id="L1728" title="All 4 branches missed.">					if (((LA(1) &gt;= '0' &amp;&amp; LA(1) &lt;= '9'))) {</span>
+<span class="nc" id="L1729">						mDigit(false);</span>
+					}
+					else {
+<span class="nc bnc" id="L1732" title="All 2 branches missed.">						if ( _cnt574&gt;=1 ) { break _loop574; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}</span>
+					}
+					
+<span class="nc" id="L1735">					_cnt574++;</span>
+<span class="nc" id="L1736">				} while (true);</span>
+				}
+				{
+<span class="nc bnc" id="L1739" title="All 4 branches missed.">				switch ( LA(1)) {</span>
+				case '.':
+				{
+<span class="nc" id="L1742">					match('.');</span>
+<span class="nc" id="L1743">					break;</span>
+				}
+				case 'e':
+				{
+<span class="nc" id="L1747">					match('e');</span>
+<span class="nc" id="L1748">					break;</span>
+				}
+				case 'E':
+				{
+<span class="nc" id="L1752">					match('E');</span>
+<span class="nc" id="L1753">					break;</span>
+				}
+				default:
+				{
+<span class="nc" id="L1757">					throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());</span>
+				}
+				}
+				}
+				}
+			}
+<span class="nc" id="L1763">			catch (RecognitionException pe) {</span>
+<span class="nc" id="L1764">				synPredMatched576 = false;</span>
+<span class="nc" id="L1765">			}</span>
+<span class="nc" id="L1766">			rewind(_m576);</span>
+<span class="nc" id="L1767">inputState.guessing--;</span>
+		}
+<span class="pc bpc" id="L1769" title="1 of 2 branches missed.">		if ( synPredMatched576 ) {</span>
+			{
+<span class="nc" id="L1771">			int _cnt578=0;</span>
+			_loop578:
+			do {
+<span class="nc bnc" id="L1774" title="All 4 branches missed.">				if (((LA(1) &gt;= '0' &amp;&amp; LA(1) &lt;= '9'))) {</span>
+<span class="nc" id="L1775">					mDigit(false);</span>
+				}
+				else {
+<span class="nc bnc" id="L1778" title="All 2 branches missed.">					if ( _cnt578&gt;=1 ) { break _loop578; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}</span>
+				}
+				
+<span class="nc" id="L1781">				_cnt578++;</span>
+<span class="nc" id="L1782">			} while (true);</span>
+			}
+			{
+<span class="nc bnc" id="L1785" title="All 3 branches missed.">			switch ( LA(1)) {</span>
+			case '.':
+			{
+<span class="nc" id="L1788">				match('.');</span>
+				{
+				_loop581:
+				do {
+<span class="nc bnc" id="L1792" title="All 4 branches missed.">					if (((LA(1) &gt;= '0' &amp;&amp; LA(1) &lt;= '9'))) {</span>
+<span class="nc" id="L1793">						mDigit(false);</span>
+					}
+					else {
+						break _loop581;
+					}
+					
+				} while (true);
+				}
+				{
+<span class="nc bnc" id="L1802" title="All 4 branches missed.">				if ((LA(1)=='E'||LA(1)=='e')) {</span>
+<span class="nc" id="L1803">					mExponent(false);</span>
+				}
+				else {
+				}
+				
+				}
+<span class="nc bnc" id="L1809" title="All 2 branches missed.">				if ( inputState.guessing==0 ) {</span>
+<span class="nc" id="L1810">					_ttype =  FLOATONE;</span>
+				}
+				break;
+			}
+			case 'E':  case 'e':
+			{
+<span class="nc" id="L1816">				mExponent(false);</span>
+<span class="nc bnc" id="L1817" title="All 2 branches missed.">				if ( inputState.guessing==0 ) {</span>
+<span class="nc" id="L1818">					_ttype = FLOATTWO;</span>
+				}
+				break;
+			}
+			default:
+			{
+<span class="nc" id="L1824">				throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());</span>
+			}
+			}
+			}
+			{
+<span class="nc bnc" id="L1829" title="All 3 branches missed.">			switch ( LA(1)) {</span>
+			case 'F':  case 'f':
+			{
+<span class="nc" id="L1832">				mFloatSuffix(false);</span>
+<span class="nc" id="L1833">				break;</span>
+			}
+			case 'L':  case 'l':
+			{
+<span class="nc" id="L1837">				mLongSuffix(false);</span>
+<span class="nc" id="L1838">				break;</span>
+			}
+			default:
+				{
+				}
+			}
+			}
+		}
+		else {
+<span class="fc" id="L1847">			boolean synPredMatched585 = false;</span>
+<span class="pc bpc" id="L1848" title="1 of 4 branches missed.">			if (((LA(1)=='.') &amp;&amp; (LA(2)=='.'))) {</span>
+<span class="nc" id="L1849">				int _m585 = mark();</span>
+<span class="nc" id="L1850">				synPredMatched585 = true;</span>
+<span class="nc" id="L1851">				inputState.guessing++;</span>
+				try {
+					{
+<span class="nc" id="L1854">					match(&quot;...&quot;);</span>
+					}
+				}
+<span class="nc" id="L1857">				catch (RecognitionException pe) {</span>
+<span class="nc" id="L1858">					synPredMatched585 = false;</span>
+<span class="nc" id="L1859">				}</span>
+<span class="nc" id="L1860">				rewind(_m585);</span>
+<span class="nc" id="L1861">inputState.guessing--;</span>
+			}
+<span class="pc bpc" id="L1863" title="1 of 2 branches missed.">			if ( synPredMatched585 ) {</span>
+<span class="nc" id="L1864">				match(&quot;...&quot;);</span>
+<span class="nc bnc" id="L1865" title="All 2 branches missed.">				if ( inputState.guessing==0 ) {</span>
+<span class="nc" id="L1866">					_ttype = ELLIPSIS;</span>
+				}
+			}
+<span class="pc bpc" id="L1869" title="2 of 6 branches missed.">			else if ((LA(1)=='0') &amp;&amp; (LA(2)=='X'||LA(2)=='x')) {</span>
+<span class="nc" id="L1870">				match('0');</span>
+				{
+<span class="nc bnc" id="L1872" title="All 3 branches missed.">				switch ( LA(1)) {</span>
+				case 'x':
+				{
+<span class="nc" id="L1875">					match('x');</span>
+<span class="nc" id="L1876">					break;</span>
+				}
+				case 'X':
+				{
+<span class="nc" id="L1880">					match('X');</span>
+<span class="nc" id="L1881">					break;</span>
+				}
+				default:
+				{
+<span class="nc" id="L1885">					throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());</span>
+				}
+				}
+				}
+				{
+<span class="nc" id="L1890">				int _cnt601=0;</span>
+				_loop601:
+				do {
+<span class="nc bnc" id="L1893" title="All 4 branches missed.">					switch ( LA(1)) {</span>
+					case 'a':  case 'b':  case 'c':  case 'd':
+					case 'e':  case 'f':
+					{
+<span class="nc" id="L1897">						matchRange('a','f');</span>
+<span class="nc" id="L1898">						break;</span>
+					}
+					case 'A':  case 'B':  case 'C':  case 'D':
+					case 'E':  case 'F':
+					{
+<span class="nc" id="L1903">						matchRange('A','F');</span>
+<span class="nc" id="L1904">						break;</span>
+					}
+					case '0':  case '1':  case '2':  case '3':
+					case '4':  case '5':  case '6':  case '7':
+					case '8':  case '9':
+					{
+<span class="nc" id="L1910">						mDigit(false);</span>
+<span class="nc" id="L1911">						break;</span>
+					}
+					default:
+					{
+<span class="nc bnc" id="L1915" title="All 2 branches missed.">						if ( _cnt601&gt;=1 ) { break _loop601; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}</span>
+					}
+					}
+<span class="nc" id="L1918">					_cnt601++;</span>
+<span class="nc" id="L1919">				} while (true);</span>
+				}
+				{
+				_loop603:
+				do {
+<span class="nc bnc" id="L1924" title="All 3 branches missed.">					switch ( LA(1)) {</span>
+					case 'L':  case 'l':
+					{
+<span class="nc" id="L1927">						mLongSuffix(false);</span>
+<span class="nc" id="L1928">						break;</span>
+					}
+					case 'U':  case 'u':
+					{
+<span class="nc" id="L1932">						mUnsignedSuffix(false);</span>
+<span class="nc" id="L1933">						break;</span>
+					}
+					default:
+					{
+<span class="nc" id="L1937">						break _loop603;</span>
+					}
+					}
+				} while (true);
+				}
+<span class="nc bnc" id="L1942" title="All 2 branches missed.">				if ( inputState.guessing==0 ) {</span>
+<span class="nc" id="L1943">					_ttype =  HEXADECIMALINT;</span>
+				}
+			}
+<span class="fc bfc" id="L1946" title="All 2 branches covered.">			else if ((LA(1)=='.') &amp;&amp; (true)) {</span>
+<span class="fc" id="L1947">				match('.');</span>
+<span class="pc bpc" id="L1948" title="1 of 2 branches missed.">				if ( inputState.guessing==0 ) {</span>
+<span class="fc" id="L1949">					_ttype = DOT;</span>
+				}
+				{
+<span class="pc bpc" id="L1952" title="2 of 4 branches missed.">				if (((LA(1) &gt;= '0' &amp;&amp; LA(1) &lt;= '9'))) {</span>
+					{
+<span class="nc" id="L1954">					int _cnt588=0;</span>
+					_loop588:
+					do {
+<span class="nc bnc" id="L1957" title="All 4 branches missed.">						if (((LA(1) &gt;= '0' &amp;&amp; LA(1) &lt;= '9'))) {</span>
+<span class="nc" id="L1958">							mDigit(false);</span>
+						}
+						else {
+<span class="nc bnc" id="L1961" title="All 2 branches missed.">							if ( _cnt588&gt;=1 ) { break _loop588; } else {throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());}</span>
+						}
+						
+<span class="nc" id="L1964">						_cnt588++;</span>
+<span class="nc" id="L1965">					} while (true);</span>
+					}
+					{
+<span class="nc bnc" id="L1968" title="All 4 branches missed.">					if ((LA(1)=='E'||LA(1)=='e')) {</span>
+<span class="nc" id="L1969">						mExponent(false);</span>
+					}
+					else {
+					}
+					
+					}
+<span class="nc bnc" id="L1975" title="All 2 branches missed.">					if ( inputState.guessing==0 ) {</span>
+<span class="nc" id="L1976">						_ttype = FLOATONE;</span>
+					}
+					{
+<span class="nc bnc" id="L1979" title="All 3 branches missed.">					switch ( LA(1)) {</span>
+					case 'F':  case 'f':
+					{
+<span class="nc" id="L1982">						mFloatSuffix(false);</span>
+<span class="nc" id="L1983">						break;</span>
+					}
+					case 'L':  case 'l':
+					{
+<span class="nc" id="L1987">						mLongSuffix(false);</span>
+<span class="nc" id="L1988">						break;</span>
+					}
+					default:
+						{
+						}
+					}
+					}
+				}
+				else {
+				}
+				
+				}
+			}
+<span class="fc bfc" id="L2001" title="All 2 branches covered.">			else if ((LA(1)=='0') &amp;&amp; (true) &amp;&amp; (true)) {</span>
+<span class="fc" id="L2002">				match('0');</span>
+				{
+				_loop592:
+				do {
+<span class="pc bpc" id="L2006" title="1 of 4 branches missed.">					if (((LA(1) &gt;= '0' &amp;&amp; LA(1) &lt;= '7'))) {</span>
+<span class="nc" id="L2007">						matchRange('0','7');</span>
+					}
+					else {
+						break _loop592;
+					}
+					
+				} while (true);
+				}
+				{
+				_loop594:
+				do {
+<span class="pc bpc" id="L2018" title="2 of 3 branches missed.">					switch ( LA(1)) {</span>
+					case 'L':  case 'l':
+					{
+<span class="nc" id="L2021">						mLongSuffix(false);</span>
+<span class="nc" id="L2022">						break;</span>
+					}
+					case 'U':  case 'u':
+					{
+<span class="nc" id="L2026">						mUnsignedSuffix(false);</span>
+<span class="nc" id="L2027">						break;</span>
+					}
+					default:
+					{
+<span class="fc" id="L2031">						break _loop594;</span>
+					}
+					}
+				} while (true);
+				}
+<span class="pc bpc" id="L2036" title="1 of 2 branches missed.">				if ( inputState.guessing==0 ) {</span>
+<span class="fc" id="L2037">					_ttype =  OCTALINT;</span>
+				}
+			}
+<span class="pc bpc" id="L2040" title="2 of 4 branches missed.">			else if (((LA(1) &gt;= '1' &amp;&amp; LA(1) &lt;= '9')) &amp;&amp; (true) &amp;&amp; (true)) {</span>
+<span class="fc" id="L2041">				matchRange('1','9');</span>
+				{
+				_loop596:
+				do {
+<span class="pc bpc" id="L2045" title="3 of 4 branches missed.">					if (((LA(1) &gt;= '0' &amp;&amp; LA(1) &lt;= '9'))) {</span>
+<span class="nc" id="L2046">						mDigit(false);</span>
+					}
+					else {
+						break _loop596;
+					}
+					
+				} while (true);
+				}
+				{
+				_loop598:
+				do {
+<span class="pc bpc" id="L2057" title="2 of 3 branches missed.">					switch ( LA(1)) {</span>
+					case 'L':  case 'l':
+					{
+<span class="nc" id="L2060">						mLongSuffix(false);</span>
+<span class="nc" id="L2061">						break;</span>
+					}
+					case 'U':  case 'u':
+					{
+<span class="nc" id="L2065">						mUnsignedSuffix(false);</span>
+<span class="nc" id="L2066">						break;</span>
+					}
+					default:
+					{
+<span class="fc" id="L2070">						break _loop598;</span>
+					}
+					}
+				} while (true);
+				}
+<span class="pc bpc" id="L2075" title="1 of 2 branches missed.">				if ( inputState.guessing==0 ) {</span>
+<span class="fc" id="L2076">					_ttype =  DECIMALINT;</span>
+				}
+			}
+			else {
+<span class="nc" id="L2080">				throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());</span>
+			}
+			}
+<span class="pc bpc" id="L2083" title="3 of 6 branches missed.">			if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="fc" id="L2084">				_token = makeToken(_ttype);</span>
+<span class="fc" id="L2085">				_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+			}
+<span class="fc" id="L2087">			_returnToken = _token;</span>
+<span class="fc" id="L2088">		}</span>
+		
+	public final void mID(boolean _createToken) throws RecognitionException, CharStreamException, TokenStreamException {
+<span class="fc" id="L2091">		int _ttype; Token _token=null; int _begin=text.length();</span>
+<span class="fc" id="L2092">		_ttype = ID;</span>
+		int _saveIndex;
+		
+		{
+<span class="pc bpc" id="L2096" title="1 of 4 branches missed.">		switch ( LA(1)) {</span>
+		case 'a':  case 'b':  case 'c':  case 'd':
+		case 'e':  case 'f':  case 'g':  case 'h':
+		case 'i':  case 'j':  case 'k':  case 'l':
+		case 'm':  case 'n':  case 'o':  case 'p':
+		case 'q':  case 'r':  case 's':  case 't':
+		case 'u':  case 'v':  case 'w':  case 'x':
+		case 'y':  case 'z':
+		{
+<span class="fc" id="L2105">			matchRange('a','z');</span>
+<span class="fc" id="L2106">			break;</span>
+		}
+		case 'A':  case 'B':  case 'C':  case 'D':
+		case 'E':  case 'F':  case 'G':  case 'H':
+		case 'I':  case 'J':  case 'K':  case 'L':
+		case 'M':  case 'N':  case 'O':  case 'P':
+		case 'Q':  case 'R':  case 'S':  case 'T':
+		case 'U':  case 'V':  case 'W':  case 'X':
+		case 'Y':  case 'Z':
+		{
+<span class="fc" id="L2116">			matchRange('A','Z');</span>
+<span class="fc" id="L2117">			break;</span>
+		}
+		case '_':
+		{
+<span class="fc" id="L2121">			match('_');</span>
+<span class="fc" id="L2122">			break;</span>
+		}
+		default:
+		{
+<span class="nc" id="L2126">			throw new NoViableAltForCharException((char)LA(1), getFilename(), getLine(), getColumn());</span>
+		}
+		}
+		}
+		{
+		_loop607:
+		do {
+<span class="pc bpc" id="L2133" title="1 of 5 branches missed.">			switch ( LA(1)) {</span>
+			case 'a':  case 'b':  case 'c':  case 'd':
+			case 'e':  case 'f':  case 'g':  case 'h':
+			case 'i':  case 'j':  case 'k':  case 'l':
+			case 'm':  case 'n':  case 'o':  case 'p':
+			case 'q':  case 'r':  case 's':  case 't':
+			case 'u':  case 'v':  case 'w':  case 'x':
+			case 'y':  case 'z':
+			{
+<span class="fc" id="L2142">				matchRange('a','z');</span>
+<span class="fc" id="L2143">				break;</span>
+			}
+			case 'A':  case 'B':  case 'C':  case 'D':
+			case 'E':  case 'F':  case 'G':  case 'H':
+			case 'I':  case 'J':  case 'K':  case 'L':
+			case 'M':  case 'N':  case 'O':  case 'P':
+			case 'Q':  case 'R':  case 'S':  case 'T':
+			case 'U':  case 'V':  case 'W':  case 'X':
+			case 'Y':  case 'Z':
+			{
+<span class="fc" id="L2153">				matchRange('A','Z');</span>
+<span class="fc" id="L2154">				break;</span>
+			}
+			case '_':
+			{
+<span class="nc" id="L2158">				match('_');</span>
+<span class="nc" id="L2159">				break;</span>
+			}
+			case '0':  case '1':  case '2':  case '3':
+			case '4':  case '5':  case '6':  case '7':
+			case '8':  case '9':
+			{
+<span class="fc" id="L2165">				matchRange('0','9');</span>
+<span class="fc" id="L2166">				break;</span>
+			}
+			default:
+			{
+<span class="fc" id="L2170">				break _loop607;</span>
+			}
+			}
+		} while (true);
+		}
+<span class="fc" id="L2175">		_ttype = testLiteralsTable(_ttype);</span>
+<span class="pc bpc" id="L2176" title="3 of 6 branches missed.">		if ( _createToken &amp;&amp; _token==null &amp;&amp; _ttype!=Token.SKIP ) {</span>
+<span class="fc" id="L2177">			_token = makeToken(_ttype);</span>
+<span class="fc" id="L2178">			_token.setText(new String(text.getBuffer(), _begin, text.length()-_begin));</span>
+		}
+<span class="fc" id="L2180">		_returnToken = _token;</span>
+<span class="fc" id="L2181">	}</span>
+	
+	
+	private static final long[] mk_tokenSet_0() {
+<span class="fc" id="L2185">		long[] data = { 288019269919178752L, 0L, 0L, 0L, 0L};</span>
+<span class="fc" id="L2186">		return data;</span>
+	}
+<span class="fc" id="L2188">	public static final BitSet _tokenSet_0 = new BitSet(mk_tokenSet_0());</span>
+	private static final long[] mk_tokenSet_1() {
+<span class="fc" id="L2190">		long[] data = new long[8];</span>
+<span class="fc" id="L2191">		data[0]=-4398046520321L;</span>
+<span class="fc bfc" id="L2192" title="All 2 branches covered.">		for (int i = 1; i&lt;=3; i++) { data[i]=-1L; }</span>
+<span class="fc" id="L2193">		return data;</span>
+	}
+<span class="fc" id="L2195">	public static final BitSet _tokenSet_1 = new BitSet(mk_tokenSet_1());</span>
+	private static final long[] mk_tokenSet_2() {
+<span class="fc" id="L2197">		long[] data = new long[8];</span>
+<span class="fc" id="L2198">		data[0]=-9217L;</span>
+<span class="fc bfc" id="L2199" title="All 2 branches covered.">		for (int i = 1; i&lt;=3; i++) { data[i]=-1L; }</span>
+<span class="fc" id="L2200">		return data;</span>
+	}
+<span class="fc" id="L2202">	public static final BitSet _tokenSet_2 = new BitSet(mk_tokenSet_2());</span>
+	private static final long[] mk_tokenSet_3() {
+<span class="fc" id="L2204">		long[] data = { -9151595350857875456L, 95772161741946880L, 0L, 0L, 0L};</span>
+<span class="fc" id="L2205">		return data;</span>
+	}
+<span class="fc" id="L2207">	public static final BitSet _tokenSet_3 = new BitSet(mk_tokenSet_3());</span>
+	private static final long[] mk_tokenSet_4() {
+<span class="fc" id="L2209">		long[] data = { 287949450930814976L, 541165879422L, 0L, 0L, 0L};</span>
+<span class="fc" id="L2210">		return data;</span>
+	}
+<span class="fc" id="L2212">	public static final BitSet _tokenSet_4 = new BitSet(mk_tokenSet_4());</span>
+	private static final long[] mk_tokenSet_5() {
+<span class="fc" id="L2214">		long[] data = new long[8];</span>
+<span class="fc" id="L2215">		data[0]=-549755813889L;</span>
+<span class="fc bfc" id="L2216" title="All 2 branches covered.">		for (int i = 1; i&lt;=3; i++) { data[i]=-1L; }</span>
+<span class="fc" id="L2217">		return data;</span>
+	}
+<span class="fc" id="L2219">	public static final BitSet _tokenSet_5 = new BitSet(mk_tokenSet_5());</span>
+	private static final long[] mk_tokenSet_6() {
+<span class="fc" id="L2221">		long[] data = new long[8];</span>
+<span class="fc" id="L2222">		data[0]=-17179878401L;</span>
+<span class="fc" id="L2223">		data[1]=-268435457L;</span>
+<span class="fc bfc" id="L2224" title="All 2 branches covered.">		for (int i = 2; i&lt;=3; i++) { data[i]=-1L; }</span>
+<span class="fc" id="L2225">		return data;</span>
+	}
+<span class="fc" id="L2227">	public static final BitSet _tokenSet_6 = new BitSet(mk_tokenSet_6());</span>
+	private static final long[] mk_tokenSet_7() {
+<span class="fc" id="L2229">		long[] data = { 288019269919178752L, 137438953504L, 0L, 0L, 0L};</span>
+<span class="fc" id="L2230">		return data;</span>
+	}
+<span class="fc" id="L2232">	public static final BitSet _tokenSet_7 = new BitSet(mk_tokenSet_7());</span>
+	
+	}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

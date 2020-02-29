@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="4.3" timestamp="2020-02-29T09:25:39.034">
+<pmd version="4.3" timestamp="2020-02-29T14:41:46.402">
 <file name="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/src/org/argouml/language/cpp/generator/GeneratorCpp.java">
 <violation beginline="458" endline="461" begincolumn="17" endcolumn="17" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.argouml.language.cpp.generator" class="GeneratorCpp" method="createDirectoriesPathname" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
 These nested if statements could be combined
@@ -80,6 +80,354 @@ Avoid unused method parameters such as 'taggedValues2'.
 <file name="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/src/org/argouml/language/cpp/reveng/TypedefModeler.java">
 <violation beginline="57" endline="57" begincolumn="16" endcolumn="22" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="TypedefModeler" method="directDeclarator" variable="typedef" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
 Avoid unused local variables such as 'typedef'.
+</violation>
+</file>
+<file name="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPLexer.java">
+<violation beginline="8" endline="8" begincolumn="1" endcolumn="22" rule="UnusedImports" ruleset="Import Statement Rules" package="org.argouml.language.cpp.reveng" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
+Avoid unused imports such as 'java.util.List'
+</violation>
+<violation beginline="9" endline="9" begincolumn="1" endcolumn="27" rule="UnusedImports" ruleset="Import Statement Rules" package="org.argouml.language.cpp.reveng" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
+Avoid unused imports such as 'java.util.ArrayList'
+</violation>
+<violation beginline="17" endline="17" begincolumn="1" endcolumn="28" rule="UnusedImports" ruleset="Import Statement Rules" package="org.argouml.language.cpp.reveng" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
+Avoid unused imports such as 'antlr.ANTLRException'
+</violation>
+<violation beginline="19" endline="19" begincolumn="8" endcolumn="26" rule="DuplicateImports" ruleset="Import Statement Rules" package="org.argouml.language.cpp.reveng" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#DuplicateImports" priority="4">
+Avoid duplicate imports such as 'java.util.Hashtable'
+</violation>
+<violation beginline="20" endline="20" begincolumn="1" endcolumn="25" rule="UnusedImports" ruleset="Import Statement Rules" package="org.argouml.language.cpp.reveng" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
+Avoid unused imports such as 'antlr.CharScanner'
+</violation>
+<violation beginline="25" endline="25" begincolumn="1" endcolumn="25" rule="UnusedImports" ruleset="Import Statement Rules" package="org.argouml.language.cpp.reveng" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
+Avoid unused imports such as 'antlr.CommonToken'
+</violation>
+<violation beginline="28" endline="28" begincolumn="1" endcolumn="37" rule="UnusedImports" ruleset="Import Statement Rules" package="org.argouml.language.cpp.reveng" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
+Avoid unused imports such as 'antlr.MismatchedCharException'
+</violation>
+<violation beginline="33" endline="33" begincolumn="1" endcolumn="31" rule="UnusedImports" ruleset="Import Statement Rules" package="org.argouml.language.cpp.reveng" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
+Avoid unused imports such as 'antlr.SemanticException'
+</violation>
+<violation beginline="135" endline="135" begincolumn="15" endcolumn="25" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="nextToken" variable="theRetToken" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as 'theRetToken'.
+</violation>
+<violation beginline="138" endline="138" begincolumn="23" endcolumn="28" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="nextToken" variable="_token" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_token'.
+</violation>
+<violation beginline="438" endline="438" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mASSIGNEQUAL" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="451" endline="451" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mCOLON" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="464" endline="464" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mCOMMA" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="477" endline="477" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mQUESTIONMARK" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="490" endline="490" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mSEMICOLON" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="503" endline="503" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mPOINTERTO" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="516" endline="516" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mLPAREN" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="529" endline="529" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mRPAREN" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="542" endline="542" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mLSQUARE" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="555" endline="555" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mRSQUARE" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="568" endline="568" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mLCURLY" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="581" endline="581" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mRCURLY" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="594" endline="594" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mEQUAL" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="607" endline="607" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mNOTEQUAL" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="620" endline="620" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mLESSTHANOREQUALTO" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="633" endline="633" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mLESSTHAN" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="646" endline="646" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mGREATERTHANOREQUALTO" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="659" endline="659" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mGREATERTHAN" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="672" endline="672" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mDIVIDE" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="685" endline="685" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mDIVIDEEQUAL" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="698" endline="698" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mPLUS" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="711" endline="711" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mPLUSEQUAL" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="724" endline="724" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mPLUSPLUS" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="737" endline="737" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mMINUS" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="750" endline="750" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mMINUSEQUAL" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="763" endline="763" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mMINUSMINUS" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="776" endline="776" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mSTAR" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="789" endline="789" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mTIMESEQUAL" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="802" endline="802" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mMOD" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="815" endline="815" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mMODEQUAL" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="828" endline="828" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mSHIFTRIGHT" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="841" endline="841" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mSHIFTRIGHTEQUAL" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="854" endline="854" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mSHIFTLEFT" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="867" endline="867" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mSHIFTLEFTEQUAL" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="880" endline="880" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mAND" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="893" endline="893" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mNOT" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="906" endline="906" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mOR" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="919" endline="919" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mAMPERSAND" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="932" endline="932" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mBITWISEANDEQUAL" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="945" endline="945" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mTILDE" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="958" endline="958" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mBITWISEOR" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="971" endline="971" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mBITWISEOREQUAL" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="984" endline="984" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mBITWISEXOR" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="997" endline="997" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mBITWISEXOREQUAL" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="1010" endline="1010" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mPOINTERTOMBR" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="1023" endline="1023" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mDOTMBR" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="1036" endline="1036" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mSCOPE" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="1049" endline="1049" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mWhitespace" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="1140" endline="1140" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mComment" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="1180" endline="1180" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mEndOfLine" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="1207" endline="1207" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mCPPComment" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="1238" endline="1238" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mDIRECTIVE" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="1239" endline="1239" begincolumn="23" endcolumn="24" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mDIRECTIVE" variable="ld" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as 'ld'.
+</violation>
+<violation beginline="1257" endline="1257" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mLineDirective" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="1284" endline="1284" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mCharLiteral" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="1312" endline="1312" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mEscape" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="1384" endline="1385" begincolumn="91" endcolumn="33" rule="EmptyIfStmt" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mEscape" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyIfStmt" priority="3">
+Avoid empty if statements
+</violation>
+<violation beginline="1392" endline="1393" begincolumn="83" endcolumn="25" rule="EmptyIfStmt" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mEscape" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyIfStmt" priority="3">
+Avoid empty if statements
+</violation>
+<violation beginline="1410" endline="1411" begincolumn="83" endcolumn="25" rule="EmptyIfStmt" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mEscape" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyIfStmt" priority="3">
+Avoid empty if statements
+</violation>
+<violation beginline="1460" endline="1460" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mStringLiteral" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="1511" endline="1511" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mDigit" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="1524" endline="1524" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mDecimal" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="1550" endline="1550" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mLongSuffix" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="1578" endline="1578" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mUnsignedSuffix" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="1606" endline="1606" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mFloatSuffix" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="1634" endline="1634" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mExponent" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="1702" endline="1702" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mVocabulary" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="1715" endline="1715" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mNumber" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+<violation beginline="1805" endline="1806" begincolumn="38" endcolumn="33" rule="EmptyIfStmt" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mNumber" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyIfStmt" priority="3">
+Avoid empty if statements
+</violation>
+<violation beginline="1971" endline="1972" begincolumn="46" endcolumn="41" rule="EmptyIfStmt" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mNumber" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyIfStmt" priority="3">
+Avoid empty if statements
+</violation>
+<violation beginline="1996" endline="1997" begincolumn="38" endcolumn="33" rule="EmptyIfStmt" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mNumber" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyIfStmt" priority="3">
+Avoid empty if statements
+</violation>
+<violation beginline="2093" endline="2093" begincolumn="21" endcolumn="30" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPLexer" method="mID" variable="_saveIndex" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as '_saveIndex'.
+</violation>
+</file>
+<file name="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java">
+<violation beginline="13" endline="13" begincolumn="1" endcolumn="36" rule="UnusedImports" ruleset="Import Statement Rules" package="org.argouml.language.cpp.reveng" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
+Avoid unused imports such as 'antlr.TokenStreamIOException'
+</violation>
+<violation beginline="14" endline="14" begincolumn="1" endcolumn="28" rule="UnusedImports" ruleset="Import Statement Rules" package="org.argouml.language.cpp.reveng" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
+Avoid unused imports such as 'antlr.ANTLRException'
+</violation>
+<violation beginline="15" endline="15" begincolumn="1" endcolumn="23" rule="UnusedImports" ruleset="Import Statement Rules" package="org.argouml.language.cpp.reveng" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
+Avoid unused imports such as 'antlr.LLkParser'
+</violation>
+<violation beginline="20" endline="20" begincolumn="1" endcolumn="38" rule="UnusedImports" ruleset="Import Statement Rules" package="org.argouml.language.cpp.reveng" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
+Avoid unused imports such as 'antlr.MismatchedTokenException'
+</violation>
+<violation beginline="370" endline="371" begincolumn="25" endcolumn="74" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="CPPParser" method="declaratorID" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
+These nested if statements could be combined
+</violation>
+<violation beginline="433" endline="433" begincolumn="24" endcolumn="24" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPParser" method="external_declaration" variable="s" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as 's'.
+</violation>
+<violation beginline="690" endline="691" begincolumn="86" endcolumn="81" rule="EmptyIfStmt" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="CPPParser" method="external_declaration" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyIfStmt" priority="3">
+Avoid empty if statements
+</violation>
+<violation beginline="1247" endline="1248" begincolumn="41" endcolumn="119" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="CPPParser" method="enum_specifier" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
+These nested if statements could be combined
+</violation>
+<violation beginline="1899" endline="1899" begincolumn="33" endcolumn="93" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="CPPParser" method="declaration_specifiers" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
+These nested if statements could be combined
+</violation>
+<violation beginline="1979" endline="1980" begincolumn="83" endcolumn="25" rule="EmptyIfStmt" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="CPPParser" method="function_definition" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyIfStmt" priority="3">
+Avoid empty if statements
+</violation>
+<violation beginline="2005" endline="2006" begincolumn="83" endcolumn="25" rule="EmptyIfStmt" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="CPPParser" method="function_definition" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyIfStmt" priority="3">
+Avoid empty if statements
+</violation>
+<violation beginline="2117" endline="2118" begincolumn="96" endcolumn="25" rule="EmptyIfStmt" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="CPPParser" method="qualified_id" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyIfStmt" priority="3">
+Avoid empty if statements
+</violation>
+<violation beginline="2182" endline="2182" begincolumn="24" endcolumn="24" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPParser" method="member_declaration" variable="q" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as 'q'.
+</violation>
+<violation beginline="3254" endline="3254" begincolumn="24" endcolumn="26" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPParser" method="using_declaration" variable="qid" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as 'qid'.
+</violation>
+<violation beginline="4187" endline="4188" begincolumn="81" endcolumn="109" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="CPPParser" method="class_specifier" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
+These nested if statements could be combined
+</violation>
+<violation beginline="4287" endline="4288" begincolumn="88" endcolumn="17" rule="EmptyIfStmt" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="CPPParser" method="qualified_type" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyIfStmt" priority="3">
+Avoid empty if statements
+</violation>
+<violation beginline="4364" endline="4364" begincolumn="24" endcolumn="25" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPParser" method="enumerator" variable="id" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as 'id'.
+</violation>
+<violation beginline="4407" endline="4408" begincolumn="96" endcolumn="25" rule="EmptyIfStmt" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="CPPParser" method="optor" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyIfStmt" priority="3">
+Avoid empty if statements
+</violation>
+<violation beginline="4424" endline="4425" begincolumn="96" endcolumn="25" rule="EmptyIfStmt" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="CPPParser" method="optor" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyIfStmt" priority="3">
+Avoid empty if statements
+</violation>
+<violation beginline="4914" endline="4914" begincolumn="24" endcolumn="25" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPParser" method="exception_specification" variable="so" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as 'so'.
+</violation>
+<violation beginline="5734" endline="5734" begincolumn="24" endcolumn="24" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPParser" method="superclass_init" variable="q" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as 'q'.
+</violation>
+<violation beginline="6404" endline="6405" begincolumn="41" endcolumn="115" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="CPPParser" method="template_parameter" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
+These nested if statements could be combined
+</violation>
+<violation beginline="6421" endline="6421" begincolumn="24" endcolumn="24" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPParser" method="assigned_type_name" variable="s" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as 's'.
+</violation>
+<violation beginline="6675" endline="6676" begincolumn="96" endcolumn="25" rule="EmptyIfStmt" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="CPPParser" method="selection_statement" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyIfStmt" priority="3">
+Avoid empty if statements
+</violation>
+<violation beginline="7011" endline="7012" begincolumn="54" endcolumn="25" rule="EmptyIfStmt" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="CPPParser" method="jump_statement" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyIfStmt" priority="3">
+Avoid empty if statements
+</violation>
+<violation beginline="8313" endline="8314" begincolumn="88" endcolumn="17" rule="EmptyIfStmt" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="CPPParser" method="new_expression" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyIfStmt" priority="3">
+Avoid empty if statements
+</violation>
+<violation beginline="8552" endline="8552" begincolumn="24" endcolumn="24" rule="UnusedLocalVariable" ruleset="Unused Code Rules" package="org.argouml.language.cpp.reveng" class="CPPParser" method="id_expression" variable="s" externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedLocalVariable" priority="3">
+Avoid unused local variables such as 's'.
+</violation>
+<violation beginline="8676" endline="8677" begincolumn="88" endcolumn="17" rule="EmptyIfStmt" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="CPPParser" method="new_type_id" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyIfStmt" priority="3">
+Avoid empty if statements
+</violation>
+<violation beginline="8779" endline="8780" begincolumn="96" endcolumn="25" rule="EmptyIfStmt" ruleset="Basic Rules" package="org.argouml.language.cpp.reveng" class="CPPParser" method="new_declarator" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#EmptyIfStmt" priority="3">
+Avoid empty if statements
+</violation>
+</file>
+<file name="/var/jenkins_home/workspace/rganization_argouml-cpp_master_2/target/generated-sources/antlr/org/argouml/language/cpp/reveng/STDCTokenTypes.java">
+<violation beginline="7" endline="7" begincolumn="1" endcolumn="27" rule="UnusedImports" ruleset="Import Statement Rules" package="org.argouml.language.cpp.reveng" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
+Avoid unused imports such as 'java.util.Hashtable'
+</violation>
+<violation beginline="8" endline="8" begincolumn="1" endcolumn="22" rule="UnusedImports" ruleset="Import Statement Rules" package="org.argouml.language.cpp.reveng" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
+Avoid unused imports such as 'java.util.List'
+</violation>
+<violation beginline="9" endline="9" begincolumn="1" endcolumn="27" rule="UnusedImports" ruleset="Import Statement Rules" package="org.argouml.language.cpp.reveng" externalInfoUrl="http://pmd.sourceforge.net/rules/imports.html#UnusedImports" priority="4">
+Avoid unused imports such as 'java.util.ArrayList'
 </violation>
 </file>
 </pmd>

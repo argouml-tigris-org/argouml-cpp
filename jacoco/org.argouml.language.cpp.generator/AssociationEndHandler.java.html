@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AssociationEndHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">argo_cpp</a> &gt; <a href="index.source.html" class="el_package">org.argouml.language.cpp.generator</a> &gt; <span class="el_source">AssociationEndHandler.java</span></div><h1>AssociationEndHandler.java</h1><pre class="source lang-java linenums">/* $Id$
+ *****************************************************************************
+ * Copyright (c) 2009 Contributors - see below
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    euluis
+ *****************************************************************************
+ *
+ * Some portions of this file was previously release using the BSD License:
+ */
+
+// Copyright (c) 2007 The Regents of the University of California. All
+// Rights Reserved. Permission to use, copy, modify, and distribute this
+// software and its documentation without fee, and without a written
+// agreement is hereby granted, provided that the above copyright notice
+// and this paragraph appear in all copies. This software program and
+// documentation are copyrighted by The Regents of the University of
+// California. The software program and documentation are supplied &quot;AS
+// IS&quot;, without any accompanying services from The Regents. The Regents
+// does not warrant that the operation of the program will be
+// uninterrupted or error-free. The end-user understands that the program
+// was developed for research purposes and is advised not to rely
+// exclusively on the program for any reason. IN NO EVENT SHALL THE
+// UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT,
+// SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS,
+// ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
+// THE UNIVERSITY OF CALIFORNIA HAS BEEN ADVISED OF THE POSSIBILITY OF
+// SUCH DAMAGE. THE UNIVERSITY OF CALIFORNIA SPECIFICALLY DISCLAIMS ANY
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+// MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE SOFTWARE
+// PROVIDED HEREUNDER IS ON AN &quot;AS IS&quot; BASIS, AND THE UNIVERSITY OF
+// CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT,
+// UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+
+package org.argouml.language.cpp.generator;
+
+import static org.argouml.model.Model.getAggregationKind;
+import static org.argouml.model.Model.getExtensionMechanismsFactory;
+import static org.argouml.model.Model.getExtensionMechanismsHelper;
+import static org.argouml.model.Model.getFacade;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
+import org.argouml.language.cpp.profile.ProfileCpp;
+
+/**
+ * Handler for pre and post processing the generation of an AssociationEnd, 
+ * specifically, it will modify the AssociationEnd before generation of C++ 
+ * to enable semantically correct C++ code generation.
+ * 
+ * See &lt;a href=&quot;http://argouml.tigris.org/issues/show_bug.cgi?id=4541&quot;&gt;issue 
+ * #4541&lt;/a&gt; for details on why this is needed.
+ * 
+ * @author Luís Sérgio Oliveira (euluis)
+ */
+class AssociationEndHandler {
+
+    private Object associationEnd;
+
+<span class="fc" id="L67">    private List&lt;Object[]&gt; modifiedObjects = new ArrayList&lt;Object[]&gt;();</span>
+
+<span class="fc" id="L69">    AssociationEndHandler(Object theAssociationEnd) {</span>
+<span class="fc" id="L70">        this.associationEnd = theAssociationEnd;</span>
+<span class="fc" id="L71">    }</span>
+
+    void pre() {
+<span class="fc bfc" id="L74" title="All 2 branches covered.">        if (!getAggregationKind().getComposite().equals(</span>
+<span class="fc" id="L75">                getFacade().getAggregation1(associationEnd))) {</span>
+            Collection otherAssociationEnds = 
+<span class="fc" id="L77">                getFacade().getOtherAssociationEnds(associationEnd);</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">            for (Object otherAE : otherAssociationEnds) {</span>
+<span class="fc" id="L79">                Iterator taggedValues = getFacade().getTaggedValues(</span>
+                        otherAE);
+<span class="fc" id="L81">                boolean addPtrTV = true;</span>
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">                while (taggedValues.hasNext()) {</span>
+<span class="nc" id="L83">                    Object tv = taggedValues.next();</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">                    if (ProfileCpp.isPtrOrRefTVName(getFacade().getName(tv))) {</span>
+<span class="nc" id="L85">                        addPtrTV = false;</span>
+<span class="nc" id="L86">                        break;</span>
+                    }
+<span class="nc" id="L88">                }</span>
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">                if (addPtrTV) {</span>
+<span class="fc" id="L90">                    ProfileCpp.getTagDefinition(ProfileCpp.TV_NAME_POINTER);</span>
+<span class="fc" id="L91">                    Object ptrTV = getExtensionMechanismsFactory().</span>
+<span class="fc" id="L92">                        buildTaggedValue(</span>
+<span class="fc" id="L93">                            ProfileCpp.getTagDefinition(</span>
+                                ProfileCpp.TV_NAME_POINTER), 
+                            new String[] {&quot;true&quot;});
+<span class="fc" id="L96">                    getExtensionMechanismsHelper().addTaggedValue(</span>
+                            otherAE, ptrTV);
+<span class="fc" id="L98">                    modifiedObjects.add(new Object[] {otherAE, ptrTV});</span>
+                }
+                
+<span class="fc" id="L101">            }</span>
+        }
+<span class="fc" id="L103">    }</span>
+
+    void post() {
+<span class="fc bfc" id="L106" title="All 2 branches covered.">        for (Object[] modifiedOtherAE : modifiedObjects) {</span>
+<span class="fc" id="L107">            getExtensionMechanismsHelper().removeTaggedValue(</span>
+                    modifiedOtherAE[0], modifiedOtherAE[1]);
+<span class="fc" id="L109">        }</span>
+<span class="fc" id="L110">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,0 +1,1024 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ModelerImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">argo_cpp</a> &gt; <a href="index.source.html" class="el_package">org.argouml.language.cpp.reveng</a> &gt; <span class="el_source">ModelerImpl.java</span></div><h1>ModelerImpl.java</h1><pre class="source lang-java linenums">/* $Id$
+ *****************************************************************************
+ * Copyright (c) 2009-2013 Contributors - see below
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Luis Sergio Oliveira (euluis)
+ *****************************************************************************
+ *
+ * Some portions of this file was previously release using the BSD License:
+ */
+
+// Copyright (c) 1996-2009 The Regents of the University of California. All
+// Rights Reserved. Permission to use, copy, modify, and distribute this
+// software and its documentation without fee, and without a written
+// agreement is hereby granted, provided that the above copyright notice
+// and this paragraph appear in all copies.  This software program and
+// documentation are copyrighted by The Regents of the University of
+// California. The software program and documentation are supplied &quot;AS
+// IS&quot;, without any accompanying services from The Regents. The Regents
+// does not warrant that the operation of the program will be
+// uninterrupted or error-free. The end-user understands that the program
+// was developed for research purposes and is advised not to rely
+// exclusively on the program for any reason.  IN NO EVENT SHALL THE
+// UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT,
+// SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS,
+// ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
+// THE UNIVERSITY OF CALIFORNIA HAS BEEN ADVISED OF THE POSSIBILITY OF
+// SUCH DAMAGE. THE UNIVERSITY OF CALIFORNIA SPECIFICALLY DISCLAIMS ANY
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+// MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE SOFTWARE
+// PROVIDED HEREUNDER IS ON AN &quot;AS IS&quot; BASIS, AND THE UNIVERSITY OF
+// CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT,
+// UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+
+package org.argouml.language.cpp.reveng;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Stack;
+import java.util.logging.Logger;
+
+import org.argouml.kernel.Project;
+import org.argouml.model.IllegalModelElementConnectionException;
+import org.argouml.model.Model;
+import static org.argouml.model.Model.*;
+import org.argouml.profile.Profile;
+import org.argouml.profile.ProfileException;
+import org.argouml.language.cpp.profile.ProfileCpp;
+import static org.argouml.language.cpp.profile.ProfileCpp.*;
+
+/**
+ * Implementation of the &lt;code&gt;Modeler&lt;/code&gt; interface. This facade
+ * implements part and delegates the rest of the implementation that transforms
+ * the parsed information from a C++ translation unit into UML model elements
+ * and updating the model with it.
+ *
+ * @author euluis
+ * @since 0.19.3
+ */
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">public class ModelerImpl implements Modeler {</span>
+    /**
+     * The context stack keeps track of the current parsing context in a stack
+     * wise manner.
+     */
+<span class="fc" id="L72">    private Stack contextStack = new Stack();</span>
+
+    /**
+     * The access specifier applicable to the parsing context. May be null if
+     * not within a classifier.
+     */
+    private Object contextAccessSpecifier;
+
+    /**
+     * Counts the member declaration level.
+     */
+    private int memberDeclarationCount;
+
+    /**
+     * Counts the compound statement level.
+     */
+    private int compoundStatementCount;
+
+    private boolean ignoreableFunctionDefinition;
+
+    /**
+     * Logger.
+     */
+<span class="fc" id="L95">    private static final Logger LOG = Logger.getLogger(</span>
+<span class="fc" id="L96">            ModelerImpl.class.getName());</span>
+    
+    private Collection newElements;
+    
+    private ProfileCpp profile;
+    
+    private Project project;
+    
+    private AttributeModeler attributeModeler;
+    
+    private OperationModeler operationModeler;
+    
+<span class="fc" id="L108">    ModelerImpl(Project p) throws ProfileException {</span>
+<span class="fc" id="L109">        project = p;</span>
+<span class="fc" id="L110">        List&lt;Profile&gt; projectProfiles = </span>
+<span class="fc" id="L111">            project.getProfileConfiguration().getProfiles();</span>
+<span class="fc" id="L112">        Profile cppProfile = null;</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">        for (Profile projectProfile : projectProfiles) {</span>
+<span class="pc bpc" id="L114" title="1 of 2 branches missed.">            if (projectProfile.getDisplayName() != null </span>
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">                &amp;&amp; projectProfile.getDisplayName().contains(&quot;C++&quot;)) {</span>
+<span class="nc" id="L116">                cppProfile = projectProfile;</span>
+<span class="nc" id="L117">                break;</span>
+            }
+<span class="fc" id="L119">        }</span>
+<span class="pc bpc" id="L120" title="1 of 2 branches missed.">        if (cppProfile != null) {</span>
+<span class="nc" id="L121">            profile = new ProfileCpp(project.getUserDefinedModelList(), </span>
+<span class="nc" id="L122">                cppProfile.getProfilePackages().iterator().next());</span>
+        }
+        else {
+<span class="fc" id="L125">            profile = new ProfileCpp(project.getModels());</span>
+        }
+<span class="fc" id="L127">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#beginTranslationUnit()
+     */
+    public void beginTranslationUnit() {
+<span class="fc" id="L133">        newElements = new HashSet();</span>
+<span class="fc" id="L134">        contextStack.push(getModel());</span>
+<span class="fc" id="L135">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#endTranslationUnit()
+     */
+    public void endTranslationUnit() {
+        // for now we don't need to do anything here
+<span class="fc" id="L142">    }</span>
+    
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#getNewElements()
+     */
+    public Collection getNewElements() {
+<span class="fc" id="L148">        return newElements;</span>
+    }
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#enterNamespaceScope(java.lang.String)
+     */
+    public void enterNamespaceScope(String nsName) {
+<span class="pc bpc" id="L155" title="1 of 2 branches missed.">        if (!ignore()) {</span>
+<span class="fc" id="L156">            Object parentNs = getCurrentNamespace();</span>
+<span class="fc" id="L157">            Object ns = findNamespace(nsName, parentNs);</span>
+<span class="fc bfc" id="L158" title="All 2 branches covered.">            if (ns == null) {</span>
+<span class="fc" id="L159">                ns = Model.getModelManagementFactory().buildPackage(nsName);</span>
+<span class="fc" id="L160">                newElements.add(ns);</span>
+<span class="fc" id="L161">                getCoreHelper().setNamespace(ns, parentNs);</span>
+            }
+<span class="fc" id="L163">            contextStack.push(ns);</span>
+        }
+<span class="fc" id="L165">    }</span>
+
+    /**
+     * Get the current namespace from the {@link #contextStack contextStack} or
+     * the model.
+     * 
+     * @return the parent namespace
+     */
+    private Object getCurrentNamespace() {
+<span class="fc" id="L174">        Object parentNs = null;</span>
+<span class="pc bpc" id="L175" title="1 of 2 branches missed.">        if (contextStack.isEmpty()) {</span>
+<span class="nc" id="L176">            parentNs = getModel();</span>
+        } else {
+<span class="fc" id="L178">            parentNs = contextStack.peek();</span>
+<span class="pc bpc" id="L179" title="2 of 4 branches missed.">            assert getFacade().isANamespace(parentNs);</span>
+        }
+<span class="fc" id="L181">        return parentNs;</span>
+    }
+
+    /**
+     * Find the namespace with the given name which parent is
+     * &lt;code&gt;parentNs&lt;/code&gt;.
+     *
+     * @param nsName namespace name
+     * @param parentNs the parent namespace of the namespace to get
+     * @return the namespace if it exists, &lt;code&gt;null&lt;/code&gt; otherwise.
+     */
+    private Object findNamespace(String nsName, Object parentNs) {
+        Collection nss =
+<span class="fc" id="L194">	    Model.getModelManagementHelper().getAllNamespaces(getModel());</span>
+<span class="fc" id="L195">        Iterator it = nss.iterator();</span>
+<span class="fc" id="L196">        Object ns = null;</span>
+<span class="fc bfc" id="L197" title="All 2 branches covered.">        while (it.hasNext()) {</span>
+<span class="fc" id="L198">            Object tmpNs = it.next();</span>
+<span class="pc bpc" id="L199" title="1 of 2 branches missed.">            if (nsName.equals(getFacade().getName(tmpNs))) {</span>
+                // NOTE: equality by reference may be deceiving if the
+                // implementation uses proxies - not likely that different
+                // proxies are used, so at least we should be comparing the
+                // references of the same proxy object!
+<span class="pc bpc" id="L204" title="1 of 2 branches missed.">                if (getFacade().getNamespace(tmpNs) == parentNs) {</span>
+<span class="fc" id="L205">                    ns = tmpNs;</span>
+<span class="fc" id="L206">                    break;</span>
+                }
+            }
+<span class="nc" id="L209">        }</span>
+<span class="fc" id="L210">        return ns;</span>
+    }
+    
+    private Object model;
+
+    /**
+     * FIXME: the user model should be received via constructor.
+     * @return the user model
+     */
+    private Object getModel() {
+<span class="fc bfc" id="L220" title="All 2 branches covered.">        if (model != null) {</span>
+<span class="fc" id="L221">            return model;</span>
+        }
+<span class="pc bpc" id="L223" title="1 of 2 branches missed.">        for (Object userModel : getProject().getUserDefinedModelList()) {</span>
+<span class="pc bpc" id="L224" title="1 of 2 branches missed.">            if (!getModelManagementHelper().isReadOnly(userModel)) {</span>
+<span class="fc" id="L225">                model = userModel;</span>
+<span class="fc" id="L226">                return model;</span>
+            }
+<span class="nc" id="L228">        }</span>
+<span class="nc" id="L229">        throw new IllegalStateException(&quot;An editable user model wasn't found!&quot;);</span>
+    }
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#exitNamespaceScope()
+     */
+    public void exitNamespaceScope() {
+<span class="fc bfc" id="L236" title="All 2 branches covered.">        if (!ignore()) {</span>
+<span class="fc" id="L237">            Object ns = contextStack.pop();</span>
+<span class="pc bpc" id="L238" title="2 of 4 branches missed.">            assert getFacade().isANamespace(ns) : &quot;The popped context (\&quot;&quot;</span>
+                + ns + &quot;\&quot;) isn't a namespace!&quot;;
+        }
+<span class="fc" id="L241">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#makeNamespaceAlias(java.lang.String,
+     *      java.lang.String)
+     */
+    public void makeNamespaceAlias(String ns, String alias) {
+        // TODO: implement after defining the way this is supposed to be
+        // modeled
+<span class="fc" id="L250">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#beginClassDefinition(java.lang.String,
+     *      java.lang.String)
+     */
+    public void beginClassDefinition(String oType, String identifier) {
+<span class="pc bpc" id="L257" title="1 of 2 branches missed.">        if (!ignore()) {</span>
+            // a class is defined, so, check if it exists in the model or
+            // create it...
+<span class="fc" id="L260">            Object ns = getCurrentNamespace();</span>
+            // FIXME: we're not checking for oType here! Is it needed? Is it
+            // possible to have struct X and class X in the same namespace in
+            // C++?
+<span class="fc" id="L264">            Object cls = findClass(identifier, ns);</span>
+<span class="fc bfc" id="L265" title="All 2 branches covered.">            if (cls == null) {</span>
+<span class="fc" id="L266">                cls = getCoreFactory().buildClass(identifier, ns);</span>
+<span class="fc" id="L267">                profile.applyCppClassStereotype(cls);</span>
+<span class="fc" id="L268">                newElements.add(cls);</span>
+            }
+<span class="fc" id="L270">            contextStack.push(cls);</span>
+<span class="fc bfc" id="L271" title="All 2 branches covered.">            if (CPPvariables.OT_CLASS.equals(oType)) {</span>
+                // the default visibility for a C++ class
+<span class="fc" id="L273">                contextAccessSpecifier = getVisibilityKind().getPrivate();</span>
+<span class="pc bpc" id="L274" title="1 of 2 branches missed.">            } else if (CPPvariables.OT_STRUCT.equals(oType)) {</span>
+<span class="fc" id="L275">                contextAccessSpecifier = getVisibilityKind().getPublic();</span>
+<span class="fc" id="L276">                profile.applyClassSpecifierTaggedValue(cls, &quot;struct&quot;);</span>
+<span class="nc bnc" id="L277" title="All 2 branches missed.">            } else if (CPPvariables.OT_UNION.equals(oType)) {</span>
+                // TODO: implement union specifics.
+                ;
+            } else {
+<span class="nc bnc" id="L281" title="All 2 branches missed.">                assert false</span>
+                : &quot;Not expecting any other oType than class, struct and &quot;
+                    + &quot;union!&quot;;
+            }
+        }
+<span class="fc" id="L286">    }</span>
+
+    /**
+     * Find a class within the given namespace that has the given identifier.
+     *
+     * @param identifier the class identifier
+     * @param ns namespace to look in
+     * @return the class if found, null otherwise
+     */
+    private static Object findClass(String identifier, Object ns) {
+<span class="fc" id="L296">        Collection classes = getCoreHelper().getAllClasses(ns);</span>
+<span class="fc" id="L297">        Iterator it = classes.iterator();</span>
+<span class="fc bfc" id="L298" title="All 2 branches covered.">        while (it.hasNext()) {</span>
+<span class="fc" id="L299">            Object candidateClass = it.next();</span>
+<span class="fc bfc" id="L300" title="All 2 branches covered.">            if (Model.getFacade().getName(candidateClass).equals(identifier)) {</span>
+<span class="fc" id="L301">                return candidateClass;</span>
+            }
+<span class="fc" id="L303">        }</span>
+<span class="fc" id="L304">        return null;</span>
+    }
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#endClassDefinition()
+     */
+    public void endClassDefinition() {
+<span class="pc bpc" id="L311" title="1 of 2 branches missed.">        if (!ignore()) {</span>
+<span class="fc" id="L312">            Object cls = contextStack.pop();</span>
+<span class="pc bpc" id="L313" title="2 of 4 branches missed.">            assert getFacade().isAClass(cls) : &quot;The popped context (\&quot;&quot;</span>
+<span class="nc" id="L314">                + getFacade().getName(cls) + &quot;\&quot;) isn't a class!&quot;;</span>
+<span class="fc" id="L315">            contextAccessSpecifier = null;</span>
+        }
+<span class="fc" id="L317">    }</span>
+
+    /*
+     * FIXME: I think that with nested classes having only one access specifier
+     * won't work. This must be implemented in a stack scheme, where the
+     * constructs that can work with access specifiers will need to manage the
+     * stack.
+     *
+     * @see org.argouml.language.cpp.reveng.Modeler#accessSpecifier(java.lang.String)
+     */
+    public void accessSpecifier(String accessSpec) {
+<span class="pc bpc" id="L328" title="1 of 2 branches missed.">        if (!ignore()) {</span>
+<span class="fc bfc" id="L329" title="All 2 branches covered.">            if (&quot;public&quot;.equals(accessSpec)) {</span>
+<span class="fc" id="L330">                contextAccessSpecifier = Model.getVisibilityKind().getPublic();</span>
+<span class="fc bfc" id="L331" title="All 2 branches covered.">            } else if (&quot;protected&quot;.equals(accessSpec)) {</span>
+<span class="fc" id="L332">                contextAccessSpecifier =</span>
+<span class="fc" id="L333">		    Model.getVisibilityKind().getProtected();</span>
+<span class="pc bpc" id="L334" title="1 of 2 branches missed.">            } else if (&quot;private&quot;.equals(accessSpec)) {</span>
+<span class="fc" id="L335">                contextAccessSpecifier = Model.getVisibilityKind().getPrivate();</span>
+            } else {
+<span class="nc bnc" id="L337" title="All 2 branches missed.">                assert false : &quot;Unknown C++ access specifier: &quot; + accessSpec;</span>
+            }
+        }
+<span class="fc" id="L340">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#beginFunctionDeclaration()
+     */
+    public void beginFunctionDeclaration() {
+<span class="pc bpc" id="L346" title="1 of 2 branches missed.">        if (!ignore()) {</span>
+<span class="fc" id="L347">            operationModeler = new OperationModeler(contextStack.peek(), </span>
+<span class="fc" id="L348">                    contextAccessSpecifier, getVoid(), false, profile);</span>
+<span class="fc" id="L349">            contextStack.push(operationModeler.getOperation());</span>
+        }
+<span class="fc" id="L351">    }</span>
+    
+    private Project getProject() {
+<span class="fc" id="L354">        return project;</span>
+    }
+
+    /**
+     * @return the void DataType
+     */
+    private Object getVoid() {
+<span class="fc" id="L361">        return getProject().findType(&quot;void&quot;);</span>
+    }
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#endFunctionDeclaration()
+     */
+    public void endFunctionDeclaration() {
+<span class="pc bpc" id="L368" title="1 of 2 branches missed.">        if (!ignore()) {</span>
+<span class="pc bpc" id="L369" title="2 of 4 branches missed.">            assert operationModeler != null : &quot;operationModeler is null.&quot;;</span>
+<span class="fc" id="L370">            Object oper = contextStack.pop();</span>
+<span class="pc bpc" id="L371" title="2 of 4 branches missed.">            assert Model.getFacade().isAOperation(oper) : &quot;&quot;</span>
+                + &quot;The popped context (\&quot;&quot; + oper + &quot;\&quot;) isn't an operation!&quot;;
+<span class="fc" id="L373">            operationModeler.finish();</span>
+<span class="fc" id="L374">            operationModeler = null;</span>
+        }
+<span class="fc" id="L376">    }</span>
+
+    private TypedefModeler typedefModeler;
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#declarationSpecifiers(java.util.List)
+     */
+    public void declarationSpecifiers(List declSpecs) {
+<span class="fc bfc" id="L384" title="All 2 branches covered.">        if (declSpecs.contains(&quot;typedef&quot;)) {</span>
+<span class="pc bpc" id="L385" title="2 of 4 branches missed.">            assert typedefModeler == null;</span>
+<span class="fc" id="L386">            typedefModeler = new TypedefModeler(contextStack.peek(), </span>
+                contextAccessSpecifier, profile);
+<span class="fc bfc" id="L388" title="All 2 branches covered.">        } else if (getFacade().isAOperation(contextStack.peek())) {</span>
+<span class="fc bfc" id="L389" title="All 2 branches covered.">            OperationModeler modeler = operationModeler != null</span>
+                ? operationModeler : xtorModeler;
+<span class="fc" id="L391">            modeler.declarationSpecifiers(declSpecs);</span>
+        }
+<span class="fc" id="L393">    }</span>
+    
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#simpleTypeSpecifier(java.util.List)
+     */
+    public void simpleTypeSpecifier(List sts) {
+<span class="fc bfc" id="L399" title="All 2 branches covered.">        if (!ignore()) {</span>
+<span class="fc" id="L400">            StringBuffer stsString = new StringBuffer();</span>
+<span class="fc" id="L401">            Iterator i = sts.iterator();</span>
+<span class="fc bfc" id="L402" title="All 2 branches covered.">            while (i.hasNext()) {</span>
+<span class="fc" id="L403">                stsString.append(i.next().toString()).append(&quot; &quot;);</span>
+            }
+<span class="fc" id="L405">            LOG.finer(&quot;In simpleTypeSpecifier, stsString = &quot; + stsString);</span>
+<span class="fc" id="L406">            Object theType = findOrCreateType(stsString.toString().trim());</span>
+<span class="fc bfc" id="L407" title="All 2 branches covered.">            if (memberModeler != null) {</span>
+<span class="fc" id="L408">                memberModeler.setType(theType);</span>
+            }
+            // now, depending on the context, this might be the return type of a
+            // function declaration or an attribute of a class or a variable
+            // declaration; of course, this is rather incomplete(!)
+<span class="fc" id="L413">            Object contextModelElement = contextStack.peek();</span>
+<span class="fc bfc" id="L414" title="All 2 branches covered.">            if (getFacade().isAOperation(contextModelElement)) {</span>
+<span class="pc bpc" id="L415" title="2 of 4 branches missed.">                assert operationModeler != null</span>
+                    : &quot;operationModeler is null in the context of operation &quot;
+<span class="nc" id="L417">                        + getFacade().getName(contextModelElement) + &quot;.&quot;;</span>
+<span class="fc" id="L418">                operationModeler.setType(theType);</span>
+<span class="fc bfc" id="L419" title="All 2 branches covered.">            } else if (getFacade().isAClass(contextModelElement)) {</span>
+                // an attribute or an enumeration... handled elsewhere
+<span class="fc bfc" id="L421" title="All 2 branches covered.">            } else if (getFacade().isAParameter(contextModelElement)) {</span>
+<span class="fc" id="L422">                getCoreHelper().setType(contextModelElement, theType);</span>
+<span class="pc bpc" id="L423" title="1 of 2 branches missed.">            } else if (getFacade().isAModel(contextModelElement) </span>
+<span class="nc bnc" id="L424" title="All 2 branches missed.">                    || getFacade().isANamespace(contextModelElement)) {</span>
+                // we either have a global variable or a typedef
+<span class="pc bpc" id="L426" title="1 of 2 branches missed.">                if (typedefModeler != null) {</span>
+<span class="fc" id="L427">                    typedefModeler.setType(theType);</span>
+                }
+            }
+        }
+<span class="fc" id="L431">    }</span>
+
+    /**
+     * Finds or creates a type with the given name. This method
+     * delegates the call to ArgoUML helper method, but, first takes
+     * care of C++ specific issues, such as pointer and reference
+     * stripping and buit-in types which shouldn't be created as
+     * classes (the way ArgoUML does), but, as DataType.
+     *
+     * @param typeName the name of the type
+     * @return A model element that represents the given type
+     */
+    private Object findOrCreateType(String typeName) {
+<span class="fc" id="L444">        Object theType = null;</span>
+<span class="fc" id="L445">        List taggedValues = new LinkedList();</span>
+<span class="fc" id="L446">        processPtrOperators(typeName, taggedValues);</span>
+<span class="fc bfc" id="L447" title="All 2 branches covered.">        if (profile.isBuiltIn(typeName)) {</span>
+<span class="fc" id="L448">            theType = profile.getBuiltIn(typeName);</span>
+        } else {
+<span class="fc" id="L450">            theType = getProject().findType(typeName.toString(), true);</span>
+        }
+<span class="fc" id="L452">        return theType;</span>
+    }
+
+    /**
+     * Process a type specification by stripping pointer operators
+     * from the type name and processing them to tagged values that
+     * are added to the provide list.
+     *
+     * @param typeName unprocessed C++ type name
+     * @param taggedValues list of tagged values where any processing result is
+     *            added to
+     * @return the stripped type name
+     */
+    private String processPtrOperators(String typeName, List taggedValues) {
+        // TODO: implement
+<span class="fc" id="L467">        return typeName;</span>
+    }
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#directDeclarator(java.lang.String, boolean)
+     */
+    public void directDeclarator(String id, boolean typedef) {
+<span class="fc bfc" id="L474" title="All 2 branches covered.">        if (!ignore()) {</span>
+<span class="fc" id="L475">            LOG.finer(&quot;In directDeclarator: id = \&quot;&quot; + id + &quot;\&quot;; typedef = &quot; </span>
+                + typedef);
+<span class="fc bfc" id="L477" title="All 2 branches covered.">            if (typedef) {</span>
+<span class="pc bpc" id="L478" title="2 of 4 branches missed.">                assert typedefModeler != null;</span>
+<span class="fc" id="L479">                typedefModeler.directDeclarator(id);</span>
+<span class="fc" id="L480">                typedefModeler = null;</span>
+            } else {
+<span class="fc" id="L482">                getCoreHelper().setName(contextStack.peek(), id);</span>
+            }
+        }
+<span class="fc" id="L485">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#storageClassSpecifier(java.lang.String)
+     */
+    public void storageClassSpecifier(String storageClassSpec) {
+        // TODO: Auto-generated method stub
+<span class="nc" id="L492">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#typeQualifier(java.lang.String)
+     */
+    public void typeQualifier(String typeQualifier) {
+        // TODO: Auto-generated method stub
+
+<span class="fc" id="L500">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#beginFunctionDefinition()
+     */
+    public void beginFunctionDefinition() {
+<span class="pc bpc" id="L506" title="1 of 2 branches missed.">        if (!ignore()) {</span>
+<span class="fc bfc" id="L507" title="All 2 branches covered.">            if (isMemberDeclaration()) {</span>
+<span class="fc" id="L508">                beginFunctionDeclaration();</span>
+<span class="fc" id="L509">                operationModeler.setDefinedInClass();</span>
+            } else {
+                // TODO: here we should set the method of the corresponding
+                // operation, if it exists, or create a global operation and
+                // set the corresponding method
+<span class="fc" id="L514">                ignoreableFunctionDefinition = true;</span>
+            }
+        }
+<span class="fc" id="L517">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#endFunctionDefinition()
+     */
+    public void endFunctionDefinition() {
+<span class="fc bfc" id="L523" title="All 2 branches covered.">        if (!ignore()) {</span>
+<span class="pc bpc" id="L524" title="1 of 2 branches missed.">            if (isMemberDeclaration()) {</span>
+<span class="fc" id="L525">                endFunctionDeclaration();</span>
+            } else {
+                // TODO: here we should set the method of the corresponding
+                // operation, if it exists, or create a global operation and
+                // set the corresponding method
+<span class="nc" id="L530">                ignoreableFunctionDefinition = false;</span>
+            }
+        }
+<span class="fc" id="L533">    }</span>
+
+    /**
+     * @return true if this call occurs within a member declaration
+     */
+    private boolean isMemberDeclaration() {
+<span class="fc bfc" id="L539" title="All 2 branches covered.">        return memberDeclarationCount &gt; 0;</span>
+    }
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#functionDirectDeclarator(java.lang.String)
+     */
+    public void functionDirectDeclarator(String identifier) {
+<span class="fc bfc" id="L546" title="All 2 branches covered.">        if (!ignore()) {</span>
+<span class="pc bpc" id="L547" title="2 of 4 branches missed.">            assert getFacade().isAOperation(contextStack.peek());</span>
+<span class="fc" id="L548">            getCoreHelper().setName(contextStack.peek(), identifier);</span>
+        }
+<span class="fc" id="L550">    }</span>
+
+    /**
+     * @return true if the call should be ignored
+     */
+    private boolean ignore() {
+<span class="fc bfc" id="L556" title="All 4 branches covered.">        return compoundStatementCount &gt; 0 || ignoreableFunctionDefinition;</span>
+    }
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#beginParameterDeclaration()
+     */
+    public void beginParameterDeclaration() {
+<span class="fc bfc" id="L563" title="All 2 branches covered.">        if (!ignore()) {</span>
+<span class="fc" id="L564">            Object oper = contextStack.peek();</span>
+<span class="pc bpc" id="L565" title="1 of 2 branches missed.">            if (Model.getFacade().isAOperation(oper)) {</span>
+                // create a parameter within the operation
+                Object param =
+<span class="fc" id="L568">		    Model.getCoreFactory().buildParameter(oper, getVoid());</span>
+                // add the created parameter to the stack
+<span class="fc" id="L570">                contextStack.push(param);</span>
+            }
+        }
+<span class="fc" id="L573">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#endParameterDeclaration()
+     */
+    public void endParameterDeclaration() {
+<span class="fc bfc" id="L579" title="All 2 branches covered.">        if (!ignore()) {</span>
+            // NOTE: this is different from the other endXxx() methods, since,
+            // we may be called within the context of a function definition
+            // without it being a member.
+<span class="fc" id="L583">            Object param = contextStack.peek();</span>
+<span class="pc bpc" id="L584" title="1 of 2 branches missed.">            if (Model.getFacade().isAParameter(param)) {</span>
+<span class="fc" id="L585">                contextStack.pop();</span>
+                // set the parameter kind according to the tagged value details
+                // FIXME: this won't work when we have const reference
+                // parameters!
+<span class="fc" id="L589">                if (Model.getFacade().getTaggedValueValue(param,</span>
+<span class="fc bfc" id="L590" title="All 2 branches covered.">                    TV_NAME_REFERENCE).equals(&quot;true&quot;)</span>
+<span class="fc" id="L591">                    || Model.getFacade().getTaggedValueValue(param,</span>
+<span class="fc bfc" id="L592" title="All 2 branches covered.">                        TV_NAME_POINTER).equals(&quot;true&quot;)) {</span>
+<span class="fc" id="L593">                    Model.getCoreHelper().setKind(param,</span>
+<span class="fc" id="L594">                        Model.getDirectionKind().getInOutParameter());</span>
+                }
+            }
+        }
+<span class="fc" id="L598">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#beginInitializer()
+     */
+    public void beginInitializer() {
+<span class="pc bpc" id="L604" title="1 of 2 branches missed.">        if (!ignore()) {</span>
+<span class="fc" id="L605">            Object context = contextStack.peek();</span>
+<span class="pc bpc" id="L606" title="1 of 2 branches missed.">            if (Model.getFacade().isAOperation(context)) {</span>
+                // we don't really need to see what it is being initialized
+                // to, for sure it is to 0 =&gt; abstract operation
+<span class="fc" id="L609">                Model.getCoreHelper().setAbstract(context, true);</span>
+            }
+        }
+<span class="fc" id="L612">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#endInitializer()
+     */
+    public void endInitializer() {
+        // do nothing
+<span class="fc" id="L619">    }</span>
+    
+    private MemberModeler memberModeler;
+    
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#beginMemberDeclaration()
+     */
+    public void beginMemberDeclaration() {
+<span class="fc" id="L627">        Object owner = contextStack.peek();</span>
+<span class="fc" id="L628">        assertIsAClassifier(owner);</span>
+<span class="fc" id="L629">        memberModeler = new MemberModeler(owner, contextAccessSpecifier,</span>
+                profile);
+<span class="fc" id="L631">        memberDeclarationCount++;</span>
+<span class="fc" id="L632">    }</span>
+
+    void assertIsAClassifier(Object modelElement) {
+<span class="pc bpc" id="L635" title="2 of 4 branches missed.">        assert getFacade().isAClassifier(modelElement) </span>
+            : &quot;modelElement must be a Classifier; its name is \&quot;&quot; 
+<span class="nc" id="L637">                + getFacade().getName(modelElement) + &quot;\&quot;.&quot;;</span>
+<span class="fc" id="L638">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#endMemberDeclaration()
+     */
+    public void endMemberDeclaration() {
+<span class="fc" id="L644">        memberDeclarationCount--;</span>
+<span class="fc" id="L645">        memberModeler.finish();</span>
+<span class="fc" id="L646">        memberModeler = null;</span>
+<span class="fc" id="L647">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#beginCompoundStatement()
+     */
+    public void beginCompoundStatement() {
+<span class="fc" id="L653">        compoundStatementCount++;</span>
+<span class="fc" id="L654">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#endCompoundStatement()
+     */
+    public void endCompoundStatement() {
+<span class="fc" id="L660">        compoundStatementCount--;</span>
+<span class="fc" id="L661">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#beginPtrOperator()
+     */
+    public void beginPtrOperator() {
+<span class="fc bfc" id="L667" title="All 2 branches covered.">        if (!ignore()) {</span>
+<span class="fc" id="L668">            Object ptrTV = Model.getExtensionMechanismsFactory().</span>
+<span class="fc" id="L669">                buildTaggedValue(ProfileCpp.getTagDefinition(&quot;dummy&quot;), </span>
+                    new String[] {&quot;&quot;});
+<span class="fc" id="L671">            contextStack.push(ptrTV);</span>
+        }
+<span class="fc" id="L673">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#endPtrOperator()
+     */
+    public void endPtrOperator() {
+<span class="fc bfc" id="L679" title="All 2 branches covered.">        if (!ignore()) {</span>
+<span class="fc" id="L680">            Object ptrTV = contextStack.pop();</span>
+<span class="pc bpc" id="L681" title="2 of 4 branches missed.">            assert Model.getFacade().isATaggedValue(ptrTV) </span>
+                : &quot;A Tagged Value was expected, but, got: \&quot;&quot; + ptrTV + &quot;\&quot;.&quot;;
+<span class="fc" id="L683">            Object meToBeTagged = contextStack.peek();</span>
+<span class="fc bfc" id="L684" title="All 2 branches covered.">            if (getFacade().isAOperation(meToBeTagged)) {</span>
+<span class="fc" id="L685">                Collection rps = getCoreHelper().getReturnParameters(</span>
+                    meToBeTagged);
+<span class="pc bpc" id="L687" title="2 of 4 branches missed.">                assert rps.size() == 1;</span>
+<span class="fc" id="L688">                meToBeTagged = rps.iterator().next();</span>
+            }
+<span class="fc" id="L690">            Model.getExtensionMechanismsHelper().addTaggedValue(</span>
+                meToBeTagged, ptrTV);
+        }
+<span class="fc" id="L693">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#ptrOperator(java.lang.String)
+     */
+    public void ptrOperator(String ptrSymbol) {
+<span class="fc bfc" id="L699" title="All 2 branches covered.">        if (!ignore()) {</span>
+<span class="pc bpc" id="L700" title="1 of 4 branches missed.">            if (ptrSymbol.equals(&quot;&amp;&quot;) || ptrSymbol.equals(&quot;*&quot;)) {</span>
+                // arrrg we must discard the tagged value created before cause
+                // we can't change its name
+<span class="fc" id="L703">                Object discardedTV = contextStack.pop();</span>
+<span class="pc bpc" id="L704" title="2 of 4 branches missed.">                assert getFacade().isATaggedValue(discardedTV);</span>
+
+<span class="fc" id="L706">                Object paramOrAttribute = contextStack.peek();</span>
+<span class="pc bpc" id="L707" title="1 of 4 branches missed.">                assert getFacade().isAParameter(paramOrAttribute) </span>
+<span class="fc bfc" id="L708" title="All 2 branches covered.">                    || getFacade().isAAttribute(paramOrAttribute) </span>
+<span class="pc bpc" id="L709" title="1 of 2 branches missed.">                    || getFacade().isAOperation(paramOrAttribute);</span>
+<span class="fc" id="L710">                String stereoName = null;</span>
+<span class="fc bfc" id="L711" title="All 2 branches covered.">                if (getFacade().isAParameter(paramOrAttribute)) {</span>
+<span class="fc" id="L712">                    stereoName = STEREO_NAME_PARAMETER;</span>
+                }
+<span class="fc bfc" id="L714" title="All 2 branches covered.">                else if (getFacade().isAAttribute(paramOrAttribute)) {</span>
+<span class="fc" id="L715">                    stereoName = STEREO_NAME_ATTRIBUTE;</span>
+                }
+<span class="pc bpc" id="L717" title="1 of 2 branches missed.">                else if (getFacade().isAOperation(paramOrAttribute)) {</span>
+<span class="fc" id="L718">                    Collection rps = getCoreHelper().getReturnParameters(</span>
+                        paramOrAttribute);
+<span class="pc bpc" id="L720" title="2 of 4 branches missed.">                    assert rps.size() == 1;</span>
+<span class="fc" id="L721">                    paramOrAttribute = rps.iterator().next();</span>
+<span class="fc" id="L722">                    stereoName = STEREO_NAME_PARAMETER;</span>
+<span class="fc" id="L723">                }</span>
+                else {
+<span class="nc" id="L725">                    LOG.warning(&quot;Unexpected reveng context: &quot; </span>
+                            + paramOrAttribute);
+<span class="nc" id="L727">                    return;</span>
+                }
+<span class="fc" id="L729">                profile.applyStereotype(stereoName, paramOrAttribute);</span>
+<span class="fc" id="L730">                String tvName = null;</span>
+<span class="fc bfc" id="L731" title="All 2 branches covered.">                if (ptrSymbol.equals(&quot;&amp;&quot;)) {</span>
+<span class="fc" id="L732">                    tvName = TV_NAME_REFERENCE;</span>
+<span class="pc bpc" id="L733" title="1 of 2 branches missed.">                } else if (ptrSymbol.equals(&quot;*&quot;)) {</span>
+<span class="fc" id="L734">                    tvName = TV_NAME_POINTER;</span>
+                }
+<span class="fc" id="L736">                profile.applyTaggedValue(stereoName, tvName, paramOrAttribute, </span>
+                        &quot;true&quot;);
+<span class="fc" id="L738">                Object tv = getFacade().getTaggedValue(paramOrAttribute, </span>
+                        tvName);
+<span class="fc" id="L740">                contextStack.push(tv);</span>
+<span class="fc" id="L741">            } else {</span>
+<span class="nc" id="L742">                LOG.warning(&quot;unprocessed ptrSymbol: &quot; + ptrSymbol);</span>
+            }
+        }
+<span class="fc" id="L745">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#ptrToMember(java.lang.String,
+     *      java.lang.String)
+     */
+    public void ptrToMember(String scopedItem, String star) {
+        // TODO: Auto-generated method stub
+<span class="nc" id="L753">    }</span>
+
+    /**
+     * Modeler for the base_specifier rule.
+     */
+    private BaseSpecifierModeler baseSpecifierModeler;
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#beginBaseSpecifier()
+     */
+    public void beginBaseSpecifier() {
+<span class="pc bpc" id="L764" title="1 of 2 branches missed.">        if (!ignore()) {</span>
+<span class="fc" id="L765">            baseSpecifierModeler = new BaseSpecifierModeler();</span>
+        }
+<span class="fc" id="L767">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#endBaseSpecifier()
+     */
+    public void endBaseSpecifier() {
+<span class="pc bpc" id="L773" title="1 of 2 branches missed.">        if (!ignore()) {</span>
+<span class="fc" id="L774">            baseSpecifierModeler.finish();</span>
+<span class="fc" id="L775">            baseSpecifierModeler = null;</span>
+        }
+<span class="fc" id="L777">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#baseSpecifier(java.lang.String,
+     *      boolean)
+     */
+    public void baseSpecifier(String identifier, boolean isVirtual) {
+<span class="pc bpc" id="L784" title="1 of 2 branches missed.">        if (!ignore()) {</span>
+<span class="fc" id="L785">            baseSpecifierModeler.baseSpecifier(identifier, isVirtual);</span>
+	}
+<span class="fc" id="L787">    }</span>
+
+    /**
+     * A class that models the base_specifier rule, mapping it to a UML
+     * generalization.
+     */
+    private class BaseSpecifierModeler {
+        private Object previousAccessSpecifier;
+
+        private Object generalization;
+
+        /**
+         * The constructor of the BaseSpecifierModeler retrieves information
+         * about the current parsing context, storing it to enable context aware
+         * processing of the baseSpecifier call, and resetting the context to
+         * its previous state after processing.
+         */
+<span class="fc" id="L804">        BaseSpecifierModeler() {</span>
+<span class="fc" id="L805">            previousAccessSpecifier = contextAccessSpecifier;</span>
+<span class="fc" id="L806">            contextAccessSpecifier = null;</span>
+<span class="fc" id="L807">        }</span>
+
+        /**
+         *
+         * @param identifier the base class identifier
+         * @param isVirtual flags virtual inheritance
+         */
+        void baseSpecifier(String identifier, boolean isVirtual) {
+            // create a generalization for the current class
+<span class="fc" id="L816">            Object parent = findOrCreateType(identifier);</span>
+<span class="fc" id="L817">            generalization =</span>
+<span class="fc" id="L818">		findOrCreateGeneralization(parent, contextStack.peek());</span>
+<span class="fc" id="L819">            profile.applyVirtualInheritanceTaggedValue(generalization, </span>
+<span class="fc" id="L820">                    Boolean.toString(isVirtual));</span>
+<span class="fc" id="L821">        }</span>
+
+        /**
+         * Finish processing the base specifier rule.
+         */
+        void finish() {
+            // set the visibility of the generalization
+<span class="pc bpc" id="L828" title="1 of 2 branches missed.">            if (contextAccessSpecifier == null) { // default is private</span>
+<span class="nc" id="L829">                contextAccessSpecifier = Model.getVisibilityKind().getPrivate();</span>
+            }
+<span class="fc" id="L831">            profile.applyInheritanceVisibilityTaggedValue2Generalization(</span>
+                    generalization, 
+<span class="fc" id="L833">                    getFacade().getName(contextAccessSpecifier));</span>
+            // finish the base specifier by setting the context to the
+            // previous state
+<span class="fc" id="L836">            contextAccessSpecifier = previousAccessSpecifier;</span>
+<span class="fc" id="L837">        }</span>
+    }
+
+    /**
+     * Find or create a Generalization between the given parent and child
+     * Classifiers.
+     *
+     * @param parent the parent Classifier
+     * @param child the child Classifier
+     * @return the found Generalization model element if found, otherwise a
+     *         newly created
+     */
+    private Object findOrCreateGeneralization(Object parent,
+            Object child) {
+        Object generalization =
+<span class="fc" id="L852">	    Model.getFacade().getGeneralization(child, parent);</span>
+<span class="fc" id="L853">        Object stereotype = null;</span>
+<span class="pc bpc" id="L854" title="1 of 2 branches missed.">        if (generalization == null) {</span>
+            try {
+<span class="fc" id="L856">                generalization = getUmlFactory().buildConnection(</span>
+<span class="fc" id="L857">                        getMetaTypes().getGeneralization(), child, null, </span>
+                        parent, null, null, null);
+<span class="nc" id="L859">            } catch (IllegalModelElementConnectionException e) {</span>
+<span class="nc" id="L860">                LOG.severe(&quot;Exception while creating generalization, &quot; + e);</span>
+<span class="nc" id="L861">                throw new RuntimeException(e);</span>
+<span class="fc" id="L862">            }</span>
+	} else {
+<span class="nc" id="L864">            Collection stereotypes = getFacade().getStereotypes(generalization);</span>
+<span class="nc bnc" id="L865" title="All 2 branches missed.">            for (Object aStereotype : stereotypes) {</span>
+<span class="nc bnc" id="L866" title="All 2 branches missed.">                if (STEREO_NAME_GENERALIZATION.equals(</span>
+<span class="nc" id="L867">                        getFacade().getName(aStereotype))) {</span>
+<span class="nc" id="L868">                    stereotype = aStereotype;</span>
+                }
+<span class="nc" id="L870">            }</span>
+        }
+<span class="pc bpc" id="L872" title="2 of 4 branches missed.">        assert generalization != null;</span>
+<span class="pc bpc" id="L873" title="1 of 2 branches missed.">        if (stereotype == null) {</span>
+<span class="fc" id="L874">            stereotype = profile.getCppGeneralizationStereotype();</span>
+<span class="pc bpc" id="L875" title="2 of 4 branches missed.">            assert stereotype != null;</span>
+<span class="fc" id="L876">            getCoreHelper().addStereotype(generalization, stereotype);</span>
+        }
+<span class="fc" id="L878">        return generalization;</span>
+    }
+    
+    private boolean isXtorIgnorable() {
+<span class="pc bpc" id="L882" title="1 of 2 branches missed.">        return contextStack.size() == 0 </span>
+<span class="fc bfc" id="L883" title="All 2 branches covered.">            || getFacade().isAModel(contextStack.peek());</span>
+    }
+
+    /**
+     * Modeler for constructors and destructors.
+     */
+    private XtorModeler xtorModeler;
+    
+    private static interface XtorModelerCreator {
+        XtorModeler create(Object owner, Object visibility, Object returnType, 
+                boolean ignorable);
+    }
+
+    private void beginXtor(final XtorModelerCreator modelerCreator) {
+<span class="pc bpc" id="L897" title="1 of 2 branches missed.">        if (!ignore()) {</span>
+<span class="pc bpc" id="L898" title="2 of 4 branches missed.">            assert xtorModeler == null;</span>
+<span class="fc" id="L899">            boolean ignorable = isXtorIgnorable();</span>
+<span class="fc" id="L900">            Object owner = contextStack.peek();</span>
+<span class="fc" id="L901">            xtorModeler = modelerCreator.create(owner, contextAccessSpecifier,</span>
+<span class="fc" id="L902">                getVoid(), ignorable);</span>
+<span class="fc bfc" id="L903" title="All 2 branches covered.">            if (!ignorable) {</span>
+<span class="fc" id="L904">                assertIsAClassifier(owner);</span>
+<span class="fc" id="L905">                contextStack.push(xtorModeler.getOperation());</span>
+            }
+        }
+<span class="fc" id="L908">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#beginCtorDefinition()
+     */
+    public void beginCtorDefinition() {
+<span class="fc" id="L914">        beginCtor();</span>
+<span class="pc bpc" id="L915" title="1 of 2 branches missed.">        if (!ignore()) {</span>
+<span class="fc" id="L916">            xtorModeler.setDefinedInClass();</span>
+        }
+<span class="fc" id="L918">    }</span>
+
+    private void beginCtor() {
+<span class="fc" id="L921">        final XtorModelerCreator modelerCreator = new XtorModelerCreator() {</span>
+            public XtorModeler create(Object owner, Object visibility,
+                    Object returnType, boolean ignorable) {
+<span class="fc" id="L924">                return new CtorModeler(owner, visibility, returnType,</span>
+<span class="fc" id="L925">                        ignorable, profile);</span>
+            }
+        };
+<span class="fc" id="L928">        beginXtor(modelerCreator);</span>
+<span class="fc" id="L929">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#beginDtorHead()
+     */
+    public void beginDtorHead() {
+<span class="fc" id="L935">        final XtorModelerCreator modelerCreator = new XtorModelerCreator() {</span>
+            public XtorModeler create(Object owner, Object visibility,
+                    Object returnType, boolean ignorable) {
+<span class="fc" id="L938">                return new DtorModeler(owner, visibility, returnType,</span>
+<span class="fc" id="L939">                        ignorable, profile);</span>
+            }
+        };
+<span class="fc" id="L942">        beginXtor(modelerCreator);</span>
+<span class="fc" id="L943">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#endCtorDefinition()
+     */
+    public void endCtorDefinition() {
+<span class="fc" id="L949">        endXtor();</span>
+<span class="fc" id="L950">    }</span>
+
+    private void endXtor() {
+<span class="pc bpc" id="L953" title="1 of 2 branches missed.">        if (!ignore()) {</span>
+<span class="fc bfc" id="L954" title="All 2 branches covered.">            if (!xtorModeler.isIgnorable()) {</span>
+<span class="fc" id="L955">                Object poppedXtor = contextStack.pop();</span>
+<span class="pc bpc" id="L956" title="2 of 4 branches missed.">                assert xtorModeler.isTheXtor(poppedXtor);</span>
+            }
+<span class="fc" id="L958">            xtorModeler.finish();</span>
+<span class="fc" id="L959">            xtorModeler = null;</span>
+        }
+<span class="fc" id="L961">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#qualifiedCtorId(java.lang.String)
+     */
+    public void qualifiedCtorId(String identifier) {
+<span class="pc bpc" id="L967" title="1 of 2 branches missed.">        if (!ignore()) {</span>
+<span class="fc" id="L968">            boolean onlyDeclaration = false;</span>
+<span class="fc bfc" id="L969" title="All 2 branches covered.">            if (xtorModeler == null) {</span>
+<span class="fc" id="L970">                beginCtor();</span>
+<span class="fc" id="L971">                onlyDeclaration = true;</span>
+            }
+<span class="fc" id="L973">            xtorModeler.setName(identifier);</span>
+<span class="fc bfc" id="L974" title="All 2 branches covered.">            if (!xtorModeler.isIgnorable()) {</span>
+<span class="pc bpc" id="L975" title="2 of 4 branches missed.">                assert xtorModeler.isTheXtor(contextStack.peek());</span>
+            }
+<span class="fc bfc" id="L977" title="All 2 branches covered.">            if (onlyDeclaration) {</span>
+<span class="fc" id="L978">                endXtor();</span>
+            }
+        }
+<span class="fc" id="L981">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#endDtorHead()
+     */
+    public void endDtorHead() {
+<span class="fc" id="L987">        endXtor();</span>
+<span class="fc" id="L988">    }</span>
+
+    /*
+     * @see org.argouml.language.cpp.reveng.Modeler#dtorDeclarator(java.lang.String)
+     */
+    public void dtorDeclarator(String qualifiedId) {
+<span class="fc bfc" id="L994" title="All 2 branches covered.">        if (!xtorModeler.isIgnorable()) {</span>
+<span class="pc bpc" id="L995" title="2 of 4 branches missed.">            assert xtorModeler.isTheXtor(contextStack.peek());</span>
+        }
+<span class="fc" id="L997">        xtorModeler.setName(qualifiedId);</span>
+<span class="fc" id="L998">    }</span>
+
+    public void beginMemberDeclarator() {
+<span class="fc" id="L1001">        Object theType = memberModeler.getType();</span>
+<span class="fc" id="L1002">        attributeModeler = new AttributeModeler(contextStack.peek(),</span>
+            contextAccessSpecifier, theType, profile);
+<span class="fc" id="L1004">        contextStack.push(attributeModeler.getAttribute());</span>
+<span class="fc" id="L1005">    }</span>
+
+    public void endMemberDeclarator() {
+<span class="pc bpc" id="L1008" title="1 of 2 branches missed.">        if (getFacade().isAAttribute(contextStack.peek())) {</span>
+<span class="fc" id="L1009">            attributeModeler.finish();</span>
+<span class="pc bpc" id="L1010" title="2 of 4 branches missed.">            assert attributeModeler.getAttribute() == contextStack.peek();</span>
+<span class="fc" id="L1011">            contextStack.pop();</span>
+        }
+<span class="fc" id="L1013">    }</span>
+
+    public void beginMemberDeclaratorList() {
+        // TODO
+<span class="fc" id="L1017">    }</span>
+
+    public void endMemberDeclaratorList() {
+        // TODO
+<span class="fc" id="L1021">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

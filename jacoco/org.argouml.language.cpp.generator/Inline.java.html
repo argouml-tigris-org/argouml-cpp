@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Inline.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">argo_cpp</a> &gt; <a href="index.source.html" class="el_package">org.argouml.language.cpp.generator</a> &gt; <span class="el_source">Inline.java</span></div><h1>Inline.java</h1><pre class="source lang-java linenums">/* $Id$
+ *****************************************************************************
+ * Copyright (c) 2009 Contributors - see below
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    euluis
+ *****************************************************************************
+ *
+ * Some portions of this file was previously release using the BSD License:
+ */
+
+// Copyright (c) 2008 The Regents of the University of California. All
+// Rights Reserved. Permission to use, copy, modify, and distribute this
+// software and its documentation without fee, and without a written
+// agreement is hereby granted, provided that the above copyright notice
+// and this paragraph appear in all copies.  This software program and
+// documentation are copyrighted by The Regents of the University of
+// California. The software program and documentation are supplied &quot;AS
+// IS&quot;, without any accompanying services from The Regents. The Regents
+// does not warrant that the operation of the program will be
+// uninterrupted or error-free. The end-user understands that the program
+// was developed for research purposes and is advised not to rely
+// exclusively on the program for any reason.  IN NO EVENT SHALL THE
+// UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT,
+// SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS,
+// ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
+// THE UNIVERSITY OF CALIFORNIA HAS BEEN ADVISED OF THE POSSIBILITY OF
+// SUCH DAMAGE. THE UNIVERSITY OF CALIFORNIA SPECIFICALLY DISCLAIMS ANY
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+// MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE SOFTWARE
+// PROVIDED HEREUNDER IS ON AN &quot;AS IS&quot; BASIS, AND THE UNIVERSITY OF
+// CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT,
+// UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+
+// Issue #19 - 'inline' keyword support
+
+package org.argouml.language.cpp.generator;
+
+import static org.argouml.language.cpp.profile.ProfileCpp.*;
+import static org.argouml.model.Model.getFacade;
+
+/**
+ * Small class which holds parameters for generating
+ * 'inline' tagged value for C++ Generator
+ *
+ * @since 19 January 2008
+ * @author Lukasz Gromanowski
+ */
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">public enum Inline {</span>
+    /**
+     * Not inline method definition.
+     */
+<span class="fc" id="L57">    notInline(-1, null, null, false, MethodDefinitionPlace.inCpp), </span>
+    /**
+     * Method definition without 'inline' keyword in class 
+     */
+<span class="fc" id="L61">    defInsideClass(0, TV_INLINE_STYLE_DEFINITION_INSIDE_CLASS, </span>
+            &quot;cpp.default-inline.definition-inside-class&quot;, 
+            false, MethodDefinitionPlace.inHeaderInsideClass),
+    /**
+     * Method definition with 'inline' keyword in class
+     */
+<span class="fc" id="L67">    keyAndDefInsideClass(1, TV_INLINE_STYLE_KEYWORD_DEFINITION_INSIDE_CLASS, </span>
+            &quot;cpp.default-inline.keyword-and-definition-inside-class&quot;, 
+            true, MethodDefinitionPlace.inHeaderInsideClass),
+    /**
+     * Method definition with 'inline' keyword outside class
+     */
+<span class="fc" id="L73">    keyAndDefOutsideClass(2, TV_INLINE_STYLE_KEYWORD_DEFINITION_OUTSIDE_CLASS, </span>
+            &quot;cpp.default-inline.keyword-and-definition-outside-class&quot;, 
+            true, MethodDefinitionPlace.inHeaderOutsideClass),
+    /**
+     * Method definition without 'inline' keyword outside class
+     */
+<span class="fc" id="L79">    defOutsideClass(3, TV_INLINE_STYLE_DEFINITION_OUTSIDE_CLASS, </span>
+            &quot;cpp.default-inline.definition-outside-class&quot;, 
+            false, MethodDefinitionPlace.inHeaderOutsideClass);
+    
+<span class="fc" id="L83">    private static enum MethodDefinitionPlace { inHeaderInsideClass, </span>
+<span class="fc" id="L84">        inHeaderOutsideClass, inCpp; </span>
+    }
+
+    private Inline(int theId, String theTVName, String theLabel, 
+<span class="fc" id="L88">            boolean isKeyword, MethodDefinitionPlace theDefPlace) {</span>
+<span class="fc" id="L89">        id = theId;</span>
+<span class="fc" id="L90">        tvName = theTVName;</span>
+<span class="fc" id="L91">        label = theLabel;</span>
+<span class="fc" id="L92">        keyword = isKeyword;</span>
+<span class="fc" id="L93">        defPlace = theDefPlace;</span>
+<span class="fc" id="L94">    }</span>
+    
+    /**
+     * @param inline 'inline' value 
+     */
+    static void setDefaultStyle(int inline) {
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">        for (Inline style : Inline.values()) {</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">            if (style.id == inline) {</span>
+<span class="fc" id="L102">                defaultInline = style;</span>
+<span class="fc" id="L103">                return;</span>
+            }
+        };
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        assert false : &quot;Unexpected Inline style ID: &quot; + inline;</span>
+<span class="nc" id="L107">    }</span>
+
+    /**
+     * @return Default 'inline' value
+     */
+    static int getDefaultStyle() {
+<span class="nc" id="L113">        return defaultInline.id;</span>
+    }
+    
+    private int id;
+
+    private String tvName;
+
+    private String label;
+
+    private boolean keyword;
+
+    private MethodDefinitionPlace defPlace;
+
+    /**
+     * Default 'inline' value
+     */
+<span class="fc" id="L129">    private static Inline defaultInline = defInsideClass;</span>
+    
+    /**
+     * Get the inline operation modifier type for op.
+     * 
+     * @param op operation to check
+     * @return One of the Inline enumerators.
+     */
+    static Inline getInlineOperationModifierType(Object op) {
+<span class="fc" id="L138">        Object tv = getFacade().getTaggedValue(op, TV_NAME_INLINE);</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">        if (tv != null) {</span>
+<span class="fc" id="L140">            String val = getFacade().getValueOfTag(tv);</span>
+            // Inlining disabled
+<span class="pc bpc" id="L142" title="1 of 2 branches missed.">            if (val.equals(TV_FALSE_VALUE)) {</span>
+<span class="nc" id="L143">                return notInline;</span>
+            }
+
+            // Default 'inline' value
+<span class="pc bpc" id="L147" title="3 of 6 branches missed.">            if (val.equals(TV_TRUE_VALUE) || val.equals(&quot;&quot;) || val == null) {</span>
+<span class="nc" id="L148">                return defaultInline;</span>
+            }
+
+<span class="fc bfc" id="L151" title="All 2 branches covered.">            if (val.equals(defInsideClass.tvName)) {</span>
+<span class="fc" id="L152">                return defInsideClass;</span>
+            }
+
+<span class="fc bfc" id="L155" title="All 2 branches covered.">            if (val.equals(keyAndDefInsideClass.tvName)) {</span>
+<span class="fc" id="L156">                return keyAndDefInsideClass;</span>
+            }
+
+<span class="fc bfc" id="L159" title="All 2 branches covered.">            if (val.equals(keyAndDefOutsideClass.tvName)) {</span>
+<span class="fc" id="L160">                return keyAndDefOutsideClass;</span>
+            }
+
+<span class="pc bpc" id="L163" title="1 of 2 branches missed.">            if (val.equals(defOutsideClass.tvName)) {</span>
+<span class="fc" id="L164">                return defOutsideClass;</span>
+            }
+        }
+
+<span class="fc" id="L168">        return notInline; // no tag found</span>
+    }
+
+    Object getInlineKeyword4Declaration() {
+<span class="fc bfc" id="L172" title="All 2 branches covered.">        return keyword ? TV_NAME_INLINE + &quot; &quot; : &quot;&quot;;</span>
+    }
+
+    boolean isMethodBodyInsideClass() {
+<span class="fc bfc" id="L176" title="All 2 branches covered.">        return defPlace == MethodDefinitionPlace.inHeaderInsideClass;</span>
+    }
+
+    boolean isMethodBodyOutsideClass() {
+<span class="fc bfc" id="L180" title="All 2 branches covered.">        return defPlace == MethodDefinitionPlace.inHeaderOutsideClass;</span>
+    }
+
+    static int getDefaultDefaultStyle() {
+<span class="fc" id="L184">        return defInsideClass.id;</span>
+    }
+
+    public static String[] getStyleLabels() {
+        // TODO: ids must match the indexes! This isn't very solid...
+<span class="nc" id="L189">        return new String [] {defInsideClass.label, </span>
+            keyAndDefInsideClass.label, 
+            keyAndDefOutsideClass.label, 
+            defOutsideClass.label};
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

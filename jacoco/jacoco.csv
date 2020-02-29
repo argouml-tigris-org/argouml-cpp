@@ -1,0 +1,37 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+argo_cpp,org.argouml.language.cpp.notation,AttributeNotationCpp,3,9,0,0,2,3,2,2,2,2
+argo_cpp,org.argouml.language.cpp.notation,ModelElementNameNotationCpp,5,32,2,4,2,10,4,4,2,3
+argo_cpp,org.argouml.language.cpp.notation,NotationModuleCpp,22,69,9,5,6,17,10,6,2,6
+argo_cpp,org.argouml.language.cpp.notation,OperationNotationCpp,12,0,0,0,5,0,4,0,4,0
+argo_cpp,org.argouml.language.cpp.reveng,CPPParser,5536,7920,993,682,1486,1569,784,399,30,175
+argo_cpp,org.argouml.language.cpp.reveng,AttributeModeler,0,61,1,7,0,16,1,7,0,4
+argo_cpp,org.argouml.language.cpp.reveng,DtorModeler,0,9,0,0,0,2,0,1,0,1
+argo_cpp,org.argouml.language.cpp.reveng,MemberModeler,0,38,0,0,0,13,0,7,0,7
+argo_cpp,org.argouml.language.cpp.reveng,XtorModeler,7,76,5,11,0,22,5,8,0,5
+argo_cpp,org.argouml.language.cpp.reveng,ModelerImpl.BaseSpecifierModeler,6,60,1,1,1,15,1,3,0,3
+argo_cpp,org.argouml.language.cpp.reveng,ModelerImpl,278,1237,95,183,30,330,91,110,2,60
+argo_cpp,org.argouml.language.cpp.reveng,TypedefModeler,0,28,0,0,0,7,0,3,0,3
+argo_cpp,org.argouml.language.cpp.reveng,OperationModeler,24,263,11,37,8,70,9,29,0,14
+argo_cpp,org.argouml.language.cpp.reveng,CtorModeler,0,9,0,0,0,2,0,1,0,1
+argo_cpp,org.argouml.language.cpp.reveng,ModelerImpl.new ModelerImpl.XtorModelerCreator() {...},0,17,0,0,0,3,0,2,0,2
+argo_cpp,org.argouml.language.cpp.reveng,ModelerImpl.new ModelerImpl.XtorModelerCreator() {...},0,17,0,0,0,3,0,2,0,2
+argo_cpp,org.argouml.language.cpp.reveng,CppImport,109,216,6,4,24,43,12,7,7,6
+argo_cpp,org.argouml.language.cpp.reveng,CPPvariables,3,70,0,0,1,18,1,1,1,1
+argo_cpp,org.argouml.language.cpp.reveng,CppImport.ModelerInvocationHandler,79,0,8,0,19,0,7,0,3,0
+argo_cpp,org.argouml.language.cpp.reveng,CPPLexer,3150,3148,626,257,632,513,439,108,38,41
+argo_cpp,org.argouml.language.cpp.ui,SettingsTabCpp,403,0,9,0,100,0,19,0,13,0
+argo_cpp,org.argouml.language.cpp.generator,GeneratorCpp,2364,4295,482,506,496,1029,375,229,20,90
+argo_cpp,org.argouml.language.cpp.generator,Inline.MethodDefinitionPlace,0,34,0,0,0,2,0,1,0,1
+argo_cpp,org.argouml.language.cpp.generator,ModuleCpp,9,30,2,4,3,12,3,6,1,4
+argo_cpp,org.argouml.language.cpp.generator,Inline,47,210,9,23,6,36,10,16,2,8
+argo_cpp,org.argouml.language.cpp.generator,Section,13,126,2,6,1,22,3,8,1,6
+argo_cpp,org.argouml.language.cpp.generator,AssociationEndHandler,12,99,4,8,5,24,3,6,0,3
+argo_cpp,org.argouml.language.cpp.profile,NormalProfileCpp.new FormatingStrategy() {...},4,6,0,0,2,1,2,1,2,1
+argo_cpp,org.argouml.language.cpp.profile,BaseProfile.new ArrayList() {...},0,13,0,0,0,2,0,1,0,1
+argo_cpp,org.argouml.language.cpp.profile,NormalProfileCpp,11,54,4,6,1,16,4,10,0,9
+argo_cpp,org.argouml.language.cpp.profile,ProfileModule.new HashMap() {...},0,31,0,0,0,7,0,1,0,1
+argo_cpp,org.argouml.language.cpp.profile,FigNodeStrategyCpp,7,63,2,6,1,17,2,5,0,3
+argo_cpp,org.argouml.language.cpp.profile,DefaultTypeStrategyCpp,5,62,0,8,1,16,1,8,1,4
+argo_cpp,org.argouml.language.cpp.profile,BaseProfile,90,459,21,49,16,121,21,34,0,20
+argo_cpp,org.argouml.language.cpp.profile,ProfileCpp,4,184,0,0,1,54,1,31,1,31
+argo_cpp,org.argouml.language.cpp.profile,ProfileModule,0,97,1,7,0,29,1,11,0,8

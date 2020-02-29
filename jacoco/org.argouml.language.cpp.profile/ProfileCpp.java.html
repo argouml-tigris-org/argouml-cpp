@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProfileCpp.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">argo_cpp</a> &gt; <a href="index.source.html" class="el_package">org.argouml.language.cpp.profile</a> &gt; <span class="el_source">ProfileCpp.java</span></div><h1>ProfileCpp.java</h1><pre class="source lang-java linenums">/* $Id$
+ *****************************************************************************
+ * Copyright (c) 2009 Contributors - see below
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    euluis
+ *****************************************************************************
+ *
+ * Some portions of this file was previously release using the BSD License:
+ */
+
+// Copyright (c) 2007-2009 The Regents of the University of California. All
+// Rights Reserved. Permission to use, copy, modify, and distribute this
+// software and its documentation without fee, and without a written
+// agreement is hereby granted, provided that the above copyright notice
+// and this paragraph appear in all copies. This software program and
+// documentation are copyrighted by The Regents of the University of
+// California. The software program and documentation are supplied &quot;AS
+// IS&quot;, without any accompanying services from The Regents. The Regents
+// does not warrant that the operation of the program will be
+// uninterrupted or error-free. The end-user understands that the program
+// was developed for research purposes and is advised not to rely
+// exclusively on the program for any reason. IN NO EVENT SHALL THE
+// UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT,
+// SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS,
+// ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
+// THE UNIVERSITY OF CALIFORNIA HAS BEEN ADVISED OF THE POSSIBILITY OF
+// SUCH DAMAGE. THE UNIVERSITY OF CALIFORNIA SPECIFICALLY DISCLAIMS ANY
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+// MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE SOFTWARE
+// PROVIDED HEREUNDER IS ON AN &quot;AS IS&quot; BASIS, AND THE UNIVERSITY OF
+// CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT,
+// UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+
+package org.argouml.language.cpp.profile;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+
+/**
+ * This is the class that provides easy access to the other modules of the 
+ * ArgoUML C++ module to the contents of the UML profile for C++.
+ * 
+ * Note that this class is very shallow and the {@link BaseProfile} is doing 
+ * the heavy lifting.
+ * 
+ * TODO: this class is a candidate for being generated from the profile with 
+ * a MDA tool like AndroMDA.
+ * 
+ * @author Luis Sergio Oliveira (euluis)
+ * @since 0.19.3
+ * @see Issue 3771 (http://argouml.tigris.org/issues/show_bug.cgi?id=3771)
+ */
+public class ProfileCpp extends BaseProfile {
+    
+    /**
+     * Name of the C++ UML profile Class stereotype.
+     */
+    public static final String STEREO_NAME_CLASS = &quot;cppClass&quot;;
+
+    /**
+     * Name of the C++ UML profile Generalization stereotype.
+     */
+    public static final String STEREO_NAME_GENERALIZATION = &quot;cppGeneralization&quot;;
+
+    /**
+     * Name of the C++ UML profile Realization stereotype.
+     */
+    public static final String STEREO_NAME_REALIZATION = &quot;cppRealization&quot;;
+
+    /**
+     * Name of the C++ UML profile Attribute stereotype.
+     */
+    public static final String STEREO_NAME_ATTRIBUTE = &quot;cppAttribute&quot;;
+
+    /**
+     * Name of the C++ UML profile Parameter stereotype.
+     */
+    public static final String STEREO_NAME_PARAMETER = &quot;cppParameter&quot;;
+    
+    /**
+     * Name of the C++ UML profile Operation stereotype.
+     */
+    public static final String STEREO_NAME_OPERATION = &quot;cppOperation&quot;;
+    
+    /**
+     * Value to be used in pseudo boolean TVs that means they are true.
+     */
+    public static final String TV_TRUE_VALUE = &quot;true&quot;;
+    
+    /**
+     * Value to be used in pseudo boolean TVs that means they are false.
+     */
+    public static final String TV_FALSE_VALUE = &quot;false&quot;;
+    
+    /**
+     * Name of the C++ class specifier tagged value. Possible values are: class,
+     * union, and struct. When this is omitted, class is used.
+     * 
+     * FIXME: Maybe we should have a more powerful representation of the
+     * TaggedValues in the profile. I would like that restrictions, default
+     * value, value range and naming format to be enforced.
+     * This is possible with Typed TaggedValues and OCL constraints in UML, 
+     * but, the former aren't possible and the later I haven't checked yet...
+     */
+    public static final String TV_NAME_CLASS_SPECIFIER = &quot;cpp_class_specifier&quot;;
+    
+    /**
+     * Name of the C++ source_incl TaggedValues. 
+     */
+    public static final String TV_NAME_SOURCE_INCL = &quot;source_incl&quot;;
+    
+    /**
+     * Name of the C++ header_incl TaggedValues. 
+     */
+    public static final String TV_NAME_HEADER_INCL = &quot;header_incl&quot;;
+    
+    /**
+     * Name of the C++ typedef_public TaggedValues. 
+     */
+    public static final String TV_NAME_TYPEDEF_PUBLIC = &quot;typedef_public&quot;;
+    
+    /**
+     * Name of the C++ typedef_protected TaggedValues. 
+     */
+    public static final String TV_NAME_TYPEDEF_PROTECTED = &quot;typedef_protected&quot;;
+    
+    /**
+     * Name of the C++ typedef_private TaggedValues. 
+     */
+    public static final String TV_NAME_TYPEDEF_PRIVATE = &quot;typedef_private&quot;;
+    
+    /**
+     * The TaggedValue name for the path to the template from which to 
+     * generate the C++ files; applicable to classes.
+     * The TaggedValue value must be a Directory  the GeneratorCpp will 
+     * search in the 
+     * specified directory for the template files &quot;header_template&quot; and 
+     * &quot;cpp_template&quot; which are placed in top of the corresponding file. 
+     * The following tags in the template file are replaced by model values: 
+     * |FILENAME|, |DATE|, |YEAR|, |AUTHOR|, |EMAIL|. 
+     * If no such tag is specified, the templates are searched in the 
+     * subdirectory of the root directory for the code generation.
+     */
+    public static final String TV_NAME_TEMPLATE_PATH = &quot;TemplatePath&quot;;
+    
+    /**
+     * The TaggedValue name for the name of the author of a class; applicable 
+     * to classes. The value in the TaggedValue replaces the tag |AUTHOR| of 
+     * the template file. 
+     * Note: you may simply use the Author property in the documentation 
+     * property panel.
+     */
+    public static final String TV_NAME_AUTHOR = &quot;author&quot;;
+    
+    /**
+     * The TaggedValue name for the name of the author of a class; applicable 
+     * to classes.
+     * name@domain.country  replaces the tag |EMAIL| of the template file.
+     */
+    public static final String TV_NAME_EMAIL = &quot;email&quot;;
+
+    /**
+     * Name of the C++ usage TaggedValue which is also used in the
+     * &lt;code&gt;GeneratorCpp&lt;/code&gt;.
+     * If &quot;header&quot;, will lead for class types to a pre-declaration in the 
+     * header, and the include of the remote class header in the header of the 
+     * generated class.
+     */
+    public static final String TV_NAME_USAGE = &quot;usage&quot;;
+
+    /**
+     * Name of the C++ get TaggedValues.
+     */
+    public static final String TV_NAME_GET = &quot;get&quot;;
+
+    /**
+     * Name of the C++ set TaggedValues.
+     */
+    public static final String TV_NAME_SET = &quot;set&quot;;
+
+    /**
+     * Name of the C++ reference tagged value which is also used in the
+     * &lt;code&gt;GeneratorCpp&lt;/code&gt;.
+     */
+    public static final String TV_NAME_REFERENCE = &quot;reference&quot;;
+
+    /**
+     * Name of the C++ pointer tagged value which is also used in the
+     * &lt;code&gt;GeneratorCpp&lt;/code&gt;.
+     */
+    public static final String TV_NAME_POINTER = &quot;pointer&quot;;
+    
+<span class="fc" id="L200">    private static final Set&lt;String&gt; PTR_N_REF_TV_NAMES = new HashSet&lt;String&gt;();</span>
+    
+    static {
+<span class="fc" id="L203">        PTR_N_REF_TV_NAMES.add(&quot;&amp;&quot;);</span>
+<span class="fc" id="L204">        PTR_N_REF_TV_NAMES.add(&quot;*&quot;);</span>
+<span class="fc" id="L205">        PTR_N_REF_TV_NAMES.add(ProfileCpp.TV_NAME_POINTER);</span>
+<span class="fc" id="L206">        PTR_N_REF_TV_NAMES.add(ProfileCpp.TV_NAME_REFERENCE);</span>
+<span class="fc" id="L207">    }</span>
+    
+    public static boolean isPtrOrRefTVName(String name) {
+<span class="nc" id="L210">        return PTR_N_REF_TV_NAMES.contains(name);</span>
+    }
+
+    /**
+     * Name of the virtual inheritance flag tagged value for a UML 
+     * generalization.
+     * 
+     * Default value (if the tagged value doesn't exist) is false. Type is
+     * obviously Boolean.
+     */
+    public static final String TV_NAME_VIRTUAL_INHERITANCE = 
+        &quot;cpp_virtual_inheritance&quot;;
+
+    /**
+     * Name of the inheritance visibility tagged value. Applicable to a 
+     * generalization.
+     * 
+     * Default value is &lt;code&gt;public&lt;/code&gt; and possible values are: 
+     * &lt;code&gt;private&lt;/code&gt;, &lt;code&gt;protected&lt;/code&gt; and &lt;code&gt;public&lt;/code&gt;.
+     */
+    public static final String TV_NAME_INHERITANCE_VISIBILITY = 
+        &quot;cpp_inheritance_visibility&quot;;
+    
+    /**
+     * Name of the multiplicity type tagged value. Applicable to attributes.
+     */
+    public static final String TV_NAME_MULTIPLICITY_TYPE = &quot;MultiplicityType&quot;;
+    
+    /**
+     * Name of const tagged value used in &lt;code&gt;GeneratorCpp&lt;/code&gt;.
+     */
+    public static final String TV_NAME_CONST = &quot;const&quot;;
+    	
+    /**
+     * Name of inline keyword (C99) tagged value used in
+     * &lt;code&gt;GeneratorCpp&lt;/code&gt;.
+     */
+    public static final String TV_NAME_INLINE = &quot;inline&quot;;
+
+    /**
+     * Value to be used in TVs TV_NAME_INLINE that signals that the inline 
+     * style is simply definition inside class definition.
+     */
+    public static final String TV_INLINE_STYLE_DEFINITION_INSIDE_CLASS =
+        &quot;defInClass&quot;; // Style 1
+    
+    /**
+     * Value to be used in TVs TV_NAME_INLINE that signals that the inline 
+     * style is definition inside class definition with keyword.
+     */
+    public static final String TV_INLINE_STYLE_KEYWORD_DEFINITION_INSIDE_CLASS =
+        &quot;inlineKeyDefInClass&quot;; // Style 2
+    
+    /**
+     * Value to be used in TVs TV_NAME_INLINE that signals that the inline 
+     * style is definition outside class definition, and with the keyword in 
+     * the member function declaration.
+     */
+    public static final String TV_INLINE_STYLE_KEYWORD_DEFINITION_OUTSIDE_CLASS =
+        &quot;inlineKeyDefOutClass&quot;; // Style 3
+
+    /**
+     * Value to be used in TVs TV_NAME_INLINE that signals that the inline 
+     * style is definition outside class definition.
+     */
+    public static final String TV_INLINE_STYLE_DEFINITION_OUTSIDE_CLASS =
+        &quot;defOutClass&quot;; // Style 4
+    
+    public ProfileCpp(Collection&lt;Object&gt; models) {
+<span class="fc" id="L279">        super(models);</span>
+<span class="fc" id="L280">    }</span>
+    
+    public ProfileCpp(Collection&lt;Object&gt; models, Object profileModel) {
+<span class="fc" id="L283">        super(models, profileModel);</span>
+<span class="fc" id="L284">    }</span>
+
+    public Object getCppClassStereotype() {
+<span class="fc" id="L287">        return getCppStereotypeInModel(STEREO_NAME_CLASS);</span>
+    }
+
+    public Object getCppGeneralizationStereotype() {
+<span class="fc" id="L291">        return getCppStereotypeInModel(STEREO_NAME_GENERALIZATION);</span>
+    }
+
+    public Object getCppAttributeStereotype() {
+<span class="fc" id="L295">        return getCppStereotypeInModel(STEREO_NAME_ATTRIBUTE);</span>
+    }
+
+    public Object getCppParameterStereotype() {
+<span class="fc" id="L299">        return getCppStereotypeInModel(STEREO_NAME_PARAMETER);</span>
+    }
+
+    public Object getCppOperationStereotype() {
+<span class="fc" id="L303">        return getCppStereotypeInModel(STEREO_NAME_OPERATION);</span>
+    }
+
+    public Object getVirtualInheritanceTagDefinition() {
+<span class="fc" id="L307">        return getTagDefinition(STEREO_NAME_GENERALIZATION, </span>
+                TV_NAME_VIRTUAL_INHERITANCE);
+    }
+
+    public Object getClassSpecifierTagDefinition() {
+<span class="fc" id="L312">        return getTagDefinition(STEREO_NAME_CLASS, TV_NAME_CLASS_SPECIFIER);</span>
+    }
+
+    public Object getMultiplicityTypeTagDefinition() {
+<span class="fc" id="L316">        return getTagDefinition(STEREO_NAME_ATTRIBUTE, </span>
+                TV_NAME_MULTIPLICITY_TYPE);
+    }
+
+    public Object getPointerTagDefinition4Parameter() {
+<span class="fc" id="L321">        return getTagDefinition(STEREO_NAME_PARAMETER, </span>
+                TV_NAME_POINTER);
+    }
+
+    public Object getReferenceTagDefinition4Parameter() {
+<span class="fc" id="L326">        return getTagDefinition(STEREO_NAME_PARAMETER, </span>
+                TV_NAME_REFERENCE);
+    }
+    
+    public Object getConstTagDefinition4Parameter() {
+<span class="fc" id="L331">        return getTagDefinition(STEREO_NAME_PARAMETER, </span>
+                TV_NAME_CONST);
+    }
+    
+    public Object getInlineTagDefinition4Operation() {
+<span class="fc" id="L336">        return getTagDefinition(STEREO_NAME_OPERATION, </span>
+                TV_NAME_INLINE);
+    }
+
+    public void applyCppClassStereotype(Object aClass) {
+<span class="fc" id="L341">        applyStereotype(STEREO_NAME_CLASS, aClass);</span>
+<span class="fc" id="L342">    }</span>
+
+    public void applyCppAttributeStereotype(Object attribute) {
+<span class="fc" id="L345">        applyStereotype(STEREO_NAME_ATTRIBUTE, attribute);</span>
+<span class="fc" id="L346">    }</span>
+
+    public void applyCppParameterStereotype(Object parameter) {
+<span class="fc" id="L349">        applyStereotype(STEREO_NAME_PARAMETER, parameter);</span>
+<span class="fc" id="L350">    }</span>
+
+    public void applyCppRealizationStereotype(Object realization) {
+<span class="fc" id="L353">        applyStereotype(STEREO_NAME_REALIZATION, realization);</span>
+<span class="fc" id="L354">    }</span>
+
+    public void applyCppGeneralizationStereotype(Object generalization) {
+<span class="fc" id="L357">        applyStereotype(STEREO_NAME_GENERALIZATION, generalization);</span>
+<span class="fc" id="L358">    }</span>
+
+    public void applyCppOperationStereotype(Object operation) {
+<span class="fc" id="L361">        applyStereotype(STEREO_NAME_OPERATION, operation);</span>
+<span class="fc" id="L362">    }</span>
+
+    public void applyClassSpecifierTaggedValue(Object modelElement, 
+            String classSpecifier) {
+<span class="fc" id="L366">        applyTaggedValue(STEREO_NAME_CLASS, TV_NAME_CLASS_SPECIFIER, </span>
+                modelElement, classSpecifier);
+<span class="fc" id="L368">    }</span>
+
+    public void applyMultiplicityTypeTaggedValue(Object modelElement, 
+            String multiplicityType) {
+<span class="fc" id="L372">        applyTaggedValue(STEREO_NAME_ATTRIBUTE, TV_NAME_MULTIPLICITY_TYPE, </span>
+                modelElement, multiplicityType);
+<span class="fc" id="L374">    }</span>
+
+    public void applyPointerTaggedValue2Parameter(Object param, 
+            String isPointer) {
+<span class="fc" id="L378">        applyTaggedValue(STEREO_NAME_PARAMETER, TV_NAME_POINTER, </span>
+                param, isPointer);
+<span class="fc" id="L380">    }</span>
+
+    public void applyReferenceTaggedValue2Parameter(Object param, 
+            String isReference) {
+<span class="fc" id="L384">        applyTaggedValue(STEREO_NAME_PARAMETER, TV_NAME_REFERENCE, </span>
+                param, isReference);
+<span class="fc" id="L386">    }</span>
+
+    public void applyConstTaggedValue2Parameter(Object param, 
+            String isConst) {
+<span class="fc" id="L390">        applyTaggedValue(STEREO_NAME_PARAMETER, TV_NAME_CONST, </span>
+                param, isConst);
+<span class="fc" id="L392">    }</span>
+
+    public void applyInheritanceVisibilityTaggedValue2Generalization(
+            Object generalization, String visibility) {
+<span class="fc" id="L396">        applyTaggedValue(STEREO_NAME_GENERALIZATION, </span>
+                TV_NAME_INHERITANCE_VISIBILITY, generalization, visibility);
+<span class="fc" id="L398">    }</span>
+
+    public void applyVirtualInheritanceTaggedValue(Object generalization, 
+            String isVirtual) {
+<span class="fc" id="L402">        applyTaggedValue(STEREO_NAME_GENERALIZATION, </span>
+                TV_NAME_VIRTUAL_INHERITANCE, generalization, isVirtual);
+<span class="fc" id="L404">    }</span>
+
+    public void applyInheritanceVisibilityTaggedValue2Realization(
+            Object realization, String visibility) {
+<span class="fc" id="L408">        applyTaggedValue(STEREO_NAME_REALIZATION, </span>
+                TV_NAME_INHERITANCE_VISIBILITY, realization, visibility);
+<span class="fc" id="L410">    }</span>
+
+    public void applyInlineTaggedValue2Operation(Object operation, 
+            String inlineType) {
+<span class="fc" id="L414">        applyTaggedValue(STEREO_NAME_OPERATION, TV_NAME_INLINE, </span>
+                operation, inlineType);
+<span class="fc" id="L416">    }</span>
+
+    public void applyDocumentationTaggedValue(Object me, String documentation) {
+<span class="fc" id="L419">        applyTaggedValue(TV_NAME_DOCUMENTATION, me, documentation);</span>
+<span class="fc" id="L420">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BaseProfile.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">argo_cpp</a> &gt; <a href="index.source.html" class="el_package">org.argouml.language.cpp.profile</a> &gt; <span class="el_source">BaseProfile.java</span></div><h1>BaseProfile.java</h1><pre class="source lang-java linenums">/* $Id$
+ *****************************************************************************
+ * Copyright (c) 2009-2013 Contributors - see below
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Luis Sergio Oliveira (euluis)
+ *****************************************************************************
+ *
+ * Some portions of this file was previously release using the BSD License:
+ */
+
+// Copyright (c) 2007-2009 The Regents of the University of California. All
+// Rights Reserved. Permission to use, copy, modify, and distribute this
+// software and its documentation without fee, and without a written
+// agreement is hereby granted, provided that the above copyright notice
+// and this paragraph appear in all copies. This software program and
+// documentation are copyrighted by The Regents of the University of
+// California. The software program and documentation are supplied &quot;AS
+// IS&quot;, without any accompanying services from The Regents. The Regents
+// does not warrant that the operation of the program will be
+// uninterrupted or error-free. The end-user understands that the program
+// was developed for research purposes and is advised not to rely
+// exclusively on the program for any reason. IN NO EVENT SHALL THE
+// UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT,
+// SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS,
+// ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
+// THE UNIVERSITY OF CALIFORNIA HAS BEEN ADVISED OF THE POSSIBILITY OF
+// SUCH DAMAGE. THE UNIVERSITY OF CALIFORNIA SPECIFICALLY DISCLAIMS ANY
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+// MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE SOFTWARE
+// PROVIDED HEREUNDER IS ON AN &quot;AS IS&quot; BASIS, AND THE UNIVERSITY OF
+// CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT,
+// UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+
+package org.argouml.language.cpp.profile;
+
+import static org.argouml.model.Model.getCoreFactory;
+import static org.argouml.model.Model.getCoreHelper;
+import static org.argouml.model.Model.getExtensionMechanismsFactory;
+import static org.argouml.model.Model.getExtensionMechanismsHelper;
+import static org.argouml.model.Model.getFacade;
+import static org.argouml.model.Model.getModelManagementHelper;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.logging.Logger;
+
+import org.argouml.profile.ProfileException;
+import org.argouml.profile.ProfileModelLoader;
+import org.argouml.profile.ProfileReference;
+import org.argouml.profile.ResourceModelLoader;
+import org.argouml.model.Model;
+
+/**
+ * &lt;p&gt;A class that facilitates access to the UML profile for C++ 
+ * (CppUmlProfile.xmi). 
+ * This is done by facilitating the use of the stereotypes, built-ins 
+ * and other model elements of the profile in the model which is being used.
+ * &lt;/p&gt;
+ * &lt;p&gt;Both the generator and the importer must use the same profile, 
+ * if not we are going to make future RTE very difficult. 
+ * Also, the users of the module are going to be
+ * confused. 
+ * The main point in favor of this is that there is no open source UML
+ * profile for C++. 
+ * Lets be pioneers here ;-)
+ * &lt;/p&gt;
+ * 
+ * @author Luis Sergio Oliveira (euluis)
+ * @since 0.25.4
+ * @see Issue 3771 (http://argouml.tigris.org/issues/show_bug.cgi?id=3771)
+ */
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">public class BaseProfile {</span>
+
+<span class="fc" id="L84">    private static final Logger LOG = Logger.getLogger(</span>
+<span class="fc" id="L85">            BaseProfile.class.getName());</span>
+
+    /**
+     * The name of the documentation Tagged Value. 
+     */
+    public static final String TV_NAME_DOCUMENTATION = &quot;documentation&quot;;
+
+    static final String PROFILE_FILE_NAME = 
+        &quot;/org/argouml/language/cpp/profile/CppUmlProfile.xmi&quot;;
+
+    static {
+<span class="fc" id="L96">        URL profileURL = null;</span>
+        try {
+<span class="fc" id="L98">            profileURL = new URL(</span>
+                &quot;http://argouml-cpp.tigris.org/profile/CppUmlProfile.xmi&quot;);
+<span class="nc" id="L100">        } catch (MalformedURLException e) {</span>
+<span class="nc" id="L101">            LOG.severe(&quot;Exception &quot; + e);</span>
+<span class="fc" id="L102">        }</span>
+<span class="fc" id="L103">        PROFILE_REFERENCE = new ProfileReference(PROFILE_FILE_NAME, </span>
+            profileURL);
+<span class="fc" id="L105">    }</span>
+    
+    static final ProfileReference PROFILE_REFERENCE;
+    
+    private Collection&lt;Object&gt; models;
+    
+    /**
+     * The C++ UML profile as loaded from CppUmlProfile.xmi.
+     */
+    private Object profile;
+
+    /**
+     * Set of built in types.
+     */
+    private Set builtInTypes;
+
+    private void initBuiltInTypes() {
+<span class="fc" id="L122">        builtInTypes = new HashSet();</span>
+<span class="fc" id="L123">        Collection allDataTypes = getCoreHelper().getAllDataTypes(profile);</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">        for (Object dt : allDataTypes) {</span>
+<span class="fc" id="L125">            builtInTypes.add(getFacade().getName(dt));</span>
+<span class="fc" id="L126">        }</span>
+<span class="fc" id="L127">    }</span>
+
+    /**
+     * Checks if the given type is a C++ builtin type.
+     * 
+     * @param typeName name of the type to check
+     * @return true if typeName is a builtin type, false otherwise
+     */
+    public boolean isBuiltIn(String typeName) {
+<span class="fc bfc" id="L136" title="All 2 branches covered.">        if (builtInTypes == null) {</span>
+<span class="fc" id="L137">            initBuiltInTypes();</span>
+        }
+<span class="fc" id="L139">        typeName = trimAndEnsureOneSpaceOnlyBetweenTokens(typeName);</span>
+<span class="fc" id="L140">        return builtInTypes.contains(typeName);</span>
+    }
+
+    static String trimAndEnsureOneSpaceOnlyBetweenTokens(String typeName) {
+<span class="fc" id="L144">        return typeName.trim().replaceAll(&quot;\\s+&quot;, &quot; &quot;);</span>
+    }
+
+    /**
+     * Retrieves the given builtin type model element representation as a
+     * DataType.
+     * 
+     * @param typeName name of the type
+     * @return the model element that models the C++ builtin type
+     */
+    public Object getBuiltIn(String typeName) {
+<span class="pc bpc" id="L155" title="2 of 4 branches missed.">        assert isBuiltIn(typeName) : &quot;Must be a C++ built in!&quot;;</span>
+<span class="fc" id="L156">        Object builtinType = findDataType(typeName, profile);</span>
+<span class="pc bpc" id="L157" title="1 of 2 branches missed.">        if (builtinType == null) {</span>
+<span class="nc" id="L158">            builtinType = getCoreFactory().buildDataType(typeName, </span>
+<span class="nc" id="L159">                models.iterator().next());</span>
+        }
+        // copy the documentation from the profile if it exists
+<span class="fc" id="L162">        Object profileDT = findDataType(typeName, profile);</span>
+<span class="fc" id="L163">        Object dtDocuTV = getFacade().getTaggedValue(profileDT, </span>
+                TV_NAME_DOCUMENTATION);
+<span class="pc bpc" id="L165" title="1 of 2 branches missed.">        if (dtDocuTV != null) {</span>
+<span class="nc" id="L166">            Object tdDocumentation = getTagDefinition(TV_NAME_DOCUMENTATION);</span>
+<span class="nc" id="L167">            Object modelDTDocuTV = getExtensionMechanismsFactory().</span>
+<span class="nc" id="L168">                buildTaggedValue(tdDocumentation, </span>
+<span class="nc" id="L169">                    new String[] {getFacade().getValueOfTag(dtDocuTV)});</span>
+<span class="nc" id="L170">            getExtensionMechanismsHelper().addTaggedValue(builtinType, </span>
+                    modelDTDocuTV);
+        }
+<span class="fc" id="L173">        return builtinType;</span>
+    }
+    
+    public static Collection getModels() {
+<span class="fc" id="L177">        Collection models = new ArrayList();</span>
+<span class="fc bfc" id="L178" title="All 2 branches covered.">        for (Object rootModelElement : getFacade().getRootElements()) {</span>
+<span class="fc bfc" id="L179" title="All 2 branches covered.">            if (getFacade().isAModel(rootModelElement)) {</span>
+<span class="fc" id="L180">                models.add(rootModelElement);</span>
+            }
+<span class="fc" id="L182">        }</span>
+<span class="fc" id="L183">        return models;</span>
+    }
+    
+    public static Collection getEditableModels() {
+<span class="fc" id="L187">        Collection editableModels = new ArrayList();</span>
+<span class="fc bfc" id="L188" title="All 2 branches covered.">        for (Object rootModelElement : getFacade().getRootElements()) {</span>
+<span class="fc bfc" id="L189" title="All 2 branches covered.">            if (getFacade().isAModel(rootModelElement) &amp;&amp; </span>
+<span class="pc bpc" id="L190" title="1 of 2 branches missed.">                !getModelManagementHelper().isReadOnly(rootModelElement)) {</span>
+<span class="fc" id="L191">                editableModels.add(rootModelElement);</span>
+            }
+<span class="fc" id="L193">        }</span>
+<span class="fc" id="L194">        return editableModels;</span>
+    }
+
+    public static Object getTagDefinition(String tdName) {
+        // look for it in all the models
+<span class="fc" id="L199">        Collection models = getModels();</span>
+<span class="fc bfc" id="L200" title="All 2 branches covered.">        for (Object model : models) {</span>
+<span class="fc" id="L201">            Collection tagDefinitions = getModelManagementHelper().</span>
+<span class="fc" id="L202">                getAllModelElementsOfKindWithModel(model, </span>
+<span class="fc" id="L203">                    Model.getMetaTypes().getTagDefinition());</span>
+<span class="fc bfc" id="L204" title="All 2 branches covered.">            for (Object td : tagDefinitions) {</span>
+<span class="pc bpc" id="L205" title="1 of 2 branches missed.">                if (tdName.equals(getFacade().getName(td))) {</span>
+<span class="fc" id="L206">                    return td;</span>
+                }
+<span class="nc" id="L208">            }</span>
+<span class="fc" id="L209">        }</span>
+        // create it in an editable model if one is found
+<span class="fc" id="L211">        Collection editableModels = getEditableModels();</span>
+<span class="fc" id="L212">        Iterator it = editableModels.iterator();</span>
+<span class="pc bpc" id="L213" title="1 of 2 branches missed.">        if (it.hasNext()) {</span>
+<span class="fc" id="L214">            return getExtensionMechanismsFactory().buildTagDefinition(tdName, </span>
+<span class="fc" id="L215">                null, it.next());</span>
+        }
+<span class="nc" id="L217">        throw new IllegalStateException(&quot;Unable to find an editable model.&quot;);</span>
+    }
+
+    static Object findDataType(String typeName, Object model2) {
+<span class="fc" id="L221">        Collection dataTypes = getCoreHelper().getAllDataTypes(model2);</span>
+<span class="pc bpc" id="L222" title="1 of 2 branches missed.">        for (Object dt : dataTypes) {</span>
+<span class="fc bfc" id="L223" title="All 2 branches covered.">            if (getFacade().getName(dt).equals(typeName)) {</span>
+<span class="fc" id="L224">                return dt;</span>
+            }
+<span class="fc" id="L226">        }</span>
+<span class="nc" id="L227">        return null;</span>
+    }
+
+    Object getProfile() {
+<span class="fc" id="L231">        return profile;</span>
+    }
+
+    protected BaseProfile(Collection&lt;Object&gt; theModels) {
+<span class="fc" id="L235">        this(theModels,loadProfileModels().iterator().next());</span>
+<span class="fc" id="L236">    }</span>
+
+<span class="fc" id="L238">    protected BaseProfile(Collection&lt;Object&gt; theModels, Object profileModel) {</span>
+<span class="fc" id="L239">        models = theModels;</span>
+<span class="pc bpc" id="L240" title="2 of 4 branches missed.">        assert models.size() &gt; 0 : </span>
+            &quot;There must be at least one user model.&quot;; //$NON-NLS-1$
+<span class="pc bpc" id="L242" title="2 of 4 branches missed.">        assert profileModel != null : </span>
+            &quot;The profileModel must be non-null.&quot;; //$NON-NLS-1$
+<span class="fc" id="L244">        profile = profileModel;</span>
+<span class="fc" id="L245">    }</span>
+
+    /**
+     * @return the Collection containing the profile models.
+     */
+    static Collection loadProfileModels() {
+<span class="fc" id="L251">        ProfileModelLoader profileModelLoader = new ResourceModelLoader(</span>
+                BaseProfile.class);
+        Collection elements;
+        try {
+<span class="fc" id="L255">            elements = profileModelLoader.loadModel(PROFILE_REFERENCE);</span>
+<span class="nc" id="L256">        } catch (ProfileException e) {</span>
+<span class="nc" id="L257">            throw new RuntimeException(e);</span>
+<span class="fc" id="L258">        }</span>
+<span class="fc" id="L259">        return elements;</span>
+    }
+
+    protected Object getCppStereotypeInModel(String stereotypeName) {
+<span class="fc" id="L263">        Object cppStereotype = null;</span>
+<span class="fc bfc" id="L264" title="All 2 branches covered.">        for (Object model : models) {</span>
+<span class="fc" id="L265">            cppStereotype = getStereotype(model, stereotypeName);</span>
+<span class="pc bpc" id="L266" title="1 of 2 branches missed.">            if (cppStereotype != null) {</span>
+<span class="nc" id="L267">                break;</span>
+            }
+<span class="fc" id="L269">        }</span>
+<span class="pc bpc" id="L270" title="1 of 2 branches missed.">        if (cppStereotype == null) {</span>
+<span class="fc" id="L271">            cppStereotype = getStereotype(profile, stereotypeName);</span>
+        }
+<span class="fc" id="L273">        return cppStereotype;</span>
+    }
+
+    private Object getStereotype(Object aModel, String stereotypeName) {
+<span class="fc" id="L277">        Collection stereotypes = getExtensionMechanismsHelper().getStereotypes(</span>
+                aModel);
+<span class="fc bfc" id="L279" title="All 2 branches covered.">        for (Object stereotype : stereotypes) {</span>
+<span class="fc bfc" id="L280" title="All 2 branches covered.">            if (stereotypeName.equals(getFacade().getName(stereotype))) {</span>
+<span class="fc" id="L281">                return stereotype;</span>
+            }
+<span class="fc" id="L283">        }</span>
+<span class="fc" id="L284">        return null;</span>
+    }
+
+    protected Object getTagDefinition(String stereoName, String tdName) {
+<span class="fc" id="L288">        Object stereo = getCppStereotypeInModel(stereoName);</span>
+<span class="fc" id="L289">        assertModelElementContainedInModels(stereo);</span>
+<span class="fc" id="L290">        Collection tagDefinitions = getFacade().getTagDefinitions(stereo);</span>
+<span class="pc bpc" id="L291" title="1 of 2 branches missed.">        for (Object tagDefinition : tagDefinitions) {</span>
+<span class="fc bfc" id="L292" title="All 2 branches covered.">            if (tdName.equals(getFacade().getName(tagDefinition))) {</span>
+<span class="fc" id="L293">                return tagDefinition;</span>
+            }
+<span class="fc" id="L295">        }</span>
+<span class="nc" id="L296">        return null;</span>
+    }
+
+    public void applyStereotype(String stereoName, Object modelElement) {
+<span class="fc" id="L300">        assertModelElementContainedInModels(modelElement);</span>
+<span class="fc" id="L301">        Object stereo = getCppStereotypeInModel(stereoName);</span>
+<span class="fc" id="L302">        getCoreHelper().addStereotype(modelElement, stereo);</span>
+<span class="fc" id="L303">    }</span>
+
+    @SuppressWarnings(&quot;serial&quot;)
+    private void assertModelElementContainedInModels(Object modelElement) {
+<span class="fc" id="L307">        boolean contained = false;</span>
+<span class="fc" id="L308">        ArrayList&lt;Object&gt; modelsAndProfile = new ArrayList&lt;Object&gt;(models) {</span>
+<span class="fc" id="L309">            { add(profile); }</span>
+        };
+<span class="pc bpc" id="L311" title="1 of 2 branches missed.">        for (Object model : modelsAndProfile) {</span>
+<span class="fc" id="L312">            contained = model.equals(getFacade().getRoot(modelElement));</span>
+<span class="fc bfc" id="L313" title="All 2 branches covered.">            if (contained) {</span>
+<span class="fc" id="L314">                break;</span>
+            }
+<span class="fc" id="L316">        }</span>
+<span class="pc bpc" id="L317" title="2 of 4 branches missed.">        assert contained : &quot;model element (&quot; + modelElement + &quot;) not contained &quot;</span>
+        		+ &quot;in models.&quot;;
+<span class="fc" id="L319">    }</span>
+
+    public void applyTaggedValue(String stereoName, String tdName, 
+            Object me, String tvv) {
+<span class="fc" id="L323">        assertModelElementContainedInModels(me);</span>
+<span class="pc bpc" id="L324" title="2 of 4 branches missed.">        assert getFacade().getStereotypes(me).contains(</span>
+<span class="fc" id="L325">                getCppStereotypeInModel(stereoName));</span>
+<span class="fc" id="L326">        Object td = getTagDefinition(stereoName, tdName);</span>
+<span class="fc" id="L327">        Object tv = getExtensionMechanismsFactory().createTaggedValue();</span>
+<span class="fc" id="L328">        getExtensionMechanismsHelper().setType(tv, td);</span>
+<span class="fc" id="L329">        getExtensionMechanismsHelper().setDataValues(tv, new String[] {tvv});</span>
+<span class="fc" id="L330">        getExtensionMechanismsHelper().addTaggedValue(me, tv);</span>
+<span class="fc" id="L331">    }</span>
+    
+    /**
+     * Applies a newlly created tagged value with value tvv related to the
+     * tag definition with name tdName to the given model element me.
+     *
+     * @param tdName the name of the tag definition for which to create a
+     * tagged value
+     * @param me the model element to which to apply the tagged value that will
+     * be created
+     * @param tvv the value that will be set in the tagged value
+     */
+    public void applyTaggedValue(String tdName, Object me, String tvv) {
+<span class="fc" id="L344">        assertModelElementContainedInModels(me);</span>
+<span class="fc" id="L345">        Object td = getTagDefinition(tdName);</span>
+<span class="fc" id="L346">        Object tv = getExtensionMechanismsFactory().createTaggedValue();</span>
+<span class="fc" id="L347">        getExtensionMechanismsHelper().setType(tv, td);</span>
+<span class="fc" id="L348">        getExtensionMechanismsHelper().setDataValues(tv, new String[] {tvv});</span>
+<span class="fc" id="L349">        getExtensionMechanismsHelper().addTaggedValue(me, tv);</span>
+<span class="fc" id="L350">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

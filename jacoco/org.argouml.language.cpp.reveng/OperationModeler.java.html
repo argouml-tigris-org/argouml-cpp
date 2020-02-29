@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OperationModeler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">argo_cpp</a> &gt; <a href="index.source.html" class="el_package">org.argouml.language.cpp.reveng</a> &gt; <span class="el_source">OperationModeler.java</span></div><h1>OperationModeler.java</h1><pre class="source lang-java linenums">/* $Id$
+ *****************************************************************************
+ * Copyright (c) 2009 Contributors - see below
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    euluis
+ *****************************************************************************
+ *
+ * Some portions of this file was previously release using the BSD License:
+ */
+
+// Copyright (c) 2009 The Regents of the University of California. All
+// Rights Reserved. Permission to use, copy, modify, and distribute this
+// software and its documentation without fee, and without a written
+// agreement is hereby granted, provided that the above copyright notice
+// and this paragraph appear in all copies. This software program and
+// documentation are copyrighted by The Regents of the University of
+// California. The software program and documentation are supplied &quot;AS
+// IS&quot;, without any accompanying services from The Regents. The Regents
+// does not warrant that the operation of the program will be
+// uninterrupted or error-free. The end-user understands that the program
+// was developed for research purposes and is advised not to rely
+// exclusively on the program for any reason. IN NO EVENT SHALL THE
+// UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT,
+// SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS,
+// ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
+// THE UNIVERSITY OF CALIFORNIA HAS BEEN ADVISED OF THE POSSIBILITY OF
+// SUCH DAMAGE. THE UNIVERSITY OF CALIFORNIA SPECIFICALLY DISCLAIMS ANY
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+// MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE SOFTWARE
+// PROVIDED HEREUNDER IS ON AN &quot;AS IS&quot; BASIS, AND THE UNIVERSITY OF
+// CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT,
+// UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+
+package org.argouml.language.cpp.reveng;
+
+import static org.argouml.model.Model.getCoreHelper;
+import static org.argouml.model.Model.getCoreFactory;
+import static org.argouml.model.Model.getFacade;
+
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
+import org.argouml.language.cpp.profile.ProfileCpp;
+
+/**
+ * Modeler for C++ class member functions.
+ *
+ * @author Luis Sergio Oliveira (euluis)
+ * @since 0.29.1
+ */
+class OperationModeler extends MemberModeler {
+    private Object oper;
+    private final boolean ignorable;
+    
+    boolean isIgnorable() {
+<span class="fc" id="L62">        return ignorable;</span>
+    }
+
+    /**
+     * @return Returns the operation.
+     */
+    Object getOperation() {
+<span class="fc" id="L69">        return oper;</span>
+    }
+
+    OperationModeler(Object theParent, Object visibility, Object returnType, 
+            boolean ignore, ProfileCpp theProfile) {
+<span class="fc" id="L74">        super(theParent, visibility, theProfile);</span>
+<span class="fc" id="L75">        ignorable = ignore;</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">        if (!ignorable) { </span>
+<span class="fc" id="L77">            oper = buildOperation(getOwner(), returnType);</span>
+<span class="fc" id="L78">            getCoreHelper().setLeaf(oper, true);</span>
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">            if (visibility != null) {</span>
+<span class="fc" id="L80">                getCoreHelper().setVisibility(oper, visibility);</span>
+            }
+        }
+<span class="fc" id="L83">    }</span>
+
+    /**
+     * Create a operation in the given model element.
+     *
+     * @param me the model element for which to build the operation
+     * @param returnType the operation return type
+     * @return the operation
+     */
+    Object buildOperation(Object me, Object returnType) {
+<span class="fc" id="L93">        return getCoreFactory().buildOperation(me, returnType);</span>
+    }
+    
+    /**
+     * Check if the operation is a duplicate of other already existing
+     * operation and if so remove it.
+     */
+    void finish() {
+<span class="fc bfc" id="L101" title="All 2 branches covered.">        if (!isIgnorable()) {</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">            if (getFacade().isLeaf(oper) </span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">                &amp;&amp; hasNonLeafBaseOperation(oper, getOwner())) {</span>
+<span class="fc" id="L104">                getCoreHelper().setLeaf(oper, false);</span>
+            }
+<span class="fc" id="L106">            removeOperationIfDuplicate(oper);</span>
+        }
+<span class="fc" id="L108">    }</span>
+
+    boolean hasNonLeafBaseOperation(Object operation, Object clazz) {
+<span class="fc bfc" id="L111" title="All 2 branches covered.">        for (Object generalization : getFacade().getGeneralizations(clazz)) {</span>
+<span class="fc" id="L112">            Object base = getFacade().getGeneral(generalization);</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">            for (Object baseOper : getFacade().getOperations(base)) {</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">                if (getFacade().getName(operation).equals(</span>
+<span class="fc" id="L115">                        getFacade().getName(baseOper))</span>
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">                    &amp;&amp; equalParameters(operation, baseOper)) {</span>
+<span class="pc bpc" id="L117" title="1 of 2 branches missed.">                    return !getFacade().isLeaf(baseOper);</span>
+                }
+<span class="fc" id="L119">            }</span>
+            // we need to go higher in the class hierarchy because the  
+            // operation may be declared there
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">            if (hasNonLeafBaseOperation(operation, base)) {</span>
+<span class="nc" id="L123">                return true;</span>
+            }
+<span class="fc" id="L125">        }</span>
+<span class="fc" id="L126">        return false;</span>
+    }
+
+    /**
+     * Check if the given operation is a duplicate of other already existing
+     * operation and if so remove it.
+     *
+     * @param operation the operation to be checked
+     */
+    void removeOperationIfDuplicate(Object operation) {
+<span class="fc bfc" id="L136" title="All 2 branches covered.">        for (Object possibleDuplicate : getFacade().getOperations(getOwner()))</span>
+        {
+<span class="fc bfc" id="L138" title="All 2 branches covered.">            if (operation != possibleDuplicate</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">                &amp;&amp; getFacade().getName(operation).equals(</span>
+<span class="fc" id="L140">                    getFacade().getName(possibleDuplicate))) {</span>
+<span class="fc bfc" id="L141" title="All 2 branches covered.">                if (equalParameters(operation, possibleDuplicate)) {</span>
+<span class="fc" id="L142">                    getCoreHelper().removeFeature(getOwner(), operation);</span>
+                }
+            }
+<span class="fc" id="L145">        }</span>
+<span class="fc" id="L146">    }</span>
+
+    /**
+     * Compare the parameters of two operations.
+     *
+     * @param oper1 left hand side operation
+     * @param oper2 right hand side operation
+     * @return true if the parameters are equal - the same types given in the
+     *         same order
+     */
+    private boolean equalParameters(Object oper1, Object oper2) {
+<span class="fc" id="L157">        List parameters1 = getFacade().getParametersList(oper1);</span>
+<span class="fc" id="L158">        List parameters2 = getFacade().getParametersList(oper2);</span>
+<span class="fc bfc" id="L159" title="All 2 branches covered.">        if (parameters1.size() == parameters2.size()) {</span>
+<span class="fc" id="L160">            Iterator it1 = parameters1.iterator();</span>
+<span class="fc" id="L161">            Iterator it2 = parameters2.iterator();</span>
+<span class="fc bfc" id="L162" title="All 2 branches covered.">            while (it1.hasNext()) {</span>
+<span class="fc" id="L163">                Object parameter1 = it1.next();</span>
+<span class="fc" id="L164">                Object parameter2 = it2.next();</span>
+<span class="pc bpc" id="L165" title="1 of 2 branches missed.">                if (!equalParameter(parameter1, parameter2)) {</span>
+<span class="nc" id="L166">                    return false;</span>
+                }
+<span class="fc" id="L168">            }</span>
+<span class="fc" id="L169">        }</span>
+        else {
+<span class="fc" id="L171">            return false;</span>
+        }
+<span class="fc" id="L173">        return true;</span>
+    }
+    
+    private boolean equalParameter(Object parameter1, Object parameter2) {
+<span class="pc bpc" id="L177" title="1 of 2 branches missed.">        if (getFacade().getName(parameter1) != null </span>
+<span class="pc bpc" id="L178" title="1 of 2 branches missed.">            &amp;&amp; getFacade().getName(parameter1).equals(</span>
+<span class="fc" id="L179">                getFacade().getName(parameter2))) {</span>
+<span class="fc" id="L180">            return equalTaggedValues(</span>
+<span class="fc" id="L181">                getFacade().getTaggedValuesCollection(parameter1), </span>
+<span class="fc" id="L182">                getFacade().getTaggedValuesCollection(parameter2));</span>
+        }
+<span class="nc bnc" id="L184" title="All 2 branches missed.">        if (getFacade().getName(parameter1) == null </span>
+<span class="nc bnc" id="L185" title="All 2 branches missed.">            &amp;&amp; getFacade().getName(parameter2) == null) {</span>
+<span class="nc" id="L186">            return equalTaggedValues(</span>
+<span class="nc" id="L187">                getFacade().getTaggedValuesCollection(parameter1), </span>
+<span class="nc" id="L188">                getFacade().getTaggedValuesCollection(parameter2));</span>
+        }
+<span class="nc" id="L190">        return false;</span>
+    }
+    
+    private boolean equalTaggedValues(Collection taggedValues1, 
+        Collection taggedValues2) {
+        // FIXME: TODO
+<span class="fc" id="L196">        return true;</span>
+    }
+    
+    void declarationSpecifiers(List declSpecs) {
+<span class="fc bfc" id="L200" title="All 2 branches covered.">        if (declSpecs.contains(&quot;virtual&quot;)) {</span>
+<span class="fc" id="L201">            getCoreHelper().setLeaf(oper, false);</span>
+        }
+<span class="fc" id="L203">    }</span>
+    
+    void setType(Object theType) {
+<span class="fc" id="L206">        super.setType(theType);</span>
+<span class="fc" id="L207">        setReturnType();</span>
+<span class="fc" id="L208">    }</span>
+    
+    private void setReturnType() {
+<span class="fc" id="L211">        Object rv = getCoreHelper().getReturnParameters(oper).iterator().</span>
+<span class="fc" id="L212">            next();</span>
+<span class="fc" id="L213">        getCoreHelper().setType(rv, getType());</span>
+<span class="fc" id="L214">    }</span>
+
+    void setDefinedInClass() {
+<span class="fc bfc" id="L217" title="All 2 branches covered.">        if (!isIgnorable()) {</span>
+<span class="fc" id="L218">            getProfile().applyCppOperationStereotype(getOperation());</span>
+<span class="fc" id="L219">            getProfile().applyInlineTaggedValue2Operation(getOperation(),</span>
+                    ProfileCpp.TV_INLINE_STYLE_DEFINITION_INSIDE_CLASS);
+        }
+<span class="fc" id="L222">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
