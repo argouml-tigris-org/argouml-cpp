@@ -89,8 +89,7 @@ C++ support for argouml.
   </description>
 
   <scm>
-    <connection>scm:svn:http://argouml-cpp.tigris.org/svn/argouml-cpp/trunk/</connection>
-    <developerConnection>scm:svn:http://argouml-cpp.tigris.org/svn/argouml-cpp/trunk/</developerConnection>
-    <url>http://argouml-cpp.tigris.org/source/browse/argouml-cpp/trunk</url>
+    <!-- Specify this or maven will add artifactId. -->
+    <url>https://github.com/argouml-tigris-org/${github.site.repositoryName}</url>
   </scm>
 </project>
