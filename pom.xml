@@ -97,4 +97,11 @@ C++ support for argouml.
     <!-- Specify this or maven will add artifactId. -->
     <url>https://github.com/argouml-tigris-org/${github.site.repositoryName}</url>
   </scm>
+
+  <distributionManagement>
+     <site>
+        <id>${project.artifactId}-site</id>
+        <url>${project.baseUri}</url>
+     </site>
+  </distributionManagement>
 </project>
