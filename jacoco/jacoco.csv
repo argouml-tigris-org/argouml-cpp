@@ -9,8 +9,8 @@ argo_cpp,org.argouml.language.cpp.reveng,DtorModeler,0,9,0,0,0,2,0,1,0,1
 argo_cpp,org.argouml.language.cpp.reveng,MemberModeler,0,38,0,0,0,13,0,7,0,7
 argo_cpp,org.argouml.language.cpp.reveng,XtorModeler,7,76,5,11,0,22,5,8,0,5
 argo_cpp,org.argouml.language.cpp.reveng,ModelerImpl.BaseSpecifierModeler,6,60,1,1,1,15,1,3,0,3
-argo_cpp,org.argouml.language.cpp.reveng,TypedefModeler,0,28,0,0,0,7,0,3,0,3
 argo_cpp,org.argouml.language.cpp.reveng,ModelerImpl,278,1237,95,183,30,330,91,110,2,60
+argo_cpp,org.argouml.language.cpp.reveng,TypedefModeler,0,28,0,0,0,7,0,3,0,3
 argo_cpp,org.argouml.language.cpp.reveng,OperationModeler,24,263,11,37,8,70,9,29,0,14
 argo_cpp,org.argouml.language.cpp.reveng,CtorModeler,0,9,0,0,0,2,0,1,0,1
 argo_cpp,org.argouml.language.cpp.reveng,ModelerImpl.new ModelerImpl.XtorModelerCreator() {...},0,17,0,0,0,3,0,2,0,2
