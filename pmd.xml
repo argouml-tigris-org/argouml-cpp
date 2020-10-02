@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd version="4.3" timestamp="2020-09-27T21:36:38.535">
+<pmd version="4.3" timestamp="2020-10-02T02:25:52.374">
 <file name="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/src/org/argouml/language/cpp/generator/GeneratorCpp.java">
 <violation beginline="458" endline="461" begincolumn="17" endcolumn="17" rule="CollapsibleIfStatements" ruleset="Basic Rules" package="org.argouml.language.cpp.generator" class="GeneratorCpp" method="createDirectoriesPathname" externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#CollapsibleIfStatements" priority="3">
 These nested if statements could be combined
