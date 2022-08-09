@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pmd-cpd>
 <duplication lines="81" tokens="236">
-<file line="1575" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="2927" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="1575" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2927" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 		}
@@ -90,8 +90,8 @@
 </codefragment>
 </duplication>
 <duplication lines="82" tokens="230">
-<file line="3691" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="5319" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3691" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5319" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 					}
@@ -180,8 +180,8 @@
 </codefragment>
 </duplication>
 <duplication lines="80" tokens="230">
-<file line="2926" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="5447" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2926" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5447" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 			m.qualifiedCtorId(q);
@@ -268,9 +268,9 @@
 </codefragment>
 </duplication>
 <duplication lines="80" tokens="228">
-<file line="2926" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="3604" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="5447" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2926" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3604" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5447" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 			m.qualifiedCtorId(q);
@@ -357,10 +357,10 @@
 </codefragment>
 </duplication>
 <duplication lines="79" tokens="227">
-<file line="2926" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="3437" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="3604" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="5447" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2926" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3437" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3604" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5447" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 			m.qualifiedCtorId(q);
@@ -446,9 +446,9 @@
 </codefragment>
 </duplication>
 <duplication lines="79" tokens="227">
-<file line="1575" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="3605" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="5448" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="1575" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3605" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5448" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 		}
@@ -534,8 +534,8 @@
 </codefragment>
 </duplication>
 <duplication lines="78" tokens="226">
-<file line="1575" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="3438" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="1575" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3438" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 		}
@@ -620,11 +620,11 @@
 </codefragment>
 </duplication>
 <duplication lines="78" tokens="226">
-<file line="1576" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="2928" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="3606" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="5234" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="5449" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="1576" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2928" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3606" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5234" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5449" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 		match(LPAREN);
@@ -709,8 +709,8 @@
 </codefragment>
 </duplication>
 <duplication lines="78" tokens="226">
-<file line="5233" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="6230" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5233" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6230" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 		else if (((LA(1)==LPAREN))&&((!((LA(1)==LPAREN)&&(LA(2)==ID))||(qualifiedItemIsOneOf(auxBitSet,1))))) {
@@ -795,8 +795,8 @@
 </codefragment>
 </duplication>
 <duplication lines="77" tokens="225">
-<file line="3439" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="5234" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3439" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5234" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 			match(LPAREN);
@@ -880,11 +880,11 @@
 </codefragment>
 </duplication>
 <duplication lines="77" tokens="225">
-<file line="1576" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="2928" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="3606" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="5449" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="6231" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="1576" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2928" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3606" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5449" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6231" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 		match(LPAREN);
@@ -968,8 +968,8 @@
 </codefragment>
 </duplication>
 <duplication lines="69" tokens="215">
-<file line="3830" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="5158" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3830" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5158" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 						_loop214:
@@ -1045,9 +1045,9 @@
 </codefragment>
 </duplication>
 <duplication lines="72" tokens="205">
-<file line="1257" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="3699" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="5327" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="1257" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3699" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5327" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 				match(RCURLY);
@@ -1126,8 +1126,8 @@
 </codefragment>
 </duplication>
 <duplication lines="72" tokens="200">
-<file line="7615" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="7695" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7615" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7695" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 				{
@@ -1206,8 +1206,8 @@
 </codefragment>
 </duplication>
 <duplication lines="29" tokens="193">
-<file line="2095" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPLexer.java"/>
-<file line="2132" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPLexer.java"/>
+<file line="2095" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPLexer.java"/>
+<file line="2132" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPLexer.java"/>
 <codefragment>
 <![CDATA[
 		{
@@ -1243,9 +1243,9 @@
 </codefragment>
 </duplication>
 <duplication lines="67" tokens="191">
-<file line="3832" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="5160" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="6062" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3832" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5160" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6062" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 							if ((LA(1)==LSQUARE) && (_tokenSet_32.member(LA(2)))) {
@@ -1319,8 +1319,8 @@
 </codefragment>
 </duplication>
 <duplication lines="66" tokens="187">
-<file line="5737" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="8688" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5737" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8688" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 		match(LPAREN);
@@ -1393,8 +1393,8 @@
 </codefragment>
 </duplication>
 <duplication lines="65" tokens="186">
-<file line="5736" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="7993" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5736" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7993" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 		q=qualified_id();
@@ -1466,8 +1466,8 @@
 </codefragment>
 </duplication>
 <duplication lines="66" tokens="186">
-<file line="7909" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="7993" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7909" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7993" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 			match(RPAREN);
@@ -1540,8 +1540,8 @@
 </codefragment>
 </duplication>
 <duplication lines="65" tokens="185">
-<file line="5736" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="7909" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5736" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7909" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 		q=qualified_id();
@@ -1613,10 +1613,10 @@
 </codefragment>
 </duplication>
 <duplication lines="64" tokens="184">
-<file line="3832" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="5160" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="6062" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="6163" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3832" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5160" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6062" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6163" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 							if ((LA(1)==LSQUARE) && (_tokenSet_32.member(LA(2)))) {
@@ -1687,8 +1687,8 @@
 </codefragment>
 </duplication>
 <duplication lines="64" tokens="184">
-<file line="8072" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="8685" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8072" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8685" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 					{
@@ -1759,9 +1759,9 @@
 </codefragment>
 </duplication>
 <duplication lines="64" tokens="184">
-<file line="7910" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="7994" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="8688" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7910" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7994" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8688" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 			match(LPAREN);
@@ -1832,10 +1832,10 @@
 </codefragment>
 </duplication>
 <duplication lines="63" tokens="183">
-<file line="5737" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="7910" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="7994" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="8073" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5737" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7910" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7994" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8073" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 		match(LPAREN);
@@ -1905,8 +1905,8 @@
 </codefragment>
 </duplication>
 <duplication lines="61" tokens="175">
-<file line="6760" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="6946" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6760" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6946" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 			{
@@ -1974,8 +1974,8 @@
 </codefragment>
 </duplication>
 <duplication lines="53" tokens="152">
-<file line="6821" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="6945" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6821" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6945" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 			match(SEMICOLON);
@@ -2035,8 +2035,8 @@
 </codefragment>
 </duplication>
 <duplication lines="52" tokens="151">
-<file line="6760" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="6822" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6760" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6822" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 			{
@@ -2095,8 +2095,8 @@
 </codefragment>
 </duplication>
 <duplication lines="47" tokens="146">
-<file line="896" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="2727" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="896" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2727" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 													if ( synPredMatched36 ) {
@@ -2150,8 +2150,8 @@
 </codefragment>
 </duplication>
 <duplication lines="49" tokens="146">
-<file line="4569" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="6759" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="4569" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6759" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 		}
@@ -2207,18 +2207,18 @@
 </codefragment>
 </duplication>
 <duplication lines="49" tokens="146">
-<file line="3833" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="5161" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="5737" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="6063" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="6164" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="6821" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="6945" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="7051" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="7910" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="7994" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="8073" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="8688" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3833" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5161" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5737" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6063" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6164" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6821" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6945" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7051" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7910" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7994" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8073" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8688" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 								match(LSQUARE);
@@ -2274,20 +2274,20 @@
 </codefragment>
 </duplication>
 <duplication lines="48" tokens="145">
-<file line="3834" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="4570" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="5162" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="5738" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="6064" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="6165" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="6760" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="6822" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="6946" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="7052" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="7911" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="7995" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="8074" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="8689" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3834" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="4570" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5162" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5738" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6064" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6165" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6760" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6822" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6946" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7052" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7911" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7995" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8074" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8689" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 								{
@@ -2342,21 +2342,21 @@
 </codefragment>
 </duplication>
 <duplication lines="46" tokens="136">
-<file line="3836" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="4572" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="5164" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="5740" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="6066" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="6167" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="6762" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="6824" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="6948" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="7054" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="7913" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="7997" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="8076" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="8449" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="8691" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3836" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="4572" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5164" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5740" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6066" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6167" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6762" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6824" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6948" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7054" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7913" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="7997" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8076" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8449" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8691" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 								case ID:
@@ -2409,8 +2409,8 @@
 </codefragment>
 </duplication>
 <duplication lines="48" tokens="133">
-<file line="843" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="2674" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="843" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2674" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 														synPredMatched36 = true;
@@ -2465,8 +2465,8 @@
 </codefragment>
 </duplication>
 <duplication lines="45" tokens="127">
-<file line="5543" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="5603" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5543" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5603" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 			match(OCTALINT);
@@ -2518,8 +2518,8 @@
 </codefragment>
 </duplication>
 <duplication lines="43" tokens="121">
-<file line="3196" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="3540" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3196" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3540" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 			match(RCURLY);
@@ -2569,8 +2569,8 @@
 </codefragment>
 </duplication>
 <duplication lines="41" tokens="121">
-<file line="3543" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="8322" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3543" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8322" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 					case LITERAL_typedef:
@@ -2618,8 +2618,8 @@
 </codefragment>
 </duplication>
 <duplication lines="44" tokens="119">
-<file line="2277" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="2602" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2277" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2602" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 					enum_specifier();
@@ -2670,14 +2670,14 @@
 </codefragment>
 </duplication>
 <duplication lines="41" tokens="119">
-<file line="1583" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="2935" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="3042" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="3446" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="3613" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="5241" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="5456" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="6238" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="1583" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2935" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3042" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3446" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3613" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5241" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5456" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="6238" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 		case LITERAL_extern:
@@ -2725,10 +2725,10 @@
 </codefragment>
 </duplication>
 <duplication lines="43" tokens="118">
-<file line="846" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="896" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="2677" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="2727" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="846" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="896" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2677" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2727" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 															{
@@ -2778,8 +2778,8 @@
 </codefragment>
 </duplication>
 <duplication lines="40" tokens="118">
-<file line="3199" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="8322" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3199" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8322" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 		case LITERAL_typedef:
@@ -2826,8 +2826,8 @@
 </codefragment>
 </duplication>
 <duplication lines="40" tokens="116">
-<file line="3201" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="5610" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3201" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5610" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 		case ID:
@@ -2874,9 +2874,9 @@
 </codefragment>
 </duplication>
 <duplication lines="42" tokens="114">
-<file line="569" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="898" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="2729" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="569" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="898" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2729" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 							enum_specifier();
@@ -2925,9 +2925,9 @@
 </codefragment>
 </duplication>
 <duplication lines="41" tokens="113">
-<file line="569" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="848" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="2679" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="569" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="848" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2679" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 							enum_specifier();
@@ -2975,8 +2975,8 @@
 </codefragment>
 </duplication>
 <duplication lines="40" tokens="112">
-<file line="1778" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="5810" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="1778" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5810" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 				case LITERAL_inline:
@@ -3023,11 +3023,11 @@
 </codefragment>
 </duplication>
 <duplication lines="38" tokens="110">
-<file line="3201" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="3545" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="5550" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="5610" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="8324" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3201" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="3545" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5550" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="5610" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="8324" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 		case ID:
@@ -3072,8 +3072,8 @@
 </codefragment>
 </duplication>
 <duplication lines="18" tokens="104">
-<file line="2109" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
-<file line="4279" path="/var/lib/jenkins/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="2109" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
+<file line="4279" path="/var/snap/jenkins/2767/workspace/_organization_argouml-cpp_master/target/generated-sources/antlr/org/argouml/language/cpp/reveng/CPPParser.java"/>
 <codefragment>
 <![CDATA[
 			id = LT(1);
