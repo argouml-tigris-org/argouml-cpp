@@ -1132,10 +1132,10 @@ import org.argouml.uml.generator.SourceUnit;
 <span class="pc bpc" id="L1132" title="1 of 2 branches missed.">            if (tag != null) {</span>
 <span class="pc bpc" id="L1133" title="2 of 4 branches missed.">                if (tag.equals(TV_NAME_REFERENCE) || tag.equals(&quot;&amp;&quot;)) {</span>
 <span class="nc bnc" id="L1134" title="All 2 branches missed.">                    return val.equals(&quot;false&quot;) ? NORMAL_MOD</span>
-                            : REFERENCE_MOD;
+<span class="nc" id="L1135">                            : REFERENCE_MOD;</span>
 <span class="pc bpc" id="L1136" title="1 of 4 branches missed.">                } else if (tag.equals(TV_NAME_POINTER) || tag.equals(&quot;*&quot;)) {</span>
 <span class="pc bpc" id="L1137" title="1 of 2 branches missed.">                    return val.equals(&quot;false&quot;) ? NORMAL_MOD</span>
-                            : POINTER_MOD;
+<span class="fc" id="L1138">                            : POINTER_MOD;</span>
                 }
             }
 <span class="fc" id="L1141">        }</span>
@@ -2036,8 +2036,8 @@ import org.argouml.uml.generator.SourceUnit;
 <span class="fc" id="L2036">            Object method = null;</span>
 <span class="fc" id="L2037">            boolean methodFound = false;</span>
 <span class="fc" id="L2038">            String tv = generateTaggedValues(op, ALL_BUT_DOC_TAGS);</span>
-<span class="fc bfc" id="L2039" title="All 2 branches covered.">            String operationIndent =</span>
-                (generatorPass == HEADER_PASS) ? indent : &quot;&quot;;
+            String operationIndent =
+<span class="fc bfc" id="L2040" title="All 2 branches covered.">                (generatorPass == HEADER_PASS) ? indent : &quot;&quot;;</span>
 
             // append tags which are not Doc-Comments
 <span class="fc bfc" id="L2043" title="All 2 branches covered.">            if (tv.length() &gt; 0) {</span>
@@ -2139,10 +2139,10 @@ import org.argouml.uml.generator.SourceUnit;
 <span class="pc bpc" id="L2139" title="1 of 2 branches missed.">                if (first) {</span>
 <span class="pc bpc" id="L2140" title="1 of 2 branches missed.">                    if (tagSelection == DOC_COMMENT_TAGS) {</span>
                         // insert main documentation for DocComment at first
-<span class="nc" id="L2142">                        String doc =</span>
+                        String doc =
 <span class="nc bnc" id="L2143" title="All 2 branches missed.">                            (DocumentationManager.hasDocs(e))</span>
 <span class="nc" id="L2144">                            ? DocumentationManager.getDocs(e, indent)</span>
-                            : null;
+<span class="nc" id="L2145">                            : null;</span>
 <span class="nc bnc" id="L2146" title="All 4 branches missed.">                        if (doc != null &amp;&amp; doc.trim().length() &gt; 0) {</span>
 <span class="nc" id="L2147">                            buf.append(doc.substring(0, doc.indexOf(&quot;*/&quot;) + 1));</span>
 <span class="nc" id="L2148">                            buf.append(&quot;  &quot;);</span>
@@ -2180,8 +2180,8 @@ import org.argouml.uml.generator.SourceUnit;
 <span class="fc bfc" id="L2180" title="All 2 branches covered.">        else if (tagSelection == DOC_COMMENT_TAGS) {</span>
             // create at least main documentation field, if no other tag found
 <span class="pc bpc" id="L2182" title="1 of 2 branches missed.">            String doc = (DocumentationManager.hasDocs(e))</span>
-<span class="pc" id="L2183">                ? DocumentationManager.getDocs(e, indent)</span>
-                : null;
+<span class="nc" id="L2183">                ? DocumentationManager.getDocs(e, indent)</span>
+<span class="fc" id="L2184">                : null;</span>
 <span class="pc bpc" id="L2185" title="3 of 4 branches missed.">            if (doc != null &amp;&amp; doc.trim().length() &gt; 0) {</span>
 <span class="nc" id="L2186">                buf.append(doc).append(LINE_SEPARATOR);</span>
             }
